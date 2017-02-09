@@ -1,0 +1,35 @@
+{
+  "name": "beaker-plugin-safe-app",
+  "version": "0.1.0",
+  "description": "SAFE Browser add-on for web clientr to access SAFE Network",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maidsafe/beaker-plugin-safe-app.git"
+  },
+  "keywords": [
+    "maidsafe",
+    "safe",
+    "beaker",
+    "browser",
+    "network",
+    "plugin",
+    "protocol"
+  ],
+  "author": {
+    "name": "MaidSafe",
+    "email": "qa@maidsafe.net",
+    "url": "https://github.com/maidsafe"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maidsafe/beaker-plugin-safe-app/issues"
+  },
+  "homepage": "https://github.com/maidsafe/beaker-plugin-safe-app#readme",
+  "dependencies": {
+    "safe-app": "git+https://github.com/maidsafe/safe_app_nodejs.git"
+  }
+}
