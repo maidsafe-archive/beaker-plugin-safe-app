@@ -1,4 +1,6 @@
 const safeApp = require('safe-app');
+const urlParse = require('url').parse;
+const mime = require('mime');
 /* eslint-disable import/extensions */
 const protocol = require('electron').protocol;
 /* eslint-enable import/extensions */
@@ -6,9 +8,9 @@ const protocol = require('electron').protocol;
 const safeScheme = 'safe';
 
 const appInfo = {
-  'id': 'net.maidsafe.examples.webclient',
-  'name': 'Safe app - web client',
-  'vendor': 'MaidSafe.net Ltd.'
+  'id': 'net.maidsafe.app.browser',
+  'name': 'SAFE Browser',
+  'vendor': 'MaidSafe'
 };
 
 let appObj = null;
@@ -33,9 +35,11 @@ const fetchData = (url) => {
 
 const registerSafeAuthProtocol = () => {
   protocol.registerBufferProtocol(safeScheme, (req, cb) => {
+    const parsedUrl = urlParse(req.url);
+    const fileExt = parsedUrl.pathname.split('/').slice(-1)[0].split('.')[1] || 'html';
     authoriseApp()
       .then(() => fetchData(req.url))
-      .then((co) => cb({ mimeType: 'text/html', data: co }))
+      .then((co) => cb({ mimeType: mime.lookup(fileExt), data: co }))
       .catch(console.error);
   }, (err) => {
     if (err) console.error('Failed to register protocol');
