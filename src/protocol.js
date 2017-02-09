@@ -18,7 +18,7 @@ const authoriseApp = () => {
     return Promise.resolve(true);
   }
   return safeApp.initializeApp(appInfo)
-    .then(app => app.auth.connectUnregistered())
+    .then((app) => app.auth.connectUnregistered())
     .then((app) => (appObj = app));
 };
 

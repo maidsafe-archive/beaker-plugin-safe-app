@@ -4,7 +4,8 @@
   "description": "SAFE Browser add-on for web clientr to access SAFE Network",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "lint": "eslint src *.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +32,8 @@
   "homepage": "https://github.com/maidsafe/beaker-plugin-safe-app#readme",
   "dependencies": {
     "safe-app": "git+https://github.com/maidsafe/safe_app_nodejs.git"
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0"
   }
 }
