@@ -4,8 +4,8 @@
   "description": "SAFE Browser add-on for web clientr to access SAFE Network",
   "main": "index.js",
   "scripts": {
-    "test": "npm test",
-    "lint": "eslint src *.js"
+    "lint": "eslint src *.js",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
