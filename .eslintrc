@@ -1,0 +1,14 @@
+{
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "arrow-parens": [2, "always"],
+    "consistent-return": 0,
+    "comma-dangle": 0,
+    "no-use-before-define": 0,
+    "generator-star-spacing": 0,
+    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+  }
+}
