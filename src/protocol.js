@@ -1,46 +1,19 @@
-const safeApp = require('safe-app');
+//const safeApp = require('safe-app');
 const urlParse = require('url').parse;
 const mime = require('mime');
 /* eslint-disable import/extensions */
 const protocol = require('electron').protocol;
 /* eslint-enable import/extensions */
 
-const safeScheme = 'safe';
+const safeScheme = 'safe-app';
 
-const appInfo = {
-  'id': 'net.maidsafe.app.browser',
-  'name': 'SAFE Browser',
-  'vendor': 'MaidSafe'
-};
-
-let appObj = null;
-
-const authoriseApp = () => {
-  if (appObj) {
-    return Promise.resolve(true);
-  }
-  return safeApp.initializeApp(appInfo)
-    .then((app) => app.auth.connectUnregistered())
-    .then((app) => (appObj = app));
-};
-
-const fetchData = (url) => {
-  if (!appObj) {
-    return Promise.reject(new Error('Unable to create unregistered client'));
-  }
-  return appObj.webFetch(url)
-    .then((f) => appObj.immutableData.fetch(f.dataMapName))
-    .then((i) => i.read())
-};
-
-const registerSafeAuthProtocol = () => {
+const registerSafeAppProtocol = () => {
   protocol.registerBufferProtocol(safeScheme, (req, cb) => {
     const parsedUrl = urlParse(req.url);
     const fileExt = parsedUrl.pathname.split('/').slice(-1)[0].split('.')[1] || 'html';
-    authoriseApp()
-      .then(() => fetchData(req.url))
-      .then((co) => cb({ mimeType: mime.lookup(fileExt), data: co }))
-      .catch(console.error);
+    console.log("fileExt: ", fileExt);
+    console.log("parsedUrl: ", parsedUrl);
+    cb({ mimeType: 'text/html', data: new Buffer('<h1>Example</h1>') });
   }, (err) => {
     if (err) console.error('Failed to register protocol');
   });
@@ -48,8 +21,8 @@ const registerSafeAuthProtocol = () => {
 
 module.exports = {
   scheme: safeScheme,
-  label: 'SAFE',
+  label: 'SAFE App scheme - testing',
   isStandardURL: true,
   isInternal: true,
-  register: registerSafeAuthProtocol
+  register: registerSafeAppProtocol
 };
