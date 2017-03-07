@@ -1,11 +1,10 @@
-const auth = require('./auth');
-//const safe_app = require('safe-app');
+const app = require('./app');
 
 module.exports = [
     {
-        name: 'auth',
+        name: 'app',
         isInternal: true,
-        manifest: auth.manifest,
-        methods: auth.auth
+        manifest: app.manifest,
+        methods: app
     }
   ];
