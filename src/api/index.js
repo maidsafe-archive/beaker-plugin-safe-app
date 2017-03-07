@@ -2,7 +2,7 @@ const app = require('./app');
 
 module.exports = [
     {
-        name: 'app',
+        name: 'safe_app',
         isInternal: true,
         manifest: app.manifest,
         methods: app

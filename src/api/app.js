@@ -1,7 +1,9 @@
 const safe_app = require('safe-app');
 
 module.exports.manifest = {
-  SAFEApp: 'sync',
+  initializeApp: 'promise',
+  fromAuthURI: 'promise'
 };
 
-module.exports.SAFEApp = safe_app.app;
+module.exports.initializeApp = (appInfo) => safe_app.initializeApp(appInfo);
+module.exports.fromAuthURI = (appInfo, authUri) => safe_app.fromAuthURI(appInfo, authUri);
