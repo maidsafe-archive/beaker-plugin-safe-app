@@ -1,4 +1,5 @@
 const safe_app = require('safe-app');
+const ipc = require('./ipc');
 var appTokens = require('./app_tokens');
 
 module.exports.manifest = {
@@ -26,10 +27,10 @@ module.exports.webFetch = (appToken, url) => {
 module.exports.authorise = (appInfo, permissions, ownContainer) => {
   return safe_app.initializeApp(appInfo)
           .then((app) => app.auth.genAuthUri(permissions, ownContainer)
-            .then((authUri) => {
-              console.log("AuthURI: ", authUri);
-              //let auth-resp = browser.sendauth-req(url)
-              return appTokens.addApp(app);
-            })
-          );
+            .then((authReq) => ipc.sendAuthReq(authReq)
+              .then((authResp) => app.auth.loginFromURI(authResp)
+                .then(() => {
+                  console.log("Auth response: ", authResp);
+                  return appTokens.addApp(app);
+                }))));
 }

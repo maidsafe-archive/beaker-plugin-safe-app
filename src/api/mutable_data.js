@@ -1,4 +1,5 @@
 const safe_app = require('safe-app');
+const sendAuthReq = require('./ipc');
 var appTokens = require('./app_tokens');
 
 module.exports.manifest = {
