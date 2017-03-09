@@ -24,9 +24,11 @@ module.exports.webFetch = (appToken, url) => {
           );
 }
 
-module.exports.authorise = (appInfo, permissions, ownContainer) => {
+// With the options object it can be opt for getting a container
+// for the app itself: opts.own_container=true
+module.exports.authorise = (appInfo, permissions, options) => {
   return safe_app.initializeApp(appInfo)
-          .then((app) => app.auth.genAuthUri(permissions, ownContainer)
+          .then((app) => app.auth.genAuthUri(permissions, options)
             .then((authReq) => ipc.sendAuthReq(authReq)
               .then((authResp) => app.auth.loginFromURI(authResp)
                 .then(() => {
