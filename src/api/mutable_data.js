@@ -4,6 +4,11 @@ var appTokens = require('./app_tokens');
 
 var md_handles = new Array();
 
+module.exports.addMutableData = (md) => {
+  md_handles[md.ref] = md;
+  return md.ref;
+}
+
 module.exports.manifest = {
   newRandomPrivate: 'promise',
   newRandomPublic: 'promise',
