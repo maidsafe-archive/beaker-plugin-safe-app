@@ -10,7 +10,6 @@ function getRandomInt(min, max) {
 
 module.exports.addApp = (app) => {
   let token = getRandomInt(minRange, maxRange);
-  Math.floor((Math.random() * 100) + 1)
   app_tokens[token] = app;
   return token;
 }
