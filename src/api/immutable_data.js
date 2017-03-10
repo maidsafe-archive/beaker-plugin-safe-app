@@ -1,5 +1,4 @@
 const safe_app = require('safe-app');
-const sendAuthReq = require('./ipc');
 var appTokens = require('./app_tokens');
 
 var imd_handles = new Array();
