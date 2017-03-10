@@ -29,10 +29,10 @@ module.exports.webFetch = (appToken, url) => {
 module.exports.authorise = (appInfo, permissions, options) => {
   return safe_app.initializeApp(appInfo)
           .then((app) => app.auth.genAuthUri(permissions, options)
-            .then((authReq) => ipc.sendAuthReq(authReq)
-              .then((authResp) => app.auth.loginFromURI(authResp)
-                .then(() => {
+            .then((authReq) => ipc.sendAuthReq(authReq))
+//              .then((authResp) => app.auth.loginFromURI(authResp)
+                .then((authResp) => {
                   console.log("Auth response: ", authResp);
                   return appTokens.addApp(app);
-                }))));
+                }));
 }
