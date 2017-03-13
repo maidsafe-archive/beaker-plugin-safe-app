@@ -42,7 +42,10 @@ module.exports.authorise = (appInfo, permissions, options) => {
   return new Promise((resolve, reject) => {
     safe_app.initializeApp(appInfo)
       .then((app) => app.auth.genAuthUri(permissions, options)
-        .then((authReq) => ipc.sendAuthReq(authReq, (res) => {
+        .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
+          if (err) {
+            return reject(new Error('Unable to authorise the application')); // TODO send Error in specific
+          }
           app.auth.loginFromURI(res)
             .then(app => {
               console.log("Auth response: ", app);
