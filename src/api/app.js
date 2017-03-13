@@ -23,6 +23,15 @@ module.exports.manifest = {
  * @returns {Promise<SAFEAppToken>} new instace
  */
 module.exports.initialise = (appInfo) => {
+  console.log("Sender: ", this.sender);
+  if (this.sender) {
+    const wholeUrl = this.sender.getURL();
+    console.log("URL", wholeUrl);
+    appInfo.scope = wholeUrl;
+  } else {
+    appInfo.scope = null;
+  }
+
   return safe_app.initializeApp(appInfo)
     .then((app) => appTokens.addApp(app));
 }
