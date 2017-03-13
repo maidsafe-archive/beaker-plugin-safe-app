@@ -2,7 +2,7 @@ const crypto = require('crypto'); // electron deps will be avaible inside browse
 
 const genRandomToken = () => (crypto.randomBytes(32).toString('hex'));
 
-var app_tokens = new Array();
+var app_tokens = new Array(); //FIXME: maybe use some other type of container like a hashmap
 
 module.exports.addApp = (app) => {
   let token = genRandomToken();

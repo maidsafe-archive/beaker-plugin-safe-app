@@ -77,6 +77,5 @@ ipcMain.on('webClientErrorRes', (event, err) => {
 });
 
 module.exports.sendAuthReq = (req, cb) => {
-  console.log("Auth request: ", req.uri);
   ipcTask.add(req.uri, cb);
 };

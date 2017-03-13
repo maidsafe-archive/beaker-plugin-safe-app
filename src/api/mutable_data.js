@@ -3,10 +3,12 @@ var appTokens = require('./app_tokens');
 
 var md_handles = new Array();
 
-module.exports.addMutableData = (md) => {
+const addMutableData = (md) => {
   md_handles[md.ref] = md;
   return md.ref;
 }
+
+module.exports.addMutableData = addMutableData;
 
 module.exports.manifest = {
   newRandomPrivate: 'promise',
@@ -30,10 +32,7 @@ module.exports.manifest = {
 module.exports.newRandomPrivate = (appToken, typeTag) => {
   return appTokens.getApp(appToken)
           .then((app) => app.mutableData.newRandomPrivate(typeTag))
-          .then((md) => {
-            md_handles[md.ref] = md;
-            return md.ref;
-          });
+          .then((md) => addMutableData(md));
 }
 
 /**
@@ -46,10 +45,7 @@ module.exports.newRandomPrivate = (appToken, typeTag) => {
 module.exports.newRandomPublic = (appToken, typeTag) => {
   return appTokens.getApp(appToken)
           .then((app) => app.mutableData.newRandomPublic(typeTag))
-          .then((md) => {
-            md_handles[md.ref] = md;
-            return md.ref;
-          });
+          .then((md) => addMutableData(md));
 }
 
 /**
@@ -63,10 +59,7 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
 module.exports.newPrivate = (appToken, name, typeTag) => {
   return appTokens.getApp(appToken)
           .then((app) => app.mutableData.newPrivate(name, typeTag))
-          .then((md) => {
-            md_handles[md.ref] = md;
-            return md.ref;
-          });
+          .then((md) => addMutableData(md));
 }
 
 /**
@@ -80,10 +73,7 @@ module.exports.newPrivate = (appToken, name, typeTag) => {
 module.exports.newPublic = (appToken, name, typeTag) => {
   return appTokens.getApp(appToken)
           .then((app) => app.mutableData.newPublic(name, typeTag))
-          .then((md) => {
-            md_handles[md.ref] = md;
-            return md.ref;
-          });
+          .then((md) => addMutableData(md));
 }
 
 // MutableData functions
@@ -100,7 +90,7 @@ module.exports.newPublic = (appToken, name, typeTag) => {
 module.exports.quickSetup = (appToken, mdHandle, data) => {
   return appTokens.getApp(appToken)
           .then((app) => md_handles[mdHandle].quickSetup(data))
-          .then((md) => md.ref);
+          .then((md) => mdHandle);
 }
 
 /**
