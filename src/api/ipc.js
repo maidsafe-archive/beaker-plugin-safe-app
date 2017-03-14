@@ -44,12 +44,10 @@ let ipcEvent = null;
 
 ipcMain.on('registerSafeApp', (event) => {
   ipcEvent = event;
-  console.log("registerSafeApp: ", ipcEvent);
 });
 
 ipcMain.on('webClientContainerRes', (event, res) => {
 	// handle response
-  console.log("webClientContainerRes");
   if (typeof ipcTask.currentTaskCb === 'function') {
     ipcTask.currentTaskCb(null, res);
   }
@@ -58,7 +56,6 @@ ipcMain.on('webClientContainerRes', (event, res) => {
 
 ipcMain.on('webClientAuthRes', (event, res) => {
   // handle response
-  console.log("webClientAuthRes");
   if (typeof ipcTask.currentTaskCb === 'function') {
     ipcTask.currentTaskCb(null, res);
   }
@@ -67,7 +64,6 @@ ipcMain.on('webClientAuthRes', (event, res) => {
 
 ipcMain.on('webClientErrorRes', (event, err) => {
   // handle Error
-  console.log("webClientErrorRes");
   if (typeof ipcTask.currentTaskCb === 'function') {
     ipcTask.currentTaskCb(err);
   }
