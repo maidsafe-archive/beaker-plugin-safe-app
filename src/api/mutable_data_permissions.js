@@ -1,11 +1,4 @@
-const safe_app = require('safe-app');
-const addObjToMap = require('./helpers').addObjToMap;
-const newPermissionsSetObj = require('./mutable_data_permissions_set').newPermissionsSetObj;
-var appTokens = require('./app_tokens');
-
-var permissions_handles = new Map();
-
-module.exports.newPermissionsObj = (permissions) => addObjToMap(permissions_handles, permissions);
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   len: 'promise',
@@ -14,7 +7,6 @@ module.exports.manifest = {
   forEach: 'promise',
 };
 
-
 /**
 * Total number of permission entries
 * @param {String} appToken - the application token
@@ -22,21 +14,25 @@ module.exports.manifest = {
 * @returns {Promise<Number>}
 **/
 module.exports.len = (appToken, permissionsHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => permissions_handles.get(permissionsHandle).len());
+  return getObj(appToken)
+          .then((app) => getObj(permissionsHandle))
+          .then((permissions) => permissions.len());
 }
 
 /**
 * Lookup the permissions of a specifc key
 * @param {String} appToken - the application token
 * @param {PermissionsHandle} permissionsHandle - the Permissions obj handle
-* @param {SignKey} signKey - the key to lookup for
+* @param {SignKeyHandle} signKeyHandle - the key to lookup for
 * @returns {Promise<PermissionsSetHandle>} - the permissions set for that key
 **/
-module.exports.getPermissionsSet = (appToken, permissionsHandle, signKey) => {
-  return appTokens.getApp(appToken)
-          .then((app) => permissions_handles.get(permissionsHandle).getPermissionSet(signKey))
-          .then(newPermissionsSetObj);
+module.exports.getPermissionsSet = (appToken, permissionsHandle, signKeyHandle) => {
+  return getObj(appToken)
+          .then((app) => getObj(signKeyHandle))
+          .then((signKey) => getObj(permissionsHandle)
+            .then((permissions) => permissions.getPermissionSet(signKey))
+            .then(genHandle)
+          );
 }
 
 /**
@@ -44,13 +40,17 @@ module.exports.getPermissionsSet = (appToken, permissionsHandle, signKey) => {
 * Requires 'ManagePermissions'-Permission for the app.
 * @param {String} appToken - the application token
 * @param {PermissionsHandle} permissionsHandle - the Permissions obj handle
-* @param {SignKey} signKey - the key to lookup for
-* @param {PermissionsSetHandle} pmset - the permissions set you'd like insert
+* @param {SignKeyHandle} signKeyHandle - the key to lookup for
+* @param {PermissionsSetHandle} pmSetHandle - the permissions set you'd like insert
 * @returns {Promise} - once finished
 **/
-module.exports.insertPermissionsSet = (appToken, permissionsHandle, signKey, pmSetHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => permissions_handles.get(permissionsHandle).insertPermissionSet(signKey, pmSetHandle));
+module.exports.insertPermissionsSet = (appToken, permissionsHandle, signKeyHandle, pmSetHandle) => {
+  return getObj(appToken)
+          .then((app) => getObj(signKeyHandle))
+          .then((signKey) => getObj(pmSetHandle)
+            .then((pmSet) => getObj(permissionsHandle)
+              .then((permissions) => permissions.insertPermissionSet(signKey, pmSet))
+            ));
 }
 
 /**
@@ -61,6 +61,7 @@ module.exports.insertPermissionsSet = (appToken, permissionsHandle, signKey, pmS
 * @returns {Promise<()>} - resolves once the iteration is done
 **/
 module.exports.forEach = (appToken, permissionsHandle, fn) => {
-  return appTokens.getApp(appToken)
-          .then((app) => permissions_handles.get(permissionsHandle).forEach(fn));
+  return getObj(appToken)
+          .then((app) => getObj(permissionsHandle))
+          .then((permissions) => permissions.forEach(fn));
 }

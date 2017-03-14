@@ -1,11 +1,3 @@
-const crypto = require('crypto'); // electron deps will be avaible inside browser
+const crypto = require('crypto'); // electron deps will be available inside browser
 
-const genRandomToken = () => (crypto.randomBytes(32).toString('hex'));
-
-module.exports.genRandomToken = genRandomToken;
-
-module.exports.addObjToMap = (map, obj) => {
-  const randToken = genRandomToken();
-  map.set(randToken, obj);
-  return randToken;
-}
+module.exports.genRandomString = () => (crypto.randomBytes(32).toString('hex'));

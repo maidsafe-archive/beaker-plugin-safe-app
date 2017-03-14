@@ -1,7 +1,4 @@
-const safe_app = require('safe-app');
-var appTokens = require('./app_tokens');
-
-var cipher_opt_handles = new Array();
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   newPlainText: 'promise',
@@ -12,42 +9,35 @@ module.exports.manifest = {
 /**
 * Create a PlainText Cipher Opt
 * @param {String} appToken - the application token
-* @returns {CipherOpt}
+* @returns {CipherOptHandle}
 **/
 module.exports.newPlainText = (appToken) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.cipherOpt.newPlainText())
-          .then((cipherOpt) => {
-            cipher_opt_handles[cipherOpt.ref] = cipherOpt;
-            return cipherOpt.ref;
-          });
+          .then(genHandle);
 }
 
 /**
 * Create a new Symmetric Cipher
 * @param {String} appToken - the application token
-* @returns {CipherOpt}
+* @returns {CipherOptHandle}
 **/
 module.exports.newSymmetric = (appToken) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.cipherOpt.newSymmetric())
-          .then((cipherOpt) => {
-            cipher_opt_handles[cipherOpt.ref] = cipherOpt;
-            return cipherOpt.ref;
-          });
+          .then(genHandle);
 }
 
 /**
 * Create a new Asymmetric Cipher for the given key
 * @param {String} appToken - the application token
-* @param {EncKey} key
-* @returns {CipherOpt}
+* @param {EncKeyHandle} keyHandle
+* @returns {CipherOptHandle}
 **/
-module.exports.newAsymmetric = (appToken, key) => {
-  return appTokens.getApp(appToken)
-          .then((app) => app.cipherOpt.newAsymmetric(key))
-          .then((cipherOpt) => {
-            cipher_opt_handles[cipherOpt.ref] = cipherOpt;
-            return cipherOpt.ref;
-          });
+module.exports.newAsymmetric = (appToken, keyHandle) => {
+  return getObj(appToken)
+          .then((app) => getObj(keyHandle)
+            .then((key) => app.cipherOpt.newAsymmetric(key))
+            .then(genHandle)
+          );
 }

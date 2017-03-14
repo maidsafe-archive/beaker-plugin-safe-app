@@ -1,7 +1,4 @@
-const safe_app = require('safe-app');
-var appTokens = require('./app_tokens');
-
-var imd_handles = new Array();
+const {genHandle, getObj, freeObj} = require('./handles');
 
 module.exports.manifest = {
   create: 'promise',
@@ -19,12 +16,9 @@ module.exports.manifest = {
 * @returns {Promise<Handle>} - the ImmutableData Writer Handle
 **/
 module.exports.create = (appToken) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.immutableData.create())
-          .then((writer) => {
-            imd_handles[writer.ref] = writer;
-            return writer.ref;
-          });
+          .then(genHandle);
 }
 
 /**
@@ -34,12 +28,9 @@ module.exports.create = (appToken) => {
 * @returns {Promise<Handle>} - the ImmutableData Reader Handle
 **/
 module.exports.fetch = (appToken, address) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.immutableData.fetch(address))
-          .then((reader) => {
-            imd_handles[reader.ref] = reader;
-            return reader.ref;
-          })
+          .then(genHandle);
 }
 
 /**
@@ -51,8 +42,9 @@ module.exports.fetch = (appToken, address) => {
 * @returns {Promise<()>}
 **/
 module.exports.write = (appToken, writerHandle, string) => {
-  return appTokens.getApp(appToken)
-          .then((app) => imd_handles[writerHandle].write(string));
+  return getObj(appToken)
+          .then((app) => getObj(writerHandle))
+          .then((writer) => writer.write(string));
 }
 
 /**
@@ -62,10 +54,11 @@ module.exports.write = (appToken, writerHandle, string) => {
 * @returns {Promise<String>} the address to the data once written to the network
 **/
 module.exports.closeWriter = (appToken, writerHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => imd_handles[writerHandle].close())
+  return getObj(appToken)
+          .then((app) => getObj(writerHandle))
+          .then((writer) => writer.close())
           .then((addr) => {
-            imd_handles = imd_handles.splice(writerHandle, 1);
+            freeObj(writerHandle);
             return addr;
           })
 }
@@ -79,8 +72,9 @@ module.exports.closeWriter = (appToken, writerHandle) => {
 * @param {Number} [options.end=size] end position or end of data
 **/
 module.exports.read = (appToken, readerHandle, options) => {
-  return appTokens.getApp(appToken)
-          .then((app) => imd_handles[readerHandle].read(options));
+  return getObj(appToken)
+          .then((app) => getObj(readerHandle))
+          .then((reader) => reader.read(options));
 }
 
 /**
@@ -90,8 +84,9 @@ module.exports.read = (appToken, readerHandle, options) => {
 * @returns {Promise<Number>} length in bytes
 **/
 module.exports.size = (appToken, readerHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => imd_handles[readerHandle].size());
+  return getObj(appToken)
+          .then((app) => getObj(readerHandle))
+          .then((reader) => reader.size());
 }
 
 /**
@@ -101,7 +96,8 @@ module.exports.size = (appToken, readerHandle) => {
 * @returns {Promise<()>}
 */
 module.exports.closeReader = (appToken, readerHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => imd_handles[readerHandle].close())
-          .then(() => imd_handles = imd_handles.splice(writerHandle, 1));
+  return getObj(appToken)
+          .then((app) => getObj(readerHandle))
+          .then((reader) => reader.close())
+          .then(() => freeObj(readerHandle));
 }

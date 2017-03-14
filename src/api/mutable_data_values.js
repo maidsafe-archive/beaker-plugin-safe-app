@@ -1,10 +1,4 @@
-const safe_app = require('safe-app');
-const addObjToMap = require('./helpers').addObjToMap;
-var appTokens = require('./app_tokens');
-
-var values_handles = new Map();
-
-module.exports.newValuesObj = (values) => addObjToMap(values_handles, values);
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   len: 'promise',
@@ -18,8 +12,9 @@ module.exports.manifest = {
 * @returns {Promise<Number>}
 **/
 module.exports.len = (appToken, valuesHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => values_handles.get(valuesHandle).len());
+  return getObj(appToken)
+          .then((app) => getObj(valuesHandle))
+          .then((values) => values.len());
 }
 
 /**
@@ -30,6 +25,7 @@ module.exports.len = (appToken, valuesHandle) => {
 * @returns {Promise<()>} - resolves once the iteration is done
 **/
 module.exports.forEach = (appToken, valuesHandle, fn) => {
-  return appTokens.getApp(appToken)
-          .then((app) => values_handles.get(valuesHandle).forEach(fn));
+  return getObj(appToken)
+          .then((app) => getObj(valuesHandle))
+          .then((values) => values.forEach(fn));
 }

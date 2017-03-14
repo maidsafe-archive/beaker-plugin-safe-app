@@ -1,17 +1,4 @@
-const safe_app = require('safe-app');
-const newEntriesObj = require('./mutable_data_entries').newEntriesObj;
-const newKeysObj = require('./mutable_data_keys').newKeysObj;
-const newValuesObj = require('./mutable_data_values').newValuesObj;
-const newPermissionsObj = require('./mutable_data_permissions').newPermissionsObj;
-const newPermissionsSetObj = require('./mutable_data_permissions_set').newPermissionsSetObj;
-const addObjToMap = require('./helpers').addObjToMap;
-var appTokens = require('./app_tokens');
-
-var md_handles = new Map();
-
-const newMutableDataObj = (md) => addObjToMap(md_handles, md);
-
-module.exports.newMutableDataObj = newMutableDataObj;
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   newRandomPrivate: 'promise',
@@ -45,9 +32,9 @@ module.exports.manifest = {
 * @returns {Promise<MutableDataHandle>}
 **/
 module.exports.newRandomPrivate = (appToken, typeTag) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.mutableData.newRandomPrivate(typeTag))
-          .then(newMutableDataObj);
+          .then(genHandle);
 }
 
 /**
@@ -58,9 +45,9 @@ module.exports.newRandomPrivate = (appToken, typeTag) => {
 * @returns {Promise<MutableDataHandle>}
 **/
 module.exports.newRandomPublic = (appToken, typeTag) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.mutableData.newRandomPublic(typeTag))
-          .then(newMutableDataObj);
+          .then(genHandle);
 }
 
 /**
@@ -72,9 +59,9 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
 * @returns {Promise<MutableDataHandle>}
 **/
 module.exports.newPrivate = (appToken, name, typeTag) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.mutableData.newPrivate(name, typeTag))
-          .then(newMutableDataObj);
+          .then(genHandle);
 }
 
 /**
@@ -86,9 +73,9 @@ module.exports.newPrivate = (appToken, name, typeTag) => {
 * @returns {Promise<MutableDataHandle>}
 **/
 module.exports.newPublic = (appToken, name, typeTag) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
           .then((app) => app.mutableData.newPublic(name, typeTag))
-          .then(newMutableDataObj);
+          .then(genHandle);
 }
 
 // MutableData functions
@@ -103,8 +90,9 @@ module.exports.newPublic = (appToken, name, typeTag) => {
 * @returns {Promise<MutableDataHandle>} - self
 **/
 module.exports.quickSetup = (appToken, mdHandle, data) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).quickSetup(data))
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.quickSetup(data))
           .then((md) => mdHandle);
 }
 
@@ -119,8 +107,9 @@ module.exports.quickSetup = (appToken, mdHandle, data) => {
 * @returns {Promise<Key>} - the encrypted entry key
 **/
 module.exports.encryptKey = (appToken, mdHandle, key) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).encryptKey(key));
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.encryptKey(key));
 }
 
 /**
@@ -134,8 +123,9 @@ module.exports.encryptKey = (appToken, mdHandle, key) => {
 * @returns {Promise<Value>} - the encrypted entry value
 **/
 module.exports.encryptValue = (appToken, mdHandle, value) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).encryptValue(value));
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.encryptValue(value));
 }
 
 /**
@@ -147,8 +137,9 @@ module.exports.encryptValue = (appToken, mdHandle, value) => {
 * @returns {Promise<NameAndTag>}
 **/
 module.exports.getNameAndTag = (appToken, mdHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).getNameAndTag());
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.getNameAndTag());
 }
 
 /**
@@ -159,8 +150,9 @@ module.exports.getNameAndTag = (appToken, mdHandle) => {
 * @returns {Promise<Number>} the version
 **/
 module.exports.getVersion = (appToken, mdHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).getVersion());
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.getVersion());
 }
 
 /**
@@ -172,21 +164,26 @@ module.exports.getVersion = (appToken, mdHandle) => {
 * @returns {Promise<ValueVersion>} - the value at the current version
 **/
 module.exports.get = (appToken, mdHandle, key) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).get(key));
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.get(key));
 }
 
 /**
 * Create this MutableData on the network.
 * @param {String} appToken - the application token
 * @param {MutableDataHandle} mdHandle - the MutableData handle
-* @param {Permission} permissions - the permissions to create the mdata with
-* @param {Entries} entries - data payload to create the mdata with
+* @param {PermissionsHandle} permissionsHandle - the permissions to create the mdata with
+* @param {EntriesHandle} entriesHandle - data payload to create the mdata with
 * @returns {Promise<()>}
 **/
-module.exports.put = (appToken, mdHandle, permissions, entries) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).put(permissions, entries));
+module.exports.put = (appToken, mdHandle, permissionsHandle, entriesHandle) => {
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => getObj(permissionsHandle)
+            .then((permissions) => getObj(entriesHandle)
+              .then((entries) => md.put(permissions, entries))
+            ));
 }
 
 /**
@@ -196,9 +193,10 @@ module.exports.put = (appToken, mdHandle, permissions, entries) => {
 * @returns {Promise<(EntriesHandle)>}
 **/
 module.exports.getEntries = (appToken, mdHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).getEntries())
-          .then(newEntriesObj);
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.getEntries())
+          .then(genHandle);
 }
 
 /**
@@ -208,9 +206,10 @@ module.exports.getEntries = (appToken, mdHandle) => {
 * @returns {Promise<(KeysHandle)>}
 **/
 module.exports.getKeys = (appToken, mdHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).getKeys())
-          .then(newKeysObj);
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.getKeys())
+          .then(genHandle);
 }
 
 /**
@@ -220,9 +219,10 @@ module.exports.getKeys = (appToken, mdHandle) => {
 * @returns {Promise<(ValuesHandle)>}
 **/
 module.exports.getValues = (appToken, mdHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).getValues())
-          .then(newValuesObj);
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.getValues())
+          .then(genHandle);
 }
 
 /**
@@ -232,9 +232,10 @@ module.exports.getValues = (appToken, mdHandle) => {
 * @returns {Promise<(PermissionsHandle)>}
 **/
 module.exports.getPermissions = (appToken, mdHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).getPermissions())
-          .then(newPermissionsObj);
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.getPermissions())
+          .then(genHandle);
 }
 
 /**
@@ -242,13 +243,16 @@ module.exports.getPermissions = (appToken, mdHandle) => {
 * a specifc key
 * @param {String} appToken - the application token
 * @param {MutableDataHandle} mdHandle - the MutableData handle
-* @param {SignKey} signKey - the key to look up
+* @param {SignKeyHandle} signKeyHandle - the sign key to look up
 * @returns {Promise<(PermissionsSetHandle)>}
 **/
-module.exports.getUserPermissions = (appToken, mdHandle, signKey) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).getUserPermissions(signKey))
-          .then(newPermissionsSetObj);
+module.exports.getUserPermissions = (appToken, mdHandle, signKeyHandle) => {
+  return getObj(appToken)
+          .then((app) => getObj(signKeyHandle))
+          .then((signKey) => getObj(mdHandle)
+            .then((md) => md.getUserPermissions(signKey))
+            .then(genHandle)
+          );
 }
 
 /**
@@ -256,14 +260,17 @@ module.exports.getUserPermissions = (appToken, mdHandle, signKey) => {
 * Requires 'ManagePermissions'-Permission for the app.
 * @param {String} appToken - the application token
 * @param {MutableDataHandle} mdHandle - the MutableData handle
-* @param {SignKey} signKey - the key to lookup for
+* @param {SignKeyHandle} signKeyHandle - the sign key to lookup for
 * @param {Number} version - the current version, to confirm you are
 *        actually asking for the right state
 * @returns {Promise} - once finished
 **/
-module.exports.delUserPermissions = (appToken, mdHandle, signKey, version) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).delUserPermissions(signKey, version));
+module.exports.delUserPermissions = (appToken, mdHandle, signKeyHandle, version) => {
+  return getObj(appToken)
+          .then((app) => getObj(signKeyHandle))
+          .then((signKey) => getObj(mdHandle)
+            .then((md) => md.delUserPermissions(signKey, version))
+          );
 }
 
 /**
@@ -271,27 +278,34 @@ module.exports.delUserPermissions = (appToken, mdHandle, signKey, version) => {
 * Requires 'ManagePermissions'-Permission for the app.
 * @param {String} appToken - the application token
 * @param {MutableDataHandle} mdHandle - the MutableData handle
-* @param {SignKey} signKey - the key to lookup for
+* @param {SignKeyHandle} signKeyHandle - the sign key to lookup for
 * @param {PermissionsSetHandle} pmSetHandle - the PermissionsSet to set to
 * @param {Number} version - the current version, to confirm you are
 *        actually asking for the right state
 * @returns {Promise} - once finished
 **/
-module.exports.setUserPermissions = (appToken, mdHandle, signKey, pmSetHandle, version) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).setUserPermissions(signKey, pmSetHandle, version));
+module.exports.setUserPermissions = (appToken, mdHandle, signKeyHandle, pmSetHandle, version) => {
+  return getObj(appToken)
+          .then((app) => getObj(signKeyHandle)
+            .then((signKey) => getObj(pmSetHandle)
+              .then((pmSet) => getObj(mdHandle)
+                .then((md) => md.setUserPermissions(signKey, pmSet, version))
+              )));
 }
 
 /**
 * Commit the transaction to the network
 * @param {String} appToken - the application token
 * @param {MutableDataHandle} mdHandle - the MutableData handle
-* @param {MutationHandle} mutations - the Mutations you want to apply
+* @param {MutationHandle} mutationHandle - the Mutation you want to apply
 * @return {Promise}
 **/
-module.exports.applyEntriesMutation = (appToken, mdHandle, mutations) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).applyEntriesMutation(mutations));
+module.exports.applyEntriesMutation = (appToken, mdHandle, mutationHandle) => {
+  return getObj(appToken)
+          .then((app) => getObj(mutationHandle))
+          .then((mutation) => getObj(mdHandle)
+            .then((md) => md.applyEntriesMutation(mutation))
+          );
 }
 
 /**
@@ -301,8 +315,9 @@ module.exports.applyEntriesMutation = (appToken, mdHandle, mutations) => {
 * @returns {Promise<(String)>}
 **/
 module.exports.serialise = (appToken, mdHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).serialise());
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.serialise());
 }
 
 /**
@@ -313,6 +328,8 @@ module.exports.serialise = (appToken, mdHandle) => {
 * @returns {EmulationHandle} the Emulation you are asking for
 **/
 module.exports.emulateAs = (appToken, mdHandle, eml) => {
-  return appTokens.getApp(appToken)
-          .then((app) => md_handles.get(mdHandle).emulateAs(eml));
+  return getObj(appToken)
+          .then((app) => getObj(mdHandle))
+          .then((md) => md.emulateAs(eml))
+          .then(genHandle);
 }

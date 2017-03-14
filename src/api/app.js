@@ -1,7 +1,6 @@
 const safe_app = require('safe-app');
 const ipc = require('./ipc');
-const newMutableDataObj = require('./mutable_data').newMutableDataObj;
-var appTokens = require('./app_tokens');
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   initialise: 'promise',
@@ -33,7 +32,7 @@ module.exports.initialise = (appInfo) => {
   }
 
   return safe_app.initializeApp(appInfo)
-    .then(appTokens.newApp);
+    .then(genHandle);
 }
 
 /**
@@ -41,7 +40,7 @@ module.exports.initialise = (appInfo) => {
  * @returns {Promise<SAFEAppToken>} same instace
  */
 module.exports.connect = (appToken) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
     .then((app) => app.auth.connectUnregistered())
     .then((connectedApp) => {
       return appToken;
@@ -55,7 +54,7 @@ module.exports.connect = (appToken) => {
 */
 module.exports.authorise = (appToken, permissions, options) => {
   return new Promise((resolve, reject) => {
-    appTokens.getApp(appToken)
+    getObj(appToken)
       .then((app) => app.auth.genAuthUri(permissions, options)
         .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
           if (err) {
@@ -72,13 +71,13 @@ module.exports.authorise = (appToken, permissions, options) => {
  * @returns {Promise<SAFEAppToken>} same instace
  */
 module.exports.connectAuthorised = (appToken, authUri) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
     .then((app) => app.auth.loginFromURI(authUri))
     .then((connectedApp) => appToken);
 }
 
 module.exports.webFetch = (appToken, url) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
     .then((app) => app.webFetch(url)
       .then((f) => app.immutableData.fetch(f.dataMapName))
       .then((i) => i.read())
@@ -93,7 +92,7 @@ module.exports.webFetch = (appToken, url) => {
  * @returns {Boolean} true if this is an authenticated session
  **/
 module.exports.isRegistered = (appToken) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
     .then((app) => app.auth.registered);
 }
 
@@ -106,7 +105,7 @@ module.exports.isRegistered = (appToken) => {
  * @returns {Promise<Boolean>}
  **/
 module.exports.canAccessContainer = (appToken, name, permissions) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
     .then((app) => app.auth.canAccessContainer(name, permissions));
 }
 
@@ -114,52 +113,56 @@ module.exports.canAccessContainer = (appToken, name, permissions) => {
  * Lookup and return the information necessary to access a container.
  * @param {String} appToken - the application token
  * @arg name {String} name of the container, e.g. `'_public'`
- * @returns {Promise<Handle>} the handle for the Mutable Data behind that object
+ * @returns {Promise<MutableDataHandle>} the handle for the Mutable Data behind that object
  */
 module.exports.getContainer = (appToken, name) => {
-  return appTokens.getApp(appToken)
+  return getObj(appToken)
     .then((app) => app.auth.getAccessContainerInfo(name))
-    .then(newMutableDataObj);
+    .then(genHandle);
 }
 
 /**
  * Get the public signing key of this session
  * @param {String} appToken - the application token
- * @returns {Promise<SignKey>}
+ * @returns {Promise<SignKeyHandle>}
  **/
 module.exports.getPubSignKey = (appToken) => {
-  return appTokens.getApp(appToken)
-    .then((app) => app.auth.getPubSignKey());
+  return getObj(appToken)
+    .then((app) => app.auth.getPubSignKey())
+    .then(genHandle);
 }
 
 /**
  * Get the public encryption key of this session
  * @param {String} appToken - the application token
- * @returns {Promise<EncKey>}
+ * @returns {Promise<EncKeyHandle>}
  **/
 module.exports.getEncKey = (appToken) => {
-  return appTokens.getApp(appToken)
-    .then((app) => app.auth.getEncKey());
+  return getObj(appToken)
+    .then((app) => app.auth.getEncKey())
+    .then(genHandle);
 }
 
 /**
  * Interprete the SignKey from a given raw string
  * @param {String} appToken - the application token
  * @param {String} raw
- * @returns {Promise<SignKey>}
+ * @returns {Promise<SignKeyHandle>}
  **/
 module.exports.getSignKeyFromRaw = (appToken, raw) => {
-  return appTokens.getApp(appToken)
-    .then((app) => app.auth.getSignKeyFromRaw(raw));
+  return getObj(appToken)
+    .then((app) => app.auth.getSignKeyFromRaw(raw))
+    .then(genHandle);
 }
 
 /**
  * Interprete the encryption Key from a given raw string
  * @param {String} appToken - the application token
  * @arg {String} raw
- * @returns {Promise<EncKey>}
+ * @returns {Promise<EncKeyHandle>}
  **/
 module.exports.getEncKeyKeyFromRaw = (appToken, raw) => {
-  return appTokens.getApp(appToken)
-    .then((app) => app.auth.getEncKeyKeyFromRaw(raw));
+  return getObj(appToken)
+    .then((app) => app.auth.getEncKeyKeyFromRaw(raw))
+    .then(genHandle);
 }

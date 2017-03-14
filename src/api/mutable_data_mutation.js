@@ -1,10 +1,4 @@
-const safe_app = require('safe-app');
-const addObjToMap = require('./helpers').addObjToMap;
-var appTokens = require('./app_tokens');
-
-var mutation_handles = new Map();
-
-module.exports.newMutationObj = (mutation) => addObjToMap(mutation_handles, mutation);
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   insert: 'promise',
@@ -22,8 +16,9 @@ module.exports.manifest = {
 * @returns {Promise} resolves once the storing is done
 **/
 module.exports.insert = (appToken, mutationHandle, keyName, value) => {
-  return appTokens.getApp(appToken)
-          .then((app) => mutation_handles.get(mutationHandle).insert(keyName, value));
+  return getObj(appToken)
+          .then((app) => getObj(mutationHandle))
+          .then((mutation) => mutation.insert(keyName, value));
 }
 
 /**
@@ -37,8 +32,9 @@ module.exports.insert = (appToken, mutationHandle, keyName, value) => {
 * @returns {Promise} resolves once the storing is done
 **/
 module.exports.remove = (appToken, mutationHandle, keyName, version) => {
-  return appTokens.getApp(appToken)
-          .then((app) => mutation_handles.get(mutationHandle).remove(keyName, version));
+  return getObj(appToken)
+          .then((app) => getObj(mutationHandle))
+          .then((mutation) => mutation.remove(keyName, version));
 }
 
 /**
@@ -53,6 +49,7 @@ module.exports.remove = (appToken, mutationHandle, keyName, version) => {
 * @returns {Promise} resolves once the storing is done
 **/
 module.exports.update = (appToken, mutationHandle, keyName, value, version) => {
-  return appTokens.getApp(appToken)
-          .then((app) => mutation_handles.get(mutationHandle).update(keyName, value, version));
+  return getObj(appToken)
+          .then((app) => getObj(mutationHandle))
+          .then((mutation) => mutation.update(keyName, value, version));
 }

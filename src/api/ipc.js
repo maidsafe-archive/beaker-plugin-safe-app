@@ -1,5 +1,5 @@
 const ipcMain = require('electron').ipcMain; // electron deps will be avaible inside browser
-const genRandomToken = require('./helpers').genRandomToken;
+const genRandomString = require('./helpers').genRandomString;
 
 class IpcTask {
   constructor() {
@@ -12,7 +12,7 @@ class IpcTask {
   }
 
   add(info, cb) {
-    const token = genRandomToken();
+    const token = genRandomString();
     this.tasks.push(token);
     this.tasksInfo[token] = { info, cb };
     this.next();

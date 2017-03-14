@@ -1,10 +1,4 @@
-const safe_app = require('safe-app');
-const addObjToMap = require('./helpers').addObjToMap;
-var appTokens = require('./app_tokens');
-
-var keys_handles = new Map();
-
-module.exports.newKeysObj = (keys) => addObjToMap(keys_handles, keys);
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   len: 'promise',
@@ -18,8 +12,9 @@ module.exports.manifest = {
 * @returns {Promise<Number>}
 **/
 module.exports.len = (appToken, keysHandle) => {
-  return appTokens.getApp(appToken)
-          .then((app) => keys_handles.get(keysHandle).len());
+  return getObj(appToken)
+          .then((app) => getObj(keysHandle))
+          .then((keys) => keys.len());
 }
 
 /**
@@ -30,6 +25,7 @@ module.exports.len = (appToken, keysHandle) => {
 * @returns {Promise<()>} - resolves once the iteration is done
 **/
 module.exports.forEach = (appToken, keysHandle, fn) => {
-  return appTokens.getApp(appToken)
-          .then((app) => keys_handles.get(keysHandle).forEach(fn));
+  return getObj(appToken)
+          .then((app) => getObj(keysHandle))
+          .then((keys) => keys.forEach(fn));
 }

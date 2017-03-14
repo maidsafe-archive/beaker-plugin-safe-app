@@ -1,10 +1,4 @@
-const safe_app = require('safe-app');
-const addObjToMap = require('./helpers').addObjToMap;
-var appTokens = require('./app_tokens');
-
-var permissions_set_handles = new Map();
-
-module.exports.newPermissionsSetObj = (permissions_set) => addObjToMap(permissions_set_handles, permissions_set);
+const {genHandle, getObj} = require('./handles');
 
 module.exports.manifest = {
   setAllow: 'promise',
@@ -20,8 +14,9 @@ module.exports.manifest = {
 * @returns {Promise}
 **/
 module.exports.setAllow = (appToken, permissionsSetHandle, action) => {
-  return appTokens.getApp(appToken)
-          .then((app) => permissions_set_handles.get(permissionsSetHandle).setAllow(action));
+  return getObj(appToken)
+          .then((app) => getObj(permissionsSetHandle))
+          .then((pmSet) => pmSet.setAllow(action));
 }
 
 /**
@@ -32,8 +27,9 @@ module.exports.setAllow = (appToken, permissionsSetHandle, action) => {
 * @returns {Promise}
 **/
 module.exports.setDeny = (appToken, permissionsSetHandle, action) => {
-  return appTokens.getApp(appToken)
-          .then((app) => permissions_set_handles.get(permissionsSetHandle).setDeny(action));
+  return getObj(appToken)
+          .then((app) => getObj(permissionsSetHandle))
+          .then((pmSet) => pmSet.setDeny(action));
 }
 
 /**
@@ -44,6 +40,7 @@ module.exports.setDeny = (appToken, permissionsSetHandle, action) => {
 * @returns {Promise}
 **/
 module.exports.clear = (appToken, permissionsSetHandle, action) => {
-  return appTokens.getApp(appToken)
-          .then((app) => permissions_set_handles.get(permissionsSetHandle).clear(action));
+  return getObj(appToken)
+          .then((app) => getObj(permissionsSetHandle))
+          .then((pmSet) => pmSet.clear(action));
 }
