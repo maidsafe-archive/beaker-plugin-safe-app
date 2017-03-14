@@ -5,6 +5,9 @@ const imdata = require('./immutable_data');
 const mdata_entries = require('./mutable_data_entries');
 const mdata_keys = require('./mutable_data_keys');
 const mdata_values = require('./mutable_data_values');
+const mdata_mutation = require('./mutable_data_mutation');
+const mdata_permissions = require('./mutable_data_permissions');
+const mdata_permissions_set = require('./mutable_data_permissions_set');
 
 module.exports = [
     {
@@ -48,5 +51,23 @@ module.exports = [
         isInternal: true,
         manifest: mdata_values.manifest,
         methods: mdata_values
+    },
+    {
+        name: 'safeMutableDataMutation',
+        isInternal: true,
+        manifest: mdata_mutation.manifest,
+        methods: mdata_mutation
+    },
+    {
+        name: 'safeMutableDataPermissions',
+        isInternal: true,
+        manifest: mdata_permissions.manifest,
+        methods: mdata_permissions
+    },
+    {
+        name: 'safeMutableDataPermissionsSet',
+        isInternal: true,
+        manifest: mdata_permissions_set.manifest,
+        methods: mdata_permissions_set
     },
   ];

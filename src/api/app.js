@@ -1,6 +1,6 @@
 const safe_app = require('safe-app');
 const ipc = require('./ipc');
-const addMutableData = require('./mutable_data').addMutableData;
+const newMutableDataObj = require('./mutable_data').newMutableDataObj;
 var appTokens = require('./app_tokens');
 
 module.exports.manifest = {
@@ -33,7 +33,7 @@ module.exports.initialise = (appInfo) => {
   }
 
   return safe_app.initializeApp(appInfo)
-    .then((app) => appTokens.addApp(app));
+    .then(appTokens.newApp);
 }
 
 /**
@@ -119,7 +119,7 @@ module.exports.canAccessContainer = (appToken, name, permissions) => {
 module.exports.getContainer = (appToken, name) => {
   return appTokens.getApp(appToken)
     .then((app) => app.auth.getAccessContainerInfo(name))
-    .then(addMutableData);
+    .then(newMutableDataObj);
 }
 
 /**

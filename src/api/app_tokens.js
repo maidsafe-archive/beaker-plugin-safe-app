@@ -1,17 +1,11 @@
-const crypto = require('crypto'); // electron deps will be avaible inside browser
+const addObjToMap = require('./helpers').addObjToMap;
 
-const genRandomToken = () => (crypto.randomBytes(32).toString('hex'));
+var app_tokens = new Map();
 
-var app_tokens = new Array(); //FIXME: maybe use some other type of container like a hashmap
-
-module.exports.addApp = (app) => {
-  let token = genRandomToken();
-  app_tokens[token] = app;
-  return token;
-}
+module.exports.newApp = (app) => addObjToMap(app_tokens, app);
 
 module.exports.getApp = (app_token) => {
-  let app = app_tokens[app_token];
+  let app = app_tokens.get(app_token);
   if (app) {
     return Promise.resolve(app);
   }
