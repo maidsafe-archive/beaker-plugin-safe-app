@@ -5,6 +5,10 @@ module.exports.manifest = {
   newRandomPublic: 'promise',
   newPrivate: 'promise',
   newPublic: 'promise',
+  newPermissions: 'promise',
+  newPermissionSet: 'promise',
+  newMutation: 'promise',
+  newEntries: 'promise',
   quickSetup: 'promise',
   encryptKey: 'promise',
   encryptValue: 'promise',
@@ -75,6 +79,50 @@ module.exports.newPrivate = (appToken, name, typeTag) => {
 module.exports.newPublic = (appToken, name, typeTag) => {
   return getObj(appToken)
           .then((app) => app.mutableData.newPublic(name, typeTag))
+          .then(genHandle);
+}
+
+/**
+* Create a new Permissions object.
+* @param {String} appToken - the application token
+* @returns {Promise<PermissionsHandle>}
+**/
+module.exports.newPermissions = (appToken) => {
+  return getObj(appToken)
+          .then((app) => app.mutableData.newPermissions())
+          .then(genHandle);
+}
+
+/**
+* Create a new PermissionsSet object.
+* @param {String} appToken - the application token
+* @returns {Promise<PermissionsSetHandle>}
+**/
+module.exports.newPermissionSet = (appToken) => {
+  return getObj(appToken)
+          .then((app) => app.mutableData.newPermissionSet())
+          .then(genHandle);
+}
+
+/**
+* Create a new Mutation object.
+* @param {String} appToken - the application token
+* @returns {Promise<MutationHandle>}
+**/
+module.exports.newMutation = (appToken) => {
+  return getObj(appToken)
+          .then((app) => app.mutableData.newMutation())
+          .then(genHandle);
+}
+
+/**
+* Create a new Entries object.
+* @param {String} appToken - the application token
+* @returns {Promise<EntriesHandle>}
+**/
+module.exports.newEntries = (appToken) => {
+  return getObj(appToken)
+          .then((app) => app.mutableData.newEntries())
           .then(genHandle);
 }
 
