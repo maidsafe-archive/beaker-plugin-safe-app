@@ -20,9 +20,9 @@ export default {
   devtool: 'cheap-module-source-map',
   entry: path.resolve(__dirname, 'src/api/index.js'),
   output: {
-    libraryTarget: 'commonjs2',
     path: path.join(__dirname, 'dist'),
-    filename: 'api.js'
+    filename: 'api.js',
+    libraryTarget: 'commonjs2'
   },
   module: {
     loaders: [
@@ -33,22 +33,18 @@ export default {
         query: {
           presets: ['es2015']
         }
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
       }
     ]
   },
   target: 'node',
   node: {
-    fs: 'empty',
     __dirname: false,
-    __filename: false,
+    __filename: false
   },
   externals: {
-    ffi: 'ffi',
-    ref: 'ref'
+    electron: 'electron',
+    crypto: 'crypto',
+    'safe-app': 'safe-app'
   },
   plugins: [
     new CopyWebpackPlugin(dependenciesToCopy)

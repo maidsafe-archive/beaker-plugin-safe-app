@@ -2,12 +2,10 @@ import path from 'path';
 
 export default {
   devtool: 'cheap-module-source-map',
-  entry: {
-    protocol: path.resolve(__dirname, 'src/protocol.js'),
-  },
+  entry: path.resolve(__dirname, 'src/protocol.js'),
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: 'protocol.js',
     libraryTarget: 'commonjs2'
   },
   module: {
@@ -16,10 +14,6 @@ export default {
         test: /\.js?$/,
         loader: 'babel-loader',
         exclude: /node_modules/
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
       }
     ]
   },
@@ -29,9 +23,8 @@ export default {
     __filename: false,
   },
   externals: {
-    fs: 'fs',
     electron: 'electron',
-    ffi: 'ffi',
-    ref: 'ref'
+    crypto: 'crypto',
+    'safe-app': 'safe-app'
   }
 };

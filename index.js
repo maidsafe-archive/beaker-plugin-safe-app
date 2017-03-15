@@ -1,5 +1,5 @@
-const safeProtocol = require('./src/protocol');
-const api = require('./src/api');
+const safeProtocol = require('./dist/protocol');
+const api = require('./dist/api');
 
 module.exports = {
   configure() {

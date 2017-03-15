@@ -47,7 +47,6 @@
     "concurrently": "^3.4.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^3.2.4",
-    "electron": "1.4.1",
     "eslint": "^3.15.0",
     "webpack": "^2.2.1"
   }
