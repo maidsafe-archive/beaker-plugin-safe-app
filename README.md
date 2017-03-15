@@ -8,6 +8,19 @@ SAFE App API plugin for SAFE Browser.
 |:---:|:--------:|
 |[![Build Status](https://travis-ci.org/maidsafe/beaker-plugin-safe-app.svg?branch=master)](https://travis-ci.org/maidsafe/beaker-plugin-safe-app)|[![Build status](https://ci.appveyor.com/api/projects/status/684fxjpg88vu87hf/branch/master?svg=true)](https://ci.appveyor.com/project/MaidSafe-QA/beaker-plugin-safe-app/branch/master)|
 
+## Dependency
+
+Project depends on [safe_app_nodejs](https://github.com/maidsafe/safe_app_nodejs). The dependency is specified as a git submodule.
+
+## Development
+
+Rust and Nodejs are required for development.
+
+1. Clone the project
+2. Run `npm i` to install the nodejs dependency
+3. `npm run build` will build the project to the `dist` folder.
+
+In [safe_browser](https://github.com/maidsafe/safe_browser/) `app/node_modules`, create a folder `beaker-plugin-safe-app` and add `index.js` file and the `dist` folder obtained after building the plugin.
 
 # License
 
