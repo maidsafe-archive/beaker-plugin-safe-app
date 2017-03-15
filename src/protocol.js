@@ -37,10 +37,18 @@ const registerSafeAuthProtocol = () => {
   protocol.registerBufferProtocol(safeScheme, (req, cb) => {
     const parsedUrl = urlParse(req.url);
     const fileExt = parsedUrl.pathname.split('/').slice(-1)[0].split('.')[1] || 'html';
+    const mimeType = mime.lookup(fileExt);
+    const handleError = (err) => {
+      if (mimeType === 'html') {
+        return cb({ mimeType: mimeType, data: err.message });
+      }
+      cb(null);
+    };
+
     authoriseApp()
       .then(() => fetchData(req.url))
-      .then((co) => cb({ mimeType: mime.lookup(fileExt), data: co }))
-      .catch(console.error);
+      .then((co) => cb({ mimeType: mimeType, data: co }))
+      .catch(handleError);
   }, (err) => {
     if (err) console.error('Failed to register protocol');
   });
