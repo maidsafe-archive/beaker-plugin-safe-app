@@ -5,7 +5,7 @@ const mime = require('mime');
 const protocol = require('electron').protocol;
 /* eslint-enable import/extensions */
 
-const safeScheme = 'safe';//, 'file'];
+const safeScheme = 'safe';
 
 const appInfo = {
   'id': 'net.maidsafe.app.browser',
