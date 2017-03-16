@@ -1,4 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const ipcMain = require('electron').ipcMain; // electron deps will be avaible inside browser
+/* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 const genRandomString = require('./helpers').genRandomString;
 
 class IpcTask {
@@ -28,7 +30,7 @@ class IpcTask {
 
   next() {
     if (this.isProcessing || this.tasks.length === 0) {
-      return
+      return;
     }
     this.isProcessing = true;
     this.currentTaskId = this.tasks[0];
@@ -47,7 +49,7 @@ ipcMain.on('registerSafeApp', (event) => {
 });
 
 ipcMain.on('webClientContainerRes', (event, res) => {
-	// handle response
+  // handle response
   if (typeof ipcTask.currentTaskCb === 'function') {
     ipcTask.currentTaskCb(null, res);
   }

@@ -1,4 +1,4 @@
-const {genHandle, getObj} = require('./handles');
+const { getObj } = require('./handles');
 
 module.exports.manifest = {
   setAllow: 'promise',
@@ -7,40 +7,40 @@ module.exports.manifest = {
 };
 
 /**
-* Set the action as allowed
-* @param {String} appToken - the application token
-* @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
-* @param {MDataAction} action
-* @returns {Promise}
-**/
+ * Set the action as allowed
+ * @param {String} appToken - the application token
+ * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
+ * @param {MDataAction} action
+ * @returns {Promise}
+ **/
 module.exports.setAllow = (appToken, permissionsSetHandle, action) => {
   return getObj(appToken)
-          .then((app) => getObj(permissionsSetHandle))
-          .then((pmSet) => pmSet.setAllow(action));
-}
+    .then(() => getObj(permissionsSetHandle))
+    .then((pmSet) => pmSet.setAllow(action));
+};
 
 /**
-* Set the action as denied
-* @param {String} appToken - the application token
-* @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
-* @param {MDataAction} action
-* @returns {Promise}
-**/
+ * Set the action as denied
+ * @param {String} appToken - the application token
+ * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
+ * @param {MDataAction} action
+ * @returns {Promise}
+ **/
 module.exports.setDeny = (appToken, permissionsSetHandle, action) => {
   return getObj(appToken)
-          .then((app) => getObj(permissionsSetHandle))
-          .then((pmSet) => pmSet.setDeny(action));
-}
+    .then(() => getObj(permissionsSetHandle))
+    .then((pmSet) => pmSet.setDeny(action));
+};
 
 /**
-* Remove action from the set
-* @param {String} appToken - the application token
-* @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
-* @param {MDataAction} action
-* @returns {Promise}
-**/
+ * Remove action from the set
+ * @param {String} appToken - the application token
+ * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
+ * @param {MDataAction} action
+ * @returns {Promise}
+ **/
 module.exports.clear = (appToken, permissionsSetHandle, action) => {
   return getObj(appToken)
-          .then((app) => getObj(permissionsSetHandle))
-          .then((pmSet) => pmSet.clear(action));
-}
+    .then(() => getObj(permissionsSetHandle))
+    .then((pmSet) => pmSet.clear(action));
+};

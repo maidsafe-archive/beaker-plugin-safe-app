@@ -1,6 +1,6 @@
-const safe_app = require('safe-app');
+const safeApp = require('safe-app');
 const ipc = require('./ipc');
-const {genHandle, getObj} = require('./handles');
+const { genHandle, getObj, freeObj } = require('./handles');
 
 module.exports.manifest = {
   initialise: 'promise',
@@ -29,9 +29,9 @@ module.exports.initialise = (appInfo) => {
     appInfo.scope = null;
   }
 
-  return safe_app.initializeApp(appInfo)
+  return safeApp.initializeApp(appInfo)
     .then(genHandle);
-}
+};
 
 /**
  * Create a new, unregistered Session (read-only)
@@ -40,16 +40,14 @@ module.exports.initialise = (appInfo) => {
 module.exports.connect = (appToken) => {
   return getObj(appToken)
     .then((app) => app.auth.connectUnregistered())
-    .then((connectedApp) => {
-      return appToken;
-    });
-}
+    .then(() => appToken);
+};
 
 /**
-* With the options object it can be opt for getting a container
-* for the app itself: opts.own_container=true
-* @returns {Promise<AuthURI>} auth granted URI
-*/
+ * With the options object it can be opt for getting a container
+ * for the app itself: opts.own_container=true
+ * @returns {Promise<AuthURI>} auth granted URI
+ */
 module.exports.authorise = (appToken, permissions, options) => {
   return new Promise((resolve, reject) => {
     getObj(appToken)
@@ -62,7 +60,7 @@ module.exports.authorise = (appToken, permissions, options) => {
         })))
       .catch(reject);
   });
-}
+};
 
 /**
  * Create a new, registered Session (read-write)
@@ -71,8 +69,29 @@ module.exports.authorise = (appToken, permissions, options) => {
 module.exports.connectAuthorised = (appToken, authUri) => {
   return getObj(appToken)
     .then((app) => app.auth.loginFromURI(authUri))
-    .then((connectedApp) => appToken);
-}
+    .then((connectedApp) => {
+      freeObj(appToken);
+      return genHandle(connectedApp);
+    });
+};
+
+/**
+ * Authorise container request
+ * @returns {Promise<AuthURI>} auth granted URI
+ */
+module.exports.authoriseContainer = (appToken, permissions) => {
+  return new Promise((resolve, reject) => {
+    getObj(appToken)
+      .then((app) => app.auth.genContainerAuthUri(permissions)
+        .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
+          if (err) {
+            return reject(new Error('Unable to authorise the application: ', err)); // TODO send Error in specific
+          }
+          return resolve(res);
+        })))
+      .catch(reject);
+  });
+};
 
 module.exports.webFetch = (appToken, url) => {
   return getObj(appToken)
@@ -80,7 +99,7 @@ module.exports.webFetch = (appToken, url) => {
       .then((f) => app.immutableData.fetch(f.dataMapName))
       .then((i) => i.read())
     );
-}
+};
 
 /**
  * Whether or not this is a registered/authenticated
@@ -92,7 +111,7 @@ module.exports.webFetch = (appToken, url) => {
 module.exports.isRegistered = (appToken) => {
   return getObj(appToken)
     .then((app) => app.auth.registered);
-}
+};
 
 /**
  * Whether or not this session has specifc permission access of a given
@@ -105,7 +124,7 @@ module.exports.isRegistered = (appToken) => {
 module.exports.canAccessContainer = (appToken, name, permissions) => {
   return getObj(appToken)
     .then((app) => app.auth.canAccessContainer(name, permissions));
-}
+};
 
 /**
  * Lookup and return the information necessary to access a container.
@@ -117,7 +136,7 @@ module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
     .then((app) => app.auth.getAccessContainerInfo(name))
     .then(genHandle);
-}
+};
 
 /**
  * Get the public signing key of this session
@@ -128,7 +147,7 @@ module.exports.getPubSignKey = (appToken) => {
   return getObj(appToken)
     .then((app) => app.auth.getPubSignKey())
     .then(genHandle);
-}
+};
 
 /**
  * Get the public encryption key of this session
@@ -139,7 +158,7 @@ module.exports.getEncKey = (appToken) => {
   return getObj(appToken)
     .then((app) => app.auth.getEncKey())
     .then(genHandle);
-}
+};
 
 /**
  * Interprete the SignKey from a given raw string
@@ -151,7 +170,7 @@ module.exports.getSignKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
     .then((app) => app.auth.getSignKeyFromRaw(raw))
     .then(genHandle);
-}
+};
 
 /**
  * Interprete the encryption Key from a given raw string
@@ -163,4 +182,4 @@ module.exports.getEncKeyKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
     .then((app) => app.auth.getEncKeyKeyFromRaw(raw))
     .then(genHandle);
-}
+};
