@@ -2,6 +2,9 @@
   "env": {
     "es6": true
   },
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "rules": {
     "arrow-parens": [2, "always"],
     "consistent-return": 0,
