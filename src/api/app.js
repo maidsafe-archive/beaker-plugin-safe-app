@@ -69,10 +69,7 @@ module.exports.authorise = (appToken, permissions, options) => {
 module.exports.connectAuthorised = (appToken, authUri) => {
   return getObj(appToken)
     .then((app) => app.auth.loginFromURI(authUri))
-    .then((connectedApp) => {
-      freeObj(appToken);
-      return genHandle(connectedApp);
-    });
+    .then((connectedApp) => appToken);
 };
 
 /**
