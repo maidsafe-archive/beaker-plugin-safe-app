@@ -15,10 +15,12 @@ const appInfo = {
 
 let appObj = null;
 
-const authoriseApp = () => {
+const authoriseApp = (scope) => {
   if (appObj) {
     return Promise.resolve(true);
   }
+
+  appInfo.scope = scope;
   return safeApp.initializeApp(appInfo)
     .then((app) => app.auth.connectUnregistered())
     .then((app) => (appObj = app));
@@ -45,7 +47,8 @@ const registerSafeAuthProtocol = () => {
       cb(null);
     };
 
-    authoriseApp()
+    // Provide the hostname as the scope for the app authorisation
+    authoriseApp(parsedUrl.hostname)
       .then(() => fetchData(req.url))
       .then((co) => cb({ mimeType, data: co }))
       .catch(handleError);
