@@ -1,4 +1,4 @@
-const { getObj } = require('./handles');
+const { getObj } = require('./helpers');
 
 module.exports.manifest = {
   insert: 'promise',

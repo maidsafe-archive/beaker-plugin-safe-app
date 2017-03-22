@@ -1,4 +1,4 @@
-const { genHandle, getObj, freeObj } = require('./handles');
+const { genHandle, getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   create: 'promise',
