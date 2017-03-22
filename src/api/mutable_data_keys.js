@@ -31,7 +31,7 @@ module.exports._with_cb_forEach = (appToken, keysHandle) => {
     .then(() => getObj(keysHandle))
     .then((keys) => keys.forEach((key) => {
         setImmediate(() => {
-          readable.push(key)
+          readable.push([key])
         })
       })
       .then(() => {

@@ -1,8 +1,9 @@
 const { getObj } = require('./handles');
+const { Readable } = require('stream')
 
 module.exports.manifest = {
   len: 'promise',
-  forEach: 'promise',
+  _with_cb_forEach: 'readable',
 };
 
 /**
@@ -24,8 +25,20 @@ module.exports.len = (appToken, valuesHandle) => {
  * @param {function(Buffer, ValueVersion)} fn - the function to call
  * @returns {Promise<()>} - resolves once the iteration is done
  **/
-module.exports.forEach = (appToken, valuesHandle, fn) => {
-  return getObj(appToken)
+module.exports._with_cb_forEach = (appToken, valuesHandle) => {
+  var readable = new Readable({ objectMode: true, read() {} })
+  getObj(appToken)
     .then(() => getObj(valuesHandle))
-    .then((values) => values.forEach(fn));
+    .then((values) => values.forEach((value) => {
+        setImmediate(() => {
+          readable.push([value])
+        })
+      })
+      .then(() => {
+        setImmediate(() => {
+          readable.push(null)
+        })
+      })
+    );
+  return readable;
 };

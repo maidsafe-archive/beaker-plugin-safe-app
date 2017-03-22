@@ -1,10 +1,11 @@
 const { genHandle, getObj } = require('./handles');
+const { Readable } = require('stream')
 
 module.exports.manifest = {
   len: 'promise',
   getPermissionsSet: 'promise',
   insertPermissionsSet: 'promise',
-  forEach: 'promise',
+  _with_cb_forEach: 'readable',
 };
 
 /**
@@ -60,8 +61,20 @@ module.exports.insertPermissionsSet = (appToken, permissionsHandle, signKeyHandl
  * @param {function(Buffer, ValueVersion)} fn - the function to call
  * @returns {Promise<()>} - resolves once the iteration is done
  **/
-module.exports.forEach = (appToken, permissionsHandle, fn) => {
-  return getObj(appToken)
+module.exports._with_cb_forEach = (appToken, permissionsHandle) => {
+  var readable = new Readable({ objectMode: true, read() {} })
+  getObj(appToken)
     .then(() => getObj(permissionsHandle))
-    .then((permissions) => permissions.forEach(fn));
+    .then((permissions) => permissions.forEach((permission) => {
+        setImmediate(() => {
+          readable.push([permission])
+        })
+      })
+      .then(() => {
+        setImmediate(() => {
+          readable.push(null)
+        })
+      })
+    );
+  return readable;
 };
