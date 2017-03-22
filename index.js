@@ -1,12 +1,13 @@
-const safeProtocol = require('./src/protocol');
+const safeProtocol = require('./dist/protocol');
+const api = require('./dist/api');
 
 module.exports = {
   configure() {
   },
   homePages: [{
-    label: 'SAFE Network',
+    label: 'SAFE App',
     href: 'https://safenetforum.org/t/safe-network-alpha-release/10687/1'
   }],
   protocols: [safeProtocol],
-  webAPIs: {}
+  webAPIs: api
 };

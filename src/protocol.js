@@ -1,16 +1,16 @@
 const safeApp = require('safe-app');
 const urlParse = require('url').parse;
 const mime = require('mime');
-/* eslint-disable import/extensions */
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
-/* eslint-enable import/extensions */
+/* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 
 const safeScheme = 'safe';
 
 const appInfo = {
-  'id': 'net.maidsafe.app.browser',
-  'name': 'SAFE Browser',
-  'vendor': 'MaidSafe'
+  id: 'net.maidsafe.app.browser',
+  name: 'SAFE Browser',
+  vendor: 'MaidSafe'
 };
 
 let appObj = null;
@@ -30,17 +30,25 @@ const fetchData = (url) => {
   }
   return appObj.webFetch(url)
     .then((f) => appObj.immutableData.fetch(f.dataMapName))
-    .then((i) => i.read())
+    .then((i) => i.read());
 };
 
 const registerSafeAuthProtocol = () => {
   protocol.registerBufferProtocol(safeScheme, (req, cb) => {
     const parsedUrl = urlParse(req.url);
     const fileExt = parsedUrl.pathname.split('/').slice(-1)[0].split('.')[1] || 'html';
+    const mimeType = mime.lookup(fileExt);
+    const handleError = (err) => {
+      if (mimeType === 'html') {
+        return cb({ mimeType, data: err.message });
+      }
+      cb(null);
+    };
+
     authoriseApp()
       .then(() => fetchData(req.url))
-      .then((co) => cb({ mimeType: mime.lookup(fileExt), data: co }))
-      .catch(console.error);
+      .then((co) => cb({ mimeType, data: co }))
+      .catch(handleError);
   }, (err) => {
     if (err) console.error('Failed to register protocol');
   });
