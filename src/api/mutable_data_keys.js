@@ -1,8 +1,9 @@
 const { getObj } = require('./handles');
+const { Readable } = require('stream')
 
 module.exports.manifest = {
   len: 'promise',
-  forEach: 'promise',
+  _with_cb_forEach: 'readable',
 };
 
 /**
@@ -24,8 +25,20 @@ module.exports.len = (appToken, keysHandle) => {
  * @param {function(Buffer)} fn - the function to call with the key in the buffer
  * @returns {Promise<()>} - resolves once the iteration is done
  **/
-module.exports.forEach = (appToken, keysHandle, fn) => {
-  return getObj(appToken)
+module.exports._with_cb_forEach = (appToken, keysHandle) => {
+  var readable = new Readable({ objectMode: true, read() {} })
+  getObj(appToken)
     .then(() => getObj(keysHandle))
-    .then((keys) => keys.forEach(fn));
-};
+    .then((keys) => keys.forEach((key) => {
+        setImmediate(() => {
+          readable.push(key)
+        })
+      })
+      .then(() => {
+        setImmediate(() => {
+          readable.push(null)
+        })
+      })
+    );
+  return readable;
+}
