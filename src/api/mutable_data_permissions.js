@@ -1,10 +1,10 @@
-const { genHandle, getObj } = require('./handles');
+const { genHandle, getObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
   getPermissionsSet: 'promise',
   insertPermissionsSet: 'promise',
-  forEach: 'promise',
+  _with_cb_forEach: 'readable',
 };
 
 /**
@@ -60,8 +60,6 @@ module.exports.insertPermissionsSet = (appToken, permissionsHandle, signKeyHandl
  * @param {function(Buffer, ValueVersion)} fn - the function to call
  * @returns {Promise<()>} - resolves once the iteration is done
  **/
-module.exports.forEach = (appToken, permissionsHandle, fn) => {
-  return getObj(appToken)
-    .then(() => getObj(permissionsHandle))
-    .then((permissions) => permissions.forEach(fn));
+module.exports._with_cb_forEach = (appToken, permissionsHandle) => {
+  return forEachHelper(appToken, permissionsHandle, true);
 };

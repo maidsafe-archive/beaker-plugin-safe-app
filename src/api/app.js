@@ -1,6 +1,6 @@
 const safeApp = require('safe-app');
 const ipc = require('./ipc');
-const { genHandle, getObj, freeObj } = require('./handles');
+const { genHandle, getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   initialise: 'promise',

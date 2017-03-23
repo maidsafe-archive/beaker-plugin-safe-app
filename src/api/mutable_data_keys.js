@@ -1,8 +1,8 @@
-const { getObj } = require('./handles');
+const { getObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
-  forEach: 'promise',
+  _with_cb_forEach: 'readable',
 };
 
 /**
@@ -24,8 +24,6 @@ module.exports.len = (appToken, keysHandle) => {
  * @param {function(Buffer)} fn - the function to call with the key in the buffer
  * @returns {Promise<()>} - resolves once the iteration is done
  **/
-module.exports.forEach = (appToken, keysHandle, fn) => {
-  return getObj(appToken)
-    .then(() => getObj(keysHandle))
-    .then((keys) => keys.forEach(fn));
-};
+module.exports._with_cb_forEach = (appToken, keysHandle) => {
+  return forEachHelper(appToken, keysHandle);
+}

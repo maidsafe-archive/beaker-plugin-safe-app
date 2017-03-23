@@ -1,4 +1,4 @@
-const { genHandle, getObj } = require('./handles');
+const { genHandle, getObj } = require('./helpers');
 
 module.exports.manifest = {
   newPlainText: 'promise',

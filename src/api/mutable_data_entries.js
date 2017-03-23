@@ -1,9 +1,9 @@
-const { genHandle, getObj } = require('./handles');
+const { genHandle, getObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
   get: 'promise',
-  forEach: 'promise',
+  _with_cb_forEach: 'readable',
   insert: 'promise',
   mutate: 'promise',
 };
@@ -42,10 +42,8 @@ module.exports.get = (appToken, entriesHandle, keyName) => {
  * @param {function(Buffer, ValueVersion)} fn - the function to call
  * @returns {Promise<()>} - resolves once the iteration is done
  **/
-module.exports.forEach = (appToken, entriesHandle, fn) => {
-  return getObj(appToken)
-    .then(() => getObj(entriesHandle))
-    .then((entries) => entries.forEach(fn));
+module.exports._with_cb_forEach = (appToken, entriesHandle) => {
+  return forEachHelper(appToken, entriesHandle);
 };
 
 /**
