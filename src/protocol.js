@@ -1,3 +1,4 @@
+const path = require('path');
 const safeApp = require('safe-app');
 const urlParse = require('url').parse;
 const mime = require('mime');
@@ -36,7 +37,7 @@ const fetchData = (url) => {
 const registerSafeAuthProtocol = () => {
   protocol.registerBufferProtocol(safeScheme, (req, cb) => {
     const parsedUrl = urlParse(req.url);
-    const fileExt = parsedUrl.pathname.split('/').slice(-1)[0].split('.')[1] || 'html';
+    const fileExt = path.basename(parsedUrl.pathname) || 'html';
     const mimeType = mime.lookup(fileExt);
     const handleError = (err) => {
       if (mimeType === 'html') {
