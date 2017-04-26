@@ -15,6 +15,7 @@ module.exports.manifest = {
   getEncKey: 'promise',
   getSignKeyFromRaw: 'promise',
   getEncKeyKeyFromRaw: 'promise',
+  refreshContainerAccess: 'promise',
 };
 
 /**
@@ -121,6 +122,15 @@ module.exports.isRegistered = (appToken) => {
 module.exports.canAccessContainer = (appToken, name, permissions) => {
   return getObj(appToken)
     .then((app) => app.auth.canAccessContainer(name, permissions));
+};
+
+/**
+ * Refresh accessible containers
+ * @param appToken
+ */
+module.exports.refreshContainerAccess = (appToken) => {
+  return getObj(appToken)
+    .then((app) => app.auth.refreshContainerAccess());
 };
 
 /**

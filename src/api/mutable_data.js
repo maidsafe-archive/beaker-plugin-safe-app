@@ -25,6 +25,7 @@ module.exports.manifest = {
   setUserPermissions: 'promise',
   applyEntriesMutation: 'promise',
   serialise: 'promise',
+  fromSerial: 'promise',
   emulateAs: 'promise',
 };
 
@@ -366,6 +367,17 @@ module.exports.serialise = (appToken, mdHandle) => {
   return getObj(appToken)
     .then(() => getObj(mdHandle))
     .then((md) => md.serialise());
+};
+
+/**
+ * Deserialize the mdata
+ * @param {String} appToken - the application token
+ * @returns {Promise<MutableDataHandle>}
+ */
+module.exports.fromSerial = (appToken, data) => {
+  return getObj(appToken)
+    .then((app) => app.mutableData.fromSerial(data))
+    .then(genHandle);
 };
 
 /**
