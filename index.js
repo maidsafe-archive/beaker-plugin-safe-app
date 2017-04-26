@@ -1,5 +1,7 @@
+/* eslint-disable import/no-unresolved */
 const safeProtocol = require('./dist/protocol');
 const api = require('./dist/api');
+/* eslint-disable import/no-unresolved */
 
 module.exports = {
   configure() {

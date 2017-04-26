@@ -1,0 +1,21 @@
+environment:
+  nodejs_version: "6.9.0"
+
+platform:
+  - x64
+
+cache:
+#  - node_modules
+
+clone_depth: 50
+
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - node --version
+  - npm --version
+  - npm i
+
+build: off
+
+test_script:
+  - npm test

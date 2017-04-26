@@ -1,6 +1,6 @@
 const safeApp = require('safe-app');
 const ipc = require('./ipc');
-const { genHandle, getObj, freeObj } = require('./helpers');
+const { genHandle, getObj } = require('./helpers');
 
 module.exports.manifest = {
   initialise: 'promise',
@@ -70,7 +70,7 @@ module.exports.authorise = (appToken, permissions, options) => {
 module.exports.connectAuthorised = (appToken, authUri) => {
   return getObj(appToken)
     .then((app) => app.auth.loginFromURI(authUri))
-    .then((connectedApp) => appToken);
+    .then(() => appToken);
 };
 
 /**

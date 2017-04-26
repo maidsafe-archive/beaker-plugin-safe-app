@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const { genHandle, getObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
