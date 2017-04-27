@@ -5,7 +5,7 @@ module.exports.manifest = {
   fetch: 'promise',
   insert: 'promise',
   update: 'promise',
-  getFileMeta: 'sync'
+  getFileMeta: 'promise'
 };
 
 module.exports.create = (appToken, nfsHandle, content) => {
