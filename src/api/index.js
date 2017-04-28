@@ -1,6 +1,11 @@
 const app = require('./app');
 const cipherOpt = require('./cipher_opt');
 const imdata = require('./immutable_data');
+const crypto = require('./crypto');
+const cryptoKeyPair = require('./crypto_key_pair');
+const cryptoSecEncKey = require('./crypto_secret_encryption_key');
+const cryptoPubEncKey = require('./crypto_public_encryption_key');
+const cryptoSignKey = require('./crypto_sign_key');
 const mdata = require('./mutable_data');
 const mdataEntries = require('./mutable_data_entries');
 const mdataKeys = require('./mutable_data_keys');
@@ -28,6 +33,36 @@ module.exports = [
     isInternal: true,
     manifest: imdata.manifest,
     methods: imdata
+  },
+  {
+    name: 'crypto',
+    isInternal: true,
+    manifest: crypto.manifest,
+    methods: crypto
+  },
+  {
+    name: 'cryptoKeyPair',
+    isInternal: true,
+    manifest: cryptoKeyPair.manifest,
+    methods: cryptoKeyPair
+  },
+  {
+    name: 'cryptoSecEncKey',
+    isInternal: true,
+    manifest: cryptoSecEncKey.manifest,
+    methods: cryptoSecEncKey
+  },
+  {
+    name: 'cryptoPubEncKey',
+    isInternal: true,
+    manifest: cryptoPubEncKey.manifest,
+    methods: cryptoPubEncKey
+  },
+  {
+    name: 'cryptoSignKey',
+    isInternal: true,
+    manifest: cryptoSignKey.manifest,
+    methods: cryptoSignKey
   },
   {
     name: 'safeMutableData',
