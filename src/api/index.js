@@ -35,31 +35,31 @@ module.exports = [
     methods: imdata
   },
   {
-    name: 'crypto',
+    name: 'safeCrypto',
     isInternal: true,
     manifest: crypto.manifest,
     methods: crypto
   },
   {
-    name: 'cryptoKeyPair',
+    name: 'safeCryptoKeyPair',
     isInternal: true,
     manifest: cryptoKeyPair.manifest,
     methods: cryptoKeyPair
   },
   {
-    name: 'cryptoSecEncKey',
+    name: 'safeCryptoSecEncKey',
     isInternal: true,
     manifest: cryptoSecEncKey.manifest,
     methods: cryptoSecEncKey
   },
   {
-    name: 'cryptoPubEncKey',
+    name: 'safeCryptoPubEncKey',
     isInternal: true,
     manifest: cryptoPubEncKey.manifest,
     methods: cryptoPubEncKey
   },
   {
-    name: 'cryptoSignKey',
+    name: 'safeCryptoSignKey',
     isInternal: true,
     manifest: cryptoSignKey.manifest,
     methods: cryptoSignKey
