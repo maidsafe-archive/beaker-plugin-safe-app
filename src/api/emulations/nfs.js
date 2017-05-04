@@ -49,5 +49,5 @@ module.exports.getFileMeta = (fileHandle) => {
       size: file.size,
       version: file.version
     }
-  ))
+  ));
 };

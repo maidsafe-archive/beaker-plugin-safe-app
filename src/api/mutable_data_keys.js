@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const { getObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
@@ -26,4 +27,4 @@ module.exports.len = (appToken, keysHandle) => {
  **/
 module.exports._with_cb_forEach = (appToken, keysHandle) => {
   return forEachHelper(appToken, keysHandle);
-}
+};

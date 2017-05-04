@@ -26,29 +26,32 @@ export const freeObj = (handle) => {
 };
 
 export const forEachHelper = (appToken, containerHandle, sendHandles) => {
-  var readable = new Readable({ objectMode: true, read() {} })
+  const readable = new Readable({
+    objectMode: true,
+    read() {
+    }
+  });
   getObj(appToken)
     .then(() => getObj(containerHandle))
     .then((container) => container.forEach((arg1, arg2) => {
-        setImmediate(() => {
+      setImmediate(() => {
+        if (sendHandles) {
+          arg1 = genHandle(arg1);
+        }
+        const args = [arg1];
+        if (arg2) {
           if (sendHandles) {
-            arg1 = genHandle(arg1);
+            arg2 = genHandle(arg2);
           }
-          let args = [arg1];
-          if (arg2) {
-            if (sendHandles) {
-              arg2 = genHandle(arg2);
-            }
-            args.push(arg2);
-          }
-          readable.push(args)
-        })
-      })
-      .then(() => {
-        setImmediate(() => {
-          readable.push(null)
-        })
-      })
-    );
+          args.push(arg2);
+        }
+        readable.push(args);
+      });
+    })
+    .then(() => {
+      setImmediate(() => {
+        readable.push(null);
+      });
+    }));
   return readable;
-}
+};

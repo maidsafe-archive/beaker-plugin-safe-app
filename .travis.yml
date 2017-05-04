@@ -1,0 +1,40 @@
+sudo: true
+
+os:
+  - linux
+  - osx
+
+osx_image: xcode8.2
+
+compiler:
+  - gcc
+  - clang
+
+language: node_js
+
+node_js:
+  - "6.9.0"
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - desktop-file-utils
+      - xdg-utils
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+   - "[[ ${TRAVIS_OS_NAME} = linux ]] && export CXX=g++-4.8 || echo 'skipped'"
+
+install:
+  - node --version
+  - npm --version
+  - npm i
+
+script:
+  - npm test
