@@ -76,3 +76,28 @@ module.exports.pubEncKeyKeyFromRaw = (appToken, raw) => {
     .then((app) => app.crypto.pubEncKeyKeyFromRaw(raw))
     .then(genHandle);
 };
+
+/**
+ * Interpret the secret encryption Key from a given raw string
+ * @param appToken - the application token
+ * @param raw - raw input string
+ * @return {Promise<SecEncKey>}
+ */
+module.exports.secEncKeyKeyFromRaw = (appToken, raw) => {
+  return getObj(appToken)
+    .then((app) => app.crypto.secEncKeyKeyFromRaw(raw))
+    .then(genHandle);
+};
+
+/**
+ * Generate a new Asymmetric EncryptionKeyPair from raw secret and public keys
+ * @param appToken - the application token
+ * @param rawPublicKey
+ * @param rawSecretKey
+ * @return {Promise<KeyPair>}
+ */
+module.exports.generateEncKeyPairFromRaw = (appToken, rawPublicKey, rawSecretKey) => {
+  return getObj(appToken)
+    .then((app) => app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey))
+    .then(genHandle);
+};
