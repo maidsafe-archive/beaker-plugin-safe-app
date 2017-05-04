@@ -16,6 +16,7 @@ module.exports.manifest = {
   getSignKeyFromRaw: 'promise',
   getEncKeyKeyFromRaw: 'promise',
   refreshContainerAccess: 'promise',
+  getHomeContainer: 'promise',
 };
 
 /**
