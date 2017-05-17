@@ -149,11 +149,11 @@ module.exports.getHomeContainer = (appToken) => {
  * Lookup and return the information necessary to access a container.
  * @param {String} appToken - the application token
  * @arg name {String} name of the container, e.g. `'_public'`
- * @returns {Promise<MutableDataHandle>} the handle for the Mutable Data behind that object
+ * @returns {Promise<MutableDataHandle>} the handle for the Mutable Data behind it
  */
 module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
-    .then((app) => app.auth.getAccessContainerInfo(name))
+    .then((app) => app.auth.getContainer(name))
     .then(genHandle);
 };
 
