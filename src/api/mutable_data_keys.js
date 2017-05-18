@@ -1,8 +1,9 @@
-const { getObj, forEachHelper } = require('./helpers');
+const { getObj, freeObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
   _with_cb_forEach: 'readable',
+  free: 'sync'
 };
 
 /**
@@ -27,3 +28,9 @@ module.exports.len = (appToken, keysHandle) => {
 module.exports._with_cb_forEach = (appToken, keysHandle) => {
   return forEachHelper(appToken, keysHandle);
 }
+
+/**
+ * Free the Keys instance from memory
+ * @param {String} keysHandle - the Keys handle
+ */
+module.exports.free = (keysHandle) => freeObj(keysHandle);

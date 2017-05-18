@@ -1,10 +1,11 @@
-const { genHandle, getObj, forEachHelper } = require('./helpers');
+const { genHandle, getObj, freeObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
   getPermissionsSet: 'promise',
   insertPermissionsSet: 'promise',
   _with_cb_forEach: 'readable',
+  free: 'sync'
 };
 
 /**
@@ -63,3 +64,9 @@ module.exports.insertPermissionsSet = (appToken, permissionsHandle, signKeyHandl
 module.exports._with_cb_forEach = (appToken, permissionsHandle) => {
   return forEachHelper(appToken, permissionsHandle, true);
 };
+
+/**
+ * Free the Permissions instance from memory
+ * @param {String} permissionsHandle - the application token
+ */
+module.exports.free = (permissionsHandle) => freeObj(permissionsHandle);

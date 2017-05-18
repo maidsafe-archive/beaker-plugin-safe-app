@@ -1,7 +1,8 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
-  getRaw: 'promise'
+  getRaw: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -15,3 +16,9 @@ module.exports.getRaw = (appToken, signKeyHandle) => {
     .then(() => getObj(signKeyHandle))
     .then((signKey) => signKey.getRaw());
 };
+
+/**
+ * Free the SignKey instance from memory
+ * @param {String} signKeyHandle - the SignKey handle
+ */
+module.exports.free = (signKeyHandle) => freeObj(signKeyHandle);

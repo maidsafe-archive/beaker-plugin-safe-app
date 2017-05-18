@@ -1,4 +1,4 @@
-const { genHandle, getObj, forEachHelper } = require('./helpers');
+const { genHandle, getObj, freeObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
@@ -6,6 +6,7 @@ module.exports.manifest = {
   _with_cb_forEach: 'readable',
   insert: 'promise',
   mutate: 'promise',
+  free: 'sync'
 };
 
 
@@ -75,3 +76,9 @@ module.exports.mutate = (appToken, entriesHandle) => {
     .then((entries) => entries.mutate())
     .then(genHandle);
 };
+
+/**
+ * Free the Entries instance from memory
+ * @param {String} entriesHandle - the Entries handle
+ */
+module.exports.free = (entriesHandle) => freeObj(entriesHandle);

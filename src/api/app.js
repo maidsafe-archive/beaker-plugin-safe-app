@@ -18,6 +18,7 @@ module.exports.manifest = {
   getEncKey: 'promise',
   getSignKeyFromRaw: 'promise',
   getEncKeyKeyFromRaw: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -215,3 +216,9 @@ module.exports.getEncKeyKeyFromRaw = (appToken, raw) => {
     .then((app) => app.auth.getEncKeyKeyFromRaw(raw))
     .then(genHandle);
 };
+
+/**
+ * Free the SAFEApp instance from memory
+ * @param {String} appToken - the application token
+ */
+module.exports.free = (appToken) => freeObj(appToken);

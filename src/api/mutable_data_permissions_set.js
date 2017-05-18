@@ -1,9 +1,10 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   setAllow: 'promise',
   setDeny: 'promise',
   clear: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -44,3 +45,9 @@ module.exports.clear = (appToken, permissionsSetHandle, action) => {
     .then(() => getObj(permissionsSetHandle))
     .then((pmSet) => pmSet.clear(action));
 };
+
+/**
+ * Free the PermissionsSet instance from memory
+ * @param {String} permissionsSetHandle - the application token
+ */
+module.exports.free = (permissionsSetHandle) => freeObj(permissionsSetHandle);

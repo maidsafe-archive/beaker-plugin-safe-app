@@ -1,4 +1,4 @@
-const { genHandle, getObj } = require('./helpers');
+const { genHandle, getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   newRandomPrivate: 'promise',
@@ -27,6 +27,7 @@ module.exports.manifest = {
   serialise: 'promise',
   fromSerial: 'promise',
   emulateAs: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -393,3 +394,9 @@ module.exports.emulateAs = (appToken, mdHandle, eml) => {
     .then((md) => md.emulateAs(eml))
     .then(genHandle);
 };
+
+/**
+ * Free the MutableData instance from memory
+ * @param {String} mdHandle - the MutableData handle
+ */
+module.exports.free = (mdHandle) => freeObj(mdHandle);
