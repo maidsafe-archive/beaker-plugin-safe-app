@@ -12,6 +12,7 @@ module.exports.manifest = {
   quickSetup: 'promise',
   encryptKey: 'promise',
   encryptValue: 'promise',
+  decrypt: 'promise',
   getNameAndTag: 'promise',
   getVersion: 'promise',
   get: 'promise',
@@ -176,6 +177,21 @@ module.exports.encryptValue = (appToken, mdHandle, value) => {
   return getObj(appToken)
     .then(() => getObj(mdHandle))
     .then((md) => md.encryptValue(value));
+};
+
+/**
+ * Decrypt the entry key/value provided as parameter with the encryption key
+ * contained in a Private MutableData.
+ *
+ * @param {String} appToken - the application token
+ * @param {MutableDataHandle} mdHandle - the MutableData handle
+ * @param {(String|Buffer)} value - the data you want to decrypt
+ * @returns {Promise<Value>} - the decrypted value
+ **/
+module.exports.decrypt = (appToken, mdHandle, value) => {
+  return getObj(appToken)
+    .then(() => getObj(mdHandle))
+    .then((md) => md.decrypt(value));
 };
 
 /**
