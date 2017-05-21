@@ -1,9 +1,10 @@
-const { genHandle, getObj } = require('./helpers');
+const { genHandle, getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   newPlainText: 'promise',
   newSymmetric: 'promise',
   newAsymmetric: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -41,3 +42,9 @@ module.exports.newAsymmetric = (appToken, keyHandle) => {
       .then(genHandle)
     );
 };
+
+/**
+ * Free the CipherOpt instance from memory
+ * @param {String} cipherOptHandle - the cipher opt handle
+ */
+module.exports.free = (cipherOptHandle) => freeObj(cipherOptHandle);

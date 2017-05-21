@@ -1,9 +1,10 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   insert: 'promise',
   remove: 'promise',
   update: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -53,3 +54,9 @@ module.exports.update = (appToken, mutationHandle, keyName, value, version) => {
     .then(() => getObj(mutationHandle))
     .then((mutation) => mutation.update(keyName, value, version));
 };
+
+/**
+ * Free the Mutation instance from memory
+ * @param {String} mutationHandle - the application token
+ */
+module.exports.free = (mutationHandle) => freeObj(mutationHandle);

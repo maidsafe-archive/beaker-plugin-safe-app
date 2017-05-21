@@ -1,8 +1,9 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   getRaw: 'promise',
-  decrypt: 'promise'
+  decrypt: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -30,3 +31,9 @@ module.exports.decrypt = (appToken, secEncKeyHandle, cipher, theirPubKey) => {
     .then(() => getObj(secEncKeyHandle))
     .then((secEncKey) => secEncKey.decrypt(cipher, theirPubKey));
 };
+
+/**
+ * Free the SecEncKey instance from memory
+ * @param {String} secEncKeyHandle - the secret encryption key handle
+ */
+module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);

@@ -10,13 +10,15 @@ module.exports.manifest = {
   webFetch: 'promise',
   isRegistered: 'promise',
   canAccessContainer: 'promise',
+  refreshContainersPermissions: 'promise',
+  getContainersNames: 'promise',
+  getHomeContainer: 'promise',
   getContainer: 'promise',
   getPubSignKey: 'promise',
   getEncKey: 'promise',
   getSignKeyFromRaw: 'promise',
   getEncKeyKeyFromRaw: 'promise',
-  refreshContainerAccess: 'promise',
-  getHomeContainer: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -126,12 +128,24 @@ module.exports.canAccessContainer = (appToken, name, permissions) => {
 };
 
 /**
- * Refresh accessible containers
- * @param appToken
+ * Refresh permissions for accessible containers from the network. Useful when
+ * you just connected or received a response from the authenticator in the IPC protocol.
+ * @param {String} appToken - the application token
  */
-module.exports.refreshContainerAccess = (appToken) => {
+module.exports.refreshContainersPermissions = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.auth.refreshContainerAccess());
+    .then((app) => app.auth.refreshContainersPermissions());
+};
+
+/**
+ * Get the names of all containers found.
+ * @param {String} appToken - the application token
+ * @returns {Promise<[String]>} list of containers names
+ */
+module.exports.getContainersNames = (appToken) => {
+  return getObj(appToken)
+    .then((app) => app.auth.getContainersNames())
+    .then(genHandle);
 };
 
 /**
@@ -149,11 +163,11 @@ module.exports.getHomeContainer = (appToken) => {
  * Lookup and return the information necessary to access a container.
  * @param {String} appToken - the application token
  * @arg name {String} name of the container, e.g. `'_public'`
- * @returns {Promise<MutableDataHandle>} the handle for the Mutable Data behind that object
+ * @returns {Promise<MutableDataHandle>} the handle for the Mutable Data behind it
  */
 module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
-    .then((app) => app.auth.getAccessContainerInfo(name))
+    .then((app) => app.auth.getContainer(name))
     .then(genHandle);
 };
 
@@ -202,3 +216,9 @@ module.exports.getEncKeyKeyFromRaw = (appToken, raw) => {
     .then((app) => app.auth.getEncKeyKeyFromRaw(raw))
     .then(genHandle);
 };
+
+/**
+ * Free the SAFEApp instance from memory
+ * @param {String} appToken - the application token
+ */
+module.exports.free = (appToken) => freeObj(appToken);

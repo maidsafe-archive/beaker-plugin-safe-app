@@ -1,11 +1,12 @@
-const { genHandle, getObj } = require('../helpers');
+const { genHandle, getObj, freeObj } = require('../helpers');
 
 module.exports.manifest = {
   create: 'promise',
   fetch: 'promise',
   insert: 'promise',
   update: 'promise',
-  getFileMeta: 'promise'
+  getFileMeta: 'promise',
+  free: 'sync'
 };
 
 module.exports.create = (appToken, nfsHandle, content) => {
@@ -51,3 +52,9 @@ module.exports.getFileMeta = (fileHandle) => {
     }
   ))
 };
+
+/**
+ * Free the File instance from memory
+ * @param {String} fileHandle - the File handle
+ */
+module.exports.free = (fileHandle) => freeObj(fileHandle);
