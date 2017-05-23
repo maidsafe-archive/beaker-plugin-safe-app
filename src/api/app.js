@@ -14,10 +14,6 @@ module.exports.manifest = {
   getContainersNames: 'promise',
   getHomeContainer: 'promise',
   getContainer: 'promise',
-  getPubSignKey: 'promise',
-  getEncKey: 'promise',
-  getSignKeyFromRaw: 'promise',
-  getEncKeyKeyFromRaw: 'promise',
   free: 'sync'
 };
 
@@ -169,52 +165,6 @@ module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
     .then((obj) => obj.app.auth.getContainer(name)
       .then((md) => genHandle(obj.app, md)));
-};
-
-/**
- * Get the public signing key of this session
- * @param {String} appToken - the application token
- * @returns {Promise<SignKeyHandle>}
- **/
-module.exports.getPubSignKey = (appToken) => {
-  return getObj(appToken)
-    .then((obj) => obj.app.auth.getPubSignKey()
-      .then((pubSignKey) => genHandle(obj.app, pubSignKey)));
-};
-
-/**
- * Get the public encryption key of this session
- * @param {String} appToken - the application token
- * @returns {Promise<EncKeyHandle>}
- **/
-module.exports.getEncKey = (appToken) => {
-  return getObj(appToken)
-    .then((obj) => obj.app.auth.getEncKey()
-      .then((encKey) => genHandle(obj.app, encKey)));
-};
-
-/**
- * Interprete the SignKey from a given raw string
- * @param {String} appToken - the application token
- * @param {String} raw
- * @returns {Promise<SignKeyHandle>}
- **/
-module.exports.getSignKeyFromRaw = (appToken, raw) => {
-  return getObj(appToken)
-    .then((obj) => obj.app.auth.getSignKeyFromRaw(raw)
-      .then((signKey) => genHandle(obj.app, signKey)));
-};
-
-/**
- * Interprete the encryption Key from a given raw string
- * @param {String} appToken - the application token
- * @arg {String} raw
- * @returns {Promise<EncKeyHandle>}
- **/
-module.exports.getEncKeyKeyFromRaw = (appToken, raw) => {
-  return getObj(appToken)
-    .then((obj) => obj.app.auth.getEncKeyKeyFromRaw(raw)
-      .then((encKey) => genHandle(obj.app, encKey)));
 };
 
 /**
