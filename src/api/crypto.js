@@ -27,8 +27,8 @@ module.exports.sha3Hash = (appToken, inpt) => {
  */
 module.exports.getAppPubSignKey = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.crypto.getAppPubSignKey())
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.getAppPubSignKey()
+      .then((signKey) => genHandle(obj.app, signKey)));
 };
 
 /**
@@ -38,8 +38,8 @@ module.exports.getAppPubSignKey = (appToken) => {
  */
 module.exports.getAppPubEncKey = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.crypto.getAppPubEncKey())
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.getAppPubEncKey()
+      .then((encKey) => genHandle(obj.app, encKey)));
 };
 
 /**
@@ -49,8 +49,8 @@ module.exports.getAppPubEncKey = (appToken) => {
  */
 module.exports.generateEncKeyPair = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.crypto.generateEncKeyPair())
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.generateEncKeyPair()
+      .then((kp) => genHandle(obj.app, kp)));
 };
 
 /**
@@ -61,8 +61,8 @@ module.exports.generateEncKeyPair = (appToken) => {
  */
 module.exports.getSignKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
-    .then((app) => app.crypto.getSignKeyFromRaw(raw))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.getSignKeyFromRaw(raw)
+      .then((signKey) => genHandle(obj.app, signKey)));
 };
 
 /**
@@ -73,8 +73,8 @@ module.exports.getSignKeyFromRaw = (appToken, raw) => {
  */
 module.exports.pubEncKeyKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
-    .then((app) => app.crypto.pubEncKeyKeyFromRaw(raw))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.pubEncKeyKeyFromRaw(raw)
+      .then((pubEncKey) => genHandle(obj.app, pubEncKey)));
 };
 
 /**
@@ -85,8 +85,8 @@ module.exports.pubEncKeyKeyFromRaw = (appToken, raw) => {
  */
 module.exports.secEncKeyKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
-    .then((app) => app.crypto.secEncKeyKeyFromRaw(raw))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.secEncKeyKeyFromRaw(raw)
+      .then((secEncKey) => genHandle(obj.app, secEncKey)));
 };
 
 /**
@@ -98,6 +98,6 @@ module.exports.secEncKeyKeyFromRaw = (appToken, raw) => {
  */
 module.exports.generateEncKeyPairFromRaw = (appToken, rawPublicKey, rawSecretKey) => {
   return getObj(appToken)
-    .then((app) => app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey)
+      .then((kp) => genHandle(obj.app, kp)));
 };

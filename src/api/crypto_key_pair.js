@@ -9,39 +9,33 @@ module.exports.manifest = {
 
 /**
  * Get the Public Encryption key instance of this keypair
- * @param appToken - application token
  * @param keyPairHandle - keyPair handle
  * @return {Promise<PubEncKey>}
  */
-module.exports.getPubEncKey = (appToken, keyPairHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(keyPairHandle))
-    .then((keyPair) => genHandle(keyPair.pubEncKey));
+module.exports.getPubEncKey = (keyPairHandle) => {
+  return getObj(keyPairHandle)
+    .then((obj) => genHandle(obj.netObj.pubEncKey));
 };
 
 /**
  * Get the Secrect Encryption key instance of this keypair
- * @param appToken - application token
  * @param keyPairHandle - keyPair handle
  * @return {Promise<SecEncKey>}
  */
-module.exports.getSecEncKey = (appToken, keyPairHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(keyPairHandle))
-    .then((keyPair) => genHandle(keyPair.secEncKey));
+module.exports.getSecEncKey = (keyPairHandle) => {
+  return getObj(keyPairHandle)
+    .then((obj) => genHandle(obj.netObj.secEncKey));
 };
 
 /**
  * Decrypt the given ciphertext with a seal (buffer or string) using the private and public key
- * @param appToken - application token
  * @param keyPairHandle - keyPair handle
  * @param cipher
  * @return {Promise<Buffer>}
  */
-module.exports.decryptSealed = (appToken, keyPairHandle, cipher) => {
-  return getObj(appToken)
-    .then(() => getObj(keyPairHandle))
-    .then((keyPair) => keyPair.decryptSealed(cipher));
+module.exports.decryptSealed = (keyPairHandle, cipher) => {
+  return getObj(keyPairHandle)
+    .then((obj) => obj.netObj.decryptSealed(cipher));
 };
 
 /**

@@ -9,41 +9,35 @@ module.exports.manifest = {
 
 /**
  * Set the action as allowed
- * @param {String} appToken - the application token
  * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
  * @param {MDataAction} action
  * @returns {Promise}
  **/
-module.exports.setAllow = (appToken, permissionsSetHandle, action) => {
-  return getObj(appToken)
-    .then(() => getObj(permissionsSetHandle))
-    .then((pmSet) => pmSet.setAllow(action));
+module.exports.setAllow = (permissionsSetHandle, action) => {
+  return getObj(permissionsSetHandle)
+    .then((obj) => obj.netObj.setAllow(action));
 };
 
 /**
  * Set the action as denied
- * @param {String} appToken - the application token
  * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
  * @param {MDataAction} action
  * @returns {Promise}
  **/
-module.exports.setDeny = (appToken, permissionsSetHandle, action) => {
-  return getObj(appToken)
-    .then(() => getObj(permissionsSetHandle))
-    .then((pmSet) => pmSet.setDeny(action));
+module.exports.setDeny = (permissionsSetHandle, action) => {
+  return getObj(permissionsSetHandle)
+    .then((obj) => obj.netObj.setDeny(action));
 };
 
 /**
  * Remove action from the set
- * @param {String} appToken - the application token
  * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
  * @param {MDataAction} action
  * @returns {Promise}
  **/
-module.exports.clear = (appToken, permissionsSetHandle, action) => {
-  return getObj(appToken)
-    .then(() => getObj(permissionsSetHandle))
-    .then((pmSet) => pmSet.clear(action));
+module.exports.clear = (permissionsSetHandle, action) => {
+  return getObj(permissionsSetHandle)
+    .then((obj) => obj.netObj.clear(action));
 };
 
 /**

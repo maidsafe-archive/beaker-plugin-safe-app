@@ -14,8 +14,8 @@ module.exports.manifest = {
  **/
 module.exports.newPlainText = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.cipherOpt.newPlainText())
-    .then(genHandle);
+    .then((obj) => obj.app.cipherOpt.newPlainText()
+      .then((cipherOpt) => genHandle(obj.app, cipherOpt)));
 };
 
 /**
@@ -25,22 +25,19 @@ module.exports.newPlainText = (appToken) => {
  **/
 module.exports.newSymmetric = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.cipherOpt.newSymmetric())
-    .then(genHandle);
+    .then((obj) => obj.app.cipherOpt.newSymmetric()
+      .then((cipherOpt) => genHandle(obj.app, cipherOpt)));
 };
 
 /**
  * Create a new Asymmetric Cipher for the given key
- * @param {String} appToken - the application token
  * @param {EncKeyHandle} keyHandle
  * @returns {CipherOptHandle}
  **/
-module.exports.newAsymmetric = (appToken, keyHandle) => {
-  return getObj(appToken)
-    .then((app) => getObj(keyHandle)
-      .then((key) => app.cipherOpt.newAsymmetric(key))
-      .then(genHandle)
-    );
+module.exports.newAsymmetric = (keyHandle) => {
+  return getObj(keyHandle)
+    .then((obj) => obj.app.cipherOpt.newAsymmetric(obj.netObj)
+      .then((cipherOpt) => genHandle(obj.app, cipherOpt)));
 };
 
 /**

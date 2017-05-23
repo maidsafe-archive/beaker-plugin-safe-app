@@ -8,14 +8,12 @@ module.exports.manifest = {
 
 /**
  * Generate raw string copy of encryption key
- * @param appToken - application token
  * @param secEncKeyHandle - secret encrypted key handle
  * @return {Promise<String>}
  */
-module.exports.getRaw = (appToken, secEncKeyHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(secEncKeyHandle))
-    .then((secEncKey) => secEncKey.getRaw());
+module.exports.getRaw = (secEncKeyHandle) => {
+  return getObj(secEncKeyHandle)
+    .then((obj) => obj.netObj.getRaw());
 };
 
 /**
@@ -26,10 +24,9 @@ module.exports.getRaw = (appToken, secEncKeyHandle) => {
  * @param theirPubKey
  * @return {Promise<Buffer>}
  */
-module.exports.decrypt = (appToken, secEncKeyHandle, cipher, theirPubKey) => {
-  return getObj(appToken)
-    .then(() => getObj(secEncKeyHandle))
-    .then((secEncKey) => secEncKey.decrypt(cipher, theirPubKey));
+module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
+  return getObj(secEncKeyHandle)
+    .then((obj) => obj.netObj.decrypt(cipher, theirPubKey));
 };
 
 /**

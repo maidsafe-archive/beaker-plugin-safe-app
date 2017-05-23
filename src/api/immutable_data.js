@@ -17,8 +17,8 @@ module.exports.manifest = {
  **/
 module.exports.create = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.immutableData.create())
-    .then(genHandle);
+    .then((obj) => obj.app.immutableData.create()
+      .then((imd) => genHandle(obj.app, imd)));
 };
 
 /**
@@ -29,34 +29,30 @@ module.exports.create = (appToken) => {
  **/
 module.exports.fetch = (appToken, address) => {
   return getObj(appToken)
-    .then((app) => app.immutableData.fetch(address))
-    .then(genHandle);
+    .then((obj) => obj.app.immutableData.fetch(address)
+      .then((imd) => genHandle(obj.app, imd)));
 };
 
 /**
- * Append the given data to immutable Data.
+ * Append the given data to ImmutableData.
  *
- * @param {String} appToken - the application token
  * @param {Handle} writerHandle - the writer handle
  * @param {String} string
  * @returns {Promise<()>}
  **/
-module.exports.write = (appToken, writerHandle, string) => {
-  return getObj(appToken)
-    .then(() => getObj(writerHandle))
-    .then((writer) => writer.write(string));
+module.exports.write = (writerHandle, string) => {
+  return getObj(writerHandle)
+    .then((obj) => obj.netObj.write(string));
 };
 
 /**
  * Close and write the immutable Data to the network.
- * @param {String} appToken - the application token
  * @param {Handle} writerHandle - the writer handle
  * @returns {Promise<String>} the address to the data once written to the network
  **/
-module.exports.closeWriter = (appToken, writerHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(writerHandle))
-    .then((writer) => writer.close())
+module.exports.closeWriter = (writerHandle) => {
+  return getObj(writerHandle)
+    .then((obj) => obj.netObj.close())
     .then((addr) => {
       freeObj(writerHandle);
       return addr;
@@ -65,39 +61,28 @@ module.exports.closeWriter = (appToken, writerHandle) => {
 
 /**
  * Read the given amount of bytes from the network
- * @param {String} appToken - the application token
  * @param {Handle} readerHandle - the reader handle
  * @param {Object=} options
  * @param {Number} [options.offset=0] start position
  * @param {Number} [options.end=size] end position or end of data
  **/
-module.exports.read = (appToken, readerHandle, options) => {
-  return getObj(appToken)
-    .then(() => getObj(readerHandle))
-    .then((reader) => reader.read(options));
+module.exports.read = (readerHandle, options) => {
+  return getObj(readerHandle)
+    .then((obj) => obj.netObj.read(options));
 };
 
 /**
  * The size of the mutable data on the network
- * @param {String} appToken - the application token
  * @param {Handle} readerHandle - the reader handle
  * @returns {Promise<Number>} length in bytes
  **/
-module.exports.size = (appToken, readerHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(readerHandle))
-    .then((reader) => reader.size());
+module.exports.size = (readerHandle) => {
+  return getObj(readerHandle)
+    .then((obj) => obj.netObj.size());
 };
 
 /**
- * Close the Reader handle
- * @param {String} appToken - the application token
- * @param {Handle} readerHandle - the reader handle
- * @returns {Promise<()>}
+ * Free the Reader instance from memory
+ * @param {String} readerHandle - the reader handle
  */
-module.exports.closeReader = (appToken, readerHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(readerHandle))
-    .then((reader) => reader.close())
-    .then(() => freeObj(readerHandle));
-};
+module.exports.free = (readerHandle) => freeObj(readerHandle);

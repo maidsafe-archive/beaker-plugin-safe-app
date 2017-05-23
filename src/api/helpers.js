@@ -5,10 +5,18 @@ const handles = new Map();
 
 export const genRandomString = () => (crypto.randomBytes(32).toString('hex'));
 
-export const genHandle = (obj) => {
+const genObjHandle = (obj) => {
   const randHandle = genRandomString();
   handles.set(randHandle, obj);
   return randHandle;
+};
+
+export const genHandle = (app, netObj) => {
+  let obj = {
+    app,
+    netObj
+  };
+  return genObjHandle(obj);
 };
 
 export const getObj = (handle) => {
@@ -25,19 +33,18 @@ export const freeObj = (handle) => {
   handles.delete(handle);
 };
 
-export const forEachHelper = (appToken, containerHandle, sendHandles) => {
+export const forEachHelper = (containerHandle, sendHandles) => {
   var readable = new Readable({ objectMode: true, read() {} })
-  getObj(appToken)
-    .then(() => getObj(containerHandle))
-    .then((container) => container.forEach((arg1, arg2) => {
+  getObj(containerHandle)
+    .then((obj) => obj.netObj.forEach((arg1, arg2) => {
         setImmediate(() => {
           if (sendHandles) {
-            arg1 = genHandle(arg1);
+            arg1 = genHandle(obj.app, arg1);
           }
           let args = [arg1];
           if (arg2) {
             if (sendHandles) {
-              arg2 = genHandle(arg2);
+              arg2 = genHandle(obj.app, arg2);
             }
             args.push(arg2);
           }

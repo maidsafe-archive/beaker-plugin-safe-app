@@ -7,14 +7,12 @@ module.exports.manifest = {
 
 /**
  * Generate raw string copy of encryption key
- * @param appToken - application token
  * @param signKeyHandle - public encrypted key handle
  * @return {Promise<String>}
  */
-module.exports.getRaw = (appToken, signKeyHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(signKeyHandle))
-    .then((signKey) => signKey.getRaw());
+module.exports.getRaw = (signKeyHandle) => {
+  return getObj(signKeyHandle)
+    .then((obj) => obj.netObj.getRaw());
 };
 
 /**

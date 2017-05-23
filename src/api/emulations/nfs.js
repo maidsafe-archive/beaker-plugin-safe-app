@@ -9,46 +9,42 @@ module.exports.manifest = {
   free: 'sync'
 };
 
-module.exports.create = (appToken, nfsHandle, content) => {
-  return getObj(appToken)
-    .then(() => getObj(nfsHandle))
-    .then((nfs) => nfs.create(content))
-    .then(genHandle);
+module.exports.create = (nfsHandle, content) => {
+  return getObj(nfsHandle)
+    .then((obj) => obj.netObj.create(content)
+      .then((imd) => genHandle(obj.app, imd)));
 };
 
-module.exports.fetch = (appToken, nfsHandle, fileName) => {
-  return getObj(appToken)
-    .then(() => getObj(nfsHandle))
-    .then((nfs) => nfs.fetch(fileName))
-    .then(genHandle);
+module.exports.fetch = (nfsHandle, fileName) => {
+  return getObj(nfsHandle)
+    .then((obj) => obj.netObj.fetch(fileName)
+      .then((imd) => genHandle(obj.app, imd)));
 };
 
-module.exports.insert = (appToken, nfsHandle, fileHandle, fileName) => {
-  return getObj(appToken)
-    .then(() => getObj(nfsHandle))
-    .then((nfs) => {
-      return getObj(fileHandle).then((file) => nfs.insert(fileName, file));
-    })
+module.exports.insert = (nfsHandle, fileHandle, fileName) => {
+  return getObj(nfsHandle)
+    .then((nfsObj) => getObj(fileHandle)
+      .then((fileObj) => nfsObj.netObj.insert(fileName, fileObj.netObj))
+    )
     .then(() => fileHandle);
 };
 
-module.exports.update = (appToken, nfsHandle, fileHandle, fileName, version) => {
-  return getObj(appToken)
-    .then(() => getObj(nfsHandle))
-    .then((nfs) => {
-      return getObj(fileHandle).then((file) => nfs.update(fileName, file, version));
-    })
+module.exports.update = (nfsHandle, fileHandle, fileName, version) => {
+  return getObj(nfsHandle)
+    .then((nfsObj) => getObj(fileHandle)
+      .then((fileObj) => nfsObj.netObj.update(fileName, fileObj.netObj, version))
+    )
     .then(() => fileHandle);
 };
 
 module.exports.getFileMeta = (fileHandle) => {
-  return getObj(fileHandle).then((file) => (
+  return getObj(fileHandle).then((obj) => (
     {
-      dataMapName: file.dataMapName,
-      created: file.created,
-      modified: file.modified,
-      size: file.size,
-      version: file.version
+      dataMapName: obj.netObj.dataMapName,
+      created: obj.netObj.created,
+      modified: obj.netObj.modified,
+      size: obj.netObj.size,
+      version: obj.netObj.version
     }
   ))
 };
