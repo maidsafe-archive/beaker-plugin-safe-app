@@ -8,7 +8,8 @@
     "test": "npm run lint",
     "build-api": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.api.js --progress --profile --colors",
     "build-protocol": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.protocol.js --progress --profile --colors",
-    "build": "concurrently \"npm run build-protocol\" \"npm run build-api\""
+    "build": "concurrently \"npm run build-protocol\" \"npm run build-api\"",
+    "docs": "documentation build --github true --output docs --format html src/**"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "concurrently": "^3.4.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^3.2.4",
+    "documentation": "^4.0.0-rc.1",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
