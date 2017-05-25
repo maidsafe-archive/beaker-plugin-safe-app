@@ -453,8 +453,7 @@ module.exports.fromSerial = (appToken, data) => {
  **/
 module.exports.emulateAs = (mdHandle, eml) => {
   return getObj(mdHandle)
-    .then((obj) => obj.netObj.emulateAs(eml)
-      .then((em) => genHandle(obj.app, em)));
+    .then((obj) => genHandle(obj.app, obj.netObj.emulateAs(eml)));
 };
 
 /**
