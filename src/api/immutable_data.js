@@ -12,51 +12,62 @@ module.exports.manifest = {
 
 /**
  * Create a new ImmutableData Writer
- * @param {String} appToken - the application token
- * @returns {Promise<Handle>} - the ImmutableData Writer Handle
+ * @name window.safeImmutableData.create
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise<WriterHandle>} the ImmutableData Writer handle
  **/
 module.exports.create = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.immutableData.create())
-    .then(genHandle);
+    .then((obj) => obj.app.immutableData.create()
+      .then((imd) => genHandle(obj.app, imd)));
 };
 
 /**
- * Look up an existing Immutable Data for the given address
- * @param {String} appToken - the application token
- * @param {Buffer} address - the XorName on the network
- * @returns {Promise<Handle>} - the ImmutableData Reader Handle
+ * Look up an existing ImmutableData for the given address
+ * @name window.safeImmutableData.fetch
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {Buffer} address the XorName on the network
+ *
+ * @returns {Promise<ReaderHandle>} the ImmutableData Reader handle
  **/
 module.exports.fetch = (appToken, address) => {
   return getObj(appToken)
-    .then((app) => app.immutableData.fetch(address))
-    .then(genHandle);
+    .then((obj) => obj.app.immutableData.fetch(address)
+      .then((imd) => genHandle(obj.app, imd)));
 };
 
 /**
- * Append the given data to immutable Data.
+ * Append the given data to an ImmutableData.
+ * @name window.safeImmutableData.write
  *
- * @param {String} appToken - the application token
- * @param {Handle} writerHandle - the writer handle
- * @param {String} string
- * @returns {Promise<()>}
+ * @param {WriterHandle} writerHandle the ImmutableData Writer handle
+ * @param {String} string the data to append
+ *
+ * @returns {Promise} resolves when finished appending
  **/
-module.exports.write = (appToken, writerHandle, string) => {
-  return getObj(appToken)
-    .then(() => getObj(writerHandle))
-    .then((writer) => writer.write(string));
+module.exports.write = (writerHandle, string) => {
+  return getObj(writerHandle)
+    .then((obj) => obj.netObj.write(string));
 };
 
 /**
- * Close and write the immutable Data to the network.
- * @param {String} appToken - the application token
- * @param {Handle} writerHandle - the writer handle
+ * Close and write the ImmutableData to the network.
+ * Note this operation will free the ImmutableData Writer from the memory
+ * after the data is written in the network.
+ * Thus, a new Writer instance shall be created if more writing operations
+ * into the ImmutableData are required.
+ * @name window.safeImmutableData.closeWriter
+ *
+ * @param {WriterHandle} writerHandle the ImmutableData Writer handle
+ *
  * @returns {Promise<String>} the address to the data once written to the network
  **/
-module.exports.closeWriter = (appToken, writerHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(writerHandle))
-    .then((writer) => writer.close())
+module.exports.closeWriter = (writerHandle) => {
+  return getObj(writerHandle)
+    .then((obj) => obj.netObj.close())
     .then((addr) => {
       freeObj(writerHandle);
       return addr;
@@ -65,39 +76,53 @@ module.exports.closeWriter = (appToken, writerHandle) => {
 
 /**
  * Read the given amount of bytes from the network
- * @param {String} appToken - the application token
- * @param {Handle} readerHandle - the reader handle
- * @param {Object=} options
+ * @name window.safeImmutableData.read
+ *
+ * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
+ * @param {Object=} options reading options
  * @param {Number} [options.offset=0] start position
  * @param {Number} [options.end=size] end position or end of data
+ *
+ * @returns {Promise<String>} the data read
  **/
-module.exports.read = (appToken, readerHandle, options) => {
-  return getObj(appToken)
-    .then(() => getObj(readerHandle))
-    .then((reader) => reader.read(options));
+module.exports.read = (readerHandle, options) => {
+  return getObj(readerHandle)
+    .then((obj) => obj.netObj.read(options));
 };
 
 /**
  * The size of the mutable data on the network
- * @param {String} appToken - the application token
- * @param {Handle} readerHandle - the reader handle
+ * @name window.safeImmutableData.size
+ *
+ * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
+ *
  * @returns {Promise<Number>} length in bytes
  **/
-module.exports.size = (appToken, readerHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(readerHandle))
-    .then((reader) => reader.size());
+module.exports.size = (readerHandle) => {
+  return getObj(readerHandle)
+    .then((obj) => obj.netObj.size());
 };
 
 /**
- * Close the Reader handle
- * @param {String} appToken - the application token
- * @param {Handle} readerHandle - the reader handle
- * @returns {Promise<()>}
+ * Free the ImmutableData Reader instance from memory
+ * @name window.safeImmutableData.free
+ *
+ * @param {String} readerHandle the ImmutableData Reader handle
  */
-module.exports.closeReader = (appToken, readerHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(readerHandle))
-    .then((reader) => reader.close())
-    .then(() => freeObj(readerHandle));
-};
+module.exports.free = (readerHandle) => freeObj(readerHandle);
+
+/**
+ * @name ReaderHandle
+ * @typedef {String} ReaderHandle
+ * @description Holds the reference to a ImmutableData Reader instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * @name WriterHandle
+ * @typedef {String} WriterHandle
+ * @description Holds the reference to a ImmutableData Writer instance.
+ * Note that such an instance it's free from memory when the `close` function
+ * is invoked.
+ **/

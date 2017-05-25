@@ -14,17 +14,17 @@ module.exports.manifest = {
   getContainersNames: 'promise',
   getHomeContainer: 'promise',
   getContainer: 'promise',
-  getPubSignKey: 'promise',
-  getEncKey: 'promise',
-  getSignKeyFromRaw: 'promise',
-  getEncKeyKeyFromRaw: 'promise',
   free: 'sync'
 };
 
 /**
  * Create a new SAFEApp instance without a connection to the network
- * @returns {Promise<SAFEAppToken>} new instace
- */
+ * @name window.safeApp.initialise
+ *
+ * @param {AppInfo} appInfo
+ *
+ * @returns {Promise<SAFEAppToken>} new app instace token
+ **/
 module.exports.initialise = (appInfo) => {
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
@@ -34,31 +34,56 @@ module.exports.initialise = (appInfo) => {
   }
 
   return safeApp.initializeApp(appInfo)
-    .then(genHandle);
+    .then((app) => genHandle(app, null));
 };
 
 /**
- * Create a new, unregistered Session (read-only)
- * @returns {Promise<SAFEAppToken>} same instace
- */
+ * Create a new, unregistered session (read-only),
+ * e.g. useful for browsing web sites or just publicly avaiable data.
+ * @name window.safeApp.connect
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise<SAFEAppToken>} same app token
+ **/
 module.exports.connect = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.auth.connectUnregistered())
+    .then((obj) => obj.app.auth.connectUnregistered())
     .then(() => appToken);
 };
 
 /**
- * With the options object it can be opt for getting a container
- * for the app itself: opts.own_container=true
- * @returns {Promise<AuthURI>} auth granted URI
- */
+ * Request the Authenticator (and user) to authorise this application
+ * with the given permissions and optional parameters.
+ * @name window.safeApp.authorise
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {Object} permissions mapping the container-names
+ *                  to a list of permissions you want to
+ *                  request
+ * @param {Object} options optional parameters
+ * @param {Boolean} [options.own_container=false] whether or not to request
+ *    our own container to be created for the app.
+ *
+ * @returns {Promise<AuthURI>} auth granted `safe-auth://`-URI
+ *
+ * @example // Example of authorising an app:
+ * window.safeApp.authorise(
+ *    appToken, // the app token obtained when invoking `initialise`
+ *    {
+ *      _public: ['Insert'], // request to insert into `_public` container
+ *      _other: ['Insert', 'Update'] // request to insert and update in `_other` container
+ *    },
+ *    {own_container: true} // and we want our own container, too
+ * )
+ **/
 module.exports.authorise = (appToken, permissions, options) => {
   return new Promise((resolve, reject) => {
     getObj(appToken)
-      .then((app) => app.auth.genAuthUri(permissions, options)
+      .then((obj) => obj.app.auth.genAuthUri(permissions, options)
         .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
           if (err) {
-            return reject(new Error('Unable to authorise the application: ', err)); // TODO send Error in specific
+            return reject(new Error('Unable to authorise the application: ', err));
           }
           return resolve(res);
         })))
@@ -68,22 +93,43 @@ module.exports.authorise = (appToken, permissions, options) => {
 
 /**
  * Create a new, registered Session (read-write)
- * @returns {Promise<SAFEAppToken>} same instace
- */
+ * If you have received a response URI (which you are allowed
+ * to store securely), you can directly get an authenticated app
+ * by using this helper function. Just provide said URI as the
+ * second value.
+ * @name window.safeApp.connectAuthorised
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {AuthURI} authUri granted auth URI
+ *
+ * @returns {Promise<SAFEAppToken>} same app token
+ **/
 module.exports.connectAuthorised = (appToken, authUri) => {
   return getObj(appToken)
-    .then((app) => app.auth.loginFromURI(authUri))
-    .then((connectedApp) => appToken);
+    .then((obj) => obj.app.auth.loginFromURI(authUri))
+    .then((_) => appToken);
 };
 
 /**
- * Authorise container request
- * @returns {Promise<AuthURI>} auth granted URI
- */
+ * Request the Authenticator (and user) to authorise this application
+ * with further continer permissions.
+ * @name window.safeApp.authoriseContainer
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {Object} permissions mapping container name to list of permissions
+ *
+ * @returns {Promise<AuthURI>} auth granted `safe-auth://`-URI
+ *
+ * @example // Requesting further container authorisation:
+ * window.safeApp.authoriseContainer(
+ *   appToken, // the app token obtained when invoking `initialise`
+ *   { _publicNames: ['Insert'] } // request to insert into `_publicNames` container
+ * )
+ **/
 module.exports.authoriseContainer = (appToken, permissions) => {
   return new Promise((resolve, reject) => {
     getObj(appToken)
-      .then((app) => app.auth.genContainerAuthUri(permissions)
+      .then((obj) => obj.app.auth.genContainerAuthUri(permissions)
         .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
           if (err) {
             return reject(new Error('Unable to authorise the application: ', err)); // TODO send Error in specific
@@ -94,131 +140,156 @@ module.exports.authoriseContainer = (appToken, permissions) => {
   });
 };
 
+/**
+ * Lookup a given `safe://`-URL in accordance with the
+ * convention and fetch the requested object.
+ * @name window.safeApp.webFetch
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {AuthURI} authUri granted auth URI
+ *
+ * @returns {Promise<File>} the file object found for that URL
+ **/
 module.exports.webFetch = (appToken, url) => {
   return getObj(appToken)
-    .then((app) => app.webFetch(url)
+    .then((obj) => obj.app.webFetch(url)
       .then((f) => app.immutableData.fetch(f.dataMapName))
       .then((i) => i.read())
     );
 };
 
 /**
- * Whether or not this is a registered/authenticated
- * session.
+ * Whether or not this is a registered/authenticated session.
+ * @name window.safeApp.isRegistered
  *
- * @param {String} appToken - the application token
+ * @param {SAFEAppToken} appToken the app handle
+ *
  * @returns {Boolean} true if this is an authenticated session
  **/
 module.exports.isRegistered = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.auth.registered);
+    .then((obj) => obj.app.auth.registered);
+};
+
+/**
+ * Current network connection state, e.g. `Connected` or `Disconnected`.
+ * @name window.safeApp.networkState
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {String} network state
+ **/
+module.exports.networkState = (appToken) => {
+  return getObj(appToken)
+    .then((obj) => obj.app.networkState);
 };
 
 /**
  * Whether or not this session has specifc permission access of a given
  * container.
- * @param {String} appToken - the application token
- * @arg {String} name  name of the container, e.g. `_public`
- * @arg {(String||Array<String>)} [permissions=['Read']] permissions to check for
- * @returns {Promise<Boolean>}
+ * @name window.safeApp.canAccessContainer
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {String} name name of the container, e.g. `_public`
+ * @param {(String|Array<String>)} [permissions=['Read']] permissions to check for
+ *
+ * @returns {Promise<Boolean>} true if this app can access the container with given permissions
  **/
 module.exports.canAccessContainer = (appToken, name, permissions) => {
   return getObj(appToken)
-    .then((app) => app.auth.canAccessContainer(name, permissions));
+    .then((obj) => obj.app.auth.canAccessContainer(name, permissions));
 };
 
 /**
  * Refresh permissions for accessible containers from the network. Useful when
- * you just connected or received a response from the authenticator in the IPC protocol.
- * @param {String} appToken - the application token
+ * you just connected or received a response from the authenticator.
+ * @name window.safeApp.refreshContainersPermissions
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise} resolves when finished refreshing
  */
 module.exports.refreshContainersPermissions = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.auth.refreshContainersPermissions());
+    .then((obj) => obj.app.auth.refreshContainersPermissions())
+    .then((_) => appToken);
 };
 
 /**
  * Get the names of all containers found.
- * @param {String} appToken - the application token
- * @returns {Promise<[String]>} list of containers names
+ * @name window.safeApp.getContainersNames
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise<Array<String>>} list of containers names
  */
 module.exports.getContainersNames = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.auth.getContainersNames())
-    .then(genHandle);
+    .then((obj) => obj.app.auth.getContainersNames());
 };
 
 /**
- * Get the MData for the apps own container generated by Authenticator
- * @param appToken
- * @return {*}
+ * Get the MutableData for the apps own container generated by Authenticator
+ * @name window.safeApp.getHomeContainer
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise<MutableDataHandle>} the handle for the MutableData behind it
  */
 module.exports.getHomeContainer = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.auth.getHomeContainer())
-    .then(genHandle);
+    .then((obj) => obj.app.auth.getHomeContainer()
+      .then((md) => genHandle(obj.app, md)));
 };
 
 /**
  * Lookup and return the information necessary to access a container.
- * @param {String} appToken - the application token
- * @arg name {String} name of the container, e.g. `'_public'`
- * @returns {Promise<MutableDataHandle>} the handle for the Mutable Data behind it
+ * @name window.safeApp.getContainer
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {String} name name of the container, e.g. `_public`
+ *
+ * @returns {Promise<MutableDataHandle>} the MutableData handle the handle for the MutableData behind it
  */
 module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
-    .then((app) => app.auth.getContainer(name))
-    .then(genHandle);
-};
-
-/**
- * Get the public signing key of this session
- * @param {String} appToken - the application token
- * @returns {Promise<SignKeyHandle>}
- **/
-module.exports.getPubSignKey = (appToken) => {
-  return getObj(appToken)
-    .then((app) => app.auth.getPubSignKey())
-    .then(genHandle);
-};
-
-/**
- * Get the public encryption key of this session
- * @param {String} appToken - the application token
- * @returns {Promise<EncKeyHandle>}
- **/
-module.exports.getEncKey = (appToken) => {
-  return getObj(appToken)
-    .then((app) => app.auth.getEncKey())
-    .then(genHandle);
-};
-
-/**
- * Interprete the SignKey from a given raw string
- * @param {String} appToken - the application token
- * @param {String} raw
- * @returns {Promise<SignKeyHandle>}
- **/
-module.exports.getSignKeyFromRaw = (appToken, raw) => {
-  return getObj(appToken)
-    .then((app) => app.auth.getSignKeyFromRaw(raw))
-    .then(genHandle);
-};
-
-/**
- * Interprete the encryption Key from a given raw string
- * @param {String} appToken - the application token
- * @arg {String} raw
- * @returns {Promise<EncKeyHandle>}
- **/
-module.exports.getEncKeyKeyFromRaw = (appToken, raw) => {
-  return getObj(appToken)
-    .then((app) => app.auth.getEncKeyKeyFromRaw(raw))
-    .then(genHandle);
+    .then((obj) => obj.app.auth.getContainer(name)
+      .then((md) => genHandle(obj.app, md)));
 };
 
 /**
  * Free the SAFEApp instance from memory
- * @param {String} appToken - the application token
+ * @name window.safeApp.free
+ *
+ * @param {SAFEAppToken} appToken the app handle
  */
 module.exports.free = (appToken) => freeObj(appToken);
+
+/**
+ * @name SAFEAppToken
+ * @typedef {String} SAFEAppToken
+ * @description Holds the reference to a SAFEApp instance which is the primary interface to interact
+ * with the SAFE network.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * @name AppInfo
+ * @typedef {Object} AppInfo
+ * @description Holds the information about tha client application, needed for authentication.
+ * @param {String} id - unique identifier for the app
+ *        (e.g. 'net.maidsafe.examples.mail-app')
+ * @param {String} name - human readable name of the app (e.g. "Mail App")
+ * @param {String} vendor - human readable name of the vendor (e.g. "MaidSafe Ltd.")
+ **/
+
+/**
+ * @name AuthURI
+ * @typedef {String} AuthURI
+ * @description The auth URI (`'safe-auth://...'`) returned by the Authenticator after the user has
+ * authorised the application. This URL can be used by the
+ * application to connect to the network wihout the need to get authorisation
+ * from the Authenticator again. Although if the user decided to revoke the application
+ * the auth URI shall be obtained again from the Authenticator.
+ **/

@@ -11,93 +11,116 @@ module.exports.manifest = {
 
 /**
  * Hash the given input with SHA3 Hash
- * @param appToken - the application token
- * @param inpt - input string
- * @return {Promise<Buffer>}
+ * @name window.safeCrypto.sha3Hash
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {(String|Buffer)} data the input string
+ *
+ * @returns {Promise<Buffer>} the hash generated
  */
-module.exports.sha3Hash = (appToken, inpt) => {
+module.exports.sha3Hash = (appToken, data) => {
   return getObj(appToken)
-    .then((app) => app.crypto.sha3Hash(inpt));
+    .then((app) => app.crypto.sha3Hash(data));
 };
 
 /**
- * Get the public signing key
- * @param appToken - the application token
- * @return {Promise<SignKeyHandle>}
+ * Get the application's public signing key
+ * @name window.safeCrypto.getAppPubSignKey
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise<SignKeyHandle>} the SignKey handle
  */
 module.exports.getAppPubSignKey = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.crypto.getAppPubSignKey())
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.getAppPubSignKey()
+      .then((signKey) => genHandle(obj.app, signKey)));
 };
 
 /**
- * Get the public encryption key
- * @param appToken - the application token
- * @return {Promise<PubEncKeyHandle>}
+ * Get the application's public encryption key
+ * @name window.safeCrypto.getAppPubEncKey
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
  */
 module.exports.getAppPubEncKey = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.crypto.getAppPubEncKey())
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.getAppPubEncKey()
+      .then((encKey) => genHandle(obj.app, encKey)));
 };
 
 /**
  * Generate a new Asymmetric EncryptionKeyPair
- * @param appToken - the application token
- * @return {Promise<KeyPairHandle>}
+ * @name window.safeCrypto.generateEncKeyPair
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise<KeyPairHandle>} the KeyPair handle
  */
 module.exports.generateEncKeyPair = (appToken) => {
   return getObj(appToken)
-    .then((app) => app.crypto.generateEncKeyPair())
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.generateEncKeyPair()
+      .then((kp) => genHandle(obj.app, kp)));
 };
 
 /**
  * Interpret the SignKey from a given raw string
- * @param appToken - the application token
- * @param raw - raw input string
- * @return {Promise<SignKeyHandle>}
+ * @name window.safeCrypto.getSignKeyFromRaw
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {(String|Buffer)} raw the raw input string
+ *
+ * @returns {Promise<SignKeyHandle>} the SignKey handle
  */
 module.exports.getSignKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
-    .then((app) => app.crypto.getSignKeyFromRaw(raw))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.getSignKeyFromRaw(raw)
+      .then((signKey) => genHandle(obj.app, signKey)));
 };
 
 /**
- * Interprete the encryption Key from a given raw string
- * @param appToken - the application token
- * @param raw - raw input string
- * @return {Promise<PubEncKeyHandle>}
+ * Interprete a public encryption Key from a given raw string
+ * @name window.safeCrypto.pubEncKeyKeyFromRaw
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {(String|Buffer)} raw the raw input string
+ *
+ * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
  */
 module.exports.pubEncKeyKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
-    .then((app) => app.crypto.pubEncKeyKeyFromRaw(raw))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.pubEncKeyKeyFromRaw(raw)
+      .then((pubEncKey) => genHandle(obj.app, pubEncKey)));
 };
 
 /**
- * Interpret the secret encryption Key from a given raw string
- * @param appToken - the application token
- * @param raw - raw input string
- * @return {Promise<SecEncKey>}
+ * Interpret a secret encryption Key from a given raw string
+ * @name window.safeCrypto.secEncKeyKeyFromRaw
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {(String|Buffer)} raw the raw input string
+ *
+ * @returns {Promise<SecEncKey>} the SecEncKey handle
  */
 module.exports.secEncKeyKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
-    .then((app) => app.crypto.secEncKeyKeyFromRaw(raw))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.secEncKeyKeyFromRaw(raw)
+      .then((secEncKey) => genHandle(obj.app, secEncKey)));
 };
 
 /**
  * Generate a new Asymmetric EncryptionKeyPair from raw secret and public keys
- * @param appToken - the application token
- * @param rawPublicKey
- * @param rawSecretKey
- * @return {Promise<KeyPair>}
+ * @name window.safeCrypto.generateEncKeyPairFromRaw
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {(String|Buffer)} rawPublicKey the raw public key string
+ * @param {(String|Buffer)} rawSecretKey the raw secret key string
+ *
+ * @returns {Promise<KeyPair>} the KeyPair handle
  */
 module.exports.generateEncKeyPairFromRaw = (appToken, rawPublicKey, rawSecretKey) => {
   return getObj(appToken)
-    .then((app) => app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey))
-    .then(genHandle);
+    .then((obj) => obj.app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey)
+      .then((kp) => genHandle(obj.app, kp)));
 };

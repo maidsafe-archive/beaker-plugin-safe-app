@@ -8,46 +8,59 @@ module.exports.manifest = {
 };
 
 /**
- * Generate raw string copy of encryption key
- * @param appToken - application token
- * @param pubEncKeyHandle - public encrypted key handle
- * @return {Promise<String>}
+ * Generate raw string copy of public encryption key
+ * @name window.safeCryptoPubEncKey.getRaw
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
+ *
+ * @returns {Promise<String>} the raw encryption key string
  */
-module.exports.getRaw = (appToken, pubEncKeyHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(pubEncKeyHandle))
-    .then((pubEncKey) => pubEncKey.getRaw());
+module.exports.getRaw = (pubEncKeyHandle) => {
+  return getObj(pubEncKeyHandle)
+    .then((obj) => obj.netObj.getRaw());
 };
 
 /**
  * Encrypt the input (buffer or string) using the private and public key with a seal
- * @param appToken - application token
- * @param pubEncKeyHandle - public encrypted key handle
- * @param str
- * @return {Promise<Buffer>}
+ * @name window.safeCryptoPubEncKey.encryptSealed
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
+ * @param {(String|Buffer)} str the input string to encrypt
+ *
+ * @returns {Promise<Buffer>} the encrpted data
  */
-module.exports.encryptSealed = (appToken, pubEncKeyHandle, str) => {
-  return getObj(appToken)
-    .then(() => getObj(pubEncKeyHandle))
-    .then((pubEncKey) => pubEncKey.encryptSealed(str));
+module.exports.encryptSealed = (pubEncKeyHandle, str) => {
+  return getObj(pubEncKeyHandle)
+    .then((obj) => obj.netObj.encryptSealed(str));
 };
 
 /**
- * Encrypt the input (buffer or string) using the private and public key and the given privateKey
- * @param appToken - application token
- * @param pubEncKeyHandle - public encrypted key handle
- * @param str
- * @param secretKey
- * @return {Promise<Buffer>}
+ * Encrypt the input (buffer or string) using the private and public key and the given private key
+ * @name window.safeCryptoPubEncKey.encrypt
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
+ * @param {(String|Buffer)} str the input string to encrypt
+ * @param {String} secretKey a secrect encryption key string
+ *
+ * @returns {Promise<Buffer>}
  */
-module.exports.encrypt = (appToken, pubEncKeyHandle, str, secretKey) => {
-  return getObj(appToken)
-    .then(() => getObj(pubEncKeyHandle))
-    .then((pubEncKey) => pubEncKey.encrypt(str, secretKey));
+module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
+  return getObj(pubEncKeyHandle)
+    .then((obj) => obj.netObj.encrypt(str, secretKey));
 };
 
 /**
  * Free the PubEncKey instance from memory
- * @param {String} pubEncKeyHandle - the public encryption key handle
- */
+ * @name window.safeCryptoPubEncKey.free
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
+ **/
 module.exports.free = (pubEncKeyHandle) => freeObj(pubEncKeyHandle);
+
+/**
+ * @name PubEncKeyHandle
+ * @typedef {String} PubEncKeyHandle
+ * @description Holds the reference to a PubEncKey instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

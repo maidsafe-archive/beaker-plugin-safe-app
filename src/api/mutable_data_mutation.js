@@ -8,55 +8,65 @@ module.exports.manifest = {
 };
 
 /**
- * Store a new `Insert`-Action in the transaction.
+ * Store a new `Insert`-action in the transaction.
+ * @name window.safeMutableDataMutation.insert
  *
- * @param {String} appToken - the application token
- * @param {MutationHandle} mutationHandle - the Mutation obj handle
+ * @param {MutationHandle} mutationHandle the Mutation handle
  * @param {(String|Buffer)} keyName
  * @param {(String|Buffer)} value
+ *
  * @returns {Promise} resolves once the storing is done
  **/
-module.exports.insert = (appToken, mutationHandle, keyName, value) => {
-  return getObj(appToken)
-    .then(() => getObj(mutationHandle))
-    .then((mutation) => mutation.insert(keyName, value));
+module.exports.insert = (mutationHandle, keyName, value) => {
+  return getObj(mutationHandle)
+    .then((obj) => obj.netObj.insert(keyName, value));
 };
 
 /**
- * Store a new `Remove`-Action in the transaction
+ * Store a new `Remove`-action in the transaction
+ * @name window.safeMutableDataMutation.remove
  *
- * @param {String} appToken - the application token
- * @param {MutationHandle} mutationHandle - the Mutation obj handle
- * @param {(String|Buffer)} keyName - the key you want to remove
- * @param {Number} version - the current version, to confirm you are
+ * @param {MutationHandle} mutationHandle the Mutation handle
+ * @param {(String|Buffer)} keyName the key of the entry you want to remove
+ * @param {Number} version the version successor, to confirm you are
  *        actually asking for the right state
+ *
  * @returns {Promise} resolves once the storing is done
  **/
-module.exports.remove = (appToken, mutationHandle, keyName, version) => {
-  return getObj(appToken)
-    .then(() => getObj(mutationHandle))
-    .then((mutation) => mutation.remove(keyName, version));
+module.exports.remove = (mutationHandle, keyName, version) => {
+  return getObj(mutationHandle)
+    .then((obj) => obj.netObj.remove(keyName, version));
 };
 
 /**
- * Store a `Update`-Action in the transaction
+ * Store a `Update`-action in the transaction
+ * @name window.safeMutableDataMutation.update
  *
- * @param {String} appToken - the application token
- * @param {MutationHandle} mutationHandle - the Mutation obj handle
- * @param {(String|Buffer)} keyName - the key you want to remove
- * @param {(String|Buffer)} value - the value to upate to
- * @param {Number} version - the current version, to confirm you are
+ * @param {MutationHandle} mutationHandle the Mutation handle
+ * @param {(String|Buffer)} keyName the key of the entry you want to update
+ * @param {(String|Buffer)} value the value to upate to
+ * @param {Number} version the version successor, to confirm you are
  *        actually asking for the right state
+ *
  * @returns {Promise} resolves once the storing is done
  **/
-module.exports.update = (appToken, mutationHandle, keyName, value, version) => {
-  return getObj(appToken)
-    .then(() => getObj(mutationHandle))
-    .then((mutation) => mutation.update(keyName, value, version));
+module.exports.update = (mutationHandle, keyName, value, version) => {
+  return getObj(mutationHandle)
+    .then((obj) => obj.netObj.update(keyName, value, version));
 };
 
 /**
  * Free the Mutation instance from memory
- * @param {String} mutationHandle - the application token
- */
+ * @name window.safeMutableDataMutation.free
+ *
+ * @param {String} mutationHandle the Mutation handle
+ **/
 module.exports.free = (mutationHandle) => freeObj(mutationHandle);
+
+/**
+ * @name MutationHandle
+ * @typedef {String} MutationHandle
+ * @description Holds the reference to a Mutation instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

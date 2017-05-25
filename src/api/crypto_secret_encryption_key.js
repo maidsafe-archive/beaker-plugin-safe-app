@@ -7,33 +7,45 @@ module.exports.manifest = {
 };
 
 /**
- * Generate raw string copy of encryption key
- * @param appToken - application token
- * @param secEncKeyHandle - secret encrypted key handle
- * @return {Promise<String>}
+ * Generate raw string copy of the secret encryption key
+ * @name window.safeCryptoSecEncKey.getRaw
+ *
+ * @param {SecEncKeyHandle} secEncKeyHandle the SecEncKey handle
+ *
+ * @returns {Promise<String>} the raw secret encryption key string
  */
-module.exports.getRaw = (appToken, secEncKeyHandle) => {
-  return getObj(appToken)
-    .then(() => getObj(secEncKeyHandle))
-    .then((secEncKey) => secEncKey.getRaw());
+module.exports.getRaw = (secEncKeyHandle) => {
+  return getObj(secEncKeyHandle)
+    .then((obj) => obj.netObj.getRaw());
 };
 
 /**
  * Decrypt the given ciphertext (buffer or string) using the private and public key
- * @param appToken - application token
- * @param secEncKeyHandle - secret encrypted key handle
- * @param cipher
- * @param theirPubKey
- * @return {Promise<Buffer>}
+ * @name window.safeCryptoSecEncKey.decrypt
+ *
+ * @param {SecEncKeyHandle} secEncKeyHandle secret encryption key handle
+ * @param {(String|Buffer)} cipher the cipher text
+ * @param {String} theirPubKey a public key
+ *
+ * @returns {Promise<Buffer>} the decrypted data
  */
-module.exports.decrypt = (appToken, secEncKeyHandle, cipher, theirPubKey) => {
-  return getObj(appToken)
-    .then(() => getObj(secEncKeyHandle))
-    .then((secEncKey) => secEncKey.decrypt(cipher, theirPubKey));
+module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
+  return getObj(secEncKeyHandle)
+    .then((obj) => obj.netObj.decrypt(cipher, theirPubKey));
 };
 
 /**
  * Free the SecEncKey instance from memory
- * @param {String} secEncKeyHandle - the secret encryption key handle
- */
+ * @name window.safeCryptoSecEncKey.free
+ *
+ * @param {SecEncKeyHandle} secEncKeyHandle the SecEncKey handle
+ **/
 module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);
+
+/**
+ * @name SecEncKeyHandle
+ * @typedef {String} SecEncKeyHandle
+ * @description Holds the reference to a SecEncKey instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

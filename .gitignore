@@ -30,6 +30,9 @@ build/Release
 node_modules
 jspm_packages
 
+# Documentation files generated
+docs
+
 # Optional npm cache directory
 .npm
 

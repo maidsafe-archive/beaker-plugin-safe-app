@@ -9,45 +9,58 @@ module.exports.manifest = {
 
 /**
  * Set the action as allowed
- * @param {String} appToken - the application token
- * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
- * @param {MDataAction} action
- * @returns {Promise}
+ * @name window.safeMutableDataPermissionsSet.setAllow
+ *
+ * @param {PermissionsSetHandle} permissionsSetHandle the PermissionsSet handle
+ * @param {MDataAction} action the action to set as allowed
+ *
+ * @returns {Promise} resolves when done
  **/
-module.exports.setAllow = (appToken, permissionsSetHandle, action) => {
-  return getObj(appToken)
-    .then(() => getObj(permissionsSetHandle))
-    .then((pmSet) => pmSet.setAllow(action));
+module.exports.setAllow = (permissionsSetHandle, action) => {
+  return getObj(permissionsSetHandle)
+    .then((obj) => obj.netObj.setAllow(action));
 };
 
 /**
  * Set the action as denied
- * @param {String} appToken - the application token
- * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
- * @param {MDataAction} action
- * @returns {Promise}
+ * @name window.safeMutableDataPermissionsSet.setDeny
+ *
+ * @param {PermissionsSetHandle} permissionsSetHandle the PermissionsSet handle
+ * @param {MDataAction} action the action to set as denied
+ *
+ * @returns {Promise} resolves when done
  **/
-module.exports.setDeny = (appToken, permissionsSetHandle, action) => {
-  return getObj(appToken)
-    .then(() => getObj(permissionsSetHandle))
-    .then((pmSet) => pmSet.setDeny(action));
+module.exports.setDeny = (permissionsSetHandle, action) => {
+  return getObj(permissionsSetHandle)
+    .then((obj) => obj.netObj.setDeny(action));
 };
 
 /**
- * Remove action from the set
- * @param {String} appToken - the application token
- * @param {PermissionsSetHandle} permissionsSetHandle - the PermissionsSet obj handle
- * @param {MDataAction} action
- * @returns {Promise}
+ * Remove all permissions for a type of action from the set
+ * @name window.safeMutableDataPermissionsSet.clear
+ *
+ * @param {PermissionsSetHandle} permissionsSetHandle the PermissionsSet handle
+ * @param {MDataAction} action the action the permissions to be cleared
+ *
+ * @returns {Promise} resolves when done
  **/
-module.exports.clear = (appToken, permissionsSetHandle, action) => {
-  return getObj(appToken)
-    .then(() => getObj(permissionsSetHandle))
-    .then((pmSet) => pmSet.clear(action));
+module.exports.clear = (permissionsSetHandle, action) => {
+  return getObj(permissionsSetHandle)
+    .then((obj) => obj.netObj.clear(action));
 };
 
 /**
  * Free the PermissionsSet instance from memory
- * @param {String} permissionsSetHandle - the application token
- */
+ * @name window.safeMutableDataPermissionsSet.free
+ *
+ * @param {String} permissionsSetHandle the PermissionsSet handle
+ **/
 module.exports.free = (permissionsSetHandle) => freeObj(permissionsSetHandle);
+
+/**
+ * @name PermissionsSetHandle
+ * @typedef {String} PermissionsSetHandle
+ * @description Holds the reference to a PermissionsSet instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
