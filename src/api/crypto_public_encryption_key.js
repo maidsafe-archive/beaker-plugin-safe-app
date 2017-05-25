@@ -8,9 +8,18 @@ module.exports.manifest = {
 };
 
 /**
- * Generate raw string copy of encryption key
- * @param pubEncKeyHandle - public encrypted key handle
- * @return {Promise<String>}
+ * @typedef {String} PubEncKeyHandle
+ * @description Holds the reference to a PubEncKey instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * Generate raw string copy of public encryption key
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
+ *
+ * @returns {Promise<String>} the raw encryption key string
  */
 module.exports.getRaw = (pubEncKeyHandle) => {
   return getObj(pubEncKeyHandle)
@@ -19,9 +28,11 @@ module.exports.getRaw = (pubEncKeyHandle) => {
 
 /**
  * Encrypt the input (buffer or string) using the private and public key with a seal
- * @param pubEncKeyHandle - public encrypted key handle
- * @param str
- * @return {Promise<Buffer>}
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
+ * @param {(String|Buffer)} str the input string to encrypt
+ *
+ * @returns {Promise<Buffer>} the encrpted data
  */
 module.exports.encryptSealed = (pubEncKeyHandle, str) => {
   return getObj(pubEncKeyHandle)
@@ -29,11 +40,13 @@ module.exports.encryptSealed = (pubEncKeyHandle, str) => {
 };
 
 /**
- * Encrypt the input (buffer or string) using the private and public key and the given privateKey
- * @param pubEncKeyHandle - public encrypted key handle
- * @param str
- * @param secretKey
- * @return {Promise<Buffer>}
+ * Encrypt the input (buffer or string) using the private and public key and the given private key
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
+ * @param {(String|Buffer)} str the input string to encrypt
+ * @param {String} secretKey a secrect encryption key string
+ *
+ * @returns {Promise<Buffer>}
  */
 module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
   return getObj(pubEncKeyHandle)
@@ -42,6 +55,7 @@ module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
 
 /**
  * Free the PubEncKey instance from memory
- * @param {String} pubEncKeyHandle - the public encryption key handle
+ *
+ * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
  */
 module.exports.free = (pubEncKeyHandle) => freeObj(pubEncKeyHandle);

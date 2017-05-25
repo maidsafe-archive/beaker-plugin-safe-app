@@ -8,9 +8,18 @@ module.exports.manifest = {
 };
 
 /**
- * Get the Public Encryption key instance of this keypair
- * @param keyPairHandle - keyPair handle
- * @return {Promise<PubEncKey>}
+ * @typedef {String} KeyPairHandle
+ * @description Holds the reference to a KeyPair instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * Get the Public Encryption Key instance of this key pair
+ *
+ * @param {KeyPairHandle} keyPairHandle the KeyPair handle
+ *
+ * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
  */
 module.exports.getPubEncKey = (keyPairHandle) => {
   return getObj(keyPairHandle)
@@ -18,9 +27,11 @@ module.exports.getPubEncKey = (keyPairHandle) => {
 };
 
 /**
- * Get the Secrect Encryption key instance of this keypair
- * @param keyPairHandle - keyPair handle
- * @return {Promise<SecEncKey>}
+ * Get the Secrect Encryption Key instance of this key pair
+ *
+ * @param {KeyPairHandle} keyPairHandle the KeyPair handle
+ *
+ * @returns {Promise<SecEncKeyHandle>} the SecEncKey handle
  */
 module.exports.getSecEncKey = (keyPairHandle) => {
   return getObj(keyPairHandle)
@@ -29,9 +40,11 @@ module.exports.getSecEncKey = (keyPairHandle) => {
 
 /**
  * Decrypt the given ciphertext with a seal (buffer or string) using the private and public key
- * @param keyPairHandle - keyPair handle
- * @param cipher
- * @return {Promise<Buffer>}
+ *
+ * @param {KeyPairHandle} keyPairHandle the KeyPair handle
+ * @param {(String|Buffer)} cipher the chiper text to decrypt
+ *
+ * @returns {Promise<Buffer>} the decrypted data
  */
 module.exports.decryptSealed = (keyPairHandle, cipher) => {
   return getObj(keyPairHandle)
@@ -40,6 +53,7 @@ module.exports.decryptSealed = (keyPairHandle, cipher) => {
 
 /**
  * Free the KeyPair instance from memory
- * @param {String} keyPairHandle - the KeyPair handle
+ *
+ * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  */
 module.exports.free = (keyPairHandle) => freeObj(keyPairHandle);

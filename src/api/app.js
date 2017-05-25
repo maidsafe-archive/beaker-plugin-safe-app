@@ -248,7 +248,7 @@ module.exports.getContainersNames = (appToken) => {
  *
  * @param {SAFEAppToken} appToken the app handle
  *
- * @return {Promise<MutableDataHandle>} the handle for the MutableData behind it
+ * @returns {Promise<MutableDataHandle>} the handle for the MutableData behind it
  */
 module.exports.getHomeContainer = (appToken) => {
   return getObj(appToken)

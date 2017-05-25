@@ -388,7 +388,7 @@ module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, versi
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {MutationHandle} mutationHandle the Mutation you want to apply
  *
- * @return {Promise} resolves when finished
+ * @returns {Promise} resolves when finished
  **/
 module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => {
   return getObj(mutationHandle)

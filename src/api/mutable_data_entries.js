@@ -82,7 +82,7 @@ module.exports.insert = (entriesHandle, keyName, value) => {
  *
  * @param {EntriesHandle} entriesHandle the Entries handle
  *
- * @return {Promise<MutationHandle>} the Mutation handle
+ * @returns {Promise<MutationHandle>} the Mutation handle
  **/
 module.exports.mutate = (entriesHandle) => {
   return getObj(entriesHandle)

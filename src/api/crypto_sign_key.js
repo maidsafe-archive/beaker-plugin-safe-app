@@ -6,9 +6,17 @@ module.exports.manifest = {
 };
 
 /**
- * Generate raw string copy of encryption key
- * @param signKeyHandle - public encrypted key handle
- * @return {Promise<String>}
+ * @typedef {String} SignKeyHandle
+ * @description Holds the reference to a public SignKey instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * Generate raw string copy of the public signature key
+ *
+ * @param {SignKeyHandle} signKeyHandle the public SignKey handle
+ * @returns {Promise<String>} the raw signature key string
  */
 module.exports.getRaw = (signKeyHandle) => {
   return getObj(signKeyHandle)
@@ -17,6 +25,7 @@ module.exports.getRaw = (signKeyHandle) => {
 
 /**
  * Free the SignKey instance from memory
- * @param {String} signKeyHandle - the SignKey handle
+ *
+ * @param {SignKeyHandle} signKeyHandle the SignKey handle
  */
 module.exports.free = (signKeyHandle) => freeObj(signKeyHandle);

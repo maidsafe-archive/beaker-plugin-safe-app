@@ -11,9 +11,25 @@ module.exports.manifest = {
 };
 
 /**
+ * @typedef {String} ReaderHandle
+ * @description Holds the reference to a ImmutableData Reader instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * @typedef {String} WriterHandle
+ * @description Holds the reference to a ImmutableData Writer instance.
+ * Note that such an instance it's free from memory when the `close` function
+ * is invoked.
+ **/
+
+/**
  * Create a new ImmutableData Writer
+ *
  * @param {SAFEAppToken} appToken the app handle
- * @returns {Promise<Handle>} - the ImmutableData Writer Handle
+ *
+ * @returns {Promise<WriterHandle>} the ImmutableData Writer handle
  **/
 module.exports.create = (appToken) => {
   return getObj(appToken)
@@ -22,10 +38,12 @@ module.exports.create = (appToken) => {
 };
 
 /**
- * Look up an existing Immutable Data for the given address
+ * Look up an existing ImmutableData for the given address
+ *
  * @param {SAFEAppToken} appToken the app handle
- * @param {Buffer} address - the XorName on the network
- * @returns {Promise<Handle>} - the ImmutableData Reader Handle
+ * @param {Buffer} address the XorName on the network
+ *
+ * @returns {Promise<ReaderHandle>} the ImmutableData Reader handle
  **/
 module.exports.fetch = (appToken, address) => {
   return getObj(appToken)
@@ -34,11 +52,12 @@ module.exports.fetch = (appToken, address) => {
 };
 
 /**
- * Append the given data to ImmutableData.
+ * Append the given data to an ImmutableData.
  *
- * @param {Handle} writerHandle - the writer handle
- * @param {String} string
- * @returns {Promise<()>}
+ * @param {WriterHandle} writerHandle the ImmutableData Writer handle
+ * @param {String} string the data to append
+ *
+ * @returns {Promise} resolves when finished appending
  **/
 module.exports.write = (writerHandle, string) => {
   return getObj(writerHandle)
@@ -46,8 +65,14 @@ module.exports.write = (writerHandle, string) => {
 };
 
 /**
- * Close and write the immutable Data to the network.
- * @param {Handle} writerHandle - the writer handle
+ * Close and write the ImmutableData to the network.
+ * Note this operation will free the ImmutableData Writer from the memory
+ * after the data is written in the network.
+ * Thus, a new Writer instance shall be created if more writing operations
+ * into the ImmutableData are required.
+ *
+ * @param {WriterHandle} writerHandle the ImmutableData Writer handle
+ *
  * @returns {Promise<String>} the address to the data once written to the network
  **/
 module.exports.closeWriter = (writerHandle) => {
@@ -61,10 +86,13 @@ module.exports.closeWriter = (writerHandle) => {
 
 /**
  * Read the given amount of bytes from the network
- * @param {Handle} readerHandle - the reader handle
- * @param {Object=} options
+ *
+ * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
+ * @param {Object=} options reading options
  * @param {Number} [options.offset=0] start position
  * @param {Number} [options.end=size] end position or end of data
+ *
+ * @returns {Promise<String>} the data read
  **/
 module.exports.read = (readerHandle, options) => {
   return getObj(readerHandle)
@@ -73,7 +101,9 @@ module.exports.read = (readerHandle, options) => {
 
 /**
  * The size of the mutable data on the network
- * @param {Handle} readerHandle - the reader handle
+ *
+ * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
+ *
  * @returns {Promise<Number>} length in bytes
  **/
 module.exports.size = (readerHandle) => {
@@ -82,7 +112,8 @@ module.exports.size = (readerHandle) => {
 };
 
 /**
- * Free the Reader instance from memory
- * @param {String} readerHandle - the reader handle
+ * Free the ImmutableData Reader instance from memory
+ *
+ * @param {String} readerHandle the ImmutableData Reader handle
  */
 module.exports.free = (readerHandle) => freeObj(readerHandle);
