@@ -8,14 +8,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} PubEncKeyHandle
- * @description Holds the reference to a PubEncKey instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Generate raw string copy of public encryption key
+ * @name window.safeCryptoPubEncKey.getRaw
  *
  * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
  *
@@ -28,6 +22,7 @@ module.exports.getRaw = (pubEncKeyHandle) => {
 
 /**
  * Encrypt the input (buffer or string) using the private and public key with a seal
+ * @name window.safeCryptoPubEncKey.encryptSealed
  *
  * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
  * @param {(String|Buffer)} str the input string to encrypt
@@ -41,6 +36,7 @@ module.exports.encryptSealed = (pubEncKeyHandle, str) => {
 
 /**
  * Encrypt the input (buffer or string) using the private and public key and the given private key
+ * @name window.safeCryptoPubEncKey.encrypt
  *
  * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
  * @param {(String|Buffer)} str the input string to encrypt
@@ -55,7 +51,16 @@ module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
 
 /**
  * Free the PubEncKey instance from memory
+ * @name window.safeCryptoPubEncKey.free
  *
  * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
- */
+ **/
 module.exports.free = (pubEncKeyHandle) => freeObj(pubEncKeyHandle);
+
+/**
+ * @name PubEncKeyHandle
+ * @typedef {String} PubEncKeyHandle
+ * @description Holds the reference to a PubEncKey instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

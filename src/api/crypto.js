@@ -11,6 +11,7 @@ module.exports.manifest = {
 
 /**
  * Hash the given input with SHA3 Hash
+ * @name window.safeCrypto.sha3Hash
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} data the input string
@@ -24,6 +25,7 @@ module.exports.sha3Hash = (appToken, data) => {
 
 /**
  * Get the application's public signing key
+ * @name window.safeCrypto.getAppPubSignKey
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -37,6 +39,7 @@ module.exports.getAppPubSignKey = (appToken) => {
 
 /**
  * Get the application's public encryption key
+ * @name window.safeCrypto.getAppPubEncKey
  *
  * @param {SAFEAppToken} appToken the app handle
  * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
@@ -49,6 +52,7 @@ module.exports.getAppPubEncKey = (appToken) => {
 
 /**
  * Generate a new Asymmetric EncryptionKeyPair
+ * @name window.safeCrypto.generateEncKeyPair
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -62,6 +66,7 @@ module.exports.generateEncKeyPair = (appToken) => {
 
 /**
  * Interpret the SignKey from a given raw string
+ * @name window.safeCrypto.getSignKeyFromRaw
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} raw the raw input string
@@ -76,6 +81,7 @@ module.exports.getSignKeyFromRaw = (appToken, raw) => {
 
 /**
  * Interprete a public encryption Key from a given raw string
+ * @name window.safeCrypto.pubEncKeyKeyFromRaw
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} raw the raw input string
@@ -90,6 +96,7 @@ module.exports.pubEncKeyKeyFromRaw = (appToken, raw) => {
 
 /**
  * Interpret a secret encryption Key from a given raw string
+ * @name window.safeCrypto.secEncKeyKeyFromRaw
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} raw the raw input string
@@ -104,6 +111,7 @@ module.exports.secEncKeyKeyFromRaw = (appToken, raw) => {
 
 /**
  * Generate a new Asymmetric EncryptionKeyPair from raw secret and public keys
+ * @name window.safeCrypto.generateEncKeyPairFromRaw
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} rawPublicKey the raw public key string

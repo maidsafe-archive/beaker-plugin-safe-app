@@ -18,33 +18,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} SAFEAppToken
- * @description Holds the reference to a SAFEApp instance which is the primary interface to interact
- * with the SAFE network.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
- * @typedef {Object} AppInfo
- * @description Holds the information about tha client application, needed for authentication.
- * @param {String} id - unique identifier for the app
- *        (e.g. 'net.maidsafe.examples.mail-app')
- * @param {String} name - human readable name of the app (e.g. "Mail App")
- * @param {String} vendor - human readable name of the vendor (e.g. "MaidSafe Ltd.")
- **/
-
- /**
-  * @typedef {String} AuthURI
-  * @description The auth URI (`'safe-auth://...'`) returned by the Authenticator after the user has
-  * authorised the application. This URL can be used by the
-  * application to connect to the network wihout the need to get authorisation
-  * from the Authenticator again. Although if the user decided to revoke the application
-  * the auth URI shall be obtained again from the Authenticator.
-  **/
-
-/**
  * Create a new SAFEApp instance without a connection to the network
+ * @name window.safeApp.initialise
  *
  * @param {AppInfo} appInfo
  *
@@ -65,6 +40,7 @@ module.exports.initialise = (appInfo) => {
 /**
  * Create a new, unregistered session (read-only),
  * e.g. useful for browsing web sites or just publicly avaiable data.
+ * @name window.safeApp.connect
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -79,13 +55,14 @@ module.exports.connect = (appToken) => {
 /**
  * Request the Authenticator (and user) to authorise this application
  * with the given permissions and optional parameters.
+ * @name window.safeApp.authorise
  *
  * @param {SAFEAppToken} appToken the app handle
- * @param {Object} permissions - mapping the container-names
+ * @param {Object} permissions mapping the container-names
  *                  to a list of permissions you want to
  *                  request
- * @param {Object} options - optional parameters
- * @param {Boolean} [options.own_container=false] - whether or not to request
+ * @param {Object} options optional parameters
+ * @param {Boolean} [options.own_container=false] whether or not to request
  *    our own container to be created for the app.
  *
  * @returns {Promise<AuthURI>} auth granted `safe-auth://`-URI
@@ -120,6 +97,7 @@ module.exports.authorise = (appToken, permissions, options) => {
  * to store securely), you can directly get an authenticated app
  * by using this helper function. Just provide said URI as the
  * second value.
+ * @name window.safeApp.connectAuthorised
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {AuthURI} authUri granted auth URI
@@ -135,6 +113,7 @@ module.exports.connectAuthorised = (appToken, authUri) => {
 /**
  * Request the Authenticator (and user) to authorise this application
  * with further continer permissions.
+ * @name window.safeApp.authoriseContainer
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {Object} permissions mapping container name to list of permissions
@@ -164,6 +143,7 @@ module.exports.authoriseContainer = (appToken, permissions) => {
 /**
  * Lookup a given `safe://`-URL in accordance with the
  * convention and fetch the requested object.
+ * @name window.safeApp.webFetch
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {AuthURI} authUri granted auth URI
@@ -180,6 +160,7 @@ module.exports.webFetch = (appToken, url) => {
 
 /**
  * Whether or not this is a registered/authenticated session.
+ * @name window.safeApp.isRegistered
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -192,6 +173,7 @@ module.exports.isRegistered = (appToken) => {
 
 /**
  * Current network connection state, e.g. `Connected` or `Disconnected`.
+ * @name window.safeApp.networkState
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -205,6 +187,7 @@ module.exports.networkState = (appToken) => {
 /**
  * Whether or not this session has specifc permission access of a given
  * container.
+ * @name window.safeApp.canAccessContainer
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {String} name name of the container, e.g. `_public`
@@ -220,6 +203,7 @@ module.exports.canAccessContainer = (appToken, name, permissions) => {
 /**
  * Refresh permissions for accessible containers from the network. Useful when
  * you just connected or received a response from the authenticator.
+ * @name window.safeApp.refreshContainersPermissions
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -233,6 +217,7 @@ module.exports.refreshContainersPermissions = (appToken) => {
 
 /**
  * Get the names of all containers found.
+ * @name window.safeApp.getContainersNames
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -245,6 +230,7 @@ module.exports.getContainersNames = (appToken) => {
 
 /**
  * Get the MutableData for the apps own container generated by Authenticator
+ * @name window.safeApp.getHomeContainer
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -258,6 +244,7 @@ module.exports.getHomeContainer = (appToken) => {
 
 /**
  * Lookup and return the information necessary to access a container.
+ * @name window.safeApp.getContainer
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {String} name name of the container, e.g. `_public`
@@ -272,7 +259,37 @@ module.exports.getContainer = (appToken, name) => {
 
 /**
  * Free the SAFEApp instance from memory
+ * @name window.safeApp.free
  *
  * @param {SAFEAppToken} appToken the app handle
  */
 module.exports.free = (appToken) => freeObj(appToken);
+
+/**
+ * @name SAFEAppToken
+ * @typedef {String} SAFEAppToken
+ * @description Holds the reference to a SAFEApp instance which is the primary interface to interact
+ * with the SAFE network.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * @name AppInfo
+ * @typedef {Object} AppInfo
+ * @description Holds the information about tha client application, needed for authentication.
+ * @param {String} id - unique identifier for the app
+ *        (e.g. 'net.maidsafe.examples.mail-app')
+ * @param {String} name - human readable name of the app (e.g. "Mail App")
+ * @param {String} vendor - human readable name of the vendor (e.g. "MaidSafe Ltd.")
+ **/
+
+/**
+ * @name AuthURI
+ * @typedef {String} AuthURI
+ * @description The auth URI (`'safe-auth://...'`) returned by the Authenticator after the user has
+ * authorised the application. This URL can be used by the
+ * application to connect to the network wihout the need to get authorisation
+ * from the Authenticator again. Although if the user decided to revoke the application
+ * the auth URI shall be obtained again from the Authenticator.
+ **/

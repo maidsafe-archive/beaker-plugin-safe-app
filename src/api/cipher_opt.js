@@ -8,14 +8,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} CipherOptHandle
- * @description Holds the reference to a CipherOpt instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Create a PlainText Cipher Opt
+ * @name window.safeCipherOpt.newPlainText
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -29,6 +23,7 @@ module.exports.newPlainText = (appToken) => {
 
 /**
  * Create a new Symmetric Cipher
+ * @name window.safeCipherOpt.newSymmetric
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -42,6 +37,7 @@ module.exports.newSymmetric = (appToken) => {
 
 /**
  * Create a new Asymmetric Cipher for the given key
+ * @name window.safeCipherOpt.newAsymmetric
  *
  * @param {EncKeyHandle} keyHandle the EncKey handle
  *
@@ -55,7 +51,16 @@ module.exports.newAsymmetric = (keyHandle) => {
 
 /**
  * Free the CipherOpt instance from memory
+ * @name window.safeCipherOpt.free
  *
  * @param {String} cipherOptHandle the CiipherOpt handle
- */
+ **/
 module.exports.free = (cipherOptHandle) => freeObj(cipherOptHandle);
+
+/**
+ * @name CipherOptHandle
+ * @typedef {String} CipherOptHandle
+ * @description Holds the reference to a CipherOpt instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

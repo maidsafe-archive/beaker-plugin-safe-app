@@ -32,15 +32,9 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} MutableDataHandle
- * @description Holds the reference to a MutableData instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Create a new mutuable data at a random address with private
  * access.
+ * @name window.safeMutableData.newRandomPrivate
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {Number} typeTag the typeTag to use
@@ -56,6 +50,7 @@ module.exports.newRandomPrivate = (appToken, typeTag) => {
 /**
  * Create a new mutuable data at a random address with public
  * access.
+ * @name window.safeMutableData.newRandomPublic
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {Number} typeTag the typeTag to use
@@ -71,6 +66,7 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
 /**
  * Initiate a mutuable data at the given address with private
  * access.
+ * @name window.safeMutableData.newPrivate
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} name Xor name/address of the MutbleData
@@ -87,6 +83,7 @@ module.exports.newPrivate = (appToken, name, typeTag) => {
 /**
  * Initiate a mutuable data at the given address with public
  * access.
+ * @name window.safeMutableData.newPublic
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} name Xor name/address of the MutbleData
@@ -102,6 +99,7 @@ module.exports.newPublic = (appToken, name, typeTag) => {
 
 /**
  * Create a new Permissions object.
+ * @name window.safeMutableData.newPermissions
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -115,6 +113,7 @@ module.exports.newPermissions = (appToken) => {
 
 /**
  * Create a new PermissionsSet object.
+ * @name window.safeMutableData.newPermissionSet
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -128,6 +127,7 @@ module.exports.newPermissionSet = (appToken) => {
 
 /**
  * Create a new Mutation object.
+ * @name window.safeMutableData.newMutation
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -141,6 +141,7 @@ module.exports.newMutation = (appToken) => {
 
 /**
  * Create a new Entries object.
+ * @name window.safeMutableData.newEntries
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -156,6 +157,7 @@ module.exports.newEntries = (appToken) => {
 /**
  * Set up a newly (not yet committed/created) MutableData with
  * the app having full-access permissions (and no other).
+ * @name window.safeMutableData.quickSetup
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {Object} data a key-value payload it should create the data with
@@ -172,6 +174,7 @@ module.exports.quickSetup = (mdHandle, data) => {
  * Encrypt the entry key provided as parameter with the encryption key
  * contained in a Private MutableData. If the MutableData is Public, the same
  * (and unencrypted) value is returned.
+ * @name window.safeMutableData.encryptKey
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {(String|Buffer)} key the key you want to encrypt
@@ -187,6 +190,7 @@ module.exports.encryptKey = (mdHandle, key) => {
  * Encrypt the entry value provided as parameter with the encryption key
  * contained in a Private MutableData. If the MutableData is Public, the same
  * (and unencrypted) value is returned.
+ * @name window.safeMutableData.encryptValue
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {(String|Buffer)} value the data you want to encrypt
@@ -201,6 +205,7 @@ module.exports.encryptValue = (mdHandle, value) => {
 /**
  * Decrypt the entry key/value provided as parameter with the encryption key
  * contained in a Private MutableData.
+ * @name window.safeMutableData.decrypt
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {(String|Buffer)} value the data you want to decrypt
@@ -215,6 +220,7 @@ module.exports.decrypt = (mdHandle, value) => {
 /**
  * Look up the name and tag of the MutableData as required to look it
  * up on the network.
+ * @name window.safeMutableData.getNameAndTag
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
@@ -234,6 +240,7 @@ module.exports.getNameAndTag = (mdHandle) => {
 
 /**
  * Look up the MutableData object version on the network
+ * @name window.safeMutableData.getVersion
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
@@ -246,6 +253,7 @@ module.exports.getVersion = (mdHandle) => {
 
 /**
  * Look up the value of a specific key
+ * @name window.safeMutableData.get
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {String} key the entry's key
@@ -259,6 +267,7 @@ module.exports.get = (mdHandle, key) => {
 
 /**
  * Create/commit this MutableData on the network.
+ * @name window.safeMutableData.put
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {PermissionsHandle} permissionsHandle the permissions to create the MutableData with
@@ -276,6 +285,7 @@ module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
 
 /**
  * Get a handle to the entries associated with this MutableData
+ * @name window.safeMutableData.getEntries
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
@@ -289,6 +299,7 @@ module.exports.getEntries = (mdHandle) => {
 
 /**
  * Get a handle to the keys associated with this MutableData
+ * @name window.safeMutableData.getKeys
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
@@ -302,6 +313,7 @@ module.exports.getKeys = (mdHandle) => {
 
 /**
  * Get a handle to the values associated with this MutableData
+ * @name window.safeMutableData.getValues
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
@@ -315,6 +327,7 @@ module.exports.getValues = (mdHandle) => {
 
 /**
  * Get a handle to the permissions associated with this MutableData
+ * @name window.safeMutableData.getPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
@@ -329,6 +342,7 @@ module.exports.getPermissions = (mdHandle) => {
 /**
  * Get a handle to the permissions associated with this MutbleData for
  * a specifc key
+ * @name window.safeMutableData.getUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {SignKeyHandle} signKeyHandle the sign key to look up
@@ -346,6 +360,7 @@ module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
 /**
  * Delete the permissions of a specifc key. Directly commits to the network.
  * Requires `'ManagePermissions'` permission for the app.
+ * @name window.safeMutableData.delUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
@@ -364,6 +379,7 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
 /**
  * Set the permissions of a specifc key. Directly commits to the network.
  * Requires `'ManagePermissions'` permission for the app.
+ * @name window.safeMutableData.setUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
@@ -384,6 +400,7 @@ module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, versi
 
 /**
  * Commit the mutations transaction to the network
+ * @name window.safeMutableData.applyEntriesMutation
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {MutationHandle} mutationHandle the Mutation you want to apply
@@ -399,6 +416,7 @@ module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => {
 
 /**
  * Serialise the current MutableData
+ * @name window.safeMutableData.serialise
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
@@ -411,6 +429,7 @@ module.exports.serialise = (mdHandle) => {
 
 /**
  * Deserialize the MutableData
+ * @name window.safeMutableData.fromSerial
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {String} data the serialised MutableData
@@ -425,11 +444,12 @@ module.exports.fromSerial = (appToken, data) => {
 
 /**
  * Wrap this MutableData into a known abstraction. Currently known: `NFS`
+ * @name window.safeMutableData.emulateAs
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {String} eml name of the emulation
  *
- * @returns {EmulationHandle} the Emulation you are asking for
+ * @returns {NFSHandle} the NFS emulation you are asking for
  **/
 module.exports.emulateAs = (mdHandle, eml) => {
   return getObj(mdHandle)
@@ -439,7 +459,16 @@ module.exports.emulateAs = (mdHandle, eml) => {
 
 /**
  * Free the MutableData instance from memory
+ * @name window.safeMutableData.free
  *
  * @param {String} mdHandle the MutableData handle
- */
+ **/
 module.exports.free = (mdHandle) => freeObj(mdHandle);
+
+/**
+ * @name MutableDataHandle
+ * @typedef {String} MutableDataHandle
+ * @description Holds the reference to a MutableData instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

@@ -8,14 +8,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} KeyPairHandle
- * @description Holds the reference to a KeyPair instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Get the Public Encryption Key instance of this key pair
+ * @name window.safeCryptoKeyPair.getPubEncKey
  *
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  *
@@ -28,6 +22,7 @@ module.exports.getPubEncKey = (keyPairHandle) => {
 
 /**
  * Get the Secrect Encryption Key instance of this key pair
+ * @name window.safeCryptoKeyPair.getSecEncKey
  *
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  *
@@ -40,6 +35,7 @@ module.exports.getSecEncKey = (keyPairHandle) => {
 
 /**
  * Decrypt the given ciphertext with a seal (buffer or string) using the private and public key
+ * @name window.safeCryptoKeyPair.decryptSealed
  *
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  * @param {(String|Buffer)} cipher the chiper text to decrypt
@@ -53,7 +49,16 @@ module.exports.decryptSealed = (keyPairHandle, cipher) => {
 
 /**
  * Free the KeyPair instance from memory
+ * @name window.safeCryptoKeyPair.free
  *
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
- */
+ **/
 module.exports.free = (keyPairHandle) => freeObj(keyPairHandle);
+
+/**
+ * @name KeyPairHandle
+ * @typedef {String} KeyPairHandle
+ * @description Holds the reference to a KeyPair instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

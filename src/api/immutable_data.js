@@ -11,21 +11,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} ReaderHandle
- * @description Holds the reference to a ImmutableData Reader instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
- * @typedef {String} WriterHandle
- * @description Holds the reference to a ImmutableData Writer instance.
- * Note that such an instance it's free from memory when the `close` function
- * is invoked.
- **/
-
-/**
  * Create a new ImmutableData Writer
+ * @name window.safeImmutableData.create
  *
  * @param {SAFEAppToken} appToken the app handle
  *
@@ -39,6 +26,7 @@ module.exports.create = (appToken) => {
 
 /**
  * Look up an existing ImmutableData for the given address
+ * @name window.safeImmutableData.fetch
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {Buffer} address the XorName on the network
@@ -53,6 +41,7 @@ module.exports.fetch = (appToken, address) => {
 
 /**
  * Append the given data to an ImmutableData.
+ * @name window.safeImmutableData.write
  *
  * @param {WriterHandle} writerHandle the ImmutableData Writer handle
  * @param {String} string the data to append
@@ -70,6 +59,7 @@ module.exports.write = (writerHandle, string) => {
  * after the data is written in the network.
  * Thus, a new Writer instance shall be created if more writing operations
  * into the ImmutableData are required.
+ * @name window.safeImmutableData.closeWriter
  *
  * @param {WriterHandle} writerHandle the ImmutableData Writer handle
  *
@@ -86,6 +76,7 @@ module.exports.closeWriter = (writerHandle) => {
 
 /**
  * Read the given amount of bytes from the network
+ * @name window.safeImmutableData.read
  *
  * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
  * @param {Object=} options reading options
@@ -101,6 +92,7 @@ module.exports.read = (readerHandle, options) => {
 
 /**
  * The size of the mutable data on the network
+ * @name window.safeImmutableData.size
  *
  * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
  *
@@ -113,7 +105,24 @@ module.exports.size = (readerHandle) => {
 
 /**
  * Free the ImmutableData Reader instance from memory
+ * @name window.safeImmutableData.free
  *
  * @param {String} readerHandle the ImmutableData Reader handle
  */
 module.exports.free = (readerHandle) => freeObj(readerHandle);
+
+/**
+ * @name ReaderHandle
+ * @typedef {String} ReaderHandle
+ * @description Holds the reference to a ImmutableData Reader instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * @name WriterHandle
+ * @typedef {String} WriterHandle
+ * @description Holds the reference to a ImmutableData Writer instance.
+ * Note that such an instance it's free from memory when the `close` function
+ * is invoked.
+ **/

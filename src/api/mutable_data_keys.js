@@ -7,14 +7,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} KeysHandle
- * @description Holds the reference to a Keys instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Get the total number of keys in the MutableData
+ * @name window.safeMutableDataKeys.len
  *
  * @param {KeysHandle} keysHandle the Keys handle
  *
@@ -27,6 +21,7 @@ module.exports.len = (keysHandle) => {
 
 /**
  * Iterate over the keys, execute the function every time
+ * @name window.safeMutableDataKeys.forEach
  *
  * @param {KeysHandle} keysHandle the Keys handle
  * @param {function(Buffer)} fn the function to call with the key in the buffer
@@ -39,6 +34,16 @@ module.exports._with_cb_forEach = (keysHandle) => {
 
 /**
  * Free the Keys instance from memory
- * @param {String} keysHandle - the Keys handle
- */
+ * @name window.safeMutableDataKeys.free
+ *
+ * @param {String} keysHandle the Keys handle
+ **/
 module.exports.free = (keysHandle) => freeObj(keysHandle);
+
+/**
+ * @name KeysHandle
+ * @typedef {String} KeysHandle
+ * @description Holds the reference to a Keys instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

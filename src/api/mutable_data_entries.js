@@ -10,14 +10,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} EntriesHandle
- * @description Holds the reference to an Entries instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Get the total number of entries in the MutableData
+ * @name window.safeMutableDataEntries.len
  *
  * @param {EntriesHandle} entriesHandle the Entries handle
  *
@@ -30,6 +24,7 @@ module.exports.len = (entriesHandle) => {
 
 /**
  * Look up the value of a specific key
+ * @name window.safeMutableDataEntries.get
  *
  * @param {EntriesHandle} entriesHandle the Entries handle
  * @param {String} keyName the entry's key
@@ -43,6 +38,7 @@ module.exports.get = (entriesHandle, keyName) => {
 
 /**
  * Iterate over the entries, execute the function every time
+ * @name window.safeMutableDataEntries.forEach
  *
  * @param {EntriesHandle} entriesHandle the Entries handle
  * @param {function(Buffer, ValueVersion)} fn the function to call
@@ -65,6 +61,7 @@ module.exports._with_cb_forEach = (entriesHandle) => {
  * Insert a new entry. Will directly commit that transaction to the network.
  * Will fail if the entry already exists or the current app doesn't have the
  * permissions to edit that MutableData.
+ * @name window.safeMutableDataEntries.insert
  *
  * @param {EntriesHandle} entriesHandle the Entries handle
  * @param {(String|Buffer)} keyName the key you want store the data under
@@ -79,6 +76,7 @@ module.exports.insert = (entriesHandle, keyName, value) => {
 
 /**
  * Start a new transaction of mutation of the entries
+ * @name window.safeMutableDataEntries.mutate
  *
  * @param {EntriesHandle} entriesHandle the Entries handle
  *
@@ -92,7 +90,16 @@ module.exports.mutate = (entriesHandle) => {
 
 /**
  * Free the Entries instance from memory
+ * @name window.safeMutableDataEntries.free
  *
  * @param {String} entriesHandle the Entries handle
- */
+ **/
 module.exports.free = (entriesHandle) => freeObj(entriesHandle);
+
+/**
+ * @name EntriesHandle
+ * @typedef {String} EntriesHandle
+ * @description Holds the reference to an Entries instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

@@ -8,14 +8,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} PermissionsSetHandle
- * @description Holds the reference to a PermissionsSet instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Set the action as allowed
+ * @name window.safeMutableDataPermissionsSet.setAllow
  *
  * @param {PermissionsSetHandle} permissionsSetHandle the PermissionsSet handle
  * @param {MDataAction} action the action to set as allowed
@@ -29,6 +23,7 @@ module.exports.setAllow = (permissionsSetHandle, action) => {
 
 /**
  * Set the action as denied
+ * @name window.safeMutableDataPermissionsSet.setDeny
  *
  * @param {PermissionsSetHandle} permissionsSetHandle the PermissionsSet handle
  * @param {MDataAction} action the action to set as denied
@@ -42,6 +37,7 @@ module.exports.setDeny = (permissionsSetHandle, action) => {
 
 /**
  * Remove all permissions for a type of action from the set
+ * @name window.safeMutableDataPermissionsSet.clear
  *
  * @param {PermissionsSetHandle} permissionsSetHandle the PermissionsSet handle
  * @param {MDataAction} action the action the permissions to be cleared
@@ -55,7 +51,16 @@ module.exports.clear = (permissionsSetHandle, action) => {
 
 /**
  * Free the PermissionsSet instance from memory
+ * @name window.safeMutableDataPermissionsSet.free
  *
  * @param {String} permissionsSetHandle the PermissionsSet handle
- */
+ **/
 module.exports.free = (permissionsSetHandle) => freeObj(permissionsSetHandle);
+
+/**
+ * @name PermissionsSetHandle
+ * @typedef {String} PermissionsSetHandle
+ * @description Holds the reference to a PermissionsSet instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

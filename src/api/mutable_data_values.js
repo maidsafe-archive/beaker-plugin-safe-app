@@ -7,14 +7,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} ValuesHandle
- * @description Holds the reference to a Values instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Get the total number of values in the MutableData
+ * @name window.safeMutableDataValues.len
  *
  * @param {ValuesHandle} valuesHandle the Values handle
  *
@@ -27,6 +21,7 @@ module.exports.len = (valuesHandle) => {
 
 /**
  * Iterate over the values, execute the function every time
+ * @name window.safeMutableDataValues.forEach
  *
  * @param {ValuesHandle} valuesHandle the Values handle
  * @param {function(Buffer, ValueVersion)} fn the function to call
@@ -39,7 +34,16 @@ module.exports._with_cb_forEach = (valuesHandle) => {
 
 /**
  * Free the Values instance from memory
+ * @name window.safeMutableDataValues.free
  *
  * @param {String} valuesHandle the Values handle
- */
+ **/
 module.exports.free = (valuesHandle) => freeObj(valuesHandle);
+
+/**
+ * @name ValuesHandle
+ * @typedef {String} ValuesHandle
+ * @description Holds the reference to a Values instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

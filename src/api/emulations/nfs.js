@@ -9,18 +9,48 @@ module.exports.manifest = {
   free: 'sync'
 };
 
+/**
+ * Create a new file with the given content, put the content
+ * on the network via ImmutableData (public) and wrap it into a File.
+ * @name window.safeNfs.create
+ *
+ * @param {NFSHandle} nfsHandle the NFS emulation handle
+ * @param {(String|Buffer)} content
+ *
+ * @returns {Promise<FileHandle>} the File handle of a newly created file
+ **/
 module.exports.create = (nfsHandle, content) => {
   return getObj(nfsHandle)
     .then((obj) => obj.netObj.create(content)
       .then((imd) => genHandle(obj.app, imd)));
 };
 
+/**
+ * Find the file of the given filename (aka keyName in the MutableData)
+ * @name window.safeNfs.fetch
+ *
+ * @param {NFSHandle} nfsHandle the NFS emulation handle
+ * @param {String} fileName - the path/file name
+ *
+ * @returns {Promise<FileHandle>} the handle of the File found for that path
+ **/
 module.exports.fetch = (nfsHandle, fileName) => {
   return getObj(nfsHandle)
     .then((obj) => obj.netObj.fetch(fileName)
       .then((imd) => genHandle(obj.app, imd)));
 };
 
+/**
+ * Insert the given file into the underlying MutableData, directly commit
+ * to the network.
+ * @name window.safeNfs.insert
+ *
+ * @param {NFSHandle} nfsHandle the NFS emulation handle
+ * @param {FileHandle} fileHandle the handle of the File to serialise and store
+ * @param {(String|Buffer)} fileName the path to store the file under
+ *
+ * @returns {Promise<FileHandle>} the same File handle
+ **/
 module.exports.insert = (nfsHandle, fileHandle, fileName) => {
   return getObj(nfsHandle)
     .then((nfsObj) => getObj(fileHandle)
@@ -29,6 +59,17 @@ module.exports.insert = (nfsHandle, fileHandle, fileName) => {
     .then(() => fileHandle);
 };
 
+/**
+ * Replace a path with a new file. Directly commit to the network.
+ * @name window.safeNfs.update
+ *
+ * @param {NFSHandle} nfsHandle the NFS emulation handle
+ * @param {FileHandle} fileHandle the handle of the File to serialise and store
+ * @param {(String|Buffer)} fileName - the path to store the file under
+ * @param {Number} version the version successor, to ensure you
+         are overwriting the right one
+ * @returns {Promise<FileHandle>} the same File handle
+ **/
 module.exports.update = (nfsHandle, fileHandle, fileName, version) => {
   return getObj(nfsHandle)
     .then((nfsObj) => getObj(fileHandle)
@@ -37,6 +78,24 @@ module.exports.update = (nfsHandle, fileHandle, fileName, version) => {
     .then(() => fileHandle);
 };
 
+/**
+ * @name FileMetadata
+ * @typedef {Object} FileMetadata
+ * @param {Buffer} dataMapName The XorName where to read the immutable data at
+ * @param {Date} created When was this created? in UTC
+ * @param {Date} modified When was this last modified? in UTC
+ * @param {Number} size How big is that file?
+ * @param {Number} version Which version was this? Equals the underlying MutableData's entry version
+ **/
+
+/**
+ * Retrieve the file's metadata.
+ * @name window.safeNfs.getFileMeta
+ *
+ * @param {FileHandle} fileHandle the File handle
+ *
+ * @returns {FileMetadata} the file's metadata
+ **/
 module.exports.getFileMeta = (fileHandle) => {
   return getObj(fileHandle).then((obj) => (
     {
@@ -50,7 +109,34 @@ module.exports.getFileMeta = (fileHandle) => {
 };
 
 /**
+ * Free the NFS emulation instance from memory
+ * @name window.safeNfs.free
+ *
+ * @param {NFSHandle} nfsHandle the NFS emulation handle
+ **/
+module.exports.free = (nfsHandle) => freeObj(nfsHandle);
+
+/**
  * Free the File instance from memory
- * @param {String} fileHandle - the File handle
- */
-module.exports.free = (fileHandle) => freeObj(fileHandle);
+ * @name window.safeNfs.freeFile
+ *
+ * @param {FileHandle} fileHandle the File handle
+ **/
+module.exports.freeFile = (fileHandle) => freeObj(fileHandle);
+
+/**
+ * @name NFSHandle
+ * @typedef {String} NFSHandle
+ * @description Holds the reference to a NFS emulation instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * @name FileHandle
+ * @typedef {String} FileHandle
+ * @description Holds the reference to a File instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `freeFile` function.
+ **/
+ 

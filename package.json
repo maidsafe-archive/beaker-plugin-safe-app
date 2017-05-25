@@ -9,7 +9,7 @@
     "build-api": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.api.js --progress --profile --colors",
     "build-protocol": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.protocol.js --progress --profile --colors",
     "build": "concurrently \"npm run build-protocol\" \"npm run build-api\"",
-    "docs": "documentation build --github true --output docs --format html src/**"
+    "docs": "documentation build --config etc/documentation.yml --github true --output docs --format html src/**"
   },
   "repository": {
     "type": "git",

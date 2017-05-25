@@ -9,14 +9,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} PermissionsHandle
- * @description Holds the reference to a Permissions instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Total number of permissions entries
+ * @name window.safeMutableDataPermissions.len
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
  *
@@ -29,6 +23,7 @@ module.exports.len = (permissionsHandle) => {
 
 /**
  * Lookup the permissions of a specifc key
+ * @name window.safeMutableDataPermissions.getPermissionsSet
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
  * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
@@ -46,6 +41,7 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
 /**
  * Insert a new permissions to a specifc sign key. Directly commits to the network.
  * Requires 'ManagePermissions'-permission for the app.
+ * @name window.safeMutableDataPermissions.insertPermissionsSet
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
  * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
@@ -63,6 +59,7 @@ module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHa
 
 /**
  * Iterate over the entries, execute the function every time
+ * @name window.safeMutableDataPermissions.forEach
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
  * @param {function(Buffer, ValueVersion)} fn the function to call
@@ -75,7 +72,16 @@ module.exports._with_cb_forEach = (permissionsHandle) => {
 
 /**
  * Free the Permissions instance from memory
+ * @name window.safeMutableDataPermissions.free
  *
  * @param {String} permissionsHandle the Permissions handle
- */
+ **/
 module.exports.free = (permissionsHandle) => freeObj(permissionsHandle);
+
+/**
+ * @name PermissionsHandle
+ * @typedef {String} PermissionsHandle
+ * @description Holds the reference to a Permissions instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/

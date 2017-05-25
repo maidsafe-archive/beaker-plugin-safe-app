@@ -8,14 +8,8 @@ module.exports.manifest = {
 };
 
 /**
- * @typedef {String} MutationHandle
- * @description Holds the reference to a Mutation instance.
- * Note that it is required to free the memory used by such an instance when it's
- * not needed anymore by the client aplication, please refer to the `free` function.
- **/
-
-/**
  * Store a new `Insert`-action in the transaction.
+ * @name window.safeMutableDataMutation.insert
  *
  * @param {MutationHandle} mutationHandle the Mutation handle
  * @param {(String|Buffer)} keyName
@@ -30,6 +24,7 @@ module.exports.insert = (mutationHandle, keyName, value) => {
 
 /**
  * Store a new `Remove`-action in the transaction
+ * @name window.safeMutableDataMutation.remove
  *
  * @param {MutationHandle} mutationHandle the Mutation handle
  * @param {(String|Buffer)} keyName the key of the entry you want to remove
@@ -45,6 +40,7 @@ module.exports.remove = (mutationHandle, keyName, version) => {
 
 /**
  * Store a `Update`-action in the transaction
+ * @name window.safeMutableDataMutation.update
  *
  * @param {MutationHandle} mutationHandle the Mutation handle
  * @param {(String|Buffer)} keyName the key of the entry you want to update
@@ -61,7 +57,16 @@ module.exports.update = (mutationHandle, keyName, value, version) => {
 
 /**
  * Free the Mutation instance from memory
+ * @name window.safeMutableDataMutation.free
  *
  * @param {String} mutationHandle the Mutation handle
- */
+ **/
 module.exports.free = (mutationHandle) => freeObj(mutationHandle);
+
+/**
+ * @name MutationHandle
+ * @typedef {String} MutationHandle
+ * @description Holds the reference to a Mutation instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
