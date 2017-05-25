@@ -7,9 +7,18 @@ module.exports.manifest = {
 };
 
 /**
- * Get the total number of values in the Mdata
- * @param {ValuesHandle} valuesHandle - the Values obj handle
- * @returns {Promise<Number>}
+ * @typedef {String} ValuesHandle
+ * @description Holds the reference to a Values instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * Get the total number of values in the MutableData
+ *
+ * @param {ValuesHandle} valuesHandle the Values handle
+ *
+ * @returns {Promise<Number>} the number of values
  **/
 module.exports.len = (valuesHandle) => {
   return getObj(valuesHandle)
@@ -17,10 +26,12 @@ module.exports.len = (valuesHandle) => {
 };
 
 /**
- * Iterate over the value, execute the function every time
- * @param {ValuesHandle} valuesHandle - the Values obj handle
- * @param {function(Buffer, ValueVersion)} fn - the function to call
- * @returns {Promise<()>} - resolves once the iteration is done
+ * Iterate over the values, execute the function every time
+ *
+ * @param {ValuesHandle} valuesHandle the Values handle
+ * @param {function(Buffer, ValueVersion)} fn the function to call
+ *
+ * @returns {Promise} resolves once the iteration finished
  **/
 module.exports._with_cb_forEach = (valuesHandle) => {
   return forEachHelper(valuesHandle);
@@ -28,6 +39,7 @@ module.exports._with_cb_forEach = (valuesHandle) => {
 
 /**
  * Free the Values instance from memory
- * @param {String} valuesHandle - the Values handle
+ *
+ * @param {String} valuesHandle the Values handle
  */
 module.exports.free = (valuesHandle) => freeObj(valuesHandle);

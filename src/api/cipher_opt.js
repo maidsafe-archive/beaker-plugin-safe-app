@@ -9,7 +9,7 @@ module.exports.manifest = {
 
 /**
  * Create a PlainText Cipher Opt
- * @param {String} appToken - the application token
+ * @param {SAFEAppToken} appToken the app handle
  * @returns {CipherOptHandle}
  **/
 module.exports.newPlainText = (appToken) => {
@@ -20,7 +20,7 @@ module.exports.newPlainText = (appToken) => {
 
 /**
  * Create a new Symmetric Cipher
- * @param {String} appToken - the application token
+ * @param {SAFEAppToken} appToken the app handle
  * @returns {CipherOptHandle}
  **/
 module.exports.newSymmetric = (appToken) => {

@@ -9,11 +9,19 @@ module.exports.manifest = {
   free: 'sync'
 };
 
+/**
+ * @typedef {String} EntriesHandle
+ * @description Holds the reference to an Entries instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
 
 /**
- * Get the total number of entries in the Mdata
- * @param {EntriesHandle} entriesHandle - the Entries obj handle
- * @returns {Promise<Number>}
+ * Get the total number of entries in the MutableData
+ *
+ * @param {EntriesHandle} entriesHandle the Entries handle
+ *
+ * @returns {Promise<Number>} number of entries
  **/
 module.exports.len = (entriesHandle) => {
   return getObj(entriesHandle)
@@ -23,9 +31,10 @@ module.exports.len = (entriesHandle) => {
 /**
  * Look up the value of a specific key
  *
- * @param {EntriesHandle} entriesHandle - the Entries obj handle
- * @param {String} keyName - the entry's key
- * @returns {Promise<ValueVersion>} - the value at the current version
+ * @param {EntriesHandle} entriesHandle the Entries handle
+ * @param {String} keyName the entry's key
+ *
+ * @returns {Promise<ValueVersion>} the current version
  **/
 module.exports.get = (entriesHandle, keyName) => {
   return getObj(entriesHandle)
@@ -34,9 +43,19 @@ module.exports.get = (entriesHandle, keyName) => {
 
 /**
  * Iterate over the entries, execute the function every time
- * @param {EntriesHandle} entriesHandle - the Entries obj handle
- * @param {function(Buffer, ValueVersion)} fn - the function to call
- * @returns {Promise<()>} - resolves once the iteration is done
+ *
+ * @param {EntriesHandle} entriesHandle the Entries handle
+ * @param {function(Buffer, ValueVersion)} fn the function to call
+ *
+ * @returns {Promise} resolves once the iteration is done
+ *
+ * @example // Iterating over the entries of a MutableData:
+ * window.safeMutableData.getEntries(mdHandle)
+ *    .then((entriesHandle) => window.safeMutableDataEntries.forEach(entriesHandle, (k, v) => {
+ *       console.log("Key:", k);
+ *       console.log("Value:", v.buf.toString());
+ *       console.log("Version:", v.version);
+ *    }));
  **/
 module.exports._with_cb_forEach = (entriesHandle) => {
   return forEachHelper(entriesHandle);
@@ -45,12 +64,13 @@ module.exports._with_cb_forEach = (entriesHandle) => {
 /**
  * Insert a new entry. Will directly commit that transaction to the network.
  * Will fail if the entry already exists or the current app doesn't have the
- * permissions to edit that mdata.
+ * permissions to edit that MutableData.
  *
- * @param {EntriesHandle} entriesHandle - the Entries obj handle
- * @param {(String|Buffer)} keyName - the key you want store the data under
- * @param {(String|Buffer)} value - the data you want to store
- * @returns {Promise<>}
+ * @param {EntriesHandle} entriesHandle the Entries handle
+ * @param {(String|Buffer)} keyName the key you want store the data under
+ * @param {(String|Buffer)} value the data you want to store
+ *
+ * @returns {Promise} resolves when finished
  **/
 module.exports.insert = (entriesHandle, keyName, value) => {
   return getObj(entriesHandle)
@@ -59,8 +79,10 @@ module.exports.insert = (entriesHandle, keyName, value) => {
 
 /**
  * Start a new transaction of mutation of the entries
- * @param {EntriesHandle} entriesHandle - the Entries obj handle
- * @return {Promise<MutationHandle>}
+ *
+ * @param {EntriesHandle} entriesHandle the Entries handle
+ *
+ * @return {Promise<MutationHandle>} the Mutation handle
  **/
 module.exports.mutate = (entriesHandle) => {
   return getObj(entriesHandle)
@@ -70,6 +92,7 @@ module.exports.mutate = (entriesHandle) => {
 
 /**
  * Free the Entries instance from memory
- * @param {String} entriesHandle - the Entries handle
+ *
+ * @param {String} entriesHandle the Entries handle
  */
 module.exports.free = (entriesHandle) => freeObj(entriesHandle);

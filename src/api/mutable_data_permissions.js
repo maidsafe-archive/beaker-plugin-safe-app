@@ -9,9 +9,18 @@ module.exports.manifest = {
 };
 
 /**
- * Total number of permission entries
- * @param {PermissionsHandle} permissionsHandle - the Permissions obj handle
- * @returns {Promise<Number>}
+ * @typedef {String} PermissionsHandle
+ * @description Holds the reference to a Permissions instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+ **/
+
+/**
+ * Total number of permissions entries
+ *
+ * @param {PermissionsHandle} permissionsHandle the Permissions handle
+ *
+ * @returns {Promise<Number>} the number of permissions entries
  **/
 module.exports.len = (permissionsHandle) => {
   return getObj(permissionsHandle)
@@ -20,9 +29,11 @@ module.exports.len = (permissionsHandle) => {
 
 /**
  * Lookup the permissions of a specifc key
- * @param {PermissionsHandle} permissionsHandle - the Permissions obj handle
- * @param {SignKeyHandle} signKeyHandle - the key to lookup for
- * @returns {Promise<PermissionsSetHandle>} - the permissions set for that key
+ *
+ * @param {PermissionsHandle} permissionsHandle the Permissions handle
+ * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
+ *
+ * @returns {Promise<PermissionsSetHandle>} the permissions set for that sign key
  **/
 module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
   return getObj(signKeyHandle)
@@ -33,12 +44,14 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
 };
 
 /**
- * Insert a new permissions to a specifc key. Directly commits to the network.
- * Requires 'ManagePermissions'-Permission for the app.
- * @param {PermissionsHandle} permissionsHandle - the Permissions obj handle
- * @param {SignKeyHandle} signKeyHandle - the key to lookup for
+ * Insert a new permissions to a specifc sign key. Directly commits to the network.
+ * Requires 'ManagePermissions'-permission for the app.
+ *
+ * @param {PermissionsHandle} permissionsHandle the Permissions handle
+ * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
  * @param {PermissionsSetHandle} pmSetHandle - the permissions set you'd like insert
- * @returns {Promise} - once finished
+ *
+ * @returns {Promise} resolves once finished
  **/
 module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHandle) => {
   return getObj(signKeyHandle)
@@ -50,9 +63,11 @@ module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHa
 
 /**
  * Iterate over the entries, execute the function every time
- * @param {PermissionsHandle} permissionsHandle - the Permissions obj handle
- * @param {function(Buffer, ValueVersion)} fn - the function to call
- * @returns {Promise<()>} - resolves once the iteration is done
+ *
+ * @param {PermissionsHandle} permissionsHandle the Permissions handle
+ * @param {function(Buffer, ValueVersion)} fn the function to call
+ *
+ * @returns {Promise} resolves once the iteration is finished
  **/
 module.exports._with_cb_forEach = (permissionsHandle) => {
   return forEachHelper(permissionsHandle, true);
@@ -60,6 +75,7 @@ module.exports._with_cb_forEach = (permissionsHandle) => {
 
 /**
  * Free the Permissions instance from memory
- * @param {String} permissionsHandle - the application token
+ *
+ * @param {String} permissionsHandle the Permissions handle
  */
 module.exports.free = (permissionsHandle) => freeObj(permissionsHandle);

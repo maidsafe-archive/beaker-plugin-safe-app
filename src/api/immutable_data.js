@@ -12,7 +12,7 @@ module.exports.manifest = {
 
 /**
  * Create a new ImmutableData Writer
- * @param {String} appToken - the application token
+ * @param {SAFEAppToken} appToken the app handle
  * @returns {Promise<Handle>} - the ImmutableData Writer Handle
  **/
 module.exports.create = (appToken) => {
@@ -23,7 +23,7 @@ module.exports.create = (appToken) => {
 
 /**
  * Look up an existing Immutable Data for the given address
- * @param {String} appToken - the application token
+ * @param {SAFEAppToken} appToken the app handle
  * @param {Buffer} address - the XorName on the network
  * @returns {Promise<Handle>} - the ImmutableData Reader Handle
  **/

@@ -19,7 +19,7 @@ module.exports.manifest = {
 
 /**
  * @typedef {String} SAFEAppToken
- * Holds the reference to a SAFEApp instance which is the primary interface to interact
+ * @description Holds the reference to a SAFEApp instance which is the primary interface to interact
  * with the SAFE network.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
@@ -27,7 +27,7 @@ module.exports.manifest = {
 
 /**
  * @typedef {Object} AppInfo
- * holds the information about tha client application, needed for authentication.
+ * @description Holds the information about tha client application, needed for authentication.
  * @param {String} id - unique identifier for the app
  *        (e.g. 'net.maidsafe.examples.mail-app')
  * @param {String} name - human readable name of the app (e.g. "Mail App")
@@ -36,7 +36,7 @@ module.exports.manifest = {
 
  /**
   * @typedef {String} AuthURI
-  * The auth URI (`'safe-auth://...'`) returned by the Authenticator after the user has
+  * @description The auth URI (`'safe-auth://...'`) returned by the Authenticator after the user has
   * authorised the application. This URL can be used by the
   * application to connect to the network wihout the need to get authorisation
   * from the Authenticator again. Although if the user decided to revoke the application
@@ -208,7 +208,7 @@ module.exports.networkState = (appToken) => {
  *
  * @param {SAFEAppToken} appToken the app handle
  * @param {String} name name of the container, e.g. `_public`
- * @param {(String||Array<String>)} [permissions=['Read']] permissions to check for
+ * @param {(String|Array<String>)} [permissions=['Read']] permissions to check for
  *
  * @returns {Promise<Boolean>} true if this app can access the container with given permissions
  **/
@@ -222,6 +222,8 @@ module.exports.canAccessContainer = (appToken, name, permissions) => {
  * you just connected or received a response from the authenticator.
  *
  * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise} resolves when finished refreshing
  */
 module.exports.refreshContainersPermissions = (appToken) => {
   return getObj(appToken)
@@ -234,7 +236,7 @@ module.exports.refreshContainersPermissions = (appToken) => {
  *
  * @param {SAFEAppToken} appToken the app handle
  *
- * @returns {Promise<[String]>} list of containers names
+ * @returns {Promise<Array<String>>} list of containers names
  */
 module.exports.getContainersNames = (appToken) => {
   return getObj(appToken)
@@ -260,7 +262,7 @@ module.exports.getHomeContainer = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  * @param {String} name name of the container, e.g. `_public`
  *
- * @returns {Promise<MutableDataHandle>} the handle for the MutableData behind it
+ * @returns {Promise<MutableDataHandle>} the MutableData handle the handle for the MutableData behind it
  */
 module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
