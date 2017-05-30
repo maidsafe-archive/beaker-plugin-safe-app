@@ -279,7 +279,7 @@ module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
   return getObj(mdHandle)
     .then((mdObj) => getObj(permissionsHandle)
       .then((permsObj) => getObj(entriesHandle)
-        .then((entriesObj) => mdObj.netObj.put(persObj.netObj, entriesObj.netObj))
+        .then((entriesObj) => mdObj.netObj.put(permsObj.netObj, entriesObj.netObj))
       ));
 };
 
