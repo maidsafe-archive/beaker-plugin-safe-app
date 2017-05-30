@@ -300,7 +300,7 @@ module.exports.getContainersNames = (appToken) => {
  * @example // Retrieve home container:
  * window.safeApp.getHomeContainer(appToken)
  *    .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
- *    .then((v) => console.log("Home Container version: ", v));
+ *    .then((v) => console.log('Home Container version: ', v));
  **/
 module.exports.getHomeContainer = (appToken) => {
   return getObj(appToken)
@@ -321,10 +321,10 @@ module.exports.getHomeContainer = (appToken) => {
  * window.safeApp.canAccessContainer(appToken, '_public', ['Read'])
  *    .then((r) => {
  *       if (r) {
- *          console.log('The app has `Read` permission for `_public` container);
- *          window.safeApp.getContainer(appToken, "_public")
+ *          console.log('The app has `Read` permission for `_public` container');
+ *          window.safeApp.getContainer(appToken, '_public')
  *             .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
- *             .then((v) => console.log("`_public` Container version: ", v));
+ *             .then((v) => console.log('`_public` Container version: ', v));
  *       }
  *    });
  **/

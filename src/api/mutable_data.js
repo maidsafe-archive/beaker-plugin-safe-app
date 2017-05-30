@@ -40,6 +40,11 @@ module.exports.manifest = {
  * @param {Number} typeTag the typeTag to use
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle the MutableData handle
+ *
+ * @example // Create a PrivateMutable Data with random address:
+ * window.safeMutableData.newRandomPrivate(appToken, 15001)
+ *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
+ *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
 module.exports.newRandomPrivate = (appToken, typeTag) => {
   return getObj(appToken)
@@ -56,6 +61,11 @@ module.exports.newRandomPrivate = (appToken, typeTag) => {
  * @param {Number} typeTag the typeTag to use
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
+ *
+ * @example // Create a PublicMutable Data with random address:
+ * window.safeMutableData.newRandomPublic(appToken, 15001)
+ *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
+ *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
 module.exports.newRandomPublic = (appToken, typeTag) => {
   return getObj(appToken)
@@ -73,6 +83,11 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
  * @param {Number} typeTag the typeTag to use
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
+ *
+ * @example // Create a PrivateMutable Data with specific address:
+ * window.safeMutableData.newPrivate(appToken, 'name-private-0101010101010101010', 15001)
+ *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
+ *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
 module.exports.newPrivate = (appToken, name, typeTag) => {
   return getObj(appToken)
@@ -90,6 +105,11 @@ module.exports.newPrivate = (appToken, name, typeTag) => {
  * @param {Number} typeTag the typeTag to use
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
+ *
+ * @example // Create a Public MutableData with specific address:
+ * window.safeMutableData.newPublic(appToken, 'name-private-0101010101010101010', 15001)
+ *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
+ *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
 module.exports.newPublic = (appToken, name, typeTag) => {
   return getObj(appToken)
@@ -163,6 +183,11 @@ module.exports.newEntries = (appToken) => {
  * @param {Object} data a key-value payload it should create the data with
  *
  * @returns {Promise<MutableDataHandle>} the same MutableData handle
+ *
+ * @example // Create a MutableData and set up its permissions automatically:
+ * window.safeMutableData.newPublic(appToken, 15001)
+ *    .then((mdHandle) => window.safeMutableData.quickSetup(mdHandle, {key1: 'value1'}))
+ *    .then((r) => console.log('New MutableData created and setup'));
  **/
 module.exports.quickSetup = (mdHandle, data) => {
   return getObj(mdHandle)
@@ -229,8 +254,8 @@ module.exports.decrypt = (mdHandle, value) => {
  * @example // Retrieveing the name and tag of a MutableData:
  * window.safeMutableData.getNameAndTag(mdHandle)
  *  .then((res) => {
- *     console.log("Name:", res.name);
- *     console.log("Tag:", res.tag);
+ *     console.log('Name: ', res.name.buffer);
+ *     console.log('Tag: ', res.tag);
  *  });
  **/
 module.exports.getNameAndTag = (mdHandle) => {
@@ -245,6 +270,10 @@ module.exports.getNameAndTag = (mdHandle) => {
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
  * @returns {Promise<Number>} current version
+ *
+ * @example // Retrieveing the version of a MutableData:
+ * window.safeMutableData.getVersion(mdHandle)
+ *  .then((version) => console.log('MutableData current version: ', version));
  **/
 module.exports.getVersion = (mdHandle) => {
   return getObj(mdHandle)
@@ -259,6 +288,16 @@ module.exports.getVersion = (mdHandle) => {
  * @param {String} key the entry's key
  *
  * @returns {Promise<ValueVersion>} the value at the current version
+ *
+ * @example // Retrieveing the value of an entry:
+ * window.safeMutableData.newPublic(appToken, 15001)
+ *    .then((mdHandle) => window.safeMutableData.quickSetup(mdHandle, {key1: 'value1'})
+ *       .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
+ *       .then((value) => {
+ *          console.log('Value: ', value.buf.toString());
+ *          console.log('Version: ', value.version);
+ *       })
+ *    );
  **/
 module.exports.get = (mdHandle, key) => {
   return getObj(mdHandle)
@@ -290,6 +329,11 @@ module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
  * @returns {Promise<EntriesHandle>} the Entries handle
+ *
+ * @example // Retrieving the entries:
+ * window.safeMutableData.getEntries(mdHandle)
+ *    .then((entriesHandle) => window.safeMutableDataEntries.len(entriesHandle))
+ *    .then((len) => console.log('Number of entries in the MutableData: ', len));
  **/
 module.exports.getEntries = (mdHandle) => {
   return getObj(mdHandle)
@@ -304,6 +348,11 @@ module.exports.getEntries = (mdHandle) => {
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
  * @returns {Promise<KeysHandle>} the Keys handle
+ *
+ * @example // Retrieving the keys:
+ * window.safeMutableData.getKeys(mdHandle)
+ *    .then((keysHandle) => window.safeMutableDataKeys.len(keysHandle))
+ *    .then((len) => console.log('Number of keys in the MutableData: ', len));
  **/
 module.exports.getKeys = (mdHandle) => {
   return getObj(mdHandle)
@@ -318,6 +367,11 @@ module.exports.getKeys = (mdHandle) => {
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
  * @returns {Promise<ValuesHandle>} the Values handle
+ *
+ * @example // Retrieving the values:
+ * window.safeMutableData.getValues(mdHandle)
+ *    .then((valuesHandle) => window.safeMutableDataValues.len(valuesHandle))
+ *    .then((len) => console.log('Number of values in the MutableData: ', len));
  **/
 module.exports.getValues = (mdHandle) => {
   return getObj(mdHandle)
@@ -332,6 +386,11 @@ module.exports.getValues = (mdHandle) => {
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
  * @returns {Promise<PermissionsHandle>} the Permissions handle
+ *
+ * @example // Retrieving the permissions:
+ * window.safeMutableData.getPermissions(mdHandle)
+ *    .then((permsHandle) => window.safeMutableDataPermissions.len(permsHandle))
+ *    .then((len) => console.log('Number of permissions in the MutableData: ', len));
  **/
 module.exports.getPermissions = (mdHandle) => {
   return getObj(mdHandle)
@@ -348,6 +407,10 @@ module.exports.getPermissions = (mdHandle) => {
  * @param {SignKeyHandle} signKeyHandle the sign key to look up
  *
  * @returns {Promise<PermissionsSetHandle>} the PermissionsSet handle
+ *
+ * @example // Retrieving the permissions set associated to a sign key:
+ * window.safeMutableData.getUserPermissions(mdHandle, signKey)
+ *    .then((permSetHandle) => console.log('PermissionsSet retrieved'));
  **/
 module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
   return getObj(signKeyHandle)
@@ -368,6 +431,11 @@ module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
  *        actually asking for the right state
  *
  * @returns {Promise} resolves when finished
+ *
+ * @example // Remove the permissions set associated to a sign key:
+ * window.safeMutableData.getVersion(mdHandle)
+ *    .then((version) => window.safeMutableData.delUserPermissions(mdHandle, signKey, version + 1))
+ *    .then(_ => console.log('PermissionsSet removed for the sign key provided'));
  **/
 module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
   return getObj(signKeyHandle)
@@ -421,6 +489,10 @@ module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => {
  * @param {MutableDataHandle} mdHandle the MutableData handle
  *
  * @returns {Promise<String>} the serialised MutableData
+ *
+ * @example // Get the serialised version of a MutableData:
+ * window.safeMutableData.serialise(mdHandle)
+ *    .then((serial) => console.log('MutbleData serialised version retrieved: ', serial));
  **/
 module.exports.serialise = (mdHandle) => {
   return getObj(mdHandle)
@@ -435,6 +507,15 @@ module.exports.serialise = (mdHandle) => {
  * @param {String} data the serialised MutableData
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
+ *
+ * @example // Access MutableData information from its serialised version:
+ * window.safeMutableData.serialise(mdHandle)
+ *    .then((serial) => window.safeMutableData.fromSerial(appToken, serial))
+ *       .then((mdHdl) => window.safeMutableData.get(mdHdl, 'key1'))
+ *       .then((value) => {
+ *          console.log('Value: ', value.buf.toString());
+ *          console.log('Version: ', value.version);
+ *       });
  */
 module.exports.fromSerial = (appToken, data) => {
   return getObj(appToken)
@@ -450,6 +531,11 @@ module.exports.fromSerial = (appToken, data) => {
  * @param {String} eml name of the emulation
  *
  * @returns {NFSHandle} the NFS emulation you are asking for
+ *
+ * @example // Access a MutableData using NFS emulation:
+ * window.safeMutableData.emulateAs(mdHandle, 'NFS')
+ *    .then((nfsHandle) => window.safeNfs.fetch(nfsHandle, 'file.txt'))
+ *    .then((idHdl) => console.log('ImmutableData behind `file.txt` fetched'));
  **/
 module.exports.emulateAs = (mdHandle, eml) => {
   return getObj(mdHandle)
