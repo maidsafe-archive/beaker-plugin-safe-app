@@ -124,6 +124,10 @@ module.exports.newPublic = (appToken, name, typeTag) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<PermissionsHandle>} the Permissions handle
+ *
+ * @example
+ * window.safeMutableData.newPermissions(appToken)
+ *    .then((permsHandle) => console.log('New Permissions created but not committed'));
  **/
 module.exports.newPermissions = (appToken) => {
   return getObj(appToken)
@@ -138,6 +142,10 @@ module.exports.newPermissions = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<PermissionsSetHandle>} the PermissionsSet handle
+ *
+ * @example
+ * window.safeMutableData.newPermissionSet(appToken)
+ *    .then((permSetHandle) => console.log('New PermissionsSet created but not committed'));
  **/
 module.exports.newPermissionSet = (appToken) => {
   return getObj(appToken)
@@ -152,6 +160,10 @@ module.exports.newPermissionSet = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<MutationHandle>} the Mutation handle
+ *
+ * @example
+ * window.safeMutableData.newMutation(appToken)
+ *    .then((mutationHandle) => console.log('New Mutation created but not committed'));
  **/
 module.exports.newMutation = (appToken) => {
   return getObj(appToken)
@@ -166,6 +178,10 @@ module.exports.newMutation = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<EntriesHandle>} the Entries handle
+ *
+ * @example
+ * window.safeMutableData.newEntries(appToken)
+ *    .then((entriesHandle) => console.log('New Entries container created but not committed'));
  **/
 module.exports.newEntries = (appToken) => {
   return getObj(appToken)
@@ -173,7 +189,8 @@ module.exports.newEntries = (appToken) => {
       .then((entries) => genHandle(obj.app, entries)));
 };
 
-// MutableData functions
+/* The following functions act on a MutableData object */
+
 /**
  * Set up a newly (not yet committed/created) MutableData with
  * the app having full-access permissions (and no other).
@@ -205,6 +222,10 @@ module.exports.quickSetup = (mdHandle, data) => {
  * @param {(String|Buffer)} key the key you want to encrypt
  *
  * @returns {Promise<Key>} the encrypted entry key
+ *
+ * @example // Encrypt an entry's key using Private MutableData's encryption key:
+ * window.safeMutableData.encryptKey(mdHandle, 'key1')
+ *    .then((encryptedKey) => console.log('Encrypted key: ', encryptedKey));
  **/
 module.exports.encryptKey = (mdHandle, key) => {
   return getObj(mdHandle)
@@ -221,6 +242,10 @@ module.exports.encryptKey = (mdHandle, key) => {
  * @param {(String|Buffer)} value the data you want to encrypt
  *
  * @returns {Promise<Value>} the encrypted entry value
+ *
+ * @example // Encrypt an entry's value using Private MutableData's encryption key:
+ * window.safeMutableData.encryptValue(mdHandle, 'value1')
+ *    .then((encryptedValue) => console.log('Encrypted value: ', encryptedValue));
  **/
 module.exports.encryptValue = (mdHandle, value) => {
   return getObj(mdHandle)
@@ -236,6 +261,17 @@ module.exports.encryptValue = (mdHandle, value) => {
  * @param {(String|Buffer)} value the data you want to decrypt
  *
  * @returns {Promise<Value>} the decrypted value
+ *
+ * @example // Encrypt and decrypt an entry's key/value using Private MutableData's encryption key:
+ * let encryptedKey, encryptedValue;
+ * window.safeMutableData.encryptKey(mdHandle, 'key1')
+ *    .then((cipher) => encryptedKey = cipher)
+ *    .then(_ => window.safeMutableData.encryptValue(mdHandle, 'value1'))
+ *    .then((cipher) => encryptedValue = cipher)
+ *    .then(_ => window.safeMutableData.decrypt(mdHandle, encryptedKey))
+ *    .then((decryptedKey) => console.log('Decrypted key: ', decryptedKey.toString()))
+ *    .then(_ => window.safeMutableData.decrypt(mdHandle, encryptedValue))
+ *    .then((decryptedValue) => console.log('Decrypted value: ', decryptedValue.toString()));
  **/
 module.exports.decrypt = (mdHandle, value) => {
   return getObj(mdHandle)
@@ -313,6 +349,26 @@ module.exports.get = (mdHandle, key) => {
  * @param {EntriesHandle} entriesHandle data payload to create the MutableData with
  *
  * @returns {Promise} it resolves when finished creating it
+ *
+ * @example // Committing a MutableData to the network:
+ * let mdHandle, entriesHandle, pmSetHandle, appSignKeyHandle, permissionsHandle;
+ * window.safeMutableData.newEntries(appToken)
+ *    .then((h) => entriesHandle = h)
+ *    .then(_ => window.safeMutableDataEntries.insert(entriesHandle, 'key1', 'value1'))
+ *    .then(_ => window.safeCrypto.getAppPubSignKey(appToken))
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then((h) => pmSetHandle = h)
+ *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Insert'))
+ *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'ManagePermissions'))
+ *    .then(_ => window.safeMutableData.newPermissions(appToken))
+ *    .then((h) => permissionsHandle = h)
+ *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permissionsHandle, appSignKeyHandle, pmSetHandle))
+ *    .then(_ => window.safeMutableData.newRandomPublic(appToken, 15000))
+ *    .then((h) => mdHandle = h)
+ *    .then(_ => console.log("Finished preparation"))
+ *    .then(_ => window.safeMutableData.put(mdHandle, permissionsHandle, entriesHandle))
+ *    .then(_ => console.log('Finished creating and committing MutableData to the network'));
  **/
 module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
   return getObj(mdHandle)
@@ -474,6 +530,14 @@ module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, versi
  * @param {MutationHandle} mutationHandle the Mutation you want to apply
  *
  * @returns {Promise} resolves when finished
+ *
+ * @example // Apply an insert mutation to a MutableData:
+ * let mutationHandle;
+ * window.safeMutableData.newMutation(mdHandle)
+ *    .then((h) => mutationHandle = h)
+ *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
+ *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
+ *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
  **/
 module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => {
   return getObj(mutationHandle)
