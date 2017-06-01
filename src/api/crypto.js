@@ -20,7 +20,7 @@ module.exports.manifest = {
  **/
 module.exports.sha3Hash = (appToken, data) => {
   return getObj(appToken)
-    .then((app) => app.crypto.sha3Hash(data));
+    .then((obj) => obj.app.crypto.sha3Hash(data));
 };
 
 /**
