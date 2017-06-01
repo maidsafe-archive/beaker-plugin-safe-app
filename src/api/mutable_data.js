@@ -366,7 +366,7 @@ module.exports.get = (mdHandle, key) => {
  *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permissionsHandle, appSignKeyHandle, pmSetHandle))
  *    .then(_ => window.safeMutableData.newRandomPublic(appToken, 15000))
  *    .then((h) => mdHandle = h)
- *    .then(_ => console.log("Finished preparation"))
+ *    .then(_ => console.log('Finished preparation'))
  *    .then(_ => window.safeMutableData.put(mdHandle, permissionsHandle, entriesHandle))
  *    .then(_ => console.log('Finished creating and committing MutableData to the network'));
  **/
@@ -512,6 +512,17 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
  *        actually asking for the right state
  *
  * @returns {Promise} resolves when finished
+ *
+ * @example // Setting a new permission into a MutableData:
+ * let pmSetHandle, appSignKeyHandle;
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then((h) => pmSetHandle = h)
+ *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Delete'))
+ *    .then(_ => window.safeMutableData.getVersion(mdHandle))
+ *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then(_ => console.log('Finished setting user permission'));
  **/
 module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, version) => {
   return getObj(signKeyHandle)

@@ -13,6 +13,11 @@ module.exports.manifest = {
  * @param {ValuesHandle} valuesHandle the Values handle
  *
  * @returns {Promise<Number>} the number of values
+ *
+ * @example // Retrieving the number of values:
+ * window.safeMutableData.getValues(mdHandle)
+ *    .then((valuesHandle) => window.safeMutableDataValues.len(valuesHandle))
+ *    .then((len) => console.log('Number of values in the MutableData: ', len));
  **/
 module.exports.len = (valuesHandle) => {
   return getObj(valuesHandle)
@@ -27,6 +32,14 @@ module.exports.len = (valuesHandle) => {
  * @param {function(Buffer, ValueVersion)} fn the function to call
  *
  * @returns {Promise} resolves once the iteration finished
+ *
+ * @example // Iterating over the values of a MutableData:
+ * window.safeMutableData.getValues(mdHandle)
+ *    .then((valuesHandle) => window.safeMutableDataValues.forEach(valuesHandle, (v) => {
+ *          console.log('Value: ', v.buf.toString());
+ *          console.log('Version: ', v.version);
+ *       }).then(_ => console.log('Iteration finished'))
+ *    );
  **/
 module.exports._with_cb_forEach = (valuesHandle) => {
   return forEachHelper(valuesHandle);

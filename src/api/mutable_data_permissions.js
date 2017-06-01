@@ -15,6 +15,11 @@ module.exports.manifest = {
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
  *
  * @returns {Promise<Number>} the number of permissions entries
+ *
+ * @example // Retrieving the number of permissions:
+ * window.safeMutableData.getPermissions(mdHandle)
+ *    .then((permsHandle) => window.safeMutableDataPermissions.len(permsHandle))
+ *    .then((len) => console.log('Number of permissions entries in the MutableData: ', len));
  **/
 module.exports.len = (permissionsHandle) => {
   return getObj(permissionsHandle)
@@ -48,6 +53,19 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
  * @param {PermissionsSetHandle} pmSetHandle - the permissions set you'd like insert
  *
  * @returns {Promise} resolves once finished
+ *
+ * @example // Inserting a new permissions set into a MutableData:
+ * let pmSetHandle, appSignKeyHandle, permsHandle;
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.getPermissions(mdHandle))
+ *    .then((h) => permsHandle = h)
+ *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then((h) => pmSetHandle = h)
+ *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Insert'))
+ *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'ManagePermissions'))
+ *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permsHandle, appSignKeyHandle, pmSetHandle))
+ *    .then(_ => console.log('Finished inserting new permissions'));
  **/
 module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHandle) => {
   return getObj(signKeyHandle)
@@ -65,6 +83,13 @@ module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHa
  * @param {function(Buffer, ValueVersion)} fn the function to call
  *
  * @returns {Promise} resolves once the iteration is finished
+ *
+ * @example // Iterating over the permissions of a MutableData:
+ * window.safeMutableData.getPermissions(mdHandle)
+ *    .then((permsHandle) => window.safeMutableDataPermissions.forEach(permsHandle, (p) => {
+ *          console.log('Permissions entry handle: ', p);
+ *       }).then(_ => console.log('Iteration finished'))
+ *    );
  **/
 module.exports._with_cb_forEach = (permissionsHandle) => {
   return forEachHelper(permissionsHandle, true);

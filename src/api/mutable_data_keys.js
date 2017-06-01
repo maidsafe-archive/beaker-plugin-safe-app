@@ -13,6 +13,11 @@ module.exports.manifest = {
  * @param {KeysHandle} keysHandle the Keys handle
  *
  * @returns {Promise<Number>} the number of keys
+ *
+ * @example // Retrieving the number of keys:
+ * window.safeMutableData.getKeys(mdHandle)
+ *    .then((keysHandle) => window.safeMutableDataKeys.len(keysHandle))
+ *    .then((len) => console.log('Number of keys in the MutableData: ', len));
  **/
 module.exports.len = (keysHandle) => {
   return getObj(keysHandle)
@@ -27,6 +32,13 @@ module.exports.len = (keysHandle) => {
  * @param {function(Buffer)} fn the function to call with the key in the buffer
  *
  * @returns {Promise} resolves once the iteration is done
+ *
+ * @example // Iterating over the keys of a MutableData:
+ * window.safeMutableData.getKeys(mdHandle)
+ *    .then((keysHandle) => window.safeMutableDataKeys.forEach(keysHandle, (k) => {
+ *          console.log('Key: ', k.toString());
+ *       }).then(_ => console.log('Iteration finished'))
+ *    );
  **/
 module.exports._with_cb_forEach = (keysHandle) => {
   return forEachHelper(keysHandle);

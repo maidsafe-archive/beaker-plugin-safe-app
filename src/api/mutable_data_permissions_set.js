@@ -15,6 +15,17 @@ module.exports.manifest = {
  * @param {MDataAction} action the action to set as allowed
  *
  * @returns {Promise} resolves when done
+ *
+ * @example // Setting a new permission into a MutableData:
+ * let pmSetHandle, appSignKeyHandle;
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then((h) => pmSetHandle = h)
+ *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Delete'))
+ *    .then(_ => window.safeMutableData.getVersion(mdHandle))
+ *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then(_ => console.log('Finished setting user permission'));
  **/
 module.exports.setAllow = (permissionsSetHandle, action) => {
   return getObj(permissionsSetHandle)
@@ -29,6 +40,17 @@ module.exports.setAllow = (permissionsSetHandle, action) => {
  * @param {MDataAction} action the action to set as denied
  *
  * @returns {Promise} resolves when done
+ *
+ * @example // Setting a new permission into a MutableData:
+ * let pmSetHandle, appSignKeyHandle;
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then((h) => pmSetHandle = h)
+ *    .then(_ => window.safeMutableDataPermissionsSet.setDeny(pmSetHandle, 'Update'))
+ *    .then(_ => window.safeMutableData.getVersion(mdHandle))
+ *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then(_ => console.log('Finished setting user permission'));
  **/
 module.exports.setDeny = (permissionsSetHandle, action) => {
   return getObj(permissionsSetHandle)
@@ -43,6 +65,17 @@ module.exports.setDeny = (permissionsSetHandle, action) => {
  * @param {MDataAction} action the action the permissions to be cleared
  *
  * @returns {Promise} resolves when done
+ *
+ * @example // Setting a new permission into a MutableData:
+ * let pmSetHandle, appSignKeyHandle;
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then((h) => pmSetHandle = h)
+ *    .then(_ => window.safeMutableDataPermissionsSet.clear(pmSetHandle, 'Insert'))
+ *    .then(_ => window.safeMutableData.getVersion(mdHandle))
+ *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then(_ => console.log('Finished setting user permission'));
  **/
 module.exports.clear = (permissionsSetHandle, action) => {
   return getObj(permissionsSetHandle)
