@@ -17,7 +17,7 @@ module.exports.manifest = {
  * @param {(String|Buffer)} data the input string
  *
  * @returns {Promise<Buffer>} the hash generated
- */
+ **/
 module.exports.sha3Hash = (appToken, data) => {
   return getObj(appToken)
     .then((app) => app.crypto.sha3Hash(data));
@@ -30,7 +30,12 @@ module.exports.sha3Hash = (appToken, data) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<SignKeyHandle>} the SignKey handle
- */
+ *
+ * @example // Retrieving application's public sign key:
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
+ *    .then((rawPk) => console.log('App\'s public sign key: ', rawPk.buffer));
+ **/
 module.exports.getAppPubSignKey = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.getAppPubSignKey()
@@ -43,7 +48,12 @@ module.exports.getAppPubSignKey = (appToken) => {
  *
  * @param {SAFEAppToken} appToken the app handle
  * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
- */
+ *
+ * @example // Retrieving application's public encryption key:
+ * window.safeCrypto.getAppPubEncKey(appToken)
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((rawPk) => console.log('App\'s public encryption key: ', rawPk.buffer));
+ **/
 module.exports.getAppPubEncKey = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.getAppPubEncKey()
@@ -57,7 +67,13 @@ module.exports.getAppPubEncKey = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<KeyPairHandle>} the KeyPair handle
- */
+ *
+ * @example // Generating encryption key pair:
+ * window.safeCrypto.generateEncKeyPair(appToken)
+ *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle))
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((rawPk) => console.log('Public encryption key generated: ', rawPk.buffer));
+ **/
 module.exports.generateEncKeyPair = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.generateEncKeyPair()

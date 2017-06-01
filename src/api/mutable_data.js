@@ -39,7 +39,7 @@ module.exports.manifest = {
  * @param {SAFEAppToken} appToken the app handle
  * @param {Number} typeTag the typeTag to use
  *
- * @returns {Promise<MutableDataHandle>} the MutableData handle the MutableData handle
+ * @returns {Promise<MutableDataHandle>} the MutableData handle
  *
  * @example // Create a PrivateMutable Data with random address:
  * window.safeMutableData.newRandomPrivate(appToken, 15001)
@@ -48,7 +48,7 @@ module.exports.manifest = {
  **/
 module.exports.newRandomPrivate = (appToken, typeTag) => {
   return getObj(appToken)
-    .then((obj) => obj.app.mutableData.newRandomPrivate(typeTag)
+    .then((obj) => obj.app.mutableData.newRandomPrivate(typeTag, secKey, nonce)
       .then((md) => genHandle(obj.app, md)));
 };
 
@@ -81,17 +81,22 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
  * @param {SAFEAppToken} appToken the app handle
  * @param {(String|Buffer)} name Xor name/address of the MutbleData
  * @param {Number} typeTag the typeTag to use
+ * @param {Number} secKey the secret encryption key to use
+ * @param {Number} nonce the nonce
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
  *
  * @example // Create a PrivateMutable Data with specific address:
- * window.safeMutableData.newPrivate(appToken, 'name-private-0101010101010101010', 15001)
+ * let name = 'name-private-0101010101010101010';
+ * let secKey = 'secret-key-010101010101010101010';
+ * let nonce = 'nonce-01010101010101010101010101';
+ * window.safeMutableData.newPrivate(appToken, name, 15001, secKey, nonce)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
  *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
-module.exports.newPrivate = (appToken, name, typeTag) => {
+module.exports.newPrivate = (appToken, name, typeTag, secKey, nonce) => {
   return getObj(appToken)
-    .then((obj) => obj.app.mutableData.newPrivate(name, typeTag)
+    .then((obj) => obj.app.mutableData.newPrivate(name, typeTag, secKey, nonce)
       .then((md) => genHandle(obj.app, md)));
 };
 
