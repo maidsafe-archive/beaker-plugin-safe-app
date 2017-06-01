@@ -9,6 +9,7 @@ module.exports.manifest = {
   connectAuthorised: 'promise',
   webFetch: 'promise',
   isRegistered: 'promise',
+  networkState: 'promise',
   canAccessContainer: 'promise',
   refreshContainersPermissions: 'promise',
   getContainersNames: 'promise',
@@ -23,7 +24,17 @@ module.exports.manifest = {
  *
  * @param {AppInfo} appInfo
  *
- * @returns {Promise<SAFEAppToken>} new app instace token
+ * @returns {Promise<SAFEAppToken>} new app instance token
+ *
+ * @example
+ * window.safeApp.initialise({
+ *    id: 'net.maidsafe.test.webapp.id',
+ *    name: 'WebApp Test',
+ *    vendor: 'MaidSafe Ltd.'
+ * })
+ * .then((appToken) => {
+ *    console.log('SAFEApp instance initialised and token returned: ', appToken);
+ * });
  **/
 module.exports.initialise = (appInfo) => {
   if (this && this.sender) {
@@ -39,12 +50,23 @@ module.exports.initialise = (appInfo) => {
 
 /**
  * Create a new, unregistered session (read-only),
- * e.g. useful for browsing web sites or just publicly avaiable data.
+ * e.g. useful for browsing web sites or just publicly available data.
  * @name window.safeApp.connect
  *
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<SAFEAppToken>} same app token
+ *
+ * @example
+ * window.safeApp.initialise({
+ *    id: 'net.maidsafe.test.webapp.id',
+ *    name: 'WebApp Test',
+ *    vendor: 'MaidSafe Ltd.'
+ * })
+ * .then((appToken) => window.safeApp.connect(appToken))
+ * .then(_ => {
+ *    console.log('Unregistered session created');
+ * });
  **/
 module.exports.connect = (appToken) => {
   return getObj(appToken)
@@ -75,7 +97,9 @@ module.exports.connect = (appToken) => {
  *      _other: ['Insert', 'Update'] // request to insert and update in `_other` container
  *    },
  *    {own_container: true} // and we want our own container, too
- * )
+ * ).then((authUri) => {
+ *    console.log('App was authorised and auth URI received: ', authUri);
+ * });
  **/
 module.exports.authorise = (appToken, permissions, options) => {
   return new Promise((resolve, reject) => {
@@ -103,6 +127,20 @@ module.exports.authorise = (appToken, permissions, options) => {
  * @param {AuthURI} authUri granted auth URI
  *
  * @returns {Promise<SAFEAppToken>} same app token
+ *
+ * @example // Example of creating a registered session:
+ * window.safeApp.authorise(
+ *    appToken, // the app token obtained when invoking `initialise`
+ *    {
+ *      _public: ['Insert'], // request to insert into `_public` container
+ *      _other: ['Insert', 'Update'] // request to insert and update in `_other` container
+ *    },
+ *    {own_container: true} // and we want our own container, too
+ * )
+ * .then((authUri) => window.safeApp.connectAuthorised(appToken, authUri))
+ * .then(_ => {
+ *    console.log('The app was authorised a session was created with the network');
+ * });
  **/
 module.exports.connectAuthorised = (appToken, authUri) => {
   return getObj(appToken)
@@ -123,8 +161,10 @@ module.exports.connectAuthorised = (appToken, authUri) => {
  * @example // Requesting further container authorisation:
  * window.safeApp.authoriseContainer(
  *   appToken, // the app token obtained when invoking `initialise`
- *   { _publicNames: ['Insert'] } // request to insert into `_publicNames` container
- * )
+ *   { _publicNames: ['Update'] } // request to update into `_publicNames` container
+ * ).then((authUri) => {
+ *    console.log('App was authorised and auth URI received: ', authUri);
+ * });
  **/
 module.exports.authoriseContainer = (appToken, permissions) => {
   return new Promise((resolve, reject) => {
@@ -149,11 +189,20 @@ module.exports.authoriseContainer = (appToken, permissions) => {
  * @param {AuthURI} authUri granted auth URI
  *
  * @returns {Promise<File>} the file object found for that URL
+ *
+ * @example // Retrieving a web page:
+ * window.safeApp.webFetch(
+ *   appToken, // the app token obtained when invoking `initialise`
+ *   'safe://servicename.publicid' // the SAFE Network URL
+ * )
+ * .then((data) => {
+ *    console.log('Web page content retrieved: ', data.toString());
+ * });
  **/
 module.exports.webFetch = (appToken, url) => {
   return getObj(appToken)
     .then((obj) => obj.app.webFetch(url)
-      .then((f) => app.immutableData.fetch(f.dataMapName))
+      .then((f) => obj.app.immutableData.fetch(f.dataMapName))
       .then((i) => i.read())
     );
 };
@@ -165,6 +214,10 @@ module.exports.webFetch = (appToken, url) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Boolean} true if this is an authenticated session
+ *
+ * @example // Checking if app is registered:
+ * window.safeApp.isRegistered(appToken)
+ *    .then((r) => console.log('Is app registered?: ', r));
  **/
 module.exports.isRegistered = (appToken) => {
   return getObj(appToken)
@@ -178,6 +231,10 @@ module.exports.isRegistered = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {String} network state
+ *
+ * @example // Checking network connection state:
+ * window.safeApp.networkState(appToken)
+ *    .then((s) => console.log('Current network state: ', s));
  **/
 module.exports.networkState = (appToken) => {
   return getObj(appToken)
@@ -194,6 +251,10 @@ module.exports.networkState = (appToken) => {
  * @param {(String|Array<String>)} [permissions=['Read']] permissions to check for
  *
  * @returns {Promise<Boolean>} true if this app can access the container with given permissions
+ *
+ * @example // Checking if the app has 'Read' permission for the '_public' container:
+ * window.safeApp.canAccessContainer(appToken, '_public', ['Read'])
+ *    .then((r) => console.log('Has the app `Read` permission for `_public` container?: ', r));
  **/
 module.exports.canAccessContainer = (appToken, name, permissions) => {
   return getObj(appToken)
@@ -208,7 +269,7 @@ module.exports.canAccessContainer = (appToken, name, permissions) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise} resolves when finished refreshing
- */
+ **/
 module.exports.refreshContainersPermissions = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.auth.refreshContainersPermissions())
@@ -222,7 +283,7 @@ module.exports.refreshContainersPermissions = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<Array<String>>} list of containers names
- */
+ **/
 module.exports.getContainersNames = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.auth.getContainersNames());
@@ -235,7 +296,12 @@ module.exports.getContainersNames = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<MutableDataHandle>} the handle for the MutableData behind it
- */
+ *
+ * @example // Retrieve home container:
+ * window.safeApp.getHomeContainer(appToken)
+ *    .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
+ *    .then((v) => console.log('Home Container version: ', v));
+ **/
 module.exports.getHomeContainer = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.auth.getHomeContainer()
@@ -250,7 +316,18 @@ module.exports.getHomeContainer = (appToken) => {
  * @param {String} name name of the container, e.g. `_public`
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle the handle for the MutableData behind it
- */
+ *
+ * @example // Retrieve the '_public' container:
+ * window.safeApp.canAccessContainer(appToken, '_public', ['Read'])
+ *    .then((r) => {
+ *       if (r) {
+ *          console.log('The app has `Read` permission for `_public` container');
+ *          window.safeApp.getContainer(appToken, '_public')
+ *             .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
+ *             .then((v) => console.log('`_public` Container version: ', v));
+ *       }
+ *    });
+ **/
 module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
     .then((obj) => obj.app.auth.getContainer(name)
@@ -262,7 +339,7 @@ module.exports.getContainer = (appToken, name) => {
  * @name window.safeApp.free
  *
  * @param {SAFEAppToken} appToken the app handle
- */
+ **/
 module.exports.free = (appToken) => freeObj(appToken);
 
 /**

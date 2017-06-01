@@ -16,6 +16,14 @@ module.exports.manifest = {
  * @param {(String|Buffer)} value
  *
  * @returns {Promise} resolves once the storing is done
+ *
+ * @example // Apply an `Insert` mutation:
+ * let mutationHandle;
+ * window.safeMutableData.newMutation(appToken)
+ *    .then((h) => mutationHandle = h)
+ *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
+ *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
+ *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
  **/
 module.exports.insert = (mutationHandle, keyName, value) => {
   return getObj(mutationHandle)
@@ -32,6 +40,15 @@ module.exports.insert = (mutationHandle, keyName, value) => {
  *        actually asking for the right state
  *
  * @returns {Promise} resolves once the storing is done
+ *
+ * @example // Apply a `Remove` mutation:
+ * let mutationHandle;
+ * window.safeMutableData.newMutation(appToken)
+ *    .then((h) => mutationHandle = h)
+ *    .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
+ *    .then((value) => window.safeMutableDataMutation.remove(mutationHandle, 'key1', value.version + 1))
+ *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
+ *    .then(_ => console.log('Entry was removed from the MutableData and committed to the network'));
  **/
 module.exports.remove = (mutationHandle, keyName, version) => {
   return getObj(mutationHandle)
@@ -49,6 +66,15 @@ module.exports.remove = (mutationHandle, keyName, version) => {
  *        actually asking for the right state
  *
  * @returns {Promise} resolves once the storing is done
+ *
+ * @example // Apply an `Update` mutation:
+ * let mutationHandle;
+ * window.safeMutableData.newMutation(appToken)
+ *    .then((h) => mutationHandle = h)
+ *    .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
+ *    .then((value) => window.safeMutableDataMutation.update(mutationHandle, 'key1', 'newValue', value.version + 1))
+ *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
+ *    .then(_ => console.log('Entry was updated in the MutableData and committed to the network'));
  **/
 module.exports.update = (mutationHandle, keyName, value, version) => {
   return getObj(mutationHandle)

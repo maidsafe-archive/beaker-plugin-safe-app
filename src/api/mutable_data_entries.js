@@ -16,6 +16,11 @@ module.exports.manifest = {
  * @param {EntriesHandle} entriesHandle the Entries handle
  *
  * @returns {Promise<Number>} number of entries
+ *
+ * @example // Retrieving the number of entries:
+ * window.safeMutableData.getEntries(mdHandle)
+ *    .then((entriesHandle) => window.safeMutableDataEntries.len(entriesHandle))
+ *    .then((len) => console.log('Number of entries in the MutableData: ', len));
  **/
 module.exports.len = (entriesHandle) => {
   return getObj(entriesHandle)
@@ -30,6 +35,14 @@ module.exports.len = (entriesHandle) => {
  * @param {String} keyName the entry's key
  *
  * @returns {Promise<ValueVersion>} the current version
+ *
+ * @example // Retrieving a value:
+ * window.safeMutableData.getEntries(mdHandle)
+ *    .then((entriesHandle) => window.safeMutableDataEntries.get(entriesHandle, 'key1'))
+ *    .then((value) => {
+ *       console.log('Value: ', value.buf.toString());
+ *       console.log('Version: ', value.version);
+ *    });
  **/
 module.exports.get = (entriesHandle, keyName) => {
   return getObj(entriesHandle)
@@ -48,10 +61,11 @@ module.exports.get = (entriesHandle, keyName) => {
  * @example // Iterating over the entries of a MutableData:
  * window.safeMutableData.getEntries(mdHandle)
  *    .then((entriesHandle) => window.safeMutableDataEntries.forEach(entriesHandle, (k, v) => {
- *       console.log("Key:", k);
- *       console.log("Value:", v.buf.toString());
- *       console.log("Version:", v.version);
- *    }));
+ *          console.log('Key: ', k.toString());
+ *          console.log('Value: ', v.buf.toString());
+ *          console.log('Version: ', v.version);
+ *       }).then(_ => console.log('Iteration finished'))
+ *    );
  **/
 module.exports._with_cb_forEach = (entriesHandle) => {
   return forEachHelper(entriesHandle);
@@ -68,6 +82,11 @@ module.exports._with_cb_forEach = (entriesHandle) => {
  * @param {(String|Buffer)} value the data you want to store
  *
  * @returns {Promise} resolves when finished
+ *
+ * @example // Inserting an entry:
+ * window.safeMutableData.getEntries(mdHandle)
+ *    .then((entriesHandle) => window.safeMutableDataEntries.insert(entriesHandle, 'key1', 'value1'))
+ *    .then(_ => console.log('New entry inserted');
  **/
 module.exports.insert = (entriesHandle, keyName, value) => {
   return getObj(entriesHandle)
@@ -81,6 +100,15 @@ module.exports.insert = (entriesHandle, keyName, value) => {
  * @param {EntriesHandle} entriesHandle the Entries handle
  *
  * @returns {Promise<MutationHandle>} the Mutation handle
+ *
+ * @example // Mutate current entries by inserting a new entry:
+ * let mutationHandle;
+ * window.safeMutableData.getEntries(mdHandle)
+ *    .then((entriesHandle) => window.safeMutableDataEntries.mutate(entriesHandle))
+ *    .then((h) => mutationHandle = h)
+ *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
+ *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
+ *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
  **/
 module.exports.mutate = (entriesHandle) => {
   return getObj(entriesHandle)
