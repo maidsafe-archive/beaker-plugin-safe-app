@@ -17,6 +17,10 @@ module.exports.manifest = {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<WriterHandle>} the ImmutableData Writer handle
+ *
+ * @example // Creating a new ImmutableData writer:
+ * window.safeImutableData.create(appToken)
+ *    .then((idWriterHandle) => console.log('ImmutableData writer handle: ', idWriterHandle));
  **/
 module.exports.create = (appToken) => {
   return getObj(appToken)
@@ -32,6 +36,12 @@ module.exports.create = (appToken) => {
  * @param {Buffer} address the XorName on the network
  *
  * @returns {Promise<ReaderHandle>} the ImmutableData Reader handle
+ *
+ * @example // Fetch an exisiting ImmutableData from the network:
+ * window.safeImmutableData.create(appToken)
+ *    .then((idWriterHandle) => window.safeImmutableData.closeWriter(idWriterHandle))
+ *    .then((addr) => window.safeImmutableData.fetch(appToken, addr))
+ *    .then((idReaderHandle) => console.log('ImmutableData reader handle: ', idReaderHandle));
  **/
 module.exports.fetch = (appToken, address) => {
   return getObj(appToken)
@@ -47,6 +57,13 @@ module.exports.fetch = (appToken, address) => {
  * @param {String} string the data to append
  *
  * @returns {Promise} resolves when finished appending
+ *
+ * @example // Write data into an ImmutableData:
+ * window.safeImmutableData.create(appToken)
+ *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
+ *       .then(_ => window.safeImmutableData.closeWriter(idWriterHandle))
+ *       .then(_ => console.log('ImmutableData written in the network'))
+ *    );
  **/
 module.exports.write = (writerHandle, string) => {
   return getObj(writerHandle)
@@ -64,6 +81,11 @@ module.exports.write = (writerHandle, string) => {
  * @param {WriterHandle} writerHandle the ImmutableData Writer handle
  *
  * @returns {Promise<String>} the address to the data once written to the network
+ *
+ * @example // Creating an ImmutableData and closing its writer to commit it to the network:
+ * window.safeImmutableData.create(appToken)
+ *    .then((idWriterHandle) => window.safeImmutableData.closeWriter(idWriterHandle))
+ *    .then((addr) => console.log('ImmutableData was stored at address: ', addr));
  **/
 module.exports.closeWriter = (writerHandle) => {
   return getObj(writerHandle)
@@ -84,6 +106,14 @@ module.exports.closeWriter = (writerHandle) => {
  * @param {Number} [options.end=size] end position or end of data
  *
  * @returns {Promise<String>} the data read
+ *
+ * @example // Read data from an ImmutableData:
+ * window.safeImmutableData.create(appToken)
+ *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
+ *       .then(_ => window.safeImmutableData.closeWriter(idWriterHandle))
+ *    ).then((addr) => window.safeImmutableData.fetch(appToken, addr))
+ *    .then((idReaderHandle) => window.safeImmutableData.read(idReaderHandle))
+ *    .then((data) => console.log('ImmutableData data read: ', data.toString()));
  **/
 module.exports.read = (readerHandle, options) => {
   return getObj(readerHandle)
@@ -97,6 +127,14 @@ module.exports.read = (readerHandle, options) => {
  * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
  *
  * @returns {Promise<Number>} length in bytes
+ *
+ * @example // Get the size of an ImmutableData:
+ * window.safeImmutableData.create(appToken)
+ *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
+ *       .then(_ => window.safeImmutableData.closeWriter(idWriterHandle))
+ *    ).then((addr) => window.safeImmutableData.fetch(appToken, addr))
+ *    .then((idReaderHandle) => window.safeImmutableData.size(idReaderHandle))
+ *    .then((size) => console.log('Size of the ImmutableData: ', size));
  **/
 module.exports.size = (readerHandle) => {
   return getObj(readerHandle)
