@@ -17,7 +17,7 @@ module.exports.manifest = {
  */
 module.exports.getPubEncKey = (keyPairHandle) => {
   return getObj(keyPairHandle)
-    .then((obj) => genHandle(obj.netObj.pubEncKey));
+    .then((obj) => genHandle(obj.app, obj.netObj.pubEncKey));
 };
 
 /**
@@ -30,7 +30,7 @@ module.exports.getPubEncKey = (keyPairHandle) => {
  */
 module.exports.getSecEncKey = (keyPairHandle) => {
   return getObj(keyPairHandle)
-    .then((obj) => genHandle(obj.netObj.secEncKey));
+    .then((obj) => genHandle(obj.app, obj.netObj.secEncKey));
 };
 
 /**
