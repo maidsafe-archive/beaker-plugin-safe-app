@@ -48,7 +48,7 @@ module.exports.manifest = {
  **/
 module.exports.newRandomPrivate = (appToken, typeTag) => {
   return getObj(appToken)
-    .then((obj) => obj.app.mutableData.newRandomPrivate(typeTag, secKey, nonce)
+    .then((obj) => obj.app.mutableData.newRandomPrivate(typeTag)
       .then((md) => genHandle(obj.app, md)));
 };
 
