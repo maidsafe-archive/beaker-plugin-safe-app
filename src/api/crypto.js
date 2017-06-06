@@ -6,7 +6,8 @@ module.exports.manifest = {
   getAppPubEncKey: 'promise',
   generateEncKeyPair: 'promise',
   getSignKeyFromRaw: 'promise',
-  pubEncKeyKeyFromRaw: 'promise'
+  pubEncKeyKeyFromRaw: 'promise',
+  generateNonce: 'promise'
 };
 
 /**
@@ -17,7 +18,11 @@ module.exports.manifest = {
  * @param {(String|Buffer)} data the input string
  *
  * @returns {Promise<Buffer>} the hash generated
- */
+ *
+ * @example // Generating a hash:
+ * window.safeCrypto.sha3Hash(appToken, '1010101010101')
+ *    .then((hash) => console.log('SHA3 Hash generated: ', hash.toString('hex')));
+ **/
 module.exports.sha3Hash = (appToken, data) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.sha3Hash(data));
@@ -30,7 +35,12 @@ module.exports.sha3Hash = (appToken, data) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<SignKeyHandle>} the SignKey handle
- */
+ *
+ * @example // Retrieving application's public sign key:
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
+ *    .then((rawPk) => console.log('App\'s public sign key: ', rawPk.buffer.toString('hex')));
+ **/
 module.exports.getAppPubSignKey = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.getAppPubSignKey()
@@ -43,7 +53,12 @@ module.exports.getAppPubSignKey = (appToken) => {
  *
  * @param {SAFEAppToken} appToken the app handle
  * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
- */
+ *
+ * @example // Retrieving application's public encryption key:
+ * window.safeCrypto.getAppPubEncKey(appToken)
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((rawPk) => console.log('App\'s public encryption key: ', rawPk.buffer.toString('hex')));
+ **/
 module.exports.getAppPubEncKey = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.getAppPubEncKey()
@@ -57,7 +72,13 @@ module.exports.getAppPubEncKey = (appToken) => {
  * @param {SAFEAppToken} appToken the app handle
  *
  * @returns {Promise<KeyPairHandle>} the KeyPair handle
- */
+ *
+ * @example // Generating encryption key pair:
+ * window.safeCrypto.generateEncKeyPair(appToken)
+ *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle))
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((rawPk) => console.log('Public encryption key generated: ', rawPk.buffer.toString('hex')));
+ **/
 module.exports.generateEncKeyPair = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.generateEncKeyPair()
@@ -123,4 +144,21 @@ module.exports.generateEncKeyPairFromRaw = (appToken, rawPublicKey, rawSecretKey
   return getObj(appToken)
     .then((obj) => obj.app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey)
       .then((kp) => genHandle(obj.app, kp)));
+};
+
+/**
+ * Generate a nonce that can be used when creating private MutableData
+ * @name window.safeCrypto.generateNonce
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ *
+ * @returns {Promise<Buffer>} the nonce generated
+ *
+ * @example // Generating a nonce:
+ * window.safeCrypto.generateNonce(appToken)
+ *    .then((nonce) => console.log('Nonce generated: ', nonce.buffer.toString('hex')));
+ **/
+module.exports.generateNonce = (appToken) => {
+  return getObj(appToken)
+    .then((obj) => obj.app.crypto.generateNonce());
 };
