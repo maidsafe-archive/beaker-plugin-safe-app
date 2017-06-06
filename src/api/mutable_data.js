@@ -76,6 +76,8 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
 /**
  * Initiate a mutuable data at the given address with private
  * access.
+ * Note that the nonce can be generated with window.safeCrypto.generateNonce()
+ * function.
  * @name window.safeMutableData.newPrivate
  *
  * @param {SAFEAppToken} appToken the app handle
@@ -89,8 +91,8 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
  * @example // Create a PrivateMutable Data with specific address:
  * let name = 'name-private-0101010101010101010';
  * let secKey = 'secret-key-010101010101010101010';
- * let nonce = 'nonce-01010101010101010101010101';
- * window.safeMutableData.newPrivate(appToken, name, 15001, secKey, nonce)
+ * window.safeCrypto.generateNonce()
+ *    .then((nonce) => window.safeMutableData.newPrivate(appToken, name, 15001, secKey, nonce))
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
  *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
