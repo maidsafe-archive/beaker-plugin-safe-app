@@ -14,6 +14,12 @@ module.exports.manifest = {
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  *
  * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
+ *
+ * @example // Getting the public encryption key from a key pair:
+ * window.safeCrypto.generateEncKeyPair(appToken)
+ *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle))
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((rawPk) => console.log('Public encryption key: ', rawPk.buffer.toString('hex')));
  */
 module.exports.getPubEncKey = (keyPairHandle) => {
   return getObj(keyPairHandle)
@@ -27,6 +33,12 @@ module.exports.getPubEncKey = (keyPairHandle) => {
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  *
  * @returns {Promise<SecEncKeyHandle>} the SecEncKey handle
+ *
+ * @example // Getting the secret encryption key from a key pair:
+ * window.safeCrypto.generateEncKeyPair(appToken)
+ *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle))
+ *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
+ *    .then((rawSk) => console.log('Secret encryption key: ', rawSk.buffer.toString('hex')));
  */
 module.exports.getSecEncKey = (keyPairHandle) => {
   return getObj(keyPairHandle)

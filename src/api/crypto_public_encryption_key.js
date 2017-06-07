@@ -14,6 +14,12 @@ module.exports.manifest = {
  * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
  *
  * @returns {Promise<String>} the raw encryption key string
+ *
+ * @example // Generating a raw string copy of the public encryption key:
+ * window.safeCrypto.generateEncKeyPair(appToken)
+ *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle))
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((rawPk) => console.log('Public encryption key: ', rawPk.buffer.toString('hex')));
  */
 module.exports.getRaw = (pubEncKeyHandle) => {
   return getObj(pubEncKeyHandle)

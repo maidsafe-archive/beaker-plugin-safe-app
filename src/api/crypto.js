@@ -93,7 +93,14 @@ module.exports.generateEncKeyPair = (appToken) => {
  * @param {(String|Buffer)} raw the raw input string
  *
  * @returns {Promise<SignKeyHandle>} the SignKey handle
- */
+ *
+ * @example // Interpreting a sign key from a raw string:
+ * window.safeCrypto.getAppPubSignKey(appToken)
+ *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
+ *    .then((raw) => window.safeCrypto.getSignKeyFromRaw(appToken, raw))
+ *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
+ *    .then((rawSignKey) => console.log('Sign key: ', rawSignKey.buffer.toString('hex')));
+ **/
 module.exports.getSignKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.getSignKeyFromRaw(raw)
@@ -108,7 +115,14 @@ module.exports.getSignKeyFromRaw = (appToken, raw) => {
  * @param {(String|Buffer)} raw the raw input string
  *
  * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
- */
+ *
+ * @example // Interpreting a public encryption key from a raw string:
+ * window.safeCrypto.getAppPubEncKey(appToken)
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((raw) => window.safeCrypto.pubEncKeyKeyFromRaw(appToken, raw))
+ *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *    .then((rawPubEncKey) => console.log('Public encrpytion key: ', rawPubEncKey.buffer.toString('hex')));
+ **/
 module.exports.pubEncKeyKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.pubEncKeyKeyFromRaw(raw)
@@ -123,7 +137,15 @@ module.exports.pubEncKeyKeyFromRaw = (appToken, raw) => {
  * @param {(String|Buffer)} raw the raw input string
  *
  * @returns {Promise<SecEncKey>} the SecEncKey handle
- */
+ *
+ * @example // Interpreting a secret encryption key from a raw string:
+ * window.safeCrypto.generateEncKeyPair(appToken)
+ *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle))
+ *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
+ *    .then((raw) => window.safeCrypto.secEncKeyKeyFromRaw(appToken, raw))
+ *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
+ *    .then((rawSecEncKey) => console.log('Secret encrpytion key: ', rawSecEncKey.buffer.toString('hex')));
+ **/
 module.exports.secEncKeyKeyFromRaw = (appToken, raw) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.secEncKeyKeyFromRaw(raw)
@@ -139,7 +161,17 @@ module.exports.secEncKeyKeyFromRaw = (appToken, raw) => {
  * @param {(String|Buffer)} rawSecretKey the raw secret key string
  *
  * @returns {Promise<KeyPair>} the KeyPair handle
- */
+ *
+ * @example // Generting an encryption key pair from raw secret and public encryption key strings:
+ * window.safeCrypto.generateEncKeyPair(appToken)
+ *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle)
+ *       .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle)
+ *          .then((rawSecEncKey) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle)
+ *             .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
+ *             .then((rawPubEncKey) => window.safeCrypto.generateEncKeyPairFromRaw(appToken, rawPubEncKey, rawSecEncKey))
+ *             .then((encKeyPairHandle) => console.log('Encryption key pair generated from raw strings'))
+ *          )));
+ **/
 module.exports.generateEncKeyPairFromRaw = (appToken, rawPublicKey, rawSecretKey) => {
   return getObj(appToken)
     .then((obj) => obj.app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey)
