@@ -7,6 +7,7 @@ module.exports.manifest = {
   connect: 'promise',
   authorise: 'promise',
   connectAuthorised: 'promise',
+  authoriseContainer: 'promise',
   webFetch: 'promise',
   isRegistered: 'promise',
   networkState: 'promise',
