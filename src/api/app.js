@@ -80,7 +80,7 @@ module.exports.connect = (appToken) => {
           if (err) {
             return reject(new Error('Unable to get connection information: ', err));
           }
-          return obj.app.auth.connectUnregistered(res)
+          return obj.app.auth.loginFromURI(res)
             .then(() => resolve(appToken));
         })))
       .catch(reject);
