@@ -7,6 +7,8 @@ module.exports.manifest = {
   generateEncKeyPair: 'promise',
   getSignKeyFromRaw: 'promise',
   pubEncKeyKeyFromRaw: 'promise',
+  secEncKeyKeyFromRaw: 'promise',
+  generateEncKeyPairFromRaw: 'promise',
   generateNonce: 'promise'
 };
 
