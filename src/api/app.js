@@ -70,13 +70,10 @@ module.exports.initialise = (appInfo) => {
  * });
  **/
 module.exports.connect = (appToken) => {
-  console.log("CONNECTING....")
   return new Promise((resolve, reject) => {
     getObj(appToken)
       .then((obj) => obj.app.auth.genConnUri()
-        .then((connReq) => {console.log("CONN URI generated: ", connReq); return connReq;})
         .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
-          console.log("WE got a response: ", err, res);
           if (err) {
             return reject(new Error('Unable to get connection information: ', err));
           }

@@ -37,7 +37,6 @@ class IpcTask {
     this.currentTaskInfo = this.tasksInfo[this.currentTaskId].info;
     this.currentTaskCb = this.tasksInfo[this.currentTaskId].cb;
     ipcEvent.sender.send('webClientAuthReq', this.currentTaskInfo);
-    console.log("AUTH REQ SENT");
   }
 }
 

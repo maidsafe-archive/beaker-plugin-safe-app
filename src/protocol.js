@@ -2,11 +2,12 @@ const path = require('path');
 const safeApp = require('safe-app');
 const urlParse = require('url').parse;
 const mime = require('mime');
+const ipc = require('./api/ipc');
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 
-const safeScheme = 'file';
+const safeScheme = 'safe';
 
 const appInfo = {
   id: 'net.maidsafe.app.browser',
@@ -21,8 +22,14 @@ const authoriseApp = () => {
     return Promise.resolve(true);
   }
   return safeApp.initializeApp(appInfo)
-    .then((app) => app.auth.connectUnregistered())
-    .then((app) => (appObj = app));
+    .then((app) => app.auth.genConnUri()
+      .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
+        if (err) {
+          return Promise.reject(new Error('Unable to get connection information: ', err));
+        }
+        return app.auth.loginFromURI(res)
+          .then((app) => (appObj = app));
+      })));
 };
 
 const fetchData = (url) => {
