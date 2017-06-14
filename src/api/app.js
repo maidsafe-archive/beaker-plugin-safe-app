@@ -70,9 +70,21 @@ module.exports.initialise = (appInfo) => {
  * });
  **/
 module.exports.connect = (appToken) => {
-  return getObj(appToken)
-    .then((obj) => obj.app.auth.connectUnregistered())
-    .then(() => appToken);
+  console.log("CONNECTING....")
+  return new Promise((resolve, reject) => {
+    getObj(appToken)
+      .then((obj) => obj.app.auth.genConnUri()
+        .then((connReq) => {console.log("CONN URI generated: ", connReq); return connReq;})
+        .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
+          console.log("WE got a response: ", err, res);
+          if (err) {
+            return reject(new Error('Unable to get connection information: ', err));
+          }
+          return obj.app.auth.connectUnregistered(res)
+            .then(() => resolve(appToken));
+        })))
+      .catch(reject);
+  });
 };
 
 /**
@@ -88,7 +100,7 @@ module.exports.connect = (appToken) => {
  * @param {Boolean} [options.own_container=false] whether or not to request
  *    our own container to be created for the app.
  *
- * @returns {Promise<AuthURI>} auth granted `safe-auth://`-URI
+ * @returns {Promise<AuthURI>} auth granted `safe-://`-URI
  *
  * @example // Example of authorising an app:
  * window.safeApp.authorise(
@@ -157,7 +169,7 @@ module.exports.connectAuthorised = (appToken, authUri) => {
  * @param {SAFEAppToken} appToken the app handle
  * @param {Object} permissions mapping container name to list of permissions
  *
- * @returns {Promise<AuthURI>} auth granted `safe-auth://`-URI
+ * @returns {Promise<AuthURI>} auth granted `safe-://`-URI
  *
  * @example // Requesting further container authorisation:
  * window.safeApp.authoriseContainer(
