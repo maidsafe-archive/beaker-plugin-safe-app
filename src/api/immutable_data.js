@@ -19,7 +19,7 @@ module.exports.manifest = {
  * @returns {Promise<WriterHandle>} the ImmutableData Writer handle
  *
  * @example // Creating a new ImmutableData writer:
- * window.safeImutableData.create(appToken)
+ * window.safeImmutableData.create(appToken)
  *    .then((idWriterHandle) => console.log('ImmutableData writer handle: ', idWriterHandle));
  **/
 module.exports.create = (appToken) => {
@@ -39,7 +39,9 @@ module.exports.create = (appToken) => {
  *
  * @example // Fetch an exisiting ImmutableData from the network:
  * window.safeImmutableData.create(appToken)
- *    .then((idWriterHandle) => window.safeImmutableData.closeWriter(idWriterHandle))
+ *    .then((idWriterHandle) => window.safeCipherOpt.newPlainText(appToken)
+ *      .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *    )
  *    .then((addr) => window.safeImmutableData.fetch(appToken, addr))
  *    .then((idReaderHandle) => console.log('ImmutableData reader handle: ', idReaderHandle));
  **/
@@ -61,8 +63,10 @@ module.exports.fetch = (appToken, address) => {
  * @example // Write data into an ImmutableData:
  * window.safeImmutableData.create(appToken)
  *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
- *       .then(_ => window.safeImmutableData.closeWriter(idWriterHandle))
- *       .then(_ => console.log('ImmutableData written in the network'))
+ *       .then(_ => window.safeCipherOpt.newPlainText(appToken)
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *       )
+ *       .then((addr) => console.log('ImmutableData written in the network at: ', addr))
  *    );
  **/
 module.exports.write = (writerHandle, string) => {
@@ -79,21 +83,26 @@ module.exports.write = (writerHandle, string) => {
  * @name window.safeImmutableData.closeWriter
  *
  * @param {WriterHandle} writerHandle the ImmutableData Writer handle
+ * @param {CipherOptHandle} cipherOptHandle the handle of the CipherOpt to use for encryption
  *
  * @returns {Promise<String>} the address to the data once written to the network
  *
  * @example // Creating an ImmutableData and closing its writer to commit it to the network:
  * window.safeImmutableData.create(appToken)
- *    .then((idWriterHandle) => window.safeImmutableData.closeWriter(idWriterHandle))
- *    .then((addr) => console.log('ImmutableData was stored at address: ', addr));
+ *    .then((idWriterHandle) => window.safeCipherOpt.newPlainText(appToken)
+ *      .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *      .then((addr) => console.log('ImmutableData was stored at address: ', addr))
+ *    );
  **/
-module.exports.closeWriter = (writerHandle) => {
+module.exports.closeWriter = (writerHandle, cipherOptHandle) => {
   return getObj(writerHandle)
-    .then((obj) => obj.netObj.close())
-    .then((addr) => {
-      freeObj(writerHandle);
-      return addr;
-    });
+    .then((writerObj) => getObj(cipherOptHandle)
+      .then((cipherOptObj) => writerObj.netObj.close(cipherOptObj.netObj))
+      .then((addr) => {
+        freeObj(writerHandle);
+        return addr;
+      })
+    );
 };
 
 /**
@@ -110,8 +119,11 @@ module.exports.closeWriter = (writerHandle) => {
  * @example // Read data from an ImmutableData:
  * window.safeImmutableData.create(appToken)
  *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
- *       .then(_ => window.safeImmutableData.closeWriter(idWriterHandle))
- *    ).then((addr) => window.safeImmutableData.fetch(appToken, addr))
+ *       .then(_ => window.safeCipherOpt.newPlainText(appToken)
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *       )
+ *    )
+ *    .then((addr) => window.safeImmutableData.fetch(appToken, addr))
  *    .then((idReaderHandle) => window.safeImmutableData.read(idReaderHandle))
  *    .then((data) => console.log('ImmutableData data read: ', data.toString()));
  **/
@@ -131,8 +143,11 @@ module.exports.read = (readerHandle, options) => {
  * @example // Get the size of an ImmutableData:
  * window.safeImmutableData.create(appToken)
  *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
- *       .then(_ => window.safeImmutableData.closeWriter(idWriterHandle))
- *    ).then((addr) => window.safeImmutableData.fetch(appToken, addr))
+ *       .then(_ => window.safeCipherOpt.newPlainText(appToken)
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *       )
+ *    )
+ *    .then((addr) => window.safeImmutableData.fetch(appToken, addr))
  *    .then((idReaderHandle) => window.safeImmutableData.size(idReaderHandle))
  *    .then((size) => console.log('Size of the ImmutableData: ', size));
  **/
@@ -145,7 +160,7 @@ module.exports.size = (readerHandle) => {
  * Free the ImmutableData Reader instance from memory
  * @name window.safeImmutableData.free
  *
- * @param {String} readerHandle the ImmutableData Reader handle
+ * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
  */
 module.exports.free = (readerHandle) => freeObj(readerHandle);
 
