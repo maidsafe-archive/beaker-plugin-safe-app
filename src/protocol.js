@@ -18,23 +18,28 @@ const appInfo = {
 let appObj = null;
 
 const authoriseApp = () => {
-  if (appObj) {
-    return Promise.resolve(true);
-  }
-  return safeApp.initializeApp(appInfo)
-    .then((app) => app.auth.genConnUri()
-      .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
-        if (err) {
-          return Promise.reject(new Error('Unable to get connection information: ', err));
-        }
-        return app.auth.loginFromURI(res)
-          .then((app) => (appObj = app));
-      })));
+  return new Promise((resolve, reject) => {
+    if (appObj) {
+      return resolve(true);
+    }
+    return safeApp.initializeApp(appInfo)
+      .then((app) => app.auth.genConnUri()
+        .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
+          if (err) {
+            return reject(new Error('Unable to get connection information: ', err));
+          }
+          return app.auth.loginFromURI(res)
+            .then((app) => {
+              appObj = app;
+              resolve(true);
+            });
+        })));
+  })
 };
 
 const fetchData = (url) => {
   if (!appObj) {
-    return Promise.reject(new Error('Unable to create unregistered client'));
+    return Promise.reject(new Error('Must login to Authenticator for viewing SAFE sites'));
   }
   return appObj.webFetch(url)
     .then((f) => appObj.immutableData.fetch(f.dataMapName))
