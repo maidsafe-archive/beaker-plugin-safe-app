@@ -19,7 +19,7 @@ module.exports.manifest = {
  * @returns {Promise<WriterHandle>} the ImmutableData Writer handle
  *
  * @example // Creating a new ImmutableData writer:
- * window.safeImutableData.create(appToken)
+ * window.safeImmutableData.create(appToken)
  *    .then((idWriterHandle) => console.log('ImmutableData writer handle: ', idWriterHandle));
  **/
 module.exports.create = (appToken) => {
@@ -66,7 +66,7 @@ module.exports.fetch = (appToken, address) => {
  *       .then(_ => window.safeCipherOpt.newPlainText(appToken)
  *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
  *       )
- *       .then(_ => console.log('ImmutableData written in the network'))
+ *       .then((addr) => console.log('ImmutableData written in the network at: ', addr))
  *    );
  **/
 module.exports.write = (writerHandle, string) => {
