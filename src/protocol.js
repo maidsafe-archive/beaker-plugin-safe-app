@@ -31,7 +31,7 @@ const authoriseApp = () => {
           return app.auth.loginFromURI(res)
             .then((app) => {
               appObj = app;
-              resolve();
+              resolve(true);
             });
         })));
   })
@@ -39,7 +39,7 @@ const authoriseApp = () => {
 
 const fetchData = (url) => {
   if (!appObj) {
-    return Promise.reject(new Error('Unable to create unregistered client'));
+    return Promise.reject(new Error('Must login to Authenticator for viewing SAFE sites'));
   }
   return appObj.webFetch(url)
     .then((f) => appObj.immutableData.fetch(f.dataMapName))
