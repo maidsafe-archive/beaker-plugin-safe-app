@@ -7,7 +7,7 @@ module.exports.manifest = {
   closeWriter: 'promise',
   read: 'promise',
   size: 'promise',
-  closeReader: 'promise',
+  free: 'promise',
 };
 
 /**
