@@ -18,18 +18,23 @@ const appInfo = {
 let appObj = null;
 
 const authoriseApp = () => {
-  if (appObj) {
-    return Promise.resolve(true);
-  }
-  return safeApp.initializeApp(appInfo)
-    .then((app) => app.auth.genConnUri()
-      .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
-        if (err) {
-          return Promise.reject(new Error('Unable to get connection information: ', err));
-        }
-        return app.auth.loginFromURI(res)
-          .then((app) => (appObj = app));
-      })));
+  return new Promise((resolve, reject) => {
+    if (appObj) {
+      return resolve(true);
+    }
+    return safeApp.initializeApp(appInfo)
+      .then((app) => app.auth.genConnUri()
+        .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
+          if (err) {
+            return reject(new Error('Unable to get connection information: ', err));
+          }
+          return app.auth.loginFromURI(res)
+            .then((app) => {
+              appObj = app;
+              resolve();
+            });
+        })));
+  })
 };
 
 const fetchData = (url) => {
