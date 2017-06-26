@@ -1,9 +1,9 @@
 const safeApp = require('safe-app');
 const ipc = require('./ipc');
-const { genHandle, getObj, freeObj } = require('./helpers');
+const { genHandle, getObj, freeObj, netStateCallbackHelper } = require('./helpers');
 
 module.exports.manifest = {
-  initialise: 'promise',
+  _with_async_cb_initialise: 'readable',
   connect: 'promise',
   authorise: 'promise',
   connectAuthorised: 'promise',
@@ -24,20 +24,25 @@ module.exports.manifest = {
  * @name window.safeApp.initialise
  *
  * @param {AppInfo} appInfo
+ * @param {Function} [networkStateCallback=null] optional callback function
+ * to receive network state updates after a unregistered/registered
+ * connection is made with `connect`/`connectAuthorised` functions.
  *
  * @returns {Promise<SAFEAppToken>} new app instance token
  *
  * @example
  * window.safeApp.initialise({
- *    id: 'net.maidsafe.test.webapp.id',
- *    name: 'WebApp Test',
- *    vendor: 'MaidSafe Ltd.'
- * })
- * .then((appToken) => {
- *    console.log('SAFEApp instance initialised and token returned: ', appToken);
- * });
+ *       id: 'net.maidsafe.test.webapp.id',
+ *       name: 'WebApp Test',
+ *       vendor: 'MaidSafe Ltd.'
+ *    }, (newState) => {
+ *       console.log("Network state changed to: ", newState);
+ *    })
+ *    .then((appToken) => {
+ *       console.log('SAFEApp instance initialised and token returned: ', appToken);
+ *    });
  **/
-module.exports.initialise = (appInfo) => {
+module.exports._with_async_cb_initialise = (appInfo) => {
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
     appInfo.scope = wholeUrl;
@@ -45,8 +50,7 @@ module.exports.initialise = (appInfo) => {
     appInfo.scope = null;
   }
 
-  return safeApp.initializeApp(appInfo)
-    .then((app) => genHandle(app, null));
+  return netStateCallbackHelper(safeApp, appInfo);
 };
 
 /**
@@ -149,7 +153,7 @@ module.exports.authorise = (appToken, permissions, options) => {
  * )
  * .then((authUri) => window.safeApp.connectAuthorised(appToken, authUri))
  * .then(_ => {
- *    console.log('The app was authorised a session was created with the network');
+ *    console.log('The app was authorised & a session was created with the network');
  * });
  **/
 module.exports.connectAuthorised = (appToken, authUri) => {
