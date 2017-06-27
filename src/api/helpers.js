@@ -59,3 +59,20 @@ export const forEachHelper = (containerHandle, sendHandles) => {
     );
   return readable;
 }
+
+export const netStateCallbackHelper = (safeApp, appInfo) => {
+  var readable = new Readable({ objectMode: true, read() {} })
+  safeApp.initializeApp(appInfo, (state) => {
+      setImmediate(() => {
+        readable.push([state])
+      })
+    })
+    .then((app) => {
+      const token = genHandle(app, null);
+      setImmediate(() => {
+        readable.push([token])
+      })
+    });
+
+  return readable;
+}
