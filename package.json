@@ -36,7 +36,7 @@
   "homepage": "https://github.com/maidsafe/beaker-plugin-safe-app#readme",
   "dependencies": {
     "mime": "^1.3.4",
-    "safe-app": "git+https://github.com/maidsafe/safe_app_nodejs.git",
+    "safe-app": "https://github.com/krishnaIndia/safe_app_nodejs/releases/download/test-0.1.0/safe-app-0.0.1.tgz",
     "url": "^0.11.0"
   },
   "devDependencies": {
@@ -46,7 +46,6 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.24.0",
     "concurrently": "^3.4.0",
-    "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^3.2.4",
     "documentation": "^4.0.0-rc.1",
     "eslint": "^3.17.1",
