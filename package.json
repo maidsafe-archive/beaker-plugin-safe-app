@@ -9,6 +9,7 @@
     "build-api": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.api.js --progress --profile --colors",
     "build-protocol": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.protocol.js --progress --profile --colors",
     "build": "concurrently \"npm run build-protocol\" \"npm run build-api\"",
+    "watch": "concurrently \"npm run build-protocol -- --watch\" \"npm run build-api -- --watch\"",
     "docs": "documentation build --config etc/documentation.yml --github true --output docs --format html src/**"
   },
   "repository": {
@@ -35,6 +36,8 @@
   },
   "homepage": "https://github.com/maidsafe/beaker-plugin-safe-app#readme",
   "dependencies": {
+    "css-loader": "^0.28.4",
+    "ejs-loader": "^0.3.0",
     "mime": "^1.3.4",
     "safe-app": "https://github.com/maidsafe/safe_app_nodejs/releases/download/0.1.0-dev.1/safe-app-0.1.0-dev.1.tgz",
     "url": "^0.11.0"

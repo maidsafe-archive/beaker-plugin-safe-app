@@ -6,6 +6,9 @@ const ipc = require('./api/ipc');
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
 
+const errorTemplate = require('./error-template.ejs');
+const errorCss = require('./error-page.css');
+
 const safeScheme = 'safe';
 const safeLocalScheme = 'localhost';
 
@@ -41,13 +44,17 @@ const fetchData = (url) => {
   if (!appObj) {
     return Promise.reject(new Error('Must login to Authenticator for viewing SAFE sites'));
   }
-  return appObj.webFetch(url)
+  return appObj.webFetch(url);
 };
 
 
 const handleError = (err, mimeType, cb) => {
+  err.css = errorCss;
+
+  const page = errorTemplate(err);
+
   if (mimeType === 'text/html') {
-    return cb({ mimeType, data: new Buffer('<h1>'+err.message+'</h1>') });
+    return cb({ mimeType, data: new Buffer(page) });
   }
   return cb({ mimeType, data: new Buffer(err.message) });
 };
