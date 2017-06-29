@@ -351,7 +351,7 @@ module.exports.getContainer = (appToken, name) => {
 
 /**
  * Reconnect SAFEApp instance if connection is disconnected
- * @name window.safeApp.free
+ * @name window.safeApp.reconnect
  *
  * @param {SAFEAppToken} appToken the app handle
  **/
