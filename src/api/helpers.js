@@ -56,7 +56,13 @@ export const forEachHelper = (containerHandle, sendHandles) => {
           readable.push(null)
         })
       })
-    );
+    )
+    .catch((err) => {
+      setImmediate(() => {
+        readable.emit('error', err)
+        readable.push(null)
+      })
+    });
   return readable;
 }
 
@@ -71,6 +77,12 @@ export const netStateCallbackHelper = (safeApp, appInfo) => {
       const token = genHandle(app, null);
       setImmediate(() => {
         readable.push([token])
+      })
+    })
+    .catch((err) => {
+      setImmediate(() => {
+        readable.emit('error', err)
+        readable.push(null)
       })
     });
 
