@@ -16,6 +16,7 @@ module.exports.manifest = {
   getContainersNames: 'promise',
   getHomeContainer: 'promise',
   getContainer: 'promise',
+  reconnect: 'promise',
   free: 'sync'
 };
 
@@ -346,6 +347,17 @@ module.exports.getContainer = (appToken, name) => {
   return getObj(appToken)
     .then((obj) => obj.app.auth.getContainer(name)
       .then((md) => genHandle(obj.app, md)));
+};
+
+/**
+ * Reconnect SAFEApp instance if connection is disconnected
+ * @name window.safeApp.reconnect
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ **/
+module.exports.reconnect = (appToken) => {
+  return getObj(appToken)
+    .then((obj) => obj.app.reconnect());
 };
 
 /**

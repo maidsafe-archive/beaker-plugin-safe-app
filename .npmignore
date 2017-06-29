@@ -1,0 +1,11 @@
+etc
+src
+
+.babelrc
+.eslintignore
+.eslintrc
+CHANGELOG.md
+CONTRIBUTOR.md
+COPYING.md
+README.md
+webpack.*
