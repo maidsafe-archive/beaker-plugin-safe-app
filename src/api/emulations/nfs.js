@@ -6,7 +6,8 @@ module.exports.manifest = {
   insert: 'promise',
   update: 'promise',
   getFileMeta: 'promise',
-  free: 'sync'
+  free: 'sync',
+  freeFile: 'sync'
 };
 
 /**
@@ -139,4 +140,3 @@ module.exports.freeFile = (fileHandle) => freeObj(fileHandle);
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `freeFile` function.
  **/
- 
