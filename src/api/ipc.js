@@ -3,6 +3,8 @@ const ipcMain = require('electron').ipcMain; // electron deps will be avaible in
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 const genRandomString = require('./helpers').genRandomString;
 
+let ipcEvent = null;
+
 class IpcTask {
   constructor() {
     this.tasks = [];
@@ -22,9 +24,15 @@ class IpcTask {
 
   remove() {
     const index = this.tasks.indexOf(this.currentTaskId);
+    if (index === -1) {
+      return this;
+    }
     this.tasks.splice(index, 1);
     delete this.tasksInfo[this.currentTaskId];
     this.isProcessing = false;
+    this.currentTaskId = null;
+    this.currentTaskInfo = null;
+    this.currentTaskCb = null;
     return this;
   }
 
@@ -41,8 +49,6 @@ class IpcTask {
 }
 
 const ipcTask = new IpcTask();
-
-let ipcEvent = null;
 
 ipcMain.on('registerSafeApp', (event) => {
   ipcEvent = event;
@@ -66,6 +72,11 @@ ipcMain.on('webClientAuthRes', (event, res) => {
 
 ipcMain.on('webClientErrorRes', (event, err) => {
   // handle Error
+
+  if (err && err.toLowerCase() === 'unauthorised') {
+    return;
+  }
+
   if (typeof ipcTask.currentTaskCb === 'function') {
     ipcTask.currentTaskCb(err);
   }
