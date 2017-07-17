@@ -25,12 +25,24 @@ export const getObj = (handle) => {
     if (obj) {
       return resolve(obj);
     }
-    return reject(new Error('Invalid handle'));
+    return reject(new Error('Invalid handle: ', handle));
   });
 };
 
 export const freeObj = (handle) => {
+  const obj = handles.get(handle);
   handles.delete(handle);
+  // Check if we are freeing a SAFEApp instance, if so, cascade the deletion
+  // to all objects created with this SAFEApp instance.
+  if (obj && obj.netObj === null) {
+    handles.forEach((value, key, map) => {
+      if (obj.app === value.app) {
+        // Current object was created with this SAFEApp instance,
+        // thus let's free it too.
+        map.delete(key);
+      }
+    });
+  }
 };
 
 export const forEachHelper = (containerHandle, sendHandles) => {
@@ -74,7 +86,7 @@ export const netStateCallbackHelper = (safeApp, appInfo) => {
       })
     })
     .then((app) => {
-      const token = genHandle(app, null);
+      const token = genHandle(app, null); // We assign null to 'netObj' to signal this is a SAFEApp instance
       setImmediate(() => {
         readable.push([token])
       })

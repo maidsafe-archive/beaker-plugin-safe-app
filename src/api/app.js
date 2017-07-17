@@ -361,7 +361,8 @@ module.exports.reconnect = (appToken) => {
 };
 
 /**
- * Free the SAFEApp instance from memory
+ * Free the SAFEApp instance from memory, as well as all other
+ * objects created with it, e.g. ImmutableData and MutableData objects, etc.
  * @name window.safeApp.free
  *
  * @param {SAFEAppToken} appToken the app handle
