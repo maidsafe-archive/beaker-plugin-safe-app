@@ -11,10 +11,11 @@ const genObjHandle = (obj) => {
   return randHandle;
 };
 
-export const genHandle = (app, netObj) => {
+export const genHandle = (app, netObj, groupId) => {
   let obj = {
     app,
-    netObj
+    netObj,
+    groupId // groupId is only set for safeApp instances
   };
   return genObjHandle(obj);
 };
@@ -40,6 +41,18 @@ export const freeObj = (handle) => {
         // Current object was created with this SAFEApp instance,
         // thus let's free it too.
         map.delete(key);
+      }
+    });
+  }
+};
+
+export const freePageObjs = (groupId) => {
+  if (groupId !== null) {
+    handles.forEach((value, key, map) => {
+      if (value.groupId === groupId) {
+        // Current SAFEApp instance was created in this page, thus let's free it
+        // along with any other obects created with this SAFEApp instance.
+        freeObj(key);
       }
     });
   }
@@ -78,7 +91,7 @@ export const forEachHelper = (containerHandle, sendHandles) => {
   return readable;
 }
 
-export const netStateCallbackHelper = (safeApp, appInfo) => {
+export const netStateCallbackHelper = (safeApp, appInfo, groupId) => {
   var readable = new Readable({ objectMode: true, read() {} })
   safeApp.initializeApp(appInfo, (state) => {
       setImmediate(() => {
@@ -86,7 +99,7 @@ export const netStateCallbackHelper = (safeApp, appInfo) => {
       })
     })
     .then((app) => {
-      const token = genHandle(app, null); // We assign null to 'netObj' to signal this is a SAFEApp instance
+      const token = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
       setImmediate(() => {
         readable.push([token])
       })
