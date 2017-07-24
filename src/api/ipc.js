@@ -2,6 +2,7 @@
 const ipcMain = require('electron').ipcMain; // electron deps will be avaible inside browser
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 const genRandomString = require('./helpers').genRandomString;
+import winston from '../winston-config';
 
 let ipcEvent = null;
 
