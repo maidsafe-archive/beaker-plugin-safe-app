@@ -32,17 +32,24 @@ export const getObj = (handle) => {
 
 export const freeObj = (handle) => {
   const obj = handles.get(handle);
-  handles.delete(handle);
-  // Check if we are freeing a SAFEApp instance, if so, cascade the deletion
-  // to all objects created with this SAFEApp instance.
-  if (obj && obj.netObj === null) {
-    handles.forEach((value, key, map) => {
-      if (obj.app === value.app) {
-        // Current object was created with this SAFEApp instance,
-        // thus let's free it too.
-        map.delete(key);
-      }
-    });
+  if (obj) {
+    handles.delete(handle);
+    // Check if we are freeing a SAFEApp instance, if so, cascade the deletion
+    // to all objects created with this SAFEApp instance.
+    if (obj.netObj === null) {
+      handles.forEach((value, key, map) => {
+        if (obj.app === value.app) {
+          // Current object was created with this SAFEApp instance,
+          // thus let's free it too.
+          freeObj(key);
+        }
+      });
+      // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
+      obj.app.forceCleanUp(obj.app);
+    } else {
+      // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
+      obj.netObj.forceCleanUp(obj.netObj);
+    }
   }
 };
 
