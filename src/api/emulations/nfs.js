@@ -23,7 +23,7 @@ module.exports.manifest = {
 module.exports.create = (nfsHandle, content) => {
   return getObj(nfsHandle)
     .then((obj) => obj.netObj.create(content)
-      .then((imd) => genHandle(obj.app, imd)));
+      .then((fileCtx) => genHandle(obj.app, fileCtx)));
 };
 
 /**
@@ -38,7 +38,7 @@ module.exports.create = (nfsHandle, content) => {
 module.exports.fetch = (nfsHandle, fileName) => {
   return getObj(nfsHandle)
     .then((obj) => obj.netObj.fetch(fileName)
-      .then((imd) => genHandle(obj.app, imd)));
+      .then((fileCtx) => genHandle(obj.app, fileCtx)));
 };
 
 /**
