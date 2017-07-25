@@ -1,8 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const ipcMain = require('electron').ipcMain; // electron deps will be avaible inside browser
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
-const genRandomString = require('./helpers').genRandomString;
-import winston from '../winston-config';
+const { genRandomString, freePageObjs } = require('./helpers');
 
 let ipcEvent = null;
 
@@ -50,6 +49,14 @@ class IpcTask {
 }
 
 const ipcTask = new IpcTask();
+
+ipcMain.on('onTabRemove', (event, safeAppGroupId) => {
+  freePageObjs(safeAppGroupId);
+});
+
+ipcMain.on('onTabUpdate', (event, safeAppGroupId) => {
+  freePageObjs(safeAppGroupId);
+});
 
 ipcMain.on('registerSafeApp', (event) => {
   ipcEvent = event;
