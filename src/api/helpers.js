@@ -19,8 +19,12 @@ export const genHandle = (app, netObj) => {
   return genObjHandle(obj);
 };
 
-export const getObj = (handle) => {
+export const getObj = (handle, supportNull) => {
   return new Promise((resolve, reject) => {
+    if (supportNull && handle === null) {
+      return resolve({app: null, netObj: null});
+    }
+
     const obj = handles.get(handle);
     if (obj) {
       return resolve(obj);
