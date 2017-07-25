@@ -11,10 +11,11 @@ const genObjHandle = (obj) => {
   return randHandle;
 };
 
-export const genHandle = (app, netObj) => {
+export const genHandle = (app, netObj, groupId) => {
   let obj = {
     app,
-    netObj
+    netObj,
+    groupId // groupId is only set for safeApp instances
   };
   return genObjHandle(obj);
 };
@@ -25,12 +26,43 @@ export const getObj = (handle) => {
     if (obj) {
       return resolve(obj);
     }
-    return reject(new Error('Invalid handle'));
+    return reject(new Error('Invalid handle: ', handle));
   });
 };
 
 export const freeObj = (handle) => {
-  handles.delete(handle);
+  const obj = handles.get(handle);
+  if (obj) {
+    handles.delete(handle);
+    // Check if we are freeing a SAFEApp instance, if so, cascade the deletion
+    // to all objects created with this SAFEApp instance.
+    if (obj.netObj === null) {
+      handles.forEach((value, key, map) => {
+        if (obj.app === value.app) {
+          // Current object was created with this SAFEApp instance,
+          // thus let's free it too.
+          freeObj(key);
+        }
+      });
+      // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
+      obj.app.forceCleanUp(obj.app);
+    } else {
+      // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
+      obj.netObj.forceCleanUp(obj.netObj);
+    }
+  }
+};
+
+export const freePageObjs = (groupId) => {
+  if (groupId !== null) {
+    handles.forEach((value, key, map) => {
+      if (value.groupId === groupId) {
+        // Current SAFEApp instance was created in this page, thus let's free it
+        // along with any other obects created with this SAFEApp instance.
+        freeObj(key);
+      }
+    });
+  }
 };
 
 export const forEachHelper = (containerHandle, sendHandles) => {
@@ -66,7 +98,7 @@ export const forEachHelper = (containerHandle, sendHandles) => {
   return readable;
 }
 
-export const netStateCallbackHelper = (safeApp, appInfo) => {
+export const netStateCallbackHelper = (safeApp, appInfo, groupId) => {
   var readable = new Readable({ objectMode: true, read() {} })
   safeApp.initializeApp(appInfo, (state) => {
       setImmediate(() => {
@@ -74,7 +106,7 @@ export const netStateCallbackHelper = (safeApp, appInfo) => {
       })
     })
     .then((app) => {
-      const token = genHandle(app, null);
+      const token = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
       setImmediate(() => {
         readable.push([token])
       })
