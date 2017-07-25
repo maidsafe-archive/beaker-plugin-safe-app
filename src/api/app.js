@@ -43,15 +43,14 @@ module.exports.manifest = {
  *       console.log('SAFEApp instance initialised and token returned: ', appToken);
  *    });
  **/
-module.exports._with_async_cb_initialise = (appInfo) => {
+module.exports._with_async_cb_initialise = (appInfo, safeAppGroupId) => {
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
     appInfo.scope = wholeUrl;
   } else {
     appInfo.scope = null;
   }
-
-  return netStateCallbackHelper(safeApp, appInfo);
+  return netStateCallbackHelper(safeApp, appInfo, safeAppGroupId);
 };
 
 /**
@@ -361,7 +360,8 @@ module.exports.reconnect = (appToken) => {
 };
 
 /**
- * Free the SAFEApp instance from memory
+ * Free the SAFEApp instance from memory, as well as all other
+ * objects created with it, e.g. ImmutableData and MutableData objects, etc.
  * @name window.safeApp.free
  *
  * @param {SAFEAppToken} appToken the app handle
