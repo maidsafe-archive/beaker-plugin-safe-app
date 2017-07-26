@@ -14,6 +14,7 @@ const mdataMutation = require('./mutable_data_mutation');
 const mdataPermissions = require('./mutable_data_permissions');
 const mdataPermissionsSet = require('./mutable_data_permissions_set');
 const nfs = require('./emulations/nfs');
+const nfsFile = require('./emulations/nfs_file');
 
 module.exports = [
   {
@@ -111,5 +112,11 @@ module.exports = [
     isInternal: true,
     manifest: nfs.manifest,
     methods: nfs
+  },
+  {
+    name: 'safeNfsFile',
+    isInternal: true,
+    manifest: nfsFile.manifest,
+    methods: nfsFile
   }
 ];
