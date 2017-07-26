@@ -14,7 +14,7 @@ const genObjHandle = (obj) => {
 export const genHandle = (app, netObj, groupId) => {
   let obj = {
     app,
-    netObj,
+    netObj, // this is null if the handle corresponds to a safeApp instance
     groupId // groupId is only set for safeApp instances
   };
   return genObjHandle(obj);
@@ -45,10 +45,14 @@ export const freeObj = (handle) => {
         }
       });
       // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
-      obj.app.forceCleanUp(obj.app);
+      if (obj.app.forceCleanUp) {
+        obj.app.forceCleanUp(obj.app);
+      }
     } else {
       // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
-      obj.netObj.forceCleanUp(obj.netObj);
+      if (obj.netObj.forceCleanUp) {
+        obj.netObj.forceCleanUp(obj.netObj);
+      }
     }
   }
 };

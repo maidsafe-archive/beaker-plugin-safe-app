@@ -42,8 +42,6 @@ const fetchData = (url) => {
     return Promise.reject(new Error('Must login to Authenticator for viewing SAFE sites'));
   }
   return appObj.webFetch(url)
-    .then((f) => appObj.immutableData.fetch(f.dataMapName))
-    .then((i) => i.read());
 };
 
 const registerSafeAuthProtocol = () => {
