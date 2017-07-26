@@ -114,7 +114,7 @@ module.exports.delete = (nfsHandle, fileName, version) => {
  **/
 module.exports.open = (nfsHandle, fileHandle, openMode) => {
   return getObj(nfsHandle)
-    .then((nfsObj) => getObj(fileHandle)
+    .then((nfsObj) => getObj(fileHandle).catch(() => ({netObj: null}))
       .then((fileObj) => nfsObj.netObj.open(fileObj.netObj, openMode))
       .then((file) => genHandle(nfsObj.app, file))
     );
