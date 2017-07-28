@@ -7,6 +7,8 @@ const ipc = require('./api/ipc');
 const protocol = require('electron').protocol;
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 
+const winston = require('./winston-config');
+
 const safeScheme = 'safe';
 
 const appInfo = {
@@ -23,17 +25,22 @@ const authoriseApp = () => {
       return resolve(true);
     }
     return safeApp.initializeApp(appInfo)
-      .then((app) => app.auth.genConnUri()
-        .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
-          if (err) {
-            return reject(new Error('Unable to get connection information: ', err));
-          }
-          return app.auth.loginFromURI(res)
-            .then((app) => {
-              appObj = app;
-              resolve(true);
-            });
-        })));
+      .then((app) => app.logPath()
+        .then((filePath) => {
+          global.winston = winston(filePath);
+          return app.auth.genConnUri()
+            .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
+              if (err) {
+                return reject(new Error('Unable to get connection information: ', err));
+              }
+              return app.auth.loginFromURI(res)
+                .then((app) => {
+                  appObj = app;
+                  resolve(true);
+                });
+            }))
+        })
+    );
   })
 };
 
