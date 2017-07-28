@@ -14,7 +14,7 @@ const genObjHandle = (obj) => {
 export const genHandle = (app, netObj, groupId) => {
   let obj = {
     app,
-    netObj,
+    netObj, // this is null if the handle corresponds to a safeApp instance
     groupId // groupId is only set for safeApp instances
   };
   return genObjHandle(obj);
@@ -49,16 +49,29 @@ export const freeObj = (handle) => {
         }
       });
       // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
-      obj.app.forceCleanUp(obj.app);
+      if (obj.app.forceCleanUp) {
+        try {
+          obj.app.forceCleanUp();
+        }
+        catch(err) {
+          // Since there was an error, assume the safeApp obj was not released,
+          // restore it to the handles cache since it may be either used again
+          // by the app, or we ned to try to free it at some point later.
+          handles.set(handle, obj);
+        }
+      }
     } else {
       // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
-      obj.netObj.forceCleanUp(obj.netObj);
+      if (obj.netObj.forceCleanUp) {
+        obj.netObj.forceCleanUp();
+      }
     }
   }
 };
 
 export const freePageObjs = (groupId) => {
   if (groupId !== null) {
+    // Let's find all SAFEApp instances created under this groupId
     handles.forEach((value, key, map) => {
       if (value.groupId === groupId) {
         // Current SAFEApp instance was created in this page, thus let's free it

@@ -17,6 +17,7 @@ module.exports.manifest = {
   getHomeContainer: 'promise',
   getContainer: 'promise',
   reconnect: 'promise',
+  logPath: 'promise',
   free: 'sync'
 };
 
@@ -357,6 +358,26 @@ module.exports.getContainer = (appToken, name) => {
 module.exports.reconnect = (appToken) => {
   return getObj(appToken)
     .then((obj) => obj.app.reconnect());
+};
+
+/**
+ * Generate the log path for the provided filename.
+ * If the filename provided is null, it then returns
+ * the path of where the safe_core log file is located.
+ * @name window.safeApp.logPath
+ *
+ * @param {SAFEAppToken} appToken the app handle
+ * @param {String} [filename=null] log filename to generate the path
+ *
+ * @returns {Promise<String>} the log filename path generated
+ *
+ * @example // Retrieve the '_public' container:
+ * window.safeApp.logPath(appToken, 'mylogfile.log')
+ *    .then((path) => console.log('Log path generated: ', path));
+ **/
+module.exports.logPath = (appToken, filename) => {
+  return getObj(appToken)
+    .then((obj) => obj.app.logPath(filename));
 };
 
 /**
