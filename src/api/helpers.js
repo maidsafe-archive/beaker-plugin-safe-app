@@ -30,7 +30,7 @@ export const getObj = (handle, supportNull) => {
     if (obj) {
       return resolve(obj);
     }
-    return reject(new Error('Invalid handle: ', handle));
+    return reject(new Error('Invalid handle: ' + handle));
   });
 };
 

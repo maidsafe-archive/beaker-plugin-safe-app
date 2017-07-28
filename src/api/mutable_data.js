@@ -538,7 +538,7 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
  *    .then(_ => console.log('Finished setting user permission'));
  **/
 module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, version) => {
-  return getObj(signKeyHandle, null)
+  return getObj(signKeyHandle, true)
       .then((signKeyObj) => getObj(pmSetHandle)
         .then((pmSetObj) => getObj(mdHandle)
           .then((mdObj) => mdObj.netObj.setUserPermissions(signKeyObj.netObj,
