@@ -11,15 +11,15 @@ module.exports.manifest = {
  * Create a PlainText Cipher Opt
  * @name window.safeCipherOpt.newPlainText
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {CipherOptHandle} the CipherOpt handle
  *
  * @example // Creating a plain test cipher opt object:
- * window.safeCipherOpt.newPlainText(appToken)
+ * window.safeCipherOpt.newPlainText(appHandle)
  **/
-module.exports.newPlainText = (appToken) => {
-  return getObj(appToken)
+module.exports.newPlainText = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.cipherOpt.newPlainText()
       .then((cipherOpt) => genHandle(obj.app, cipherOpt)));
 };
@@ -28,15 +28,15 @@ module.exports.newPlainText = (appToken) => {
  * Create a new Symmetric Cipher
  * @name window.safeCipherOpt.newSymmetric
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {CipherOptHandle} the CipherOpt handle
  *
  * @example // Creating a symmetric cipher opt object:
- * window.safeCipherOpt.newSymmetric(appToken)
+ * window.safeCipherOpt.newSymmetric(appHandle)
  **/
-module.exports.newSymmetric = (appToken) => {
-  return getObj(appToken)
+module.exports.newSymmetric = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.cipherOpt.newSymmetric()
       .then((cipherOpt) => genHandle(obj.app, cipherOpt)));
 };
@@ -50,7 +50,7 @@ module.exports.newSymmetric = (appToken) => {
  * @returns {CipherOptHandle} the CipherOpt handle
  *
  * @example // Creating an assymetric cipher opt object:
- * window.safeCipherOpt.newAsymmetric(appToken)
+ * window.safeCipherOpt.newAsymmetric(appHandle)
  **/
 module.exports.newAsymmetric = (keyHandle) => {
   return getObj(keyHandle)

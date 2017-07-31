@@ -14,7 +14,7 @@ module.exports.manifest = {
  * @returns {Promise<String>} the raw signature key string
  *
  * @example // Retrieving a raw string copy of the sign key:
- * window.safeCrypto.getAppPubSignKey(appToken)
+ * window.safeCrypto.getAppPubSignKey(appHandle)
  *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
  *    .then((rawPk) => console.log('Sign key: ', rawPk.buffer.toString('hex')));
  */

@@ -56,11 +56,11 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
  *
  * @example // Inserting a new permissions set into a MutableData:
  * let pmSetHandle, appSignKeyHandle, permsHandle;
- * window.safeCrypto.getAppPubSignKey(appToken)
+ * window.safeCrypto.getAppPubSignKey(appHandle)
  *    .then((pk) => appSignKeyHandle = pk)
  *    .then(_ => window.safeMutableData.getPermissions(mdHandle))
  *    .then((h) => permsHandle = h)
- *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then(_ => window.safeMutableData.newPermissionSet(appHandle))
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Insert'))
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'ManagePermissions'))

@@ -30,7 +30,7 @@ export const getObj = (handle) => {
   });
 };
 
-export const freeObj = (handle) => {
+export const freeObj = (handle, forceCleanCache) => {
   const obj = handles.get(handle);
   if (obj) {
     handles.delete(handle);
@@ -44,7 +44,11 @@ export const freeObj = (handle) => {
           freeObj(key);
         }
       });
-      // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
+
+      // Make sure that any resources allocated are freed, e.g. safe_app lib
+      // objects. We rely on the safe_client_lib to automatically free these all
+      // objects creted with this safeApp instance when the safeApp's resources
+      // are released.
       if (obj.app.forceCleanUp) {
         try {
           obj.app.forceCleanUp();
@@ -52,14 +56,12 @@ export const freeObj = (handle) => {
         catch(err) {
           // Since there was an error, assume the safeApp obj was not released,
           // restore it to the handles cache since it may be either used again
-          // by the app, or we ned to try to free it at some point later.
-          handles.set(handle, obj);
+          // by the app, unless we are actually freeing all objects
+          // due to the tab being closed or refreshed.
+          if (!forceCleanCache) {
+            handles.set(handle, obj);
+          }
         }
-      }
-    } else {
-      // Make sure that any resources allocated are freed, e.g. safe_app lib objects.
-      if (obj.netObj.forceCleanUp) {
-        obj.netObj.forceCleanUp();
       }
     }
   }
@@ -72,7 +74,7 @@ export const freePageObjs = (groupId) => {
       if (value.groupId === groupId) {
         // Current SAFEApp instance was created in this page, thus let's free it
         // along with any other obects created with this SAFEApp instance.
-        freeObj(key);
+        freeObj(key, true);
       }
     });
   }
@@ -119,9 +121,9 @@ export const netStateCallbackHelper = (safeApp, appInfo, groupId) => {
       })
     })
     .then((app) => {
-      const token = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
+      const handle = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
       setImmediate(() => {
-        readable.push([token])
+        readable.push([handle])
       })
     })
     .catch((err) => {

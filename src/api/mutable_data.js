@@ -36,18 +36,18 @@ module.exports.manifest = {
  * access.
  * @name window.safeMutableData.newRandomPrivate
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {Number} typeTag the typeTag to use
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
  *
  * @example // Create a PrivateMutable Data with random address:
- * window.safeMutableData.newRandomPrivate(appToken, 15001)
+ * window.safeMutableData.newRandomPrivate(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
  *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
-module.exports.newRandomPrivate = (appToken, typeTag) => {
-  return getObj(appToken)
+module.exports.newRandomPrivate = (appHandle, typeTag) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newRandomPrivate(typeTag)
       .then((md) => genHandle(obj.app, md)));
 };
@@ -57,18 +57,18 @@ module.exports.newRandomPrivate = (appToken, typeTag) => {
  * access.
  * @name window.safeMutableData.newRandomPublic
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {Number} typeTag the typeTag to use
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
  *
  * @example // Create a PublicMutable Data with random address:
- * window.safeMutableData.newRandomPublic(appToken, 15001)
+ * window.safeMutableData.newRandomPublic(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
  *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
-module.exports.newRandomPublic = (appToken, typeTag) => {
-  return getObj(appToken)
+module.exports.newRandomPublic = (appHandle, typeTag) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newRandomPublic(typeTag)
       .then((md) => genHandle(obj.app, md)));
 };
@@ -80,7 +80,7 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
  * function.
  * @name window.safeMutableData.newPrivate
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {(String|Buffer)} name Xor name/address of the MutbleData
  * @param {Number} typeTag the typeTag to use
  * @param {Number} secKey the secret encryption key to use
@@ -92,12 +92,12 @@ module.exports.newRandomPublic = (appToken, typeTag) => {
  * let name = 'name-private-0101010101010101010';
  * let secKey = 'secret-key-010101010101010101010';
  * window.safeCrypto.generateNonce()
- *    .then((nonce) => window.safeMutableData.newPrivate(appToken, name, 15001, secKey, nonce))
+ *    .then((nonce) => window.safeMutableData.newPrivate(appHandle, name, 15001, secKey, nonce))
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
  *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
-module.exports.newPrivate = (appToken, name, typeTag, secKey, nonce) => {
-  return getObj(appToken)
+module.exports.newPrivate = (appHandle, name, typeTag, secKey, nonce) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPrivate(name, typeTag, secKey, nonce)
       .then((md) => genHandle(obj.app, md)));
 };
@@ -107,19 +107,19 @@ module.exports.newPrivate = (appToken, name, typeTag, secKey, nonce) => {
  * access.
  * @name window.safeMutableData.newPublic
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {(String|Buffer)} name Xor name/address of the MutbleData
  * @param {Number} typeTag the typeTag to use
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
  *
  * @example // Create a Public MutableData with specific address:
- * window.safeMutableData.newPublic(appToken, 'name-private-0101010101010101010', 15001)
+ * window.safeMutableData.newPublic(appHandle, 'name-private-0101010101010101010', 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
  *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  **/
-module.exports.newPublic = (appToken, name, typeTag) => {
-  return getObj(appToken)
+module.exports.newPublic = (appHandle, name, typeTag) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPublic(name, typeTag)
       .then((md) => genHandle(obj.app, md)));
 };
@@ -128,16 +128,16 @@ module.exports.newPublic = (appToken, name, typeTag) => {
  * Create a new Permissions object.
  * @name window.safeMutableData.newPermissions
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<PermissionsHandle>} the Permissions handle
  *
  * @example
- * window.safeMutableData.newPermissions(appToken)
+ * window.safeMutableData.newPermissions(appHandle)
  *    .then((permsHandle) => console.log('New Permissions created but not committed'));
  **/
-module.exports.newPermissions = (appToken) => {
-  return getObj(appToken)
+module.exports.newPermissions = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPermissions()
       .then((perm) => genHandle(obj.app, perm)));
 };
@@ -146,16 +146,16 @@ module.exports.newPermissions = (appToken) => {
  * Create a new PermissionsSet object.
  * @name window.safeMutableData.newPermissionSet
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<PermissionsSetHandle>} the PermissionsSet handle
  *
  * @example
- * window.safeMutableData.newPermissionSet(appToken)
+ * window.safeMutableData.newPermissionSet(appHandle)
  *    .then((permSetHandle) => console.log('New PermissionsSet created but not committed'));
  **/
-module.exports.newPermissionSet = (appToken) => {
-  return getObj(appToken)
+module.exports.newPermissionSet = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPermissionSet()
       .then((permSet) => genHandle(obj.app, permSet)));
 };
@@ -164,16 +164,16 @@ module.exports.newPermissionSet = (appToken) => {
  * Create a new Mutation object.
  * @name window.safeMutableData.newMutation
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<MutationHandle>} the Mutation handle
  *
  * @example
- * window.safeMutableData.newMutation(appToken)
+ * window.safeMutableData.newMutation(appHandle)
  *    .then((mutationHandle) => console.log('New Mutation created but not committed'));
  **/
-module.exports.newMutation = (appToken) => {
-  return getObj(appToken)
+module.exports.newMutation = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newMutation()
       .then((mut) => genHandle(obj.app, mut)));
 };
@@ -182,16 +182,16 @@ module.exports.newMutation = (appToken) => {
  * Create a new Entries object.
  * @name window.safeMutableData.newEntries
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<EntriesHandle>} the Entries handle
  *
  * @example
- * window.safeMutableData.newEntries(appToken)
+ * window.safeMutableData.newEntries(appHandle)
  *    .then((entriesHandle) => console.log('New Entries container created but not committed'));
  **/
-module.exports.newEntries = (appToken) => {
-  return getObj(appToken)
+module.exports.newEntries = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.newEntries()
       .then((entries) => genHandle(obj.app, entries)));
 };
@@ -209,7 +209,7 @@ module.exports.newEntries = (appToken) => {
  * @returns {Promise<MutableDataHandle>} the same MutableData handle
  *
  * @example // Create a MutableData and set up its permissions automatically:
- * window.safeMutableData.newPublic(appToken, 15001)
+ * window.safeMutableData.newPublic(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.quickSetup(mdHandle, {key1: 'value1'}))
  *    .then((r) => console.log('New MutableData created and setup'));
  **/
@@ -333,7 +333,7 @@ module.exports.getVersion = (mdHandle) => {
  * @returns {Promise<ValueVersion>} the value at the current version
  *
  * @example // Retrieveing the value of an entry:
- * window.safeMutableData.newPublic(appToken, 15001)
+ * window.safeMutableData.newPublic(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.quickSetup(mdHandle, {key1: 'value1'})
  *       .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
  *       .then((value) => {
@@ -359,19 +359,19 @@ module.exports.get = (mdHandle, key) => {
  *
  * @example // Committing a MutableData to the network:
  * let mdHandle, entriesHandle, pmSetHandle, appSignKeyHandle, permissionsHandle;
- * window.safeMutableData.newEntries(appToken)
+ * window.safeMutableData.newEntries(appHandle)
  *    .then((h) => entriesHandle = h)
  *    .then(_ => window.safeMutableDataEntries.insert(entriesHandle, 'key1', 'value1'))
- *    .then(_ => window.safeCrypto.getAppPubSignKey(appToken))
+ *    .then(_ => window.safeCrypto.getAppPubSignKey(appHandle))
  *    .then((pk) => appSignKeyHandle = pk)
- *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then(_ => window.safeMutableData.newPermissionSet(appHandle))
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Insert'))
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'ManagePermissions'))
- *    .then(_ => window.safeMutableData.newPermissions(appToken))
+ *    .then(_ => window.safeMutableData.newPermissions(appHandle))
  *    .then((h) => permissionsHandle = h)
  *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permissionsHandle, appSignKeyHandle, pmSetHandle))
- *    .then(_ => window.safeMutableData.newRandomPublic(appToken, 15000))
+ *    .then(_ => window.safeMutableData.newRandomPublic(appHandle, 15000))
  *    .then((h) => mdHandle = h)
  *    .then(_ => console.log('Finished preparation'))
  *    .then(_ => window.safeMutableData.put(mdHandle, permissionsHandle, entriesHandle))
@@ -522,9 +522,9 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
  *
  * @example // Setting a new permission into a MutableData:
  * let pmSetHandle, appSignKeyHandle;
- * window.safeCrypto.getAppPubSignKey(appToken)
+ * window.safeCrypto.getAppPubSignKey(appHandle)
  *    .then((pk) => appSignKeyHandle = pk)
- *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then(_ => window.safeMutableData.newPermissionSet(appHandle))
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Delete'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
@@ -585,22 +585,22 @@ module.exports.serialise = (mdHandle) => {
  * Deserialize the MutableData
  * @name window.safeMutableData.fromSerial
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {String} data the serialised MutableData
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle
  *
  * @example // Access MutableData information from its serialised version:
  * window.safeMutableData.serialise(mdHandle)
- *    .then((serial) => window.safeMutableData.fromSerial(appToken, serial))
+ *    .then((serial) => window.safeMutableData.fromSerial(appHandle, serial))
  *       .then((mdHdl) => window.safeMutableData.get(mdHdl, 'key1'))
  *       .then((value) => {
  *          console.log('Value: ', value.buf.toString());
  *          console.log('Version: ', value.version);
  *       });
  */
-module.exports.fromSerial = (appToken, data) => {
-  return getObj(appToken)
+module.exports.fromSerial = (appHandle, data) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.mutableData.fromSerial(data)
       .then((md) => genHandle(obj.app, md)));
 };

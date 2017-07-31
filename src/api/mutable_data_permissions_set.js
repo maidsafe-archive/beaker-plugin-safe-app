@@ -18,9 +18,9 @@ module.exports.manifest = {
  *
  * @example // Setting a new permission into a MutableData:
  * let pmSetHandle, appSignKeyHandle;
- * window.safeCrypto.getAppPubSignKey(appToken)
+ * window.safeCrypto.getAppPubSignKey(appHandle)
  *    .then((pk) => appSignKeyHandle = pk)
- *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then(_ => window.safeMutableData.newPermissionSet(appHandle))
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Delete'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
@@ -43,9 +43,9 @@ module.exports.setAllow = (permissionsSetHandle, action) => {
  *
  * @example // Setting a new permission into a MutableData:
  * let pmSetHandle, appSignKeyHandle;
- * window.safeCrypto.getAppPubSignKey(appToken)
+ * window.safeCrypto.getAppPubSignKey(appHandle)
  *    .then((pk) => appSignKeyHandle = pk)
- *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then(_ => window.safeMutableData.newPermissionSet(appHandle))
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setDeny(pmSetHandle, 'Update'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
@@ -68,9 +68,9 @@ module.exports.setDeny = (permissionsSetHandle, action) => {
  *
  * @example // Setting a new permission into a MutableData:
  * let pmSetHandle, appSignKeyHandle;
- * window.safeCrypto.getAppPubSignKey(appToken)
+ * window.safeCrypto.getAppPubSignKey(appHandle)
  *    .then((pk) => appSignKeyHandle = pk)
- *    .then(_ => window.safeMutableData.newPermissionSet(appToken))
+ *    .then(_ => window.safeMutableData.newPermissionSet(appHandle))
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.clear(pmSetHandle, 'Insert'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
