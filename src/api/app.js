@@ -30,7 +30,7 @@ module.exports.manifest = {
  * to receive network state updates after a unregistered/registered
  * connection is made with `connect`/`connectAuthorised` functions.
  *
- * @returns {Promise<SAFEAppToken>} new app instance token
+ * @returns {Promise<SAFEAppHandle>} new app instance handle
  *
  * @example
  * window.safeApp.initialise({
@@ -40,8 +40,8 @@ module.exports.manifest = {
  *    }, (newState) => {
  *       console.log("Network state changed to: ", newState);
  *    })
- *    .then((appToken) => {
- *       console.log('SAFEApp instance initialised and token returned: ', appToken);
+ *    .then((appHandle) => {
+ *       console.log('SAFEApp instance initialised and handle returned: ', appHandle);
  *    });
  **/
 module.exports._with_async_cb_initialise = (appInfo, safeAppGroupId) => {
@@ -59,9 +59,9 @@ module.exports._with_async_cb_initialise = (appInfo, safeAppGroupId) => {
  * e.g. useful for browsing web sites or just publicly available data.
  * @name window.safeApp.connect
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
- * @returns {Promise<SAFEAppToken>} same app token
+ * @returns {Promise<SAFEAppHandle>} same app handle
  *
  * @example
  * window.safeApp.initialise({
@@ -69,21 +69,21 @@ module.exports._with_async_cb_initialise = (appInfo, safeAppGroupId) => {
  *    name: 'WebApp Test',
  *    vendor: 'MaidSafe Ltd.'
  * })
- * .then((appToken) => window.safeApp.connect(appToken))
+ * .then((appHandle) => window.safeApp.connect(appHandle))
  * .then(_ => {
  *    console.log('Unregistered session created');
  * });
  **/
-module.exports.connect = (appToken) => {
+module.exports.connect = (appHandle) => {
   return new Promise((resolve, reject) => {
-    getObj(appToken)
+    getObj(appHandle)
       .then((obj) => obj.app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
           if (err) {
             return reject(new Error('Unable to get connection information: ', err));
           }
           return obj.app.auth.loginFromURI(res)
-            .then(() => resolve(appToken));
+            .then(() => resolve(appHandle));
         })))
       .catch(reject);
   });
@@ -94,7 +94,7 @@ module.exports.connect = (appToken) => {
  * with the given permissions and optional parameters.
  * @name window.safeApp.authorise
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {Object} permissions mapping the container-names
  *                  to a list of permissions you want to
  *                  request
@@ -106,7 +106,7 @@ module.exports.connect = (appToken) => {
  *
  * @example // Example of authorising an app:
  * window.safeApp.authorise(
- *    appToken, // the app token obtained when invoking `initialise`
+ *    appHandle, // the app handle obtained when invoking `initialise`
  *    {
  *      _public: ['Insert'], // request to insert into `_public` container
  *      _other: ['Insert', 'Update'] // request to insert and update in `_other` container
@@ -116,9 +116,9 @@ module.exports.connect = (appToken) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
  **/
-module.exports.authorise = (appToken, permissions, options) => {
+module.exports.authorise = (appHandle, permissions, options) => {
   return new Promise((resolve, reject) => {
-    getObj(appToken)
+    getObj(appHandle)
       .then((obj) => obj.app.auth.genAuthUri(permissions, options)
         .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
           if (err) {
@@ -138,29 +138,29 @@ module.exports.authorise = (appToken, permissions, options) => {
  * second value.
  * @name window.safeApp.connectAuthorised
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {AuthURI} authUri granted auth URI
  *
- * @returns {Promise<SAFEAppToken>} same app token
+ * @returns {Promise<SAFEAppHandle>} same app handle
  *
  * @example // Example of creating a registered session:
  * window.safeApp.authorise(
- *    appToken, // the app token obtained when invoking `initialise`
+ *    appHandle, // the app handle obtained when invoking `initialise`
  *    {
  *      _public: ['Insert'], // request to insert into `_public` container
  *      _other: ['Insert', 'Update'] // request to insert and update in `_other` container
  *    },
  *    {own_container: true} // and we want our own container, too
  * )
- * .then((authUri) => window.safeApp.connectAuthorised(appToken, authUri))
+ * .then((authUri) => window.safeApp.connectAuthorised(appHandle, authUri))
  * .then(_ => {
  *    console.log('The app was authorised & a session was created with the network');
  * });
  **/
-module.exports.connectAuthorised = (appToken, authUri) => {
-  return getObj(appToken)
+module.exports.connectAuthorised = (appHandle, authUri) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.auth.loginFromURI(authUri))
-    .then((_) => appToken);
+    .then((_) => appHandle);
 };
 
 /**
@@ -168,22 +168,22 @@ module.exports.connectAuthorised = (appToken, authUri) => {
  * with further continer permissions.
  * @name window.safeApp.authoriseContainer
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {Object} permissions mapping container name to list of permissions
  *
  * @returns {Promise<AuthURI>} auth granted `safe-://`-URI
  *
  * @example // Requesting further container authorisation:
  * window.safeApp.authoriseContainer(
- *   appToken, // the app token obtained when invoking `initialise`
+ *   appHandle, // the app handle obtained when invoking `initialise`
  *   { _publicNames: ['Update'] } // request to update into `_publicNames` container
  * ).then((authUri) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
  **/
-module.exports.authoriseContainer = (appToken, permissions) => {
+module.exports.authoriseContainer = (appHandle, permissions) => {
   return new Promise((resolve, reject) => {
-    getObj(appToken)
+    getObj(appHandle)
       .then((obj) => obj.app.auth.genContainerAuthUri(permissions)
         .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
           if (err) {
@@ -200,22 +200,22 @@ module.exports.authoriseContainer = (appToken, permissions) => {
  * convention and fetch the requested object.
  * @name window.safeApp.webFetch
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {AuthURI} authUri granted auth URI
  *
  * @returns {Promise<File>} the file object found for that URL
  *
  * @example // Retrieving a web page:
  * window.safeApp.webFetch(
- *   appToken, // the app token obtained when invoking `initialise`
+ *   appHandle, // the app handle obtained when invoking `initialise`
  *   'safe://servicename.publicid' // the SAFE Network URL
  * )
  * .then((data) => {
  *    console.log('Web page content retrieved: ', data.toString());
  * });
  **/
-module.exports.webFetch = (appToken, url) => {
-  return getObj(appToken)
+module.exports.webFetch = (appHandle, url) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.webFetch(url)
       .then((f) => obj.app.immutableData.fetch(f.dataMapName))
       .then((i) => i.read())
@@ -226,16 +226,16 @@ module.exports.webFetch = (appToken, url) => {
  * Whether or not this is a registered/authenticated session.
  * @name window.safeApp.isRegistered
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Boolean} true if this is an authenticated session
  *
  * @example // Checking if app is registered:
- * window.safeApp.isRegistered(appToken)
+ * window.safeApp.isRegistered(appHandle)
  *    .then((r) => console.log('Is app registered?: ', r));
  **/
-module.exports.isRegistered = (appToken) => {
-  return getObj(appToken)
+module.exports.isRegistered = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.auth.registered);
 };
 
@@ -243,16 +243,16 @@ module.exports.isRegistered = (appToken) => {
  * Current network connection state, e.g. `Connected` or `Disconnected`.
  * @name window.safeApp.networkState
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {String} network state
  *
  * @example // Checking network connection state:
- * window.safeApp.networkState(appToken)
+ * window.safeApp.networkState(appHandle)
  *    .then((s) => console.log('Current network state: ', s));
  **/
-module.exports.networkState = (appToken) => {
-  return getObj(appToken)
+module.exports.networkState = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.networkState);
 };
 
@@ -261,18 +261,18 @@ module.exports.networkState = (appToken) => {
  * container.
  * @name window.safeApp.canAccessContainer
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {String} name name of the container, e.g. `_public`
  * @param {(String|Array<String>)} [permissions=['Read']] permissions to check for
  *
  * @returns {Promise<Boolean>} true if this app can access the container with given permissions
  *
  * @example // Checking if the app has 'Read' permission for the '_public' container:
- * window.safeApp.canAccessContainer(appToken, '_public', ['Read'])
+ * window.safeApp.canAccessContainer(appHandle, '_public', ['Read'])
  *    .then((r) => console.log('Has the app `Read` permission for `_public` container?: ', r));
  **/
-module.exports.canAccessContainer = (appToken, name, permissions) => {
-  return getObj(appToken)
+module.exports.canAccessContainer = (appHandle, name, permissions) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.auth.canAccessContainer(name, permissions));
 };
 
@@ -281,26 +281,26 @@ module.exports.canAccessContainer = (appToken, name, permissions) => {
  * you just connected or received a response from the authenticator.
  * @name window.safeApp.refreshContainersPermissions
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
- * @returns {Promise} resolves when finished refreshing
+ * @returns {Promise<SAFEAppHandle>} same app handle when finished refreshing
  **/
-module.exports.refreshContainersPermissions = (appToken) => {
-  return getObj(appToken)
+module.exports.refreshContainersPermissions = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.auth.refreshContainersPermissions())
-    .then((_) => appToken);
+    .then((_) => appHandle);
 };
 
 /**
  * Get the names of all containers found.
  * @name window.safeApp.getContainersNames
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<Array<String>>} list of containers names
  **/
-module.exports.getContainersNames = (appToken) => {
-  return getObj(appToken)
+module.exports.getContainersNames = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.auth.getContainersNames());
 };
 
@@ -308,17 +308,17 @@ module.exports.getContainersNames = (appToken) => {
  * Get the MutableData for the apps own container generated by Authenticator
  * @name window.safeApp.getHomeContainer
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<MutableDataHandle>} the handle for the MutableData behind it
  *
  * @example // Retrieve home container:
- * window.safeApp.getHomeContainer(appToken)
+ * window.safeApp.getHomeContainer(appHandle)
  *    .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
  *    .then((v) => console.log('Home Container version: ', v));
  **/
-module.exports.getHomeContainer = (appToken) => {
-  return getObj(appToken)
+module.exports.getHomeContainer = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.auth.getHomeContainer()
       .then((md) => genHandle(obj.app, md)));
 };
@@ -327,24 +327,24 @@ module.exports.getHomeContainer = (appToken) => {
  * Lookup and return the information necessary to access a container.
  * @name window.safeApp.getContainer
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {String} name name of the container, e.g. `_public`
  *
  * @returns {Promise<MutableDataHandle>} the MutableData handle the handle for the MutableData behind it
  *
  * @example // Retrieve the '_public' container:
- * window.safeApp.canAccessContainer(appToken, '_public', ['Read'])
+ * window.safeApp.canAccessContainer(appHandle, '_public', ['Read'])
  *    .then((r) => {
  *       if (r) {
  *          console.log('The app has `Read` permission for `_public` container');
- *          window.safeApp.getContainer(appToken, '_public')
+ *          window.safeApp.getContainer(appHandle, '_public')
  *             .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
  *             .then((v) => console.log('`_public` Container version: ', v));
  *       }
  *    });
  **/
-module.exports.getContainer = (appToken, name) => {
-  return getObj(appToken)
+module.exports.getContainer = (appHandle, name) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.auth.getContainer(name)
       .then((md) => genHandle(obj.app, md)));
 };
@@ -353,10 +353,10 @@ module.exports.getContainer = (appToken, name) => {
  * Reconnect SAFEApp instance if connection is disconnected
  * @name window.safeApp.reconnect
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  **/
-module.exports.reconnect = (appToken) => {
-  return getObj(appToken)
+module.exports.reconnect = (appHandle) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.reconnect());
 };
 
@@ -366,17 +366,17 @@ module.exports.reconnect = (appToken) => {
  * the path of where the safe_core log file is located.
  * @name window.safeApp.logPath
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  * @param {String} [filename=null] log filename to generate the path
  *
  * @returns {Promise<String>} the log filename path generated
  *
  * @example // Retrieve the '_public' container:
- * window.safeApp.logPath(appToken, 'mylogfile.log')
+ * window.safeApp.logPath(appHandle, 'mylogfile.log')
  *    .then((path) => console.log('Log path generated: ', path));
  **/
-module.exports.logPath = (appToken, filename) => {
-  return getObj(appToken)
+module.exports.logPath = (appHandle, filename) => {
+  return getObj(appHandle)
     .then((obj) => obj.app.logPath(filename));
 };
 
@@ -385,13 +385,13 @@ module.exports.logPath = (appToken, filename) => {
  * objects created with it, e.g. ImmutableData and MutableData objects, etc.
  * @name window.safeApp.free
  *
- * @param {SAFEAppToken} appToken the app handle
+ * @param {SAFEAppHandle} appHandle the app handle
  **/
-module.exports.free = (appToken) => freeObj(appToken);
+module.exports.free = (appHandle) => freeObj(appHandle);
 
 /**
- * @name SAFEAppToken
- * @typedef {String} SAFEAppToken
+ * @name SAFEAppHandle
+ * @typedef {String} SAFEAppHandle
  * @description Holds the reference to a SAFEApp instance which is the primary interface to interact
  * with the SAFE network.
  * Note that it is required to free the memory used by such an instance when it's

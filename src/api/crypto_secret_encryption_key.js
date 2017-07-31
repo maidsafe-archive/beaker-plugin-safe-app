@@ -15,7 +15,7 @@ module.exports.manifest = {
  * @returns {Promise<String>} the raw secret encryption key string
  *
  * @example // Generating a raw string copy of the secret encryption key:
- * window.safeCrypto.generateEncKeyPair(appToken)
+ * window.safeCrypto.generateEncKeyPair(appHandle)
  *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle))
  *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
  *    .then((rawSk) => console.log('Secret encryption key: ', rawSk.buffer.toString('hex')));

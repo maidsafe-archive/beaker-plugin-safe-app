@@ -121,9 +121,9 @@ export const netStateCallbackHelper = (safeApp, appInfo, groupId) => {
       })
     })
     .then((app) => {
-      const token = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
+      const handle = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
       setImmediate(() => {
-        readable.push([token])
+        readable.push([handle])
       })
     })
     .catch((err) => {

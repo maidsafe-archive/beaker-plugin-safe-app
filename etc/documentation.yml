@@ -97,9 +97,15 @@ toc:
   - window.safeNfs.fetch
   - window.safeNfs.insert
   - window.safeNfs.update
-  - window.safeNfs.getFileMeta
+  - window.safeNfs.delete
+  - window.safeNfs.open
   - window.safeNfs.free
-  - window.safeNfs.freeFile
+  - window.safeNfsFile.size
+  - window.safeNfsFile.read
+  - window.safeNfsFile.write
+  - window.safeNfsFile.close
+  - window.safeNfsFile.metadata
+  - window.safeNfsFile.free
   - name: Cipher Opt
     description: The safeCipherOpt API provides you with functions to create different cipher options
   - window.safeCipherOpt.newPlainText
@@ -130,7 +136,7 @@ toc:
   - window.safeCryptoSignKey.getRaw
   - window.safeCryptoSignKey.free
   - name: Types
-  - SAFEAppToken
+  - SAFEAppHandle
   - AuthURI
   - AppInfo
   - MutableDataHandle
