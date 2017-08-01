@@ -352,8 +352,8 @@ module.exports.get = (mdHandle, key) => {
  * @name window.safeMutableData.put
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
- * @param {PermissionsHandle} permissionsHandle the permissions to create the MutableData with
- * @param {EntriesHandle} entriesHandle data payload to create the MutableData with
+ * @param {PermissionsHandle|null} permissionsHandle the permissions to create the MutableData with
+ * @param {EntriesHandle|null} entriesHandle data payload to create the MutableData with
  *
  * @returns {Promise} it resolves when finished creating it
  *
@@ -379,8 +379,8 @@ module.exports.get = (mdHandle, key) => {
  **/
 module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
   return getObj(mdHandle)
-    .then((mdObj) => getObj(permissionsHandle)
-      .then((permsObj) => getObj(entriesHandle)
+    .then((mdObj) => getObj(permissionsHandle, true)
+      .then((permsObj) => getObj(entriesHandle, true)
         .then((entriesObj) => mdObj.netObj.put(permsObj.netObj, entriesObj.netObj))
       ));
 };
@@ -463,11 +463,13 @@ module.exports.getPermissions = (mdHandle) => {
 
 /**
  * Get a handle to the permissions associated with this MutbleData for
- * a specifc key
+ * a specifc key.
+ * If the SignKeyHandle provided is `null` it will be then
+ * assummed as `USER_ANYONE`.
  * @name window.safeMutableData.getUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
- * @param {SignKeyHandle} signKeyHandle the sign key to look up
+ * @param {SignKeyHandle|null} signKeyHandle the sign key to look up
  *
  * @returns {Promise<PermissionsSetHandle>} the PermissionsSet handle
  *
@@ -476,7 +478,7 @@ module.exports.getPermissions = (mdHandle) => {
  *    .then((permSetHandle) => console.log('PermissionsSet retrieved'));
  **/
 module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
-  return getObj(signKeyHandle)
+  return getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(mdHandle)
       .then((mdObj) => mdObj.netObj.getUserPermissions(signKeyObj.netObj)
         .then((permSet) => genHandle(mdObj.app, permSet)))
@@ -486,10 +488,12 @@ module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
 /**
  * Delete the permissions of a specifc key. Directly commits to the network.
  * Requires `'ManagePermissions'` permission for the app.
+ * If the SignKeyHandle provided is `null` it will be then
+ * assummed as `USER_ANYONE`.
  * @name window.safeMutableData.delUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
- * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|null} signKeyHandle the sign key to lookup for
  * @param {Number} version the version successor, to confirm you are
  *        actually asking for the right state
  *
@@ -501,7 +505,7 @@ module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
  *    .then(_ => console.log('PermissionsSet removed for the sign key provided'));
  **/
 module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
-  return getObj(signKeyHandle)
+  return getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(mdHandle)
       .then((mdObj) => mdObj.netObj.delUserPermissions(signKeyObj.netObj, version))
     );
@@ -510,10 +514,12 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
 /**
  * Set the permissions of a specifc key. Directly commits to the network.
  * Requires `'ManagePermissions'` permission for the app.
+ * If the SignKeyHandle provided is `null` the permission set will be then
+ * set for `USER_ANYONE`.
  * @name window.safeMutableData.setUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
- * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|null} signKeyHandle the sign key to lookup for
  * @param {PermissionsSetHandle} pmSetHandle the PermissionsSet to set to
  * @param {Number} version the version successor, to confirm you are
  *        actually asking for the right state
@@ -532,7 +538,7 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
  *    .then(_ => console.log('Finished setting user permission'));
  **/
 module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, version) => {
-  return getObj(signKeyHandle)
+  return getObj(signKeyHandle, true)
       .then((signKeyObj) => getObj(pmSetHandle)
         .then((pmSetObj) => getObj(mdHandle)
           .then((mdObj) => mdObj.netObj.setUserPermissions(signKeyObj.netObj,

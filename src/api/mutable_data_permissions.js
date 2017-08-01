@@ -28,15 +28,17 @@ module.exports.len = (permissionsHandle) => {
 
 /**
  * Lookup the permissions of a specifc key
+ * If the SignKeyHandle provided is `null` it will be then
+ * assumed as for `USER_ANYONE`.
  * @name window.safeMutableDataPermissions.getPermissionsSet
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
- * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|null} signKeyHandle the sign key to lookup for
  *
  * @returns {Promise<PermissionsSetHandle>} the permissions set for that sign key
  **/
 module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
-  return getObj(signKeyHandle)
+  return getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(permissionsHandle)
       .then((permsObj) => permsObj.netObj.getPermissionSet(signKeyObj.netObj)
         .then((permSet) => genHandle(permsObj.app)))
@@ -46,10 +48,12 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
 /**
  * Insert a new permissions to a specifc sign key. Directly commits to the network.
  * Requires 'ManagePermissions'-permission for the app.
+ * If the SignKeyHandle provided is `null` the permission set will be then
+ * set for `USER_ANYONE`.
  * @name window.safeMutableDataPermissions.insertPermissionsSet
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
- * @param {SignKeyHandle} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|null} signKeyHandle the sign key to map to
  * @param {PermissionsSetHandle} pmSetHandle - the permissions set you'd like insert
  *
  * @returns {Promise} resolves once finished
@@ -68,7 +72,7 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
  *    .then(_ => console.log('Finished inserting new permissions'));
  **/
 module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHandle) => {
-  return getObj(signKeyHandle)
+  return getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(pmSetHandle)
       .then((pmSetObj) => getObj(permissionsHandle)
         .then((permsObj) => permsObj.netObj.insertPermissionSet(signKeyObj.netObj, pmSetObj.netObj))
