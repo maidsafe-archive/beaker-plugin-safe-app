@@ -32,7 +32,7 @@ const winston = (path) => {
         level: env === 'dev' ? 'silly' : 'info'
       }),
       new (DailyRotateFile)({
-        filename: `${path}-safe-app-plugin.log`,
+        filename: `${path}safe-app-plugin.log`,
         timestamp: timeStampFormat,
         // The most specific part of the date pattern determines the frequency of file creationg
         // For example, if datePattern is 'dd-MM-yyyy-mm' /
