@@ -19,7 +19,7 @@ module.exports.manifest = {
  *
  * @example // Apply an `Insert` mutation:
  * let mutationHandle;
- * window.safeMutableData.newMutation(appToken)
+ * window.safeMutableData.newMutation(appHandle)
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
@@ -43,7 +43,7 @@ module.exports.insert = (mutationHandle, keyName, value) => {
  *
  * @example // Apply a `Remove` mutation:
  * let mutationHandle;
- * window.safeMutableData.newMutation(appToken)
+ * window.safeMutableData.newMutation(appHandle)
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
  *    .then((value) => window.safeMutableDataMutation.remove(mutationHandle, 'key1', value.version + 1))
@@ -69,7 +69,7 @@ module.exports.remove = (mutationHandle, keyName, version) => {
  *
  * @example // Apply an `Update` mutation:
  * let mutationHandle;
- * window.safeMutableData.newMutation(appToken)
+ * window.safeMutableData.newMutation(appHandle)
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
  *    .then((value) => window.safeMutableDataMutation.update(mutationHandle, 'key1', 'newValue', value.version + 1))

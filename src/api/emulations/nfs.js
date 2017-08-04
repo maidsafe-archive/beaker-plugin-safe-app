@@ -98,11 +98,13 @@ module.exports.delete = (nfsHandle, fileName, version) => {
  * Open a file for reading or writing.
  *
  * Open Modes:
+ *
  *  1 = Replaces the entire content of the file when writing data.
+ *
  *  2 = Appends to existing data in the file.
+ *
  *  4 = Open file to read.
  *
- * These constants are declared in ../../consts.js and imported in this module
  * @name window.safeNfs.open
  *
  * @param {NFSHandle} nfsHandle the NFS emulation handle
@@ -114,7 +116,7 @@ module.exports.delete = (nfsHandle, fileName, version) => {
  **/
 module.exports.open = (nfsHandle, fileHandle, openMode) => {
   return getObj(nfsHandle)
-    .then((nfsObj) => getObj(fileHandle).catch(() => ({netObj: null}))
+    .then((nfsObj) => getObj(fileHandle, true)
       .then((fileObj) => nfsObj.netObj.open(fileObj.netObj, openMode))
       .then((file) => genHandle(nfsObj.app, file))
     );

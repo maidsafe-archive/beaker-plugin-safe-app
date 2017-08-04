@@ -5,11 +5,11 @@ const mime = require('mime');
 const ipc = require('./api/ipc');
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
-/* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 
 const winston = require('./winston-config');
 
 const safeScheme = 'safe';
+const safeLocalScheme = 'localhost';
 
 const appInfo = {
   id: 'net.maidsafe.app.browser',
@@ -51,17 +51,34 @@ const fetchData = (url) => {
   return appObj.webFetch(url)
 };
 
-const registerSafeAuthProtocol = () => {
+
+const handleError = (err) => {
+  if (mimeType === 'html') {
+    return cb({ mimeType, data: err.message });
+  }
+  cb(null);
+};
+
+
+const registerSafeLocalProtocol = () => {
+  protocol.registerHttpProtocol(safeLocalScheme, (req, cb) => {
+    const parsed = urlParse(req.url);
+
+    if (!parsed.host) { return; }
+
+    const path = parsed.pathname;
+    const port = parsed.port;
+    const newUrl = `http://localhost:${port}${path}`;
+
+    cb({ url: newUrl });
+  });
+};
+
+const registerSafeProtocol = () => {
   protocol.registerBufferProtocol(safeScheme, (req, cb) => {
     const parsedUrl = urlParse(req.url);
     const fileExt = path.basename(parsedUrl.pathname) || 'html';
     const mimeType = mime.lookup(fileExt);
-    const handleError = (err) => {
-      if (mimeType === 'html') {
-        return cb({ mimeType, data: err.message });
-      }
-      cb(null);
-    };
 
     authoriseApp()
       .then(() => fetchData(req.url))
@@ -72,10 +89,16 @@ const registerSafeAuthProtocol = () => {
   });
 };
 
-module.exports = {
+module.exports = [{
   scheme: safeScheme,
   label: 'SAFE',
   isStandardURL: true,
   isInternal: true,
-  register: registerSafeAuthProtocol
-};
+  register: registerSafeProtocol
+}, {
+  scheme: safeLocalScheme,
+  label: 'SAFE-localhost',
+  isStandardURL: true,
+  isInternal: true,
+  register: registerSafeLocalProtocol
+}];

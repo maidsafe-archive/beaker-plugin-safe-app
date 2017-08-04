@@ -16,9 +16,9 @@ class IpcTask {
   }
 
   add(info, cb) {
-    const token = genRandomString();
-    this.tasks.push(token);
-    this.tasksInfo[token] = { info, cb };
+    const handle = genRandomString();
+    this.tasks.push(handle);
+    this.tasksInfo[handle] = { info, cb };
     this.next();
   }
 
