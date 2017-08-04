@@ -6,7 +6,7 @@ const ipc = require('./api/ipc');
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
 
-const winston = require('./winston-config');
+const initialiseWinston = require('./winston-config');
 
 const safeScheme = 'safe';
 const safeLocalScheme = 'localhost';
@@ -27,7 +27,10 @@ const authoriseApp = () => {
     return safeApp.initializeApp(appInfo)
       .then((app) => app.logPath()
         .then((filePath) => {
-          global.winston = winston(filePath);
+          let winston = initialiseWinston(filePath);
+          winston.info('winston initialised');
+          winston.info(filePath);
+          global.winston = winston;
           return app.auth.genConnUri()
             .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
               if (err) {
