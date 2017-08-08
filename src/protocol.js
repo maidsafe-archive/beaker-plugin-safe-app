@@ -33,7 +33,7 @@ const authoriseApp = () => {
               appObj = app;
               resolve(true);
             });
-        })));
+        }))).catch(reject);
   });
 };
 
@@ -45,11 +45,11 @@ const fetchData = (url) => {
 };
 
 
-const handleError = (err) => {
-  if (mimeType === 'html') {
-    return cb({ mimeType, data: err.message });
+const handleError = (err, mimeType, cb) => {
+  if (mimeType === 'text/html') {
+    return cb({ mimeType, data: new Buffer('<h1>'+err.message+'</h1>') });
   }
-  cb(null);
+  return cb({ mimeType, data: new Buffer(err.message) });
 };
 
 
@@ -76,7 +76,7 @@ const registerSafeProtocol = () => {
     authoriseApp()
       .then(() => fetchData(req.url))
       .then((co) => cb({ mimeType, data: co }))
-      .catch(handleError);
+      .catch((err) => handleError(err, mimeType, cb));
   }, (err) => {
     if (err) console.error('Failed to register protocol');
   });
