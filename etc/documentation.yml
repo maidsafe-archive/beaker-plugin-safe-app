@@ -12,7 +12,7 @@ toc:
   - window.safeApp.canAccessContainer
   - window.safeApp.refreshContainersPermissions
   - window.safeApp.getContainersNames
-  - window.safeApp.getHomeContainer
+  - window.safeApp.getOwnContainer
   - window.safeApp.getContainer
   - window.safeApp.free
   - name: Immutable Data
