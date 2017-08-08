@@ -47,7 +47,7 @@ const fetchData = (url) => {
 
 const handleError = (err, mimeType, cb) => {
   if (mimeType === 'text/html') {
-    return cb({ mimeType, data: new Buffer('<h5>'+err.message+'</h5>') });
+    return cb({ mimeType, data: new Buffer('<h1>'+err.message+'</h1>') });
   }
   return cb({ mimeType, data: new Buffer(err.message) });
 };
