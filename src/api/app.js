@@ -44,14 +44,14 @@ module.exports.manifest = {
  *       console.log('SAFEApp instance initialised and handle returned: ', appHandle);
  *    });
  **/
-module.exports._with_async_cb_initialise = (appInfo, safeAppGroupId) => {
+module.exports._with_async_cb_initialise = (appInfo, safeAppGroupId, logFlags) => {
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
     appInfo.scope = wholeUrl;
   } else {
     appInfo.scope = null;
   }
-  return netStateCallbackHelper(safeApp, appInfo, safeAppGroupId);
+  return netStateCallbackHelper(safeApp, appInfo, safeAppGroupId, logFlags);
 };
 
 /**

@@ -117,13 +117,13 @@ export const forEachHelper = (containerHandle, sendHandles) => {
   return readable;
 }
 
-export const netStateCallbackHelper = (safeApp, appInfo, groupId) => {
+export const netStateCallbackHelper = (safeApp, appInfo, groupId, logFlags) => {
   var readable = new Readable({ objectMode: true, read() {} })
   safeApp.initializeApp(appInfo, (state) => {
       setImmediate(() => {
         readable.push([state])
       })
-    })
+    }, logFlags)
     .then((app) => {
       const handle = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
       setImmediate(() => {
