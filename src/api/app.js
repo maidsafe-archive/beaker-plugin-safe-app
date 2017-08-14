@@ -44,14 +44,17 @@ module.exports.manifest = {
  *       console.log('SAFEApp instance initialised and handle returned: ', appHandle);
  *    });
  **/
-module.exports._with_async_cb_initialise = (appInfo, options, safeAppGroupId) => {
+
+// QUESTION: How does user obtain safeAppGroupId?
+// It is used for freeing memory when browser tab is closed, correct?
+module.exports._with_async_cb_initialise = (appInfo, safeAppGroupId, options) => {
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
     appInfo.scope = wholeUrl;
   } else {
     appInfo.scope = null;
   }
-  return netStateCallbackHelper(safeApp, appInfo, options, safeAppGroupId);
+  return netStateCallbackHelper(safeApp, appInfo, safeAppGroupId, options);
 };
 
 /**
