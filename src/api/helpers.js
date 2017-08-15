@@ -117,7 +117,7 @@ export const forEachHelper = (containerHandle, sendHandles) => {
   return readable;
 }
 
-export const netStateCallbackHelper = (safeApp, appInfo, groupId) => {
+export const netStateCallbackHelper = (safeApp, appInfo, enableLog, groupId) => {
   var readable = new Readable({ objectMode: true, read() {} })
   safeApp.initializeApp(appInfo, (state) => {
       setImmediate(() => {
