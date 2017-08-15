@@ -8,6 +8,7 @@ module.exports.manifest = {
   authorise: 'promise',
   connectAuthorised: 'promise',
   authoriseContainer: 'promise',
+  authoriseShareMd: 'promise',
   webFetch: 'promise',
   isRegistered: 'promise',
   networkState: 'promise',
@@ -185,6 +186,45 @@ module.exports.authoriseContainer = (appHandle, permissions) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
       .then((obj) => obj.app.auth.genContainerAuthUri(permissions)
+        .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
+          if (err) {
+            return reject(new Error('Unable to authorise the application: ', err)); // TODO send Error in specific
+          }
+          return resolve(res);
+        })))
+      .catch(reject);
+  });
+};
+
+/**
+ * Request the Authenticator (and user) to authorise this application
+ * with specific mutation permissions for a MutableData.
+ * @name window.safeApp.authoriseShareMd
+ *
+ * @param {SAFEAppHandle} appHandle the app handle
+ * @param {[Object]} permissions list of permissions
+ *
+ * @returns {Promise<AuthURI>} auth granted `safe-://`-URI
+ *
+ * @example // example of requesting permissions for a couple of MutableData's:
+ * window.safeApp.authoriseShareMd(
+ *   appHandle, // the app handle obtained when invoking `initialise`
+ *   [
+ *    { type_tag: 15001,   // request for MD with tag 15001
+ *      name: 'XoRname1',  // request for MD located at address 'XoRname1'
+ *      perms: ['Insert'], // request for inserting into the referenced MD
+ *    },
+ *    { type_tag: 15020,   // request for MD with tag 15020
+ *      name: 'XoRname2',  // request for MD located at address 'XoRname2'
+ *      perms: ['Insert', `Update`], // request for updating and inserting into the referenced MD
+ *    }
+ *   ]
+ * )
+ **/
+module.exports.authoriseShareMd = (appHandle, permissions) => {
+  return new Promise((resolve, reject) => {
+    getObj(appHandle)
+      .then((obj) => obj.app.auth.genShareMDataUri(permissions)
         .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
           if (err) {
             return reject(new Error('Unable to authorise the application: ', err)); // TODO send Error in specific
