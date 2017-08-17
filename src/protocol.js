@@ -22,7 +22,7 @@ const authoriseApp = () => {
     if (appObj) {
       return resolve(true);
     }
-    return safeApp.initializeApp(appInfo)
+    return safeApp.initializeApp(appInfo, (state) => {console.log('NETWORK STATE CHANGED TO: ', state);})
       .then((app) => app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
           if (err) {
