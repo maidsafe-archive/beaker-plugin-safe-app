@@ -24,7 +24,6 @@ h1
 	margin-bottom:   0;
 }
 
-
 h4
 {
 	font-size:       18px;
@@ -61,4 +60,42 @@ h4
 .desc span:last-child::after
 {
   display:         none;
+}
+
+
+
+a
+{
+  cursor: pointer;
+  color: #016fde;
+  text-decoration: none;
+}
+
+a:hover
+{
+  text-decoration: underline;
+  color: #0091ff;
+}
+
+a:active,
+a:hover
+{
+    outline: 0;
+}
+
+
+
+
+
+ul
+{
+  padding-left: 0;
+}
+
+li
+{
+  list-style-type: none;
+  margin: 20px 0 0;
+  padding: 0;
+  font-size: 14px;
 }
