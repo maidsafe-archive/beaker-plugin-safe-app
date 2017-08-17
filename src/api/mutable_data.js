@@ -10,6 +10,7 @@ module.exports.manifest = {
   newMutation: 'promise',
   newEntries: 'promise',
   quickSetup: 'promise',
+  setMetadata: 'promise',
   encryptKey: 'promise',
   encryptValue: 'promise',
   decrypt: 'promise',
@@ -91,7 +92,7 @@ module.exports.newRandomPublic = (appHandle, typeTag) => {
  * @example // Create a PrivateMutable Data with specific address:
  * let name = 'name-private-0101010101010101010';
  * let secKey = 'secret-key-010101010101010101010';
- * window.safeCrypto.generateNonce()
+ * window.safeCrypto.generateNonce(appHandle)
  *    .then((nonce) => window.safeMutableData.newPrivate(appHandle, name, 15001, secKey, nonce))
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
  *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
@@ -201,22 +202,58 @@ module.exports.newEntries = (appHandle) => {
 /**
  * Set up a newly (not yet committed/created) MutableData with
  * the app having full-access permissions (and no other).
+ * The metadata is particularly used by the Authenticator when another
+ * application has requested mutation permissions on this MutableData,
+ * so the user can make a better decision to either allow or deny such a
+ * request based on this information.
  * @name window.safeMutableData.quickSetup
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {Object} data a key-value payload it should create the data with
+ * @param {(String|Buffer)} name a descriptive name for the MutableData
+ * @param {(String|Buffer)} description a detailed description for the MutableData content
  *
  * @returns {Promise<MutableDataHandle>} the same MutableData handle
  *
  * @example // Create a MutableData and set up its permissions automatically:
- * window.safeMutableData.newPublic(appHandle, 15001)
- *    .then((mdHandle) => window.safeMutableData.quickSetup(mdHandle, {key1: 'value1'}))
- *    .then((r) => console.log('New MutableData created and setup'));
+ * window.safeMutableData.newPublic(appHandle, 'name-public-01010101010101010101', 15001)
+ *    .then((mdHandle) => window.safeMutableData.quickSetup(mdHandle, {key1: 'value1'},
+ *                                                          'My MutableData',
+ *                                                          'To store my app\'s data'))
+ *    .then(() => console.log('New MutableData created and setup'));
  **/
-module.exports.quickSetup = (mdHandle, data) => {
+module.exports.quickSetup = (mdHandle, data, name, description) => {
   return getObj(mdHandle)
-    .then((obj) => obj.netObj.quickSetup(data))
+    .then((obj) => obj.netObj.quickSetup(data, name, description))
     .then(() => mdHandle);
+};
+
+/**
+* Set the metadata information in the MutableData. Note this can be used
+* only if the MutableData was already committed to the network, .i.e either
+* with `put`, with `quickSetup`, or if it is an already existing MutableData
+* just fetched from the network.
+* The metadata is particularly used by the Authenticator when another
+* application has requested mutation permissions on this MutableData,
+* displaying this information to the user, so the user can make a better
+* decision to either allow or deny such a request based on it.
+* @name window.safeMutableData.setMetadata
+*
+* @param {MutableDataHandle} mdHandle the MutableData handle
+* @param {(String|Buffer)} name a descriptive name for the MutableData
+* @param {(String|Buffer)} description a detailed description for the MutableData content
+*
+* @returns {Promise} it resolves when finished
+*
+* @example // Set the metadata to a MutableData:
+* window.safeMutableData.newPublic(appHandle, 'name-public-01010101010101010101', 15001)
+*    .then((mdHandle) => window.safeMutableData.setMetadata(mdHandle,
+*                                                          'My MutableData',
+*                                                          'To store my app\'s data'))
+**/
+module.exports.setMetadata = (mdHandle, name, description) => {
+  return getObj(mdHandle)
+    .then((obj) => obj.netObj.setMetadata(name, description));
 };
 
 /**
