@@ -1,3 +1,5 @@
+import { setupSafeLogProtocol } from './safe-logs';
+
 const path = require('path');
 const safeApp = require('safe-app');
 const urlParse = require('url').parse;
@@ -7,10 +9,11 @@ const ipc = require('./api/ipc');
 const protocol = require('electron').protocol;
 
 const errorTemplate = require('./error-template.ejs');
-const errorCss = require('./error-page.css');
+const safeCss = require('./safe-pages.css');
 
 const safeScheme = 'safe';
 const safeLocalScheme = 'localhost';
+const safeLogScheme = 'safe-logs';
 
 const appInfo = {
   id: 'net.maidsafe.app.browser',
@@ -49,7 +52,7 @@ const fetchData = (url) => {
 
 
 const handleError = (err, mimeType, cb) => {
-  err.css = errorCss;
+  err.css = safeCss;
 
   const page = errorTemplate(err);
 
@@ -89,6 +92,10 @@ const registerSafeProtocol = () => {
   });
 };
 
+export const registerSafeLogs = () => {
+  setupSafeLogProtocol(appInfo);
+};
+
 module.exports = [{
   scheme: safeScheme,
   label: 'SAFE',
@@ -101,4 +108,9 @@ module.exports = [{
   isStandardURL: true,
   isInternal: true,
   register: registerSafeLocalProtocol
+},
+{
+  scheme: safeLogScheme,
+  label: 'SAFE-logs',
+  register: registerSafeLogs
 }];

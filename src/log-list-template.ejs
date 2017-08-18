@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>SAFE App Logs</title>
+		<style><%= css %></style>
+
+	</head>
+	<body>
+		<h1>SAFE Network</h1>
+		<h4 class="desc"><span>Privacy</span><span>Security</span><span>Freedom</span></h4>
+		<h2>SAFE App Logs</h2>
+    <ul>
+      <% logList.forEach(function(log){ %>
+        <li><a href="safe-logs:<%= log.name %>" ><%= log.name %></a></li>
+      <% }); %>
+    </ul>
+	</body>
+</html>
