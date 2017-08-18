@@ -14,7 +14,7 @@ module.exports.manifest = {
   networkState: 'promise',
   canAccessContainer: 'promise',
   refreshContainersPermissions: 'promise',
-  getContainersNames: 'promise',
+  getContainersPermissions: 'promise',
   getOwnContainer: 'promise',
   getContainer: 'promise',
   reconnect: 'promise',
@@ -332,16 +332,17 @@ module.exports.refreshContainersPermissions = (appHandle) => {
 };
 
 /**
- * Get the names of all containers found.
- * @name window.safeApp.getContainersNames
+ * Get the names of all containers found and the app's granted
+ * permissions for each of them.
+ * @name window.safeApp.getContainersPermissions
  *
  * @param {SAFEAppHandle} appHandle the app handle
  *
- * @returns {Promise<Array<String>>} list of containers names
+ * @returns {Promise<Array<ContainerPerms>>} list of containers permissions
  **/
-module.exports.getContainersNames = (appHandle) => {
+module.exports.getContainersPermissions = (appHandle) => {
   return getObj(appHandle)
-    .then((obj) => obj.app.auth.getContainersNames());
+    .then((obj) => obj.app.auth.getContainersPermissions());
 };
 
 /**
