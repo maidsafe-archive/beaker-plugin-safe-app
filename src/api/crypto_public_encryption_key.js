@@ -13,7 +13,7 @@ module.exports.manifest = {
  *
  * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
  *
- * @returns {Promise<String>} the raw encryption key string
+ * @returns {Promise<Buffer>} the raw encryption key
  *
  * @example // Generating a raw string copy of the public encryption key:
  * window.safeCrypto.generateEncKeyPair(appHandle)

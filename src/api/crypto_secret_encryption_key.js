@@ -12,7 +12,7 @@ module.exports.manifest = {
  *
  * @param {SecEncKeyHandle} secEncKeyHandle the SecEncKey handle
  *
- * @returns {Promise<String>} the raw secret encryption key string
+ * @returns {Promise<Buffer>} the raw secret encryption key
  *
  * @example // Generating a raw string copy of the secret encryption key:
  * window.safeCrypto.generateEncKeyPair(appHandle)

@@ -11,7 +11,7 @@ module.exports.manifest = {
  *
  * @param {SignKeyHandle} signKeyHandle the public SignKey handle
  *
- * @returns {Promise<String>} the raw signature key string
+ * @returns {Promise<Buffer>} the raw signature key
  *
  * @example // Retrieving a raw string copy of the sign key:
  * window.safeCrypto.getAppPubSignKey(appHandle)
