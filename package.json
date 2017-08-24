@@ -1,6 +1,6 @@
 {
   "name": "beaker-plugin-safe-app",
-  "version": "0.1.0-dev.2",
+  "version": "0.2.0",
   "description": "SAFE Browser add-on for web client to access SAFE Network",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,7 @@
     "css-loader": "^0.28.4",
     "ejs-loader": "^0.3.0",
     "mime": "^1.3.4",
-    "safe-app": "https://github.com/maidsafe/safe_app_nodejs/releases/download/0.1.0-dev.2/safe-app-0.1.0-dev.2.tgz",
+    "safe-app": "https://s3.eu-west-2.amazonaws.com/safe-app-nodejs/safe-app-0.2.0.tgz",
     "url": "^0.11.0"
   },
   "devDependencies": {
