@@ -97,8 +97,7 @@ export function setupSafeLogProtocol(appInfo) {
   getLogs(appInfo);
 
   protocol.registerBufferProtocol('safe-logs', (request, cb) => {
-    const parsedUrl = url.parse(request.url);
-    const fileName = parsedUrl.hostname;
+    const fileName = request.url.split('safe-logs:')[1];
 
     if (fileName === 'list') {
       showLogList(appInfo, cb);
