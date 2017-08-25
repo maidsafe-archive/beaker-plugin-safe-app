@@ -7,7 +7,9 @@ import { protocol } from 'electron';
 import safeApp from 'safe-app';
 import safeCss from './safe-pages.css';
 
-const logListTemplate = require('./log-list-template.ejs');
+import logListTemplate  from './log-list-template.ejs';
+import logTemplate  from './log-template.ejs';
+import errorTemplate  from './error-template.ejs';
 
 let appObj = null;
 
@@ -37,6 +39,20 @@ export const getLogs = (appInfo, attempt = 0) => {
 
 
 /**
+ * Return the size of the log file given
+ * @param  { String } filePath full system path to the log filePath
+ * @return { Int }          logfile size in MB
+ */
+function getLogSize( filePath )
+{
+  const stats = fs.statSync(filePath);
+  const fileSizeInBytes = stats["size"];
+  // Convert the file size to megabytes (optional)
+  return fileSizeInBytes;
+}
+
+
+/**
  * Get the list of all logs stored on the file system, uses safeApp to get log folder from
  * the default log file.
  * @param  {String}   appInfo safe app info
@@ -56,12 +72,17 @@ function getLogsList(appInfo) {
           const ext = path.extname(file);
           return ext === '.log';
         })
+        .sort( (a, b) =>  fs.statSync( a ).mtime.getTime() -  fs.statSync( b ).mtime.getTime() )
         .forEach((file) => {
           const name = path.basename(file);
+          const size = getLogSize( file );
+
           const logFile = {
             file,
-            name
+            name,
+            size
           };
+
           logFiles.push(logFile);
         });
 
@@ -69,6 +90,7 @@ function getLogsList(appInfo) {
     });
   })
 }
+
 
 /**
  * Renders the log list using the log template
@@ -107,11 +129,27 @@ export function setupSafeLogProtocol(appInfo) {
         const logsDir = path.dirname(defaultLog);
         const logFile = path.resolve(logsDir, fileName);
 
-        fs.readFile(logFile, (err, logBuffer) => {
+        fs.readFile(logFile, 'utf-8', (err, logString ) => {
           if (err) {
+
+            //show error page
             throw err;
           }
-          cb(logBuffer);
+
+          if( logString  )
+          {
+            const page = logTemplate({
+              title: `${fileName}:`,
+              css: safeCss,
+              body: logString
+            });
+            cb( { mimeType: 'text/html', data: Buffer.from ( page ) } );
+          }
+          else
+          {
+            const page = errorTemplate({ message: 'Logfile is empty.', css: safeCss });
+            cb( { mimeType: 'text/html', data: Buffer.from ( page ) } );
+          }
         });
       });
     }
