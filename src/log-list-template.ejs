@@ -12,7 +12,10 @@
 		<h2>SAFE App Logs</h2>
     <ul>
       <% logList.forEach(function(log){ %>
-        <li><a href="safe-logs:<%= log.name %>" ><%= log.name %></a></li>
+        <li>
+          <a href="safe-logs:<%= log.name %>" title="<%= log.file %>"><%= log.name %></a>
+          <span> (<%= log.size %> bytes)</span>
+        </li>
       <% }); %>
     </ul>
 	</body>
