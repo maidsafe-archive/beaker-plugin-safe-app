@@ -1,6 +1,10 @@
 etc
 src
-
+docs
+*.dll
+*.so
+*.dylib
+.editorconfig
 .babelrc
 .eslintignore
 .eslintrc
