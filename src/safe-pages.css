@@ -99,3 +99,11 @@ li
   padding: 0;
   font-size: 14px;
 }
+
+
+
+.log-body
+{
+  max-width: 60em;
+  width: 90%;
+}
