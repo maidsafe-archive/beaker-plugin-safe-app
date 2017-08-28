@@ -256,10 +256,7 @@ module.exports.authoriseShareMd = (appHandle, permissions) => {
  **/
 module.exports.webFetch = (appHandle, url) => {
   return getObj(appHandle)
-    .then((obj) => obj.app.webFetch(url)
-      .then((f) => obj.app.immutableData.fetch(f.dataMapName))
-      .then((i) => i.read())
-    );
+    .then((obj) => obj.app.webFetch(url));
 };
 
 /**

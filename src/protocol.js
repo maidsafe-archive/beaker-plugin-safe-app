@@ -80,7 +80,7 @@ const registerSafeLocalProtocol = () => {
 const registerSafeProtocol = () => {
   protocol.registerBufferProtocol(safeScheme, (req, cb) => {
     const parsedUrl = urlParse(req.url);
-    const fileExt = path.basename(parsedUrl.pathname) || 'html';
+    const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
     const mimeType = mime.lookup(fileExt);
 
     authoriseApp()
