@@ -15,10 +15,10 @@ class IpcTask {
     this.currentTaskCb = null;
   }
 
-  add(info, cb) {
+  add(info, unregistered, cb) {
     const handle = genRandomString();
     this.tasks.push(handle);
-    this.tasksInfo[handle] = { info, cb };
+    this.tasksInfo[handle] = { info, unregistered, cb };
     this.next();
   }
 
@@ -42,9 +42,10 @@ class IpcTask {
     }
     this.isProcessing = true;
     this.currentTaskId = this.tasks[0];
-    this.currentTaskInfo = this.tasksInfo[this.currentTaskId].info;
-    this.currentTaskCb = this.tasksInfo[this.currentTaskId].cb;
-    ipcEvent.sender.send('webClientAuthReq', this.currentTaskInfo);
+    const currentTask = currentTask;
+    this.currentTaskInfo = currentTask.info;
+    this.currentTaskCb = currentTask.cb;
+    ipcEvent.sender.send('webClientAuthReq', this.currentTaskInfo, currentTask.unregistered);
   }
 }
 
@@ -91,6 +92,8 @@ ipcMain.on('webClientErrorRes', (event, err) => {
   ipcTask.remove().next();
 });
 
-module.exports.sendAuthReq = (req, cb) => {
-  ipcTask.add(req.uri, cb);
+module.exports.sendAuthReq = (req, unregistered, cb) => {
+  // The unregistered flag is used to handle the requests in a separate queue
+  // from the one for registered requests, so they can be procssed in parallel.
+  ipcTask.add(req.uri, unregistered, cb);
 };

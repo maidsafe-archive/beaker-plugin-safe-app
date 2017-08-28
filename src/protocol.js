@@ -28,9 +28,9 @@ const authoriseApp = () => {
     if (appObj) {
       return resolve(true);
     }
-    return safeApp.initializeApp(appInfo, (state) => {console.log('NETWORK STATE CHANGED TO: ', state);})
+    return safeApp.initializeApp(appInfo, (state) => {console.log('Network state changed to: ', state);})
       .then((app) => app.auth.genConnUri()
-        .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
+        .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
             return reject(new Error('Unable to get connection information: ', err));
           }

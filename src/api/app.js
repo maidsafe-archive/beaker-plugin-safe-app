@@ -79,7 +79,7 @@ module.exports.connect = (appHandle) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
       .then((obj) => obj.app.auth.genConnUri()
-        .then((connReq) => ipc.sendAuthReq(connReq, (err, res) => {
+        .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
             return reject(new Error('Unable to get connection information: ', err));
           }
@@ -121,7 +121,7 @@ module.exports.authorise = (appHandle, permissions, options) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
       .then((obj) => obj.app.auth.genAuthUri(permissions, options)
-        .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
+        .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
             return reject(new Error('Unable to authorise the application: ', err));
           }
@@ -186,7 +186,7 @@ module.exports.authoriseContainer = (appHandle, permissions) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
       .then((obj) => obj.app.auth.genContainerAuthUri(permissions)
-        .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
+        .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
             return reject(new Error('Unable to authorise the application: ', err)); // TODO send Error in specific
           }
@@ -225,7 +225,7 @@ module.exports.authoriseShareMd = (appHandle, permissions) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
       .then((obj) => obj.app.auth.genShareMDataUri(permissions)
-        .then((authReq) => ipc.sendAuthReq(authReq, (err, res) => {
+        .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
             return reject(new Error('Unable to authorise the application: ', err)); // TODO send Error in specific
           }
