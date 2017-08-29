@@ -72,9 +72,8 @@ module.exports._with_cb_forEach = (entriesHandle) => {
 };
 
 /**
- * Insert a new entry. Will directly commit that transaction to the network.
- * Will fail if the entry already exists or the current app doesn't have the
- * permissions to edit that MutableData.
+ * Insert a new entry. It will fail if the entry already exists or if
+ * the current app doesn't have the permissions to store in that MutableData.
  * @name window.safeMutableDataEntries.insert
  *
  * @param {EntriesHandle} entriesHandle the Entries handle
