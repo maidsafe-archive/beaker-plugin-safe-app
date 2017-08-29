@@ -42,7 +42,7 @@ class IpcTask {
     }
     this.isProcessing = true;
     this.currentTaskId = this.tasks[0];
-    const currentTask = currentTask;
+    const currentTask = this.tasksInfo[this.currentTaskId];
     this.currentTaskInfo = currentTask.info;
     this.currentTaskCb = currentTask.cb;
     ipcEvent.sender.send('webClientAuthReq', this.currentTaskInfo, currentTask.unregistered);
