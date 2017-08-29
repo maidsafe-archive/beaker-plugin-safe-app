@@ -79,6 +79,14 @@ ipcMain.on('webClientAuthRes', (event, res) => {
   ipcTask.remove().next();
 });
 
+ipcMain.on('webClientSharedMDataRes', function (event, res) {
+  // handle response
+  if (typeof ipcTask.currentTaskCb === 'function') {
+    ipcTask.currentTaskCb(null, res);
+  }
+  ipcTask.remove().next();
+});
+
 ipcMain.on('webClientErrorRes', (event, err) => {
   // handle Error
 
