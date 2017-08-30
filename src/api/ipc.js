@@ -5,34 +5,38 @@ const { genRandomString, freePageObjs } = require('./helpers');
 
 let ipcEvent = null;
 
+class AuthRequest {
+  constructor(uri, isUnRegistered, cb) {
+    this.id = genRandomString();
+    this.uri = uri;
+    this.isUnRegistered = isUnRegistered;
+    this.cb = cb;
+    this.res = null;
+    this.error = null;
+  }
+}
+
 class IpcTask {
   constructor() {
     this.tasks = [];
     this.tasksInfo = {};
     this.isProcessing = false;
-    this.currentTaskId = null;
-    this.currentTaskInfo = null;
-    this.currentTaskCb = null;
   }
 
-  add(info, unregistered, cb) {
-    const handle = genRandomString();
-    this.tasks.push(handle);
-    this.tasksInfo[handle] = { info, unregistered, cb };
+  add(req) {
+    this.tasks.push(req.id);
+    this.tasksInfo[req.id] = req;
     this.next();
   }
 
-  remove() {
-    const index = this.tasks.indexOf(this.currentTaskId);
+  remove(id) {
+    const index = this.tasks.indexOf(id);
     if (index === -1) {
       return this;
     }
     this.tasks.splice(index, 1);
-    delete this.tasksInfo[this.currentTaskId];
+    delete this.tasksInfo[id];
     this.isProcessing = false;
-    this.currentTaskId = null;
-    this.currentTaskInfo = null;
-    this.currentTaskCb = null;
     return this;
   }
 
@@ -41,15 +45,26 @@ class IpcTask {
       return;
     }
     this.isProcessing = true;
-    this.currentTaskId = this.tasks[0];
-    const currentTask = this.tasksInfo[this.currentTaskId];
-    this.currentTaskInfo = currentTask.info;
-    this.currentTaskCb = currentTask.cb;
-    ipcEvent.sender.send('webClientAuthReq', this.currentTaskInfo, currentTask.unregistered);
+    const reqId = this.tasks[0];
+    const currentTask = this.tasksInfo[reqId];
+    ipcEvent.sender.send('webClientAuthReq', currentTask);
   }
 }
 
 const ipcTask = new IpcTask();
+
+const authRes = (event, response) => {
+  const reqId = response.id;
+  const task = ipcTask.tasksInfo[reqId];
+  if (!task) {
+    return;
+  }
+  // handle response
+  if (typeof task.cb === 'function') {
+    task.cb(null, response.res);
+  }
+  ipcTask.remove(reqId).next();
+};
 
 ipcMain.on('onTabRemove', (event, safeAppGroupId) => {
   freePageObjs(safeAppGroupId);
@@ -63,45 +78,32 @@ ipcMain.on('registerSafeApp', (event) => {
   ipcEvent = event;
 });
 
-ipcMain.on('webClientContainerRes', (event, res) => {
-  // handle response
-  if (typeof ipcTask.currentTaskCb === 'function') {
-    ipcTask.currentTaskCb(null, res);
-  }
-  ipcTask.remove().next();
-});
+ipcMain.on('webClientContainerRes', authRes);
 
-ipcMain.on('webClientAuthRes', (event, res) => {
-  // handle response
-  if (typeof ipcTask.currentTaskCb === 'function') {
-    ipcTask.currentTaskCb(null, res);
-  }
-  ipcTask.remove().next();
-});
+ipcMain.on('webClientAuthRes', authRes);
 
-ipcMain.on('webClientSharedMDataRes', function (event, res) {
-  // handle response
-  if (typeof ipcTask.currentTaskCb === 'function') {
-    ipcTask.currentTaskCb(null, res);
-  }
-  ipcTask.remove().next();
-});
+ipcMain.on('webClientSharedMDataRes', authRes);
 
-ipcMain.on('webClientErrorRes', (event, err) => {
+ipcMain.on('webClientErrorRes', (event, res) => {
   // handle Error
-
+  const err = res.error;
   if (err && err.toLowerCase() === 'unauthorised') {
     return;
   }
 
-  if (typeof ipcTask.currentTaskCb === 'function') {
-    ipcTask.currentTaskCb(err);
+  const reqId = res.id;
+  const task = ipcTask.tasksInfo[reqId];
+  if (!task) {
+    return;
   }
-  ipcTask.remove().next();
+  if (typeof task.cb === 'function') {
+    task.cb(err);
+  }
+  ipcTask.remove(reqId).next();
 });
 
 module.exports.sendAuthReq = (req, unregistered, cb) => {
   // The unregistered flag is used to handle the requests in a separate queue
   // from the one for registered requests, so they can be procssed in parallel.
-  ipcTask.add(req.uri, unregistered, cb);
+  ipcTask.add(new AuthRequest(req.uri, unregistered, cb));
 };
