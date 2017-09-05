@@ -3,6 +3,8 @@ const ipcMain = require('electron').ipcMain; // electron deps will be avaible in
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
 const { genRandomString, freePageObjs } = require('./helpers');
 
+const reqsSent = new Map();
+
 let ipcEvent = null;
 
 class AuthRequest {
@@ -16,54 +18,34 @@ class AuthRequest {
   }
 }
 
-class IpcTask {
-  constructor() {
-    this.tasks = [];
-    this.tasksInfo = {};
-    this.isProcessing = false;
-  }
+class IpcTasks {
+  constructor() {}
 
-  add(req) {
-    this.tasks.push(req.id);
-    this.tasksInfo[req.id] = req;
-    this.next();
+  add(uri, isUnregistered, cb) {
+    let req = new AuthRequest(uri, isUnregistered, cb);
+    reqsSent.set(req.id, req);
+    ipcEvent.sender.send('webClientAuthReq', req);
   }
 
   remove(id) {
-    const index = this.tasks.indexOf(id);
-    if (index === -1) {
-      return this;
-    }
-    this.tasks.splice(index, 1);
-    delete this.tasksInfo[id];
-    this.isProcessing = false;
+    reqsSent.delete(id);
     return this;
-  }
-
-  next() {
-    if (this.isProcessing || this.tasks.length === 0) {
-      return;
-    }
-    this.isProcessing = true;
-    const reqId = this.tasks[0];
-    const currentTask = this.tasksInfo[reqId];
-    ipcEvent.sender.send('webClientAuthReq', currentTask);
   }
 }
 
-const ipcTask = new IpcTask();
+const ipcTasks = new IpcTasks();
 
 const authRes = (event, response) => {
+  // handle response
   const reqId = response.id;
-  const task = ipcTask.tasksInfo[reqId];
+  const task = reqsSent.get(reqId);
   if (!task) {
     return;
   }
-  // handle response
+  ipcTasks.remove(reqId);
   if (typeof task.cb === 'function') {
     task.cb(null, response.res);
   }
-  ipcTask.remove(reqId).next();
 };
 
 ipcMain.on('onTabRemove', (event, safeAppGroupId) => {
@@ -92,18 +74,18 @@ ipcMain.on('webClientErrorRes', (event, res) => {
   }
 
   const reqId = res.id;
-  const task = ipcTask.tasksInfo[reqId];
+  const task = reqsSent.get(reqId);
   if (!task) {
     return;
   }
+  ipcTasks.remove(reqId);
   if (typeof task.cb === 'function') {
     task.cb(err);
   }
-  ipcTask.remove(reqId).next();
 });
 
-module.exports.sendAuthReq = (req, unregistered, cb) => {
-  // The unregistered flag is used to handle the requests in a separate queue
-  // from the one for registered requests, so they can be procssed in parallel.
-  ipcTask.add(new AuthRequest(req.uri, unregistered, cb));
+module.exports.sendAuthReq = (req, isUnregistered, cb) => {
+  // The isUnregistered flag is used to handle the requests in a separate queue
+  // from the ones for registered requests, so they can be processed in parallel.
+  ipcTasks.add(req.uri, isUnregistered, cb);
 };
