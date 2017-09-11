@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>beaker-plugin-safe-app 0.1.0-dev.1 | Documentation</title>
+  <title>beaker-plugin-safe-app 0.2.1 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>beaker-plugin-safe-app</h3>
-          <div class='mb1'><code>0.1.0-dev.1</code></div>
+          <div class='mb1'><code>0.2.1</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -135,9 +135,9 @@
               
                 
                 <li><a
-                  href='#windowsafeappgetcontainersnames'
+                  href='#windowsafeappgetcontainerspermissions'
                   class="">
-                  window.safeApp.getContainersNames
+                  window.safeApp.getContainersPermissions
                   
                 </a>
                 
@@ -145,9 +145,9 @@
               
                 
                 <li><a
-                  href='#windowsafeappgethomecontainer'
+                  href='#windowsafeappgetowncontainer'
                   class="">
-                  window.safeApp.getHomeContainer
+                  window.safeApp.getOwnContainer
                   
                 </a>
                 
@@ -1475,6 +1475,16 @@
               
                 
                 <li><a
+                  href='#windowsafeappauthorisesharemd'
+                  class="">
+                  window.safeApp.authoriseShareMd
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#windowsafeappreconnect'
                   class="">
                   window.safeApp.reconnect
@@ -1498,6 +1508,66 @@
                   href='#windowsafecryptogeneratenonce'
                   class="">
                   window.safeCrypto.generateNonce
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#windowsafemutabledatasetmetadata'
+                  class="">
+                  window.safeMutableData.setMetadata
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getlogs'
+                  class="">
+                  getLogs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getlogsize'
+                  class="">
+                  getLogSize
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getlogslist'
+                  class="">
+                  getLogsList
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#showloglist'
+                  class="">
+                  showLogList
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setupsafelogprotocol'
+                  class="">
+                  setupSafeLogProtocol
                   
                 </a>
                 
@@ -1538,7 +1608,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L47-L55'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L48-L56'>
       <span>src/api/app.js</span>
       </a>
     
@@ -1548,7 +1618,7 @@
   <p>Create a new SAFEApp instance without a connection to the network</p>
 
 
-  <div class='pre p1 fill-light mt0'>window.safeApp.initialise(appInfo: <a href="#appinfo">AppInfo</a>, safeAppGroupId: any, networkStateCallback: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#safeapphandle">SAFEAppHandle</a>></div>
+  <div class='pre p1 fill-light mt0'>window.safeApp.initialise(appInfo: <a href="#appinfo">AppInfo</a>, enableLog: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>, safeAppGroupId: any, networkStateCallback: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#safeapphandle">SAFEAppHandle</a>></div>
   
   
 
@@ -1567,6 +1637,15 @@
           <div>
             <span class='code bold'>appInfo</span> <code class='quiet'>(<a href="#appinfo">AppInfo</a>)</code>
 	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>enableLog</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>)</code>
+	    specifies whether or not to enable backend logs. Defaults to false
+
           </div>
           
         </div>
@@ -1649,7 +1728,7 @@ connection is made with
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L77-L90'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L78-L91'>
       <span>src/api/app.js</span>
       </a>
     
@@ -1737,7 +1816,7 @@ e.g. useful for browsing web sites or just publicly available data.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L119-L131'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L120-L132'>
       <span>src/api/app.js</span>
       </a>
     
@@ -1875,7 +1954,7 @@ our own container to be created for the app.
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L160-L164'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L161-L165'>
       <span>src/api/app.js</span>
       </a>
     
@@ -1979,7 +2058,7 @@ second value.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L184-L196'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L185-L197'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2076,7 +2155,7 @@ with further continer permissions.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L217-L223'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L257-L260'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2180,7 +2259,7 @@ convention and fetch the requested object.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L237-L240'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L274-L277'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2261,7 +2340,7 @@ convention and fetch the requested object.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L254-L257'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L291-L294'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2342,7 +2421,7 @@ convention and fetch the requested object.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L274-L277'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L311-L314'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2444,7 +2523,7 @@ container.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L288-L292'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L325-L329'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2513,22 +2592,23 @@ you just connected or received a response from the authenticator.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='windowsafeappgetcontainersnames'>
-      window.safeApp.getContainersNames
+    <h3 class='fl m0' id='windowsafeappgetcontainerspermissions'>
+      window.safeApp.getContainersPermissions
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L302-L305'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L340-L343'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
   
 
-  <p>Get the names of all containers found.</p>
+  <p>Get the names of all containers found and the app's granted
+permissions for each of them.</p>
 
 
-  <div class='pre p1 fill-light mt0'>window.safeApp.getContainersNames(appHandle: <a href="#safeapphandle">SAFEAppHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>>></div>
+  <div class='pre p1 fill-light mt0'>window.safeApp.getContainersPermissions(appHandle: <a href="#safeapphandle">SAFEAppHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;ContainerPerms>></div>
   
   
 
@@ -2560,8 +2640,8 @@ you just connected or received a response from the authenticator.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>>></code>:
-        list of containers names
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;ContainerPerms>></code>:
+        list of containers permissions
 
       
     
@@ -2586,12 +2666,12 @@ you just connected or received a response from the authenticator.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='windowsafeappgethomecontainer'>
-      window.safeApp.getHomeContainer
+    <h3 class='fl m0' id='windowsafeappgetowncontainer'>
+      window.safeApp.getOwnContainer
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L320-L324'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L358-L362'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2601,7 +2681,7 @@ you just connected or received a response from the authenticator.</p>
   <p>Get the MutableData for the apps own container generated by Authenticator</p>
 
 
-  <div class='pre p1 fill-light mt0'>window.safeApp.getHomeContainer(appHandle: <a href="#safeapphandle">SAFEAppHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></div>
+  <div class='pre p1 fill-light mt0'>window.safeApp.getOwnContainer(appHandle: <a href="#safeapphandle">SAFEAppHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></div>
   
   
 
@@ -2646,10 +2726,10 @@ you just connected or received a response from the authenticator.</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieve home container:</span>
-<span class="hljs-built_in">window</span>.safeApp.getHomeContainer(appHandle)
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieve own container:</span>
+<span class="hljs-built_in">window</span>.safeApp.getOwnContainer(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getVersion(mdHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Home Container version: '</span>, v));</pre>
+   .then(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Own Container version: '</span>, v));</pre>
     
   
 
@@ -2673,7 +2753,7 @@ you just connected or received a response from the authenticator.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L346-L350'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L384-L388'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2771,7 +2851,7 @@ you just connected or received a response from the authenticator.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L390-L390'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L428-L428'>
       <span>src/api/app.js</span>
       </a>
     
@@ -2852,7 +2932,7 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L25-L29'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L25-L29'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -2933,7 +3013,7 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L48-L52'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L48-L52'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -3027,7 +3107,7 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L72-L75'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L72-L75'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -3122,7 +3202,7 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L97-L106'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L97-L106'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -3219,7 +3299,7 @@ into the ImmutableData are required.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L130-L133'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L130-L133'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -3350,7 +3430,7 @@ into the ImmutableData are required.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L154-L157'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L154-L157'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -3438,7 +3518,7 @@ into the ImmutableData are required.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L165-L165'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L165-L165'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -3518,7 +3598,7 @@ into the ImmutableData are required.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L49-L53'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L50-L54'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -3610,7 +3690,7 @@ access.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L70-L74'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L71-L75'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -3702,7 +3782,7 @@ access.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L99-L103'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L100-L104'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -3799,7 +3879,7 @@ function.</p>
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Create a PrivateMutable Data with specific address:</span>
 <span class="hljs-keyword">let</span> name = <span class="hljs-string">'name-private-0101010101010101010'</span>;
 <span class="hljs-keyword">let</span> secKey = <span class="hljs-string">'secret-key-010101010101010101010'</span>;
-<span class="hljs-built_in">window</span>.safeCrypto.generateNonce()
+<span class="hljs-built_in">window</span>.safeCrypto.generateNonce(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">nonce</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.newPrivate(appHandle, name, <span class="hljs-number">15001</span>, secKey, nonce))
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getNameAndTag(mdHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Private MutableData created with tag: '</span>, r.tag, <span class="hljs-string">' and name: '</span>, r.name.buffer));</pre>
@@ -3826,7 +3906,7 @@ function.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L121-L125'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L122-L126'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -3927,7 +4007,7 @@ access.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L139-L143'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L140-L144'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4007,7 +4087,7 @@ access.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L157-L161'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L158-L162'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4087,7 +4167,7 @@ access.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L175-L179'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L176-L180'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4167,7 +4247,7 @@ access.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L193-L197'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L194-L198'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4247,7 +4327,7 @@ access.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L216-L220'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L225-L229'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4255,10 +4335,14 @@ access.</p>
   
 
   <p>Set up a newly (not yet committed/created) MutableData with
-the app having full-access permissions (and no other).</p>
+the app having full-access permissions (and no other).
+The metadata is particularly used by the Authenticator when another
+application has requested mutation permissions on this MutableData,
+so the user can make a better decision to either allow or deny such a
+request based on this information.</p>
 
 
-  <div class='pre p1 fill-light mt0'>window.safeMutableData.quickSetup(mdHandle: <a href="#mutabledatahandle">MutableDataHandle</a>, data: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></div>
+  <div class='pre p1 fill-light mt0'>window.safeMutableData.quickSetup(mdHandle: <a href="#mutabledatahandle">MutableDataHandle</a>, data: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, name: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>), description: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></div>
   
   
 
@@ -4291,6 +4375,24 @@ the app having full-access permissions (and no other).</p>
           
         </div>
       
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>))</code>
+	    a descriptive name for the MutableData
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>description</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>))</code>
+	    a detailed description for the MutableData content
+
+          </div>
+          
+        </div>
+      
     </div>
   
 
@@ -4313,9 +4415,11 @@ the app having full-access permissions (and no other).</p>
     
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Create a MutableData and set up its permissions automatically:</span>
-<span class="hljs-built_in">window</span>.safeMutableData.newPublic(appHandle, <span class="hljs-number">15001</span>)
-   .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.quickSetup(mdHandle, {<span class="hljs-attr">key1</span>: <span class="hljs-string">'value1'</span>}))
-   .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New MutableData created and setup'</span>));</pre>
+<span class="hljs-built_in">window</span>.safeMutableData.newPublic(appHandle, <span class="hljs-string">'name-public-01010101010101010101'</span>, <span class="hljs-number">15001</span>)
+   .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.quickSetup(mdHandle, {<span class="hljs-attr">key1</span>: <span class="hljs-string">'value1'</span>},
+                                                         <span class="hljs-string">'My MutableData'</span>,
+                                                         <span class="hljs-string">'To store my app\'s data'</span>))
+   .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New MutableData created and setup'</span>));</pre>
     
   
 
@@ -4339,7 +4443,7 @@ the app having full-access permissions (and no other).</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L237-L240'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L274-L277'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4431,7 +4535,7 @@ contained in a Private MutableData. If the MutableData is Public, the same
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L257-L260'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L294-L297'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4523,7 +4627,7 @@ contained in a Private MutableData. If the MutableData is Public, the same
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L283-L286'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L320-L323'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4621,7 +4725,7 @@ contained in a Private MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L304-L307'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L341-L344'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4706,7 +4810,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L321-L324'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L358-L361'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4787,7 +4891,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L345-L348'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L382-L385'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4883,7 +4987,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L380-L386'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L417-L423'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -4998,7 +5102,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L401-L405'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L438-L442'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5080,7 +5184,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L420-L424'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L457-L461'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5162,7 +5266,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L439-L443'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L476-L480'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5244,7 +5348,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L458-L462'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L495-L499'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5326,7 +5430,7 @@ up on the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L480-L486'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L517-L523'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5419,7 +5523,7 @@ assummed as <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L507-L512'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L544-L549'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5523,7 +5627,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L540-L547'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L577-L584'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5642,7 +5746,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L566-L571'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L603-L608'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5736,7 +5840,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L585-L588'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L622-L625'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5817,7 +5921,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L608-L612'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L645-L649'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -5912,7 +6016,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L628-L631'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L665-L668'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -6003,7 +6107,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L639-L639'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L676-L676'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -6083,7 +6187,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_entries.js#L25-L28'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_entries.js#L25-L28'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
@@ -6165,7 +6269,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_entries.js#L47-L50'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_entries.js#L47-L50'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
@@ -6259,7 +6363,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_entries.js#L70-L72'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_entries.js#L70-L72'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
@@ -6354,16 +6458,15 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_entries.js#L91-L94'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_entries.js#L90-L93'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
   </div>
   
 
-  <p>Insert a new entry. Will directly commit that transaction to the network.
-Will fail if the entry already exists or the current app doesn't have the
-permissions to edit that MutableData.</p>
+  <p>Insert a new entry. It will fail if the entry already exists or if
+the current app doesn't have the permissions to store in that MutableData.</p>
 
 
   <div class='pre p1 fill-light mt0'>window.safeMutableDataEntries.insert(entriesHandle: <a href="#entrieshandle">EntriesHandle</a>, keyName: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>), value: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
@@ -6456,7 +6559,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_entries.js#L113-L117'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_entries.js#L112-L116'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
@@ -6542,7 +6645,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_entries.js#L125-L125'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_entries.js#L124-L124'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
@@ -6622,7 +6725,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_keys.js#L22-L25'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_keys.js#L22-L25'>
       <span>src/api/mutable_data_keys.js</span>
       </a>
     
@@ -6704,7 +6807,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_keys.js#L43-L45'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_keys.js#L43-L45'>
       <span>src/api/mutable_data_keys.js</span>
       </a>
     
@@ -6797,7 +6900,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_keys.js#L53-L53'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_keys.js#L53-L53'>
       <span>src/api/mutable_data_keys.js</span>
       </a>
     
@@ -6877,7 +6980,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_values.js#L22-L25'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_values.js#L22-L25'>
       <span>src/api/mutable_data_values.js</span>
       </a>
     
@@ -6959,7 +7062,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_values.js#L44-L46'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_values.js#L44-L46'>
       <span>src/api/mutable_data_values.js</span>
       </a>
     
@@ -7053,7 +7156,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_values.js#L54-L54'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_values.js#L54-L54'>
       <span>src/api/mutable_data_values.js</span>
       </a>
     
@@ -7133,7 +7236,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_mutation.js#L28-L31'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_mutation.js#L28-L31'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
@@ -7234,7 +7337,7 @@ permissions to edit that MutableData.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_mutation.js#L53-L56'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_mutation.js#L53-L56'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
@@ -7339,7 +7442,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_mutation.js#L79-L82'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_mutation.js#L79-L82'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
@@ -7453,7 +7556,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_mutation.js#L90-L90'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_mutation.js#L90-L90'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
@@ -7533,7 +7636,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions.js#L24-L27'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions.js#L24-L27'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
@@ -7615,7 +7718,7 @@ actually asking for the right state
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions.js#L40-L46'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions.js#L40-L46'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
@@ -7699,7 +7802,7 @@ assumed as for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions.js#L74-L80'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions.js#L74-L80'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
@@ -7810,7 +7913,7 @@ set for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions.js#L98-L100'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions.js#L98-L100'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
@@ -7903,7 +8006,7 @@ set for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions.js#L108-L108'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions.js#L108-L108'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
@@ -7983,7 +8086,7 @@ set for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions_set.js#L30-L33'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions_set.js#L30-L33'>
       <span>src/api/mutable_data_permissions_set.js</span>
       </a>
     
@@ -8080,7 +8183,7 @@ set for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions_set.js#L55-L58'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions_set.js#L55-L58'>
       <span>src/api/mutable_data_permissions_set.js</span>
       </a>
     
@@ -8177,7 +8280,7 @@ set for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions_set.js#L80-L83'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions_set.js#L80-L83'>
       <span>src/api/mutable_data_permissions_set.js</span>
       </a>
     
@@ -8274,7 +8377,7 @@ set for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions_set.js#L91-L91'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions_set.js#L91-L91'>
       <span>src/api/mutable_data_permissions_set.js</span>
       </a>
     
@@ -8354,7 +8457,7 @@ set for <code>USER_ANYONE</code>.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L23-L27'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L23-L27'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -8436,7 +8539,7 @@ on the network via ImmutableData (public) and wrap it into a File.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L38-L42'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L38-L42'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -8518,7 +8621,7 @@ on the network via ImmutableData (public) and wrap it into a File.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L55-L61'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L55-L61'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -8610,7 +8713,7 @@ to the network.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L74-L80'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L74-L80'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -8711,7 +8814,7 @@ are overwriting the right one
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L92-L95'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L92-L95'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -8803,7 +8906,7 @@ are overwriting the right one
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L117-L123'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L117-L123'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -8899,7 +9002,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L131-L131'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L131-L131'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -8964,7 +9067,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L20-L23'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L20-L23'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -9037,7 +9140,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L35-L38'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L35-L38'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -9126,7 +9229,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L49-L52'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L49-L52'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -9207,7 +9310,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L62-L65'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L62-L65'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -9280,7 +9383,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L84-L93'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L84-L93'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -9353,7 +9456,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L101-L101'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L101-L101'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -9433,7 +9536,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/cipher_opt.js#L21-L25'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/cipher_opt.js#L21-L25'>
       <span>src/api/cipher_opt.js</span>
       </a>
     
@@ -9513,7 +9616,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/cipher_opt.js#L38-L42'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/cipher_opt.js#L38-L42'>
       <span>src/api/cipher_opt.js</span>
       </a>
     
@@ -9593,7 +9696,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/cipher_opt.js#L55-L59'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/cipher_opt.js#L55-L59'>
       <span>src/api/cipher_opt.js</span>
       </a>
     
@@ -9673,7 +9776,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/cipher_opt.js#L67-L67'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/cipher_opt.js#L67-L67'>
       <span>src/api/cipher_opt.js</span>
       </a>
     
@@ -9753,7 +9856,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L28-L31'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L28-L31'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -9843,7 +9946,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L46-L50'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L46-L50'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -9925,7 +10028,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L64-L68'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L64-L68'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -10007,7 +10110,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L84-L88'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L84-L88'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -10090,7 +10193,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L106-L110'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L106-L110'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -10183,7 +10286,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L128-L132'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L128-L132'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -10276,7 +10379,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L151-L155'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L151-L155'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -10370,7 +10473,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L177-L181'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L177-L181'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -10475,7 +10578,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_key_pair.js#L24-L27'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_key_pair.js#L24-L27'>
       <span>src/api/crypto_key_pair.js</span>
       </a>
     
@@ -10558,7 +10661,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_key_pair.js#L43-L46'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_key_pair.js#L43-L46'>
       <span>src/api/crypto_key_pair.js</span>
       </a>
     
@@ -10641,7 +10744,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_key_pair.js#L57-L60'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_key_pair.js#L57-L60'>
       <span>src/api/crypto_key_pair.js</span>
       </a>
     
@@ -10723,7 +10826,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_key_pair.js#L68-L68'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_key_pair.js#L68-L68'>
       <span>src/api/crypto_key_pair.js</span>
       </a>
     
@@ -10788,7 +10891,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_public_encryption_key.js#L24-L27'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_public_encryption_key.js#L24-L27'>
       <span>src/api/crypto_public_encryption_key.js</span>
       </a>
     
@@ -10798,7 +10901,7 @@ a new file is created
   <p>Generate raw string copy of public encryption key</p>
 
 
-  <div class='pre p1 fill-light mt0'>window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle: <a href="#pubenckeyhandle">PubEncKeyHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></div>
+  <div class='pre p1 fill-light mt0'>window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle: <a href="#pubenckeyhandle">PubEncKeyHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></div>
   
   
 
@@ -10830,8 +10933,8 @@ a new file is created
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></code>:
-        the raw encryption key string
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></code>:
+        the raw encryption key
 
       
     
@@ -10871,7 +10974,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_public_encryption_key.js#L38-L41'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_public_encryption_key.js#L38-L41'>
       <span>src/api/crypto_public_encryption_key.js</span>
       </a>
     
@@ -10953,7 +11056,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_public_encryption_key.js#L53-L56'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_public_encryption_key.js#L53-L56'>
       <span>src/api/crypto_public_encryption_key.js</span>
       </a>
     
@@ -11044,7 +11147,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_public_encryption_key.js#L64-L64'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_public_encryption_key.js#L64-L64'>
       <span>src/api/crypto_public_encryption_key.js</span>
       </a>
     
@@ -11109,7 +11212,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_secret_encryption_key.js#L23-L26'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_secret_encryption_key.js#L23-L26'>
       <span>src/api/crypto_secret_encryption_key.js</span>
       </a>
     
@@ -11119,7 +11222,7 @@ a new file is created
   <p>Generate raw string copy of the secret encryption key</p>
 
 
-  <div class='pre p1 fill-light mt0'>window.safeCryptoSecEncKey.getRaw(secEncKeyHandle: <a href="#secenckeyhandle">SecEncKeyHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></div>
+  <div class='pre p1 fill-light mt0'>window.safeCryptoSecEncKey.getRaw(secEncKeyHandle: <a href="#secenckeyhandle">SecEncKeyHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></div>
   
   
 
@@ -11151,8 +11254,8 @@ a new file is created
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></code>:
-        the raw secret encryption key string
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></code>:
+        the raw secret encryption key
 
       
     
@@ -11192,7 +11295,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_secret_encryption_key.js#L38-L41'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_secret_encryption_key.js#L38-L41'>
       <span>src/api/crypto_secret_encryption_key.js</span>
       </a>
     
@@ -11283,7 +11386,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_secret_encryption_key.js#L49-L49'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_secret_encryption_key.js#L49-L49'>
       <span>src/api/crypto_secret_encryption_key.js</span>
       </a>
     
@@ -11348,7 +11451,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_sign_key.js#L21-L24'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_sign_key.js#L21-L24'>
       <span>src/api/crypto_sign_key.js</span>
       </a>
     
@@ -11358,7 +11461,7 @@ a new file is created
   <p>Generate raw string copy of the public signature key</p>
 
 
-  <div class='pre p1 fill-light mt0'>window.safeCryptoSignKey.getRaw(signKeyHandle: <a href="#signkeyhandle">SignKeyHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></div>
+  <div class='pre p1 fill-light mt0'>window.safeCryptoSignKey.getRaw(signKeyHandle: <a href="#signkeyhandle">SignKeyHandle</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></div>
   
   
 
@@ -11390,8 +11493,8 @@ a new file is created
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></code>:
-        the raw signature key string
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></code>:
+        the raw signature key
 
       
     
@@ -11430,7 +11533,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_sign_key.js#L32-L32'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_sign_key.js#L32-L32'>
       <span>src/api/crypto_sign_key.js</span>
       </a>
     
@@ -11507,7 +11610,7 @@ a new file is created
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L390-L390'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L428-L428'>
       <span>src/api/app.js</span>
       </a>
     
@@ -11566,7 +11669,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L390-L390'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L428-L428'>
       <span>src/api/app.js</span>
       </a>
     
@@ -11626,7 +11729,7 @@ the auth URI shall be obtained again from the Authenticator.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L390-L390'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L428-L428'>
       <span>src/api/app.js</span>
       </a>
     
@@ -11715,7 +11818,7 @@ the auth URI shall be obtained again from the Authenticator.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data.js#L639-L639'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L676-L676'>
       <span>src/api/mutable_data.js</span>
       </a>
     
@@ -11773,7 +11876,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L165-L165'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L165-L165'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -11831,7 +11934,7 @@ is invoked.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/immutable_data.js#L165-L165'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/immutable_data.js#L165-L165'>
       <span>src/api/immutable_data.js</span>
       </a>
     
@@ -11889,7 +11992,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_entries.js#L125-L125'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_entries.js#L124-L124'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
@@ -11947,7 +12050,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_keys.js#L53-L53'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_keys.js#L53-L53'>
       <span>src/api/mutable_data_keys.js</span>
       </a>
     
@@ -12005,7 +12108,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_values.js#L54-L54'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_values.js#L54-L54'>
       <span>src/api/mutable_data_values.js</span>
       </a>
     
@@ -12063,7 +12166,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_mutation.js#L90-L90'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_mutation.js#L90-L90'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
@@ -12121,7 +12224,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions.js#L108-L108'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions.js#L108-L108'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
@@ -12179,7 +12282,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/mutable_data_permissions_set.js#L91-L91'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data_permissions_set.js#L91-L91'>
       <span>src/api/mutable_data_permissions_set.js</span>
       </a>
     
@@ -12237,7 +12340,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs.js#L131-L131'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs.js#L131-L131'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
@@ -12295,7 +12398,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L101-L101'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L101-L101'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -12353,7 +12456,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/emulations/nfs_file.js#L84-L93'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/emulations/nfs_file.js#L84-L93'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
@@ -12457,7 +12560,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/cipher_opt.js#L67-L67'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/cipher_opt.js#L67-L67'>
       <span>src/api/cipher_opt.js</span>
       </a>
     
@@ -12515,7 +12618,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_key_pair.js#L68-L68'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_key_pair.js#L68-L68'>
       <span>src/api/crypto_key_pair.js</span>
       </a>
     
@@ -12573,7 +12676,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_public_encryption_key.js#L64-L64'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_public_encryption_key.js#L64-L64'>
       <span>src/api/crypto_public_encryption_key.js</span>
       </a>
     
@@ -12631,7 +12734,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_secret_encryption_key.js#L49-L49'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_secret_encryption_key.js#L49-L49'>
       <span>src/api/crypto_secret_encryption_key.js</span>
       </a>
     
@@ -12689,7 +12792,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto_sign_key.js#L32-L32'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto_sign_key.js#L32-L32'>
       <span>src/api/crypto_sign_key.js</span>
       </a>
     
@@ -12742,12 +12845,116 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='windowsafeappauthorisesharemd'>
+      window.safeApp.authoriseShareMd
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L224-L236'>
+      <span>src/api/app.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Request the Authenticator (and user) to authorise this application
+with specific mutation permissions for a MutableData.</p>
+
+
+  <div class='pre p1 fill-light mt0'>window.safeApp.authoriseShareMd(appHandle: <a href="#safeapphandle">SAFEAppHandle</a>, permissions: [<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>]): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#authuri">AuthURI</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>appHandle</span> <code class='quiet'>(<a href="#safeapphandle">SAFEAppHandle</a>)</code>
+	    the app handle
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>permissions</span> <code class='quiet'>([<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>])</code>
+	    list of permissions
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#authuri">AuthURI</a>></code>:
+        auth granted 
+<code>safe-://</code>
+-URI
+
+      
+    
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// example of requesting permissions for a couple of MutableData's:</span>
+<span class="hljs-built_in">window</span>.safeApp.authoriseShareMd(
+  appHandle, <span class="hljs-comment">// the app handle obtained when invoking `initialise`</span>
+  [
+   { <span class="hljs-attr">type_tag</span>: <span class="hljs-number">15001</span>,   <span class="hljs-comment">// request for MD with tag 15001</span>
+     name: <span class="hljs-string">'XoRname1'</span>,  <span class="hljs-comment">// request for MD located at address 'XoRname1'</span>
+     perms: [<span class="hljs-string">'Insert'</span>], <span class="hljs-comment">// request for inserting into the referenced MD</span>
+   },
+   { <span class="hljs-attr">type_tag</span>: <span class="hljs-number">15020</span>,   <span class="hljs-comment">// request for MD with tag 15020</span>
+     name: <span class="hljs-string">'XoRname2'</span>,  <span class="hljs-comment">// request for MD located at address 'XoRname2'</span>
+     perms: [<span class="hljs-string">'Insert'</span>, <span class="hljs-string">`Update`</span>], <span class="hljs-comment">// request for updating and inserting into the referenced MD</span>
+   }
+  ]
+)</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='windowsafeappreconnect'>
       window.safeApp.reconnect
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L358-L361'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L396-L399'>
       <span>src/api/app.js</span>
       </a>
     
@@ -12812,7 +13019,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/app.js#L378-L381'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/app.js#L416-L419'>
       <span>src/api/app.js</span>
       </a>
     
@@ -12905,7 +13112,7 @@ the path of where the safe_core log file is located.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/krishnaIndia/beaker-plugin-safe-app/blob/34de98961ca2735353012dab7343ce41d2abf84e/src/api/crypto.js#L195-L198'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/crypto.js#L195-L198'>
       <span>src/api/crypto.js</span>
       </a>
     
@@ -12964,6 +13171,499 @@ the path of where the safe_core log file is located.</p>
 <span class="hljs-built_in">window</span>.safeCrypto.generateNonce(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">nonce</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nonce generated: '</span>, nonce.buffer.toString(<span class="hljs-string">'hex'</span>)));</pre>
     
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='windowsafemutabledatasetmetadata'>
+      window.safeMutableData.setMetadata
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/api/mutable_data.js#L254-L257'>
+      <span>src/api/mutable_data.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Set the metadata information in the MutableData. Note this can be used
+only if the MutableData was already committed to the network, .i.e either
+with <code>put</code>, with <code>quickSetup</code>, or if it is an already existing MutableData
+just fetched from the network.
+The metadata is particularly used by the Authenticator when another
+application has requested mutation permissions on this MutableData,
+displaying this information to the user, so the user can make a better
+decision to either allow or deny such a request based on it.</p>
+
+
+  <div class='pre p1 fill-light mt0'>window.safeMutableData.setMetadata(mdHandle: <a href="#mutabledatahandle">MutableDataHandle</a>, name: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>), description: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>mdHandle</span> <code class='quiet'>(<a href="#mutabledatahandle">MutableDataHandle</a>)</code>
+	    the MutableData handle
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>))</code>
+	    a descriptive name for the MutableData
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>description</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://nodejs.org/api/buffer.html">Buffer</a>))</code>
+	    a detailed description for the MutableData content
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        it resolves when finished
+
+      
+    
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Set the metadata to a MutableData:</span>
+<span class="hljs-built_in">window</span>.safeMutableData.newPublic(appHandle, <span class="hljs-string">'name-public-01010101010101010101'</span>, <span class="hljs-number">15001</span>)
+   .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.setMetadata(mdHandle,
+                                                         <span class="hljs-string">'My MutableData'</span>,
+                                                         <span class="hljs-string">'To store my app\'s data'</span>))</pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getlogs'>
+      getLogs
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/safe-logs.js#L22-L38'>
+      <span>src/safe-logs.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Get the browser logfile from appObj</p>
+
+
+  <div class='pre p1 fill-light mt0'>getLogs</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>appInfo</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>attempt</span> <code class='quiet'>(any
+            = <code>0</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>appToken</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    app token
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        resolves to the app log path
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getlogsize'>
+      getLogSize
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/safe-logs.js#L46-L52'>
+      <span>src/safe-logs.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Return the size of the log file given</p>
+
+
+  <div class='pre p1 fill-light mt0'>getLogSize(filePath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): Int</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>filePath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    full system path to the log filePath
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Int</code>:
+        logfile size in MB
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getlogslist'>
+      getLogsList
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/safe-logs.js#L61-L92'>
+      <span>src/safe-logs.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Get the list of all logs stored on the file system, uses safeApp to get log folder from
+the default log file.</p>
+
+
+  <div class='pre p1 fill-light mt0'>getLogsList(appInfo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>appInfo</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    safe app info
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        all log files
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='showloglist'>
+      showLogList
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/safe-logs.js#L101-L110'>
+      <span>src/safe-logs.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Renders the log list using the log template</p>
+
+
+  <div class='pre p1 fill-light mt0'>showLogList(appInfo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, cb: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>): [type]</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>appInfo</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    safe app ingo
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    protocol request callback
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>[type]</code>:
+        the callback
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setupsafelogprotocol'>
+      setupSafeLogProtocol
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/bochaco/beaker-plugin-safe-app/blob/82c583aa6ac15881d0827b678263c3b62c77ed04/src/safe-logs.js#L118-L157'>
+      <span>src/safe-logs.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Setup the protocol for logs, and if needed, retrieve all logs / return
+the log page.</p>
+
+
+  <div class='pre p1 fill-light mt0'>setupSafeLogProtocol(appInfo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>appInfo</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    safe app ingo
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
   
 
   
