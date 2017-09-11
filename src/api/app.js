@@ -1,4 +1,4 @@
-const safeApp = require('safe-app');
+const safeApp = require('@maidsafe/safe-node-app');
 const ipc = require('./ipc');
 const { genHandle, getObj, freeObj, netStateCallbackHelper } = require('./helpers');
 
