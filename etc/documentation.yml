@@ -6,6 +6,7 @@ toc:
   - window.safeApp.authorise
   - window.safeApp.connectAuthorised
   - window.safeApp.authoriseContainer
+  - window.safeApp.authoriseShareMd
   - window.safeApp.webFetch
   - window.safeApp.isRegistered
   - window.safeApp.networkState
