@@ -35,6 +35,7 @@ toc:
   - window.safeMutableData.newMutation
   - window.safeMutableData.newEntries
   - window.safeMutableData.quickSetup
+  - window.safeMutableData.setMetadata
   - window.safeMutableData.encryptKey
   - window.safeMutableData.encryptValue
   - window.safeMutableData.decrypt
