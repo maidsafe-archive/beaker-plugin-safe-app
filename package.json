@@ -1,6 +1,6 @@
 {
   "name": "beaker-plugin-safe-app",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "SAFE Browser add-on for web client to access SAFE Network",
   "main": "index.js",
   "scripts": {
@@ -51,7 +51,7 @@
     "babel-register": "^6.24.0",
     "concurrently": "^3.4.0",
     "cross-env": "^3.2.4",
-    "documentation": "^4.0.0-rc.1",
+    "documentation": "^5.0.0",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

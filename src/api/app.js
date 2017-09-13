@@ -84,7 +84,8 @@ module.exports.connect = (appHandle) => {
             return reject(new Error('Unable to get connection information: ', err));
           }
           return obj.app.auth.loginFromURI(res)
-            .then(() => resolve(appHandle));
+            .then(() => resolve(appHandle))
+            .catch(reject);
         })))
       .catch(reject);
   });
