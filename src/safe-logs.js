@@ -4,7 +4,7 @@ import url from 'url';
 import path from 'path';
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 import { protocol } from 'electron';
-import safeApp from 'safe-app';
+import safeApp from '@maidsafe/safe-node-app';
 import safeCss from './safe-pages.css';
 
 import logListTemplate  from './log-list-template.ejs';
