@@ -1,7 +1,7 @@
 import { setupSafeLogProtocol } from './safe-logs';
 
 const path = require('path');
-const safeApp = require('safe-app');
+const safeApp = require('@maidsafe/safe-node-app');
 const urlParse = require('url').parse;
 const mime = require('mime');
 const ipc = require('./api/ipc');
