@@ -34,6 +34,6 @@ export default {
   externals: {
     electron: 'electron',
     crypto: 'crypto',
-    'safe-app': 'safe-app'
+    '@maidsafe/safe-node-app': '@maidsafe/safe-node-app'
   }
 };
