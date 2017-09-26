@@ -52,7 +52,7 @@ module.exports.encryptSealed = (pubEncKeyHandle, str) => {
  */
 module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
   return getObj(pubEncKeyHandle).then(function (obj) {
-    return getObj(secretKey).then(function(secretKeyInstance) {
+    return getObj(secretKey).then(function (secretKeyInstance) {
       return obj.netObj.encrypt(str, secretKeyInstance.netObj);
     });
   });
