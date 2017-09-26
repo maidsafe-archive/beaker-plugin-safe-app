@@ -1,4 +1,4 @@
-const { genHandle, getObj, freeObj } = require('../helpers');
+const { genHandle, getObj, replaceObj, freeObj } = require('../helpers');
 
 module.exports.manifest = {
   create: 'promise',
@@ -118,7 +118,12 @@ module.exports.open = (nfsHandle, fileHandle, openMode) => {
   return getObj(nfsHandle)
     .then((nfsObj) => getObj(fileHandle, true)
       .then((fileObj) => nfsObj.netObj.open(fileObj.netObj, openMode))
-      .then((file) => genHandle(nfsObj.app, file))
+      .then((file) => {
+        if (fileHandle) {
+          return replaceObj(fileHandle, nfsObj.app, file);
+        }
+        return genHandle(nfsObj.app, file);
+      })
     );
 };
 
