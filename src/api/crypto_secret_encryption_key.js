@@ -31,13 +31,16 @@ module.exports.getRaw = (secEncKeyHandle) => {
  *
  * @param {SecEncKeyHandle} secEncKeyHandle secret encryption key handle
  * @param {(String|Buffer)} cipher the cipher text
- * @param {String} theirPubKey a public key
+ * @param {PubEncKeyHandle} theirPubKey public encryption key handle
  *
  * @returns {Promise<Buffer>} the decrypted data
  */
 module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
-  return getObj(secEncKeyHandle)
-    .then((obj) => obj.netObj.decrypt(cipher, theirPubKey));
+  return getObj(secEncKeyHandle).then(function (obj) {
+    return getObj(theirPubKeyHandle).then(function (pubEncKeyInstance) {
+      return obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj);
+    });
+  });
 };
 
 /**
