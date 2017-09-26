@@ -36,8 +36,8 @@ module.exports.getRaw = (secEncKeyHandle) => {
  * @returns {Promise<Buffer>} the decrypted data
  */
 module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
-  return getObj(secEncKeyHandle).then(function (obj) {
-    return getObj(theirPubKeyHandle).then(function (pubEncKeyInstance) {
+  return getObj(secEncKeyHandle).then((obj) => {
+    return getObj(theirPubKeyHandle).then((pubEncKeyInstance) => {
       return obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj);
     });
   });

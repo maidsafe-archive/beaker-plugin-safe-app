@@ -51,8 +51,8 @@ module.exports.encryptSealed = (pubEncKeyHandle, str) => {
  * @returns {Promise<Buffer>}
  */
 module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
-  return getObj(pubEncKeyHandle).then(function (obj) {
-    return getObj(secretKey).then(function (secretKeyInstance) {
+  return getObj(pubEncKeyHandle).then((obj) => {
+    return getObj(secretKey).then((secretKeyInstance) => {
       return obj.netObj.encrypt(str, secretKeyInstance.netObj);
     });
   });
