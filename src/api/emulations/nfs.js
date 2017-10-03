@@ -1,4 +1,4 @@
-const { genHandle, getObj, freeObj } = require('../helpers');
+const { genHandle, getObj, replaceObj, freeObj } = require('../helpers');
 
 module.exports.manifest = {
   create: 'promise',
@@ -96,6 +96,8 @@ module.exports.delete = (nfsHandle, fileName, version) => {
 
 /**
  * Open a file for reading or writing.
+ * A new File handle is returned if the handle passed in is null, otherwise
+ * the File handle provided is returned.
  *
  * Open Modes:
  *
@@ -112,13 +114,19 @@ module.exports.delete = (nfsHandle, fileName, version) => {
  * a new file is created
  * @param {Number} openMode the mode for opening the file
  *
- * @returns {Promise<FileHandle>} a new File handle
+ * @returns {Promise<FileHandle>} a File handle. A new handle is returned if the
+ * handle passed in is null, otherwise the File handle provided is returned
  **/
 module.exports.open = (nfsHandle, fileHandle, openMode) => {
   return getObj(nfsHandle)
     .then((nfsObj) => getObj(fileHandle, true)
       .then((fileObj) => nfsObj.netObj.open(fileObj.netObj, openMode))
-      .then((file) => genHandle(nfsObj.app, file))
+      .then((file) => {
+        if (fileHandle) {
+          return replaceObj(fileHandle, nfsObj.app, file);
+        }
+        return genHandle(nfsObj.app, file);
+      })
     );
 };
 

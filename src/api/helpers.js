@@ -20,6 +20,16 @@ export const genHandle = (app, netObj, groupId) => {
   return genObjHandle(obj);
 };
 
+export const replaceObj = (handle, app, netObj) => {
+  freeObj(handle);
+  let newObj = {
+    app,
+    netObj
+  };
+  handles.set(handle, newObj);
+  return handle;
+};
+
 export const getObj = (handle, supportNull) => {
   return new Promise((resolve, reject) => {
     if (supportNull && handle === null) {
