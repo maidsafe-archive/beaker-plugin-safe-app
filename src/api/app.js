@@ -237,12 +237,12 @@ module.exports.authoriseShareMd = (appHandle, permissions) => {
 };
 
 /**
- * Lookup a given `safe://`-URL in accordance with the
+ * Lookup a given `safe://...` URL in accordance with the
  * convention and fetch the requested object.
  * @name window.safeApp.webFetch
  *
  * @param {SAFEAppHandle} appHandle the app handle
- * @param {AuthURI} authUri granted auth URI
+ * @param {String} url url to fetch
  *
  * @returns {Promise<File>} the file object found for that URL
  *
