@@ -7,6 +7,7 @@ const mime = require('mime');
 const ipc = require('./api/ipc');
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
+const app = require('electron').app;
 
 const errorTemplate = require('./error-template.ejs');
 const safeCss = require('./safe-pages.css');
@@ -15,10 +16,13 @@ const safeScheme = 'safe';
 const safeLocalScheme = 'localhost';
 const safeLogScheme = 'safe-logs';
 
+const isDevMode = process.execPath.match(/[\\/]electron/);
+
 const appInfo = {
   id: 'net.maidsafe.app.browser.safe-app-plugin',
   name: 'SAFE App Browser Plugin',
-  vendor: 'MaidSafe.net Ltd'
+  vendor: 'MaidSafe.net Ltd',
+  customExecPath: isDevMode ? `${process.execPath} ${app.getAppPath()}` : app.getPath('exe')
 };
 
 let appObj = null;
