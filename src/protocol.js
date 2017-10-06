@@ -16,19 +16,26 @@ const safeLocalScheme = 'localhost';
 const safeLogScheme = 'safe-logs';
 
 const appInfo = {
-  id: 'net.maidsafe.app.browser',
-  name: 'SAFE Browser',
-  vendor: 'MaidSafe'
+  id: 'net.maidsafe.app.browser.safe-app-plugin',
+  name: 'SAFE App Browser Plugin',
+  vendor: 'MaidSafe.net Ltd'
 };
 
 let appObj = null;
+
+const netStateChange = (state) => {
+  console.log('Network state changed to: ', state);
+}
 
 const authoriseApp = () => {
   return new Promise((resolve, reject) => {
     if (appObj) {
       return resolve(true);
     }
-    return safeApp.initializeApp(appInfo, (state) => {console.log('Network state changed to: ', state);})
+    const opts = {
+      joinSchemes: [safeScheme]
+    }
+    return safeApp.initializeApp(appInfo, netStateChange, opts)
       .then((app) => app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
