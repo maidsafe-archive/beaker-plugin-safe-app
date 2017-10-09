@@ -37,6 +37,7 @@ const authoriseApp = () => {
       return resolve(true);
     }
     const opts = {
+      registerScheme: false,
       joinSchemes: [safeScheme]
     }
     return safeApp.initializeApp(appInfo, netStateChange, opts)
