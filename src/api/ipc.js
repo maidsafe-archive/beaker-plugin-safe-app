@@ -6,6 +6,8 @@ const { genRandomString, freePageObjs } = require('./helpers');
 const reqsSent = new Map();
 
 let ipcEvent = null;
+// Until ipcEvent is ready, we need to keep reqs in a queue
+var pendingReqs = [];
 
 class AuthRequest {
   constructor(uri, isUnRegistered, cb) {
@@ -23,8 +25,21 @@ class IpcTasks {
 
   add(uri, isUnregistered, cb) {
     let req = new AuthRequest(uri, isUnregistered, cb);
-    reqsSent.set(req.id, req);
-    ipcEvent.sender.send('webClientAuthReq', req);
+    if (ipcEvent) {
+      reqsSent.set(req.id, req);
+      ipcEvent.sender.send('webClientAuthReq', req);
+    } else {
+      // let's keep it in a queue to send when ipcEvent is ready
+      pendingReqs.push(req);
+    }
+  }
+
+  sendPendingReqs() {
+    pendingReqs.map((req) => {
+      reqsSent.set(req.id, req);
+      ipcEvent.sender.send('webClientAuthReq', req);
+    })
+    pendingReqs.length = 0;
   }
 
   remove(id) {
@@ -58,6 +73,7 @@ ipcMain.on('onTabUpdate', (event, safeAppGroupId) => {
 
 ipcMain.on('registerSafeApp', (event) => {
   ipcEvent = event;
+  ipcTasks.sendPendingReqs();
 });
 
 ipcMain.on('webClientContainerRes', authRes);

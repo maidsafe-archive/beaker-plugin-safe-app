@@ -25,6 +25,12 @@ const appInfo = {
   customExecPath: isDevMode ? `${process.execPath} ${app.getAppPath()}` : app.getPath('exe')
 };
 
+// OSX: Add bundle for electron in dev mode
+if( isDevMode && process.platform === 'darwin' )
+{
+	appInfo.bundle = 'com.github.electron'
+}
+
 let appObj = null;
 
 const netStateChange = (state) => {
@@ -34,7 +40,7 @@ const netStateChange = (state) => {
 const authoriseApp = () => {
   return new Promise((resolve, reject) => {
     if (appObj) {
-      return resolve(true);
+      return resolve();
     }
     const opts = {
       registerScheme: false,
@@ -49,15 +55,16 @@ const authoriseApp = () => {
           return app.auth.loginFromURI(res)
             .then((app) => {
               appObj = app;
-              resolve(true);
+              return resolve();
             });
-        }))).catch(reject);
+        }))
+      ).catch(reject);
   });
 };
 
 const fetchData = (url) => {
   if (!appObj) {
-    return Promise.reject(new Error('Must login to Authenticator for viewing SAFE sites'));
+    return Promise.reject(new Error('Unexpected error. SAFE App connection not ready'));
   }
   return appObj.webFetch(url);
 };
@@ -90,22 +97,24 @@ const registerSafeLocalProtocol = () => {
 };
 
 const registerSafeProtocol = () => {
-  protocol.registerBufferProtocol(safeScheme, (req, cb) => {
-    const parsedUrl = urlParse(req.url);
-    const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
-    const mimeType = mime.lookup(fileExt);
+  return authoriseApp().then(() => {
+    protocol.registerBufferProtocol(safeScheme, (req, cb) => {
+      const parsedUrl = urlParse(req.url);
+      const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
+      const mimeType = mime.lookup(fileExt);
 
-    authoriseApp()
-      .then(() => fetchData(req.url))
-      .then((co) => cb({ mimeType, data: co }))
-      .catch((err) => handleError(err, mimeType, cb));
-  }, (err) => {
-    if (err) console.error('Failed to register protocol');
+      fetchData(req.url)
+        .then((co) => cb({ mimeType, data: co }))
+        .catch((err) => handleError(err, mimeType, cb));
+    }, (err) => {
+      if (err) console.error('Failed to register protocol');
+    });
   });
 };
 
 export const registerSafeLogs = () => {
-  setupSafeLogProtocol(appInfo);
+  return authoriseApp()
+    .then(() => setupSafeLogProtocol(appObj));
 };
 
 module.exports = [{

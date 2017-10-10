@@ -16,23 +16,17 @@ let appObj = null;
 
 /**
  * Get the browser logfile from appObj
- * @param  { String } appToken app token
- * @return { Promise }        resolves to the app log path
+ * @param  {Object} appObj safeAppp instance
+ * @return {Promise} resolves to the app log path
  */
-export const getLogs = (appInfo, attempt = 0) => {
-
+export const getLogs = (appObj) => {
   return new Promise((resolve, reject) => {
     if (appObj) {
       return appObj.logPath()
         .then(resolve)
         .catch(reject);
     } else {
-      return safeApp.initializeApp(appInfo, null, { registerScheme: false })
-        .then((app) => {
-          appObj = app;
-          return getLogs();
-        })
-        .catch(reject);
+      return reject(new Error('Unexpected error. SAFE App connection not ready'));
     }
   });
 };
@@ -40,27 +34,24 @@ export const getLogs = (appInfo, attempt = 0) => {
 
 /**
  * Return the size of the log file given
- * @param  { String } filePath full system path to the log filePath
- * @return { Int }          logfile size in MB
+ * @param  {String} filePath full system path to the log filePath
+ * @return {Int} logfile size in MB
  */
-function getLogSize( filePath )
-{
+function getLogSize(filePath) {
   const stats = fs.statSync(filePath);
   const fileSizeInBytes = stats["size"];
   // Convert the file size to megabytes (optional)
   return fileSizeInBytes;
 }
 
-
 /**
  * Get the list of all logs stored on the file system, uses safeApp to get log folder from
  * the default log file.
- * @param  {String}   appInfo safe app info
- * @return {Array}    all log files
+ * @param  {String} appObj safeApp instance
+ * @return {Array} all log files
  */
-function getLogsList(appInfo) {
-
-  return getLogs(appInfo)
+function getLogsList(appObj) {
+  return getLogs(appObj)
   .then((defaultLog) => {
     const logsDir = path.dirname(defaultLog);
     const logFiles = [];
@@ -94,12 +85,12 @@ function getLogsList(appInfo) {
 
 /**
  * Renders the log list using the log template
- * @param  { Object }   appInfo safe app ingo
- * @param  {Function} cb      protocol request callback
+ * @param  {Object} appObj safeApp instance
+ * @param  {Function} cb protocol request callback
  * @return {[type]}           the callback
  */
-function showLogList(appInfo, cb) {
-  getLogsList(appInfo)
+function showLogList(appObj, cb) {
+  getLogsList(appObj)
   .then((logList) => {
 
     const page = logListTemplate({ logList, css: safeCss });
@@ -113,18 +104,16 @@ function showLogList(appInfo, cb) {
 /**
  * Setup the protocol for logs, and if needed, retrieve all logs / return
  * the log page.
- * @param  {Object} appInfo safe app ingo
+ * @param  {Object} appObj safeApp instance
  */
-export function setupSafeLogProtocol(appInfo) {
-  getLogs(appInfo);
-
+export function setupSafeLogProtocol(appObj) {
   protocol.registerBufferProtocol('safe-logs', (request, cb) => {
     const fileName = request.url.split('safe-logs:')[1];
 
     if (fileName === 'list') {
-      showLogList(appInfo, cb);
+      showLogList(appObj, cb);
     } else {
-      getLogs(appInfo)
+      getLogs(appObj)
       .then((defaultLog) => {
         const logsDir = path.dirname(defaultLog);
         const logFile = path.resolve(logsDir, fileName);
