@@ -23,16 +23,16 @@ export const getLogs = (appInfo, attempt = 0) => {
 
   return new Promise((resolve, reject) => {
     if (appObj) {
-      appObj.logPath()
-      .then(resolve)
-      .catch(reject);
+      return appObj.logPath()
+        .then(resolve)
+        .catch(reject);
     } else {
-      safeApp.initializeApp(appInfo)
-      .then((app) => {
-        appObj = app;
-        return getLogs();
-      })
-      .catch(reject);
+      return safeApp.initializeApp(appInfo, null, { registerScheme: false })
+        .then((app) => {
+          appObj = app;
+          return getLogs();
+        })
+        .catch(reject);
     }
   });
 };
