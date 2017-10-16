@@ -7,6 +7,7 @@ const mime = require('mime');
 const ipc = require('./api/ipc');
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
+const app = require('electron').app;
 
 const errorTemplate = require('./error-template.ejs');
 const safeCss = require('./safe-pages.css');
@@ -15,20 +16,37 @@ const safeScheme = 'safe';
 const safeLocalScheme = 'localhost';
 const safeLogScheme = 'safe-logs';
 
+const isDevMode = process.execPath.match(/[\\/]electron/);
+
 const appInfo = {
-  id: 'net.maidsafe.app.browser',
-  name: 'SAFE Browser',
-  vendor: 'MaidSafe'
+  id: 'net.maidsafe.app.browser.safe-app-plugin',
+  name: 'SAFE App Browser Plugin',
+  vendor: 'MaidSafe.net Ltd',
+  customExecPath: isDevMode ? `${process.execPath} ${app.getAppPath()}` : app.getPath('exe')
 };
 
+// OSX: Add bundle for electron in dev mode
+if( isDevMode && process.platform === 'darwin' )
+{
+	appInfo.bundle = 'com.github.electron'
+}
+
 let appObj = null;
+
+const netStateChange = (state) => {
+  console.log('Network state changed to: ', state);
+}
 
 const authoriseApp = () => {
   return new Promise((resolve, reject) => {
     if (appObj) {
-      return resolve(true);
+      return resolve();
     }
-    return safeApp.initializeApp(appInfo, (state) => {console.log('Network state changed to: ', state);})
+    const opts = {
+      registerScheme: false,
+      joinSchemes: [safeScheme]
+    }
+    return safeApp.initializeApp(appInfo, netStateChange, opts)
       .then((app) => app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
@@ -37,15 +55,16 @@ const authoriseApp = () => {
           return app.auth.loginFromURI(res)
             .then((app) => {
               appObj = app;
-              resolve(true);
+              return resolve();
             });
-        }))).catch(reject);
+        }))
+      ).catch(reject);
   });
 };
 
 const fetchData = (url) => {
   if (!appObj) {
-    return Promise.reject(new Error('Must login to Authenticator for viewing SAFE sites'));
+    return Promise.reject(new Error('Unexpected error. SAFE App connection not ready'));
   }
   return appObj.webFetch(url);
 };
@@ -78,22 +97,24 @@ const registerSafeLocalProtocol = () => {
 };
 
 const registerSafeProtocol = () => {
-  protocol.registerBufferProtocol(safeScheme, (req, cb) => {
-    const parsedUrl = urlParse(req.url);
-    const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
-    const mimeType = mime.lookup(fileExt);
+  return authoriseApp().then(() => {
+    protocol.registerBufferProtocol(safeScheme, (req, cb) => {
+      const parsedUrl = urlParse(req.url);
+      const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
+      const mimeType = mime.lookup(fileExt);
 
-    authoriseApp()
-      .then(() => fetchData(req.url))
-      .then((co) => cb({ mimeType, data: co }))
-      .catch((err) => handleError(err, mimeType, cb));
-  }, (err) => {
-    if (err) console.error('Failed to register protocol');
+      fetchData(req.url)
+        .then((co) => cb({ mimeType, data: co }))
+        .catch((err) => handleError(err, mimeType, cb));
+    }, (err) => {
+      if (err) console.error('Failed to register protocol');
+    });
   });
 };
 
 export const registerSafeLogs = () => {
-  setupSafeLogProtocol(appInfo);
+  return authoriseApp()
+    .then(() => setupSafeLogProtocol(appObj));
 };
 
 module.exports = [{
