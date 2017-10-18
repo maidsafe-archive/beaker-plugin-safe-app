@@ -5,6 +5,8 @@ const safeApp = require('@maidsafe/safe-node-app');
 const urlParse = require('url').parse;
 const mime = require('mime');
 const ipc = require('./api/ipc');
+const ipcMain = require('electron').ipcMain; // electron deps will be avaible inside browser
+
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const protocol = require('electron').protocol;
 const app = require('electron').app;
@@ -26,16 +28,30 @@ const appInfo = {
 };
 
 // OSX: Add bundle for electron in dev mode
-if( isDevMode && process.platform === 'darwin' )
-{
-	appInfo.bundle = 'com.github.electron'
+if (isDevMode && process.platform === 'darwin') {
+  appInfo.bundle = 'com.github.electron';
 }
 
+
+let sendToShellWindow = null;
 let appObj = null;
 
+
+ipcMain.on('safeReconnectApp', () => {
+  sendToShellWindow('command', 'log', 'Received reconnect call: ', appObj );
+
+  if (appObj && appObj.networkState === 'Disconnected' ) {
+    appObj.reconnect();
+  }
+});
+
 const netStateChange = (state) => {
-  console.log('Network state changed to: ', state);
-}
+  if (sendToShellWindow) {
+    sendToShellWindow('command', 'log', 'Network state changed to: ', state);
+
+    sendToShellWindow('safeAppConnectionChange', state);
+  }
+};
 
 const authoriseApp = () => {
   return new Promise((resolve, reject) => {
@@ -45,7 +61,7 @@ const authoriseApp = () => {
     const opts = {
       registerScheme: false,
       joinSchemes: [safeScheme]
-    }
+    };
     return safeApp.initializeApp(appInfo, netStateChange, opts)
       .then((app) => app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
@@ -96,7 +112,15 @@ const registerSafeLocalProtocol = () => {
   });
 };
 
-const registerSafeProtocol = () => {
+/**
+ * Handle registering of protocol in beaker. Accepts sendToShellWindow as function to enable plugin comms with
+ * the ipcRenderer current shell window.
+ * @param  { Func } sendToShell function for ipc comms with shell window
+ */
+const registerSafeProtocol = (sendToShell) => {
+  if (sendToShell) {
+    sendToShellWindow = sendToShell;
+  }
   return authoriseApp().then(() => {
     protocol.registerBufferProtocol(safeScheme, (req, cb) => {
       const parsedUrl = urlParse(req.url);
