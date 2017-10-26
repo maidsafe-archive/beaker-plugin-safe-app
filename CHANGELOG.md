@@ -1,5 +1,12 @@
 # Beaker Plugin SAFE App Change Log
 
+## 0.3.1
+
+- fix reconnection handling of unregistered client
+- fix URI scheme registration for dev mode
+- compatible with safe-app-nodejs v0.4.1
+
+
 ## 0.3.0
 
 - compatible with safe-app v0.3.0
