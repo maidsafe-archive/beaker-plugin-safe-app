@@ -53,7 +53,7 @@ const netStateChange = (state) => {
   }
 };
 
-const authoriseApp = () => {
+const initialiseSafeApp = () => {
   return new Promise((resolve, reject) => {
     if (appObj) {
       return resolve();
@@ -63,28 +63,35 @@ const authoriseApp = () => {
       joinSchemes: [safeScheme]
     };
     return safeApp.initializeApp(appInfo, netStateChange, opts)
-      .then((app) => app.auth.genConnUri()
+      .then((app) => {
+          appObj = app;
+          return resolve();
+      })
+      .catch(reject);
+  });
+};
+
+const connectSafeApp = () => {
+  return new Promise((resolve, reject) => {
+    if (!appObj) {
+      return reject(new Error('Unexpected error. SAFE App library not initialised'));
+    } else if (appObj.networkState === 'Init') {
+      return appObj.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
             return reject(new Error('Unable to get connection information: ', err));
           }
-          return app.auth.loginFromURI(res)
-            .then((app) => {
-              appObj = app;
-              return resolve();
-            });
-        }))
-      ).catch(reject);
+          return appObj.auth.loginFromURI(res)
+            .then((app) => resolve());
+        }));
+    }
+    resolve();
   });
 };
 
 const fetchData = (url) => {
-  if (!appObj) {
-    return Promise.reject(new Error('Unexpected error. SAFE App connection not ready'));
-  }
   return appObj.webFetch(url);
 };
-
 
 const handleError = (err, mimeType, cb) => {
   err.css = safeCss;
@@ -113,21 +120,22 @@ const registerSafeLocalProtocol = () => {
 };
 
 /**
- * Handle registering of protocol in beaker. Accepts sendToShellWindow as function to enable plugin comms with
- * the ipcRenderer current shell window.
+ * Handle registering of protocol in beaker. Accepts sendToShellWindow as
+ * function to enable plugin comms with the ipcRenderer current shell window.
  * @param  { Func } sendToShell function for ipc comms with shell window
  */
 const registerSafeProtocol = (sendToShell) => {
   if (sendToShell) {
     sendToShellWindow = sendToShell;
   }
-  return authoriseApp().then(() => {
+  return initialiseSafeApp().then(() => {
     protocol.registerBufferProtocol(safeScheme, (req, cb) => {
       const parsedUrl = urlParse(req.url);
       const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
       const mimeType = mime.lookup(fileExt);
 
-      fetchData(req.url)
+      connectSafeApp()
+        .then(() => fetchData(req.url))
         .then((co) => cb({ mimeType, data: co }))
         .catch((err) => handleError(err, mimeType, cb));
     }, (err) => {
@@ -137,7 +145,7 @@ const registerSafeProtocol = (sendToShell) => {
 };
 
 export const registerSafeLogs = () => {
-  return authoriseApp()
+  return initialiseSafeApp()
     .then(() => setupSafeLogProtocol(appObj));
 };
 
