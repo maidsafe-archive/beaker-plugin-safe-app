@@ -12,7 +12,7 @@ const genObjHandle = (obj) => {
 };
 
 export const genHandle = (app, netObj, groupId) => {
-  let obj = {
+  const obj = {
     app,
     netObj, // this is null if the handle corresponds to a safeApp instance
     groupId // groupId is only set for safeApp instances
@@ -22,7 +22,7 @@ export const genHandle = (app, netObj, groupId) => {
 
 export const replaceObj = (handle, app, netObj) => {
   freeObj(handle);
-  let newObj = {
+  const newObj = {
     app,
     netObj
   };
@@ -30,19 +30,17 @@ export const replaceObj = (handle, app, netObj) => {
   return handle;
 };
 
-export const getObj = (handle, supportNull) => {
-  return new Promise((resolve, reject) => {
-    if (supportNull && handle === null) {
-      return resolve({app: null, netObj: null});
-    }
+export const getObj = (handle, supportNull) => new Promise((resolve, reject) => {
+  if (supportNull && handle === null) {
+    return resolve({ app: null, netObj: null });
+  }
 
-    const obj = handles.get(handle);
-    if (obj) {
-      return resolve(obj);
-    }
-    return reject(new Error('Invalid handle: ' + handle));
-  });
-};
+  const obj = handles.get(handle);
+  if (obj) {
+    return resolve(obj);
+  }
+  return reject(new Error(`Invalid handle: ${handle}`));
+});
 
 export const freeObj = (handle, forceCleanCache) => {
   const obj = handles.get(handle);
@@ -66,8 +64,7 @@ export const freeObj = (handle, forceCleanCache) => {
       if (obj.app.forceCleanUp) {
         try {
           obj.app.forceCleanUp();
-        }
-        catch(err) {
+        } catch (err) {
           // Since there was an error, assume the safeApp obj was not released,
           // restore it to the handles cache since it may be either used again
           // by the app, unless we are actually freeing all objects
@@ -95,57 +92,57 @@ export const freePageObjs = (groupId) => {
 };
 
 export const forEachHelper = (containerHandle, sendHandles) => {
-  var readable = new Readable({ objectMode: true, read() {} })
+  const readable = new Readable({ objectMode: true, read() {} });
   getObj(containerHandle)
     .then((obj) => obj.netObj.forEach((arg1, arg2) => {
-        setImmediate(() => {
+      setImmediate(() => {
+        if (sendHandles) {
+          arg1 = genHandle(obj.app, arg1);
+        }
+        const args = [arg1];
+        if (arg2) {
           if (sendHandles) {
-            arg1 = genHandle(obj.app, arg1);
+            arg2 = genHandle(obj.app, arg2);
           }
-          let args = [arg1];
-          if (arg2) {
-            if (sendHandles) {
-              arg2 = genHandle(obj.app, arg2);
-            }
-            args.push(arg2);
-          }
-          readable.push(args)
-        })
-      })
+          args.push(arg2);
+        }
+        readable.push(args);
+      });
+    })
       .then(() => {
         setImmediate(() => {
-          readable.push(null)
-        })
+          readable.push(null);
+        });
       })
     )
     .catch((err) => {
       setImmediate(() => {
-        readable.emit('error', err)
-        readable.push(null)
-      })
+        readable.emit('error', err);
+        readable.push(null);
+      });
     });
   return readable;
-}
+};
 
 export const netStateCallbackHelper = (safeApp, appInfo, enableLog, groupId) => {
-  var readable = new Readable({ objectMode: true, read() {} })
+  const readable = new Readable({ objectMode: true, read() {} });
   safeApp.initializeApp(appInfo, (state) => {
-      setImmediate(() => {
-        readable.push([state])
-      })
-    }, { log: enableLog, registerScheme: false })
+    setImmediate(() => {
+      readable.push([state]);
+    });
+  }, { log: enableLog, registerScheme: false })
     .then((app) => {
       const handle = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
       setImmediate(() => {
-        readable.push([handle])
-      })
+        readable.push([handle]);
+      });
     })
     .catch((err) => {
       setImmediate(() => {
-        readable.emit('error', err)
-        readable.push(null)
-      })
+        readable.emit('error', err);
+        readable.push(null);
+      });
     });
 
   return readable;
-}
+};

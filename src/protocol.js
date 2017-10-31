@@ -38,9 +38,9 @@ let appObj = null;
 
 
 ipcMain.on('safeReconnectApp', () => {
-  sendToShellWindow('command', 'log', 'Received reconnect call: ', appObj );
+  sendToShellWindow('command', 'log', 'Received reconnect call: ', appObj);
 
-  if (appObj && appObj.networkState === 'Disconnected' ) {
+  if (appObj && appObj.networkState === 'Disconnected') {
     appObj.reconnect();
   }
 });
@@ -53,16 +53,15 @@ const netStateChange = (state) => {
   }
 };
 
-const authoriseApp = () => {
-  return new Promise((resolve, reject) => {
-    if (appObj) {
-      return resolve();
-    }
-    const opts = {
-      registerScheme: false,
-      joinSchemes: [safeScheme]
-    };
-    return safeApp.initializeApp(appInfo, netStateChange, opts)
+const authoriseApp = () => new Promise((resolve, reject) => {
+  if (appObj) {
+    return resolve();
+  }
+  const opts = {
+    registerScheme: false,
+    joinSchemes: [safeScheme]
+  };
+  return safeApp.initializeApp(appInfo, netStateChange, opts)
       .then((app) => app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
@@ -75,8 +74,7 @@ const authoriseApp = () => {
             });
         }))
       ).catch(reject);
-  });
-};
+});
 
 const fetchData = (url) => {
   if (!appObj) {
@@ -136,10 +134,8 @@ const registerSafeProtocol = (sendToShell) => {
   });
 };
 
-export const registerSafeLogs = () => {
-  return authoriseApp()
+export const registerSafeLogs = () => authoriseApp()
     .then(() => setupSafeLogProtocol(appObj));
-};
 
 module.exports = [{
   scheme: safeScheme,

@@ -44,7 +44,7 @@ module.exports.manifest = {
  *    .then((appHandle) => {
  *       console.log('SAFEApp instance initialised and handle returned: ', appHandle);
  *    });
- **/
+ * */
 module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) => {
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
@@ -74,10 +74,9 @@ module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) 
  * .then(_ => {
  *    console.log('Unregistered session created');
  * });
- **/
-module.exports.connect = (appHandle) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+ * */
+module.exports.connect = (appHandle) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
@@ -88,8 +87,7 @@ module.exports.connect = (appHandle) => {
             .catch(reject);
         })))
       .catch(reject);
-  });
-};
+});
 
 /**
  * Request the Authenticator (and user) to authorise this application
@@ -117,10 +115,9 @@ module.exports.connect = (appHandle) => {
  * ).then((authUri) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
- **/
-module.exports.authorise = (appHandle, permissions, options) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+ * */
+module.exports.authorise = (appHandle, permissions, options) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genAuthUri(permissions, options)
         .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
@@ -129,8 +126,7 @@ module.exports.authorise = (appHandle, permissions, options) => {
           return resolve(res);
         })))
       .catch(reject);
-  });
-};
+});
 
 /**
  * Create a new, registered Session (read-write)
@@ -158,12 +154,10 @@ module.exports.authorise = (appHandle, permissions, options) => {
  * .then(_ => {
  *    console.log('The app was authorised & a session was created with the network');
  * });
- **/
-module.exports.connectAuthorised = (appHandle, authUri) => {
-  return getObj(appHandle)
+ * */
+module.exports.connectAuthorised = (appHandle, authUri) => getObj(appHandle)
     .then((obj) => obj.app.auth.loginFromURI(authUri))
     .then((_) => appHandle);
-};
 
 /**
  * Request the Authenticator (and user) to authorise this application
@@ -182,10 +176,9 @@ module.exports.connectAuthorised = (appHandle, authUri) => {
  * ).then((authUri) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
- **/
-module.exports.authoriseContainer = (appHandle, permissions) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+ * */
+module.exports.authoriseContainer = (appHandle, permissions) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genContainerAuthUri(permissions)
         .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
@@ -194,8 +187,7 @@ module.exports.authoriseContainer = (appHandle, permissions) => {
           return resolve(res);
         })))
       .catch(reject);
-  });
-};
+});
 
 /**
  * Request the Authenticator (and user) to authorise this application
@@ -221,10 +213,9 @@ module.exports.authoriseContainer = (appHandle, permissions) => {
  *    }
  *   ]
  * )
- **/
-module.exports.authoriseShareMd = (appHandle, permissions) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+ * */
+module.exports.authoriseShareMd = (appHandle, permissions) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genShareMDataUri(permissions)
         .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
@@ -233,8 +224,7 @@ module.exports.authoriseShareMd = (appHandle, permissions) => {
           return resolve(res);
         })))
       .catch(reject);
-  });
-};
+});
 
 /**
  * Lookup a given `safe://...` URL in accordance with the
@@ -254,11 +244,9 @@ module.exports.authoriseShareMd = (appHandle, permissions) => {
  * .then((data) => {
  *    console.log('Web page content retrieved: ', data.toString());
  * });
- **/
-module.exports.webFetch = (appHandle, url) => {
-  return getObj(appHandle)
+ * */
+module.exports.webFetch = (appHandle, url) => getObj(appHandle)
     .then((obj) => obj.app.webFetch(url));
-};
 
 /**
  * Whether or not this is a registered/authenticated session.
@@ -271,11 +259,9 @@ module.exports.webFetch = (appHandle, url) => {
  * @example // Checking if app is registered:
  * window.safeApp.isRegistered(appHandle)
  *    .then((r) => console.log('Is app registered?: ', r));
- **/
-module.exports.isRegistered = (appHandle) => {
-  return getObj(appHandle)
+ * */
+module.exports.isRegistered = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.registered);
-};
 
 /**
  * Current network connection state, e.g. `Connected` or `Disconnected`.
@@ -288,11 +274,9 @@ module.exports.isRegistered = (appHandle) => {
  * @example // Checking network connection state:
  * window.safeApp.networkState(appHandle)
  *    .then((s) => console.log('Current network state: ', s));
- **/
-module.exports.networkState = (appHandle) => {
-  return getObj(appHandle)
+ * */
+module.exports.networkState = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.networkState);
-};
 
 /**
  * Whether or not this session has specifc permission access of a given
@@ -308,11 +292,9 @@ module.exports.networkState = (appHandle) => {
  * @example // Checking if the app has 'Read' permission for the '_public' container:
  * window.safeApp.canAccessContainer(appHandle, '_public', ['Read'])
  *    .then((r) => console.log('Has the app `Read` permission for `_public` container?: ', r));
- **/
-module.exports.canAccessContainer = (appHandle, name, permissions) => {
-  return getObj(appHandle)
+ * */
+module.exports.canAccessContainer = (appHandle, name, permissions) => getObj(appHandle)
     .then((obj) => obj.app.auth.canAccessContainer(name, permissions));
-};
 
 /**
  * Refresh permissions for accessible containers from the network. Useful when
@@ -322,12 +304,10 @@ module.exports.canAccessContainer = (appHandle, name, permissions) => {
  * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<SAFEAppHandle>} same app handle when finished refreshing
- **/
-module.exports.refreshContainersPermissions = (appHandle) => {
-  return getObj(appHandle)
+ * */
+module.exports.refreshContainersPermissions = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.refreshContainersPermissions())
     .then((_) => appHandle);
-};
 
 /**
  * Get the names of all containers found and the app's granted
@@ -337,11 +317,9 @@ module.exports.refreshContainersPermissions = (appHandle) => {
  * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<Array<ContainerPerms>>} list of containers permissions
- **/
-module.exports.getContainersPermissions = (appHandle) => {
-  return getObj(appHandle)
+ * */
+module.exports.getContainersPermissions = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.getContainersPermissions());
-};
 
 /**
  * Get the MutableData for the apps own container generated by Authenticator
@@ -355,12 +333,10 @@ module.exports.getContainersPermissions = (appHandle) => {
  * window.safeApp.getOwnContainer(appHandle)
  *    .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
  *    .then((v) => console.log('Own Container version: ', v));
- **/
-module.exports.getOwnContainer = (appHandle) => {
-  return getObj(appHandle)
+ * */
+module.exports.getOwnContainer = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.getOwnContainer()
       .then((md) => genHandle(obj.app, md)));
-};
 
 /**
  * Lookup and return the information necessary to access a container.
@@ -381,23 +357,19 @@ module.exports.getOwnContainer = (appHandle) => {
  *             .then((v) => console.log('`_public` Container version: ', v));
  *       }
  *    });
- **/
-module.exports.getContainer = (appHandle, name) => {
-  return getObj(appHandle)
+ * */
+module.exports.getContainer = (appHandle, name) => getObj(appHandle)
     .then((obj) => obj.app.auth.getContainer(name)
       .then((md) => genHandle(obj.app, md)));
-};
 
 /**
  * Reconnect SAFEApp instance if connection is disconnected
  * @name window.safeApp.reconnect
  *
  * @param {SAFEAppHandle} appHandle the app handle
- **/
-module.exports.reconnect = (appHandle) => {
-  return getObj(appHandle)
+ * */
+module.exports.reconnect = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.reconnect());
-};
 
 /**
  * Generate the log path for the provided filename.
@@ -413,11 +385,9 @@ module.exports.reconnect = (appHandle) => {
  * @example // Retrieve the '_public' container:
  * window.safeApp.logPath(appHandle, 'mylogfile.log')
  *    .then((path) => console.log('Log path generated: ', path));
- **/
-module.exports.logPath = (appHandle, filename) => {
-  return getObj(appHandle)
+ * */
+module.exports.logPath = (appHandle, filename) => getObj(appHandle)
     .then((obj) => obj.app.logPath(filename));
-};
 
 /**
  * Free the SAFEApp instance from memory, as well as all other
@@ -425,7 +395,7 @@ module.exports.logPath = (appHandle, filename) => {
  * @name window.safeApp.free
  *
  * @param {SAFEAppHandle} appHandle the app handle
- **/
+ * */
 module.exports.free = (appHandle) => freeObj(appHandle);
 
 /**
@@ -435,7 +405,7 @@ module.exports.free = (appHandle) => freeObj(appHandle);
  * with the SAFE network.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */
 
 /**
  * @name AppInfo
@@ -445,7 +415,7 @@ module.exports.free = (appHandle) => freeObj(appHandle);
  *        (e.g. 'net.maidsafe.examples.mail-app')
  * @param {String} name - human readable name of the app (e.g. "Mail App")
  * @param {String} vendor - human readable name of the vendor (e.g. "MaidSafe Ltd.")
- **/
+ * */
 
 /**
  * @name AuthURI
@@ -455,4 +425,4 @@ module.exports.free = (appHandle) => freeObj(appHandle);
  * application to connect to the network wihout the need to get authorisation
  * from the Authenticator again. Although if the user decided to revoke the application
  * the auth URI shall be obtained again from the Authenticator.
- **/
+ * */

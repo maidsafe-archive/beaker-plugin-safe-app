@@ -26,11 +26,9 @@ module.exports.manifest = {
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
  *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
- **/
-module.exports.setAllow = (permissionsSetHandle, action) => {
-  return getObj(permissionsSetHandle)
+ * */
+module.exports.setAllow = (permissionsSetHandle, action) => getObj(permissionsSetHandle)
     .then((obj) => obj.netObj.setAllow(action));
-};
 
 /**
  * Set the action as denied
@@ -51,11 +49,9 @@ module.exports.setAllow = (permissionsSetHandle, action) => {
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
  *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
- **/
-module.exports.setDeny = (permissionsSetHandle, action) => {
-  return getObj(permissionsSetHandle)
+ * */
+module.exports.setDeny = (permissionsSetHandle, action) => getObj(permissionsSetHandle)
     .then((obj) => obj.netObj.setDeny(action));
-};
 
 /**
  * Remove all permissions for a type of action from the set
@@ -76,18 +72,16 @@ module.exports.setDeny = (permissionsSetHandle, action) => {
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
  *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
- **/
-module.exports.clear = (permissionsSetHandle, action) => {
-  return getObj(permissionsSetHandle)
+ * */
+module.exports.clear = (permissionsSetHandle, action) => getObj(permissionsSetHandle)
     .then((obj) => obj.netObj.clear(action));
-};
 
 /**
  * Free the PermissionsSet instance from memory
  * @name window.safeMutableDataPermissionsSet.free
  *
  * @param {String} permissionsSetHandle the PermissionsSet handle
- **/
+ * */
 module.exports.free = (permissionsSetHandle) => freeObj(permissionsSetHandle);
 
 /**
@@ -96,4 +90,4 @@ module.exports.free = (permissionsSetHandle) => freeObj(permissionsSetHandle);
  * @description Holds the reference to a PermissionsSet instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */

@@ -20,11 +20,9 @@ module.exports.manifest = {
  * window.safeMutableData.getPermissions(mdHandle)
  *    .then((permsHandle) => window.safeMutableDataPermissions.len(permsHandle))
  *    .then((len) => console.log('Number of permissions entries in the MutableData: ', len));
- **/
-module.exports.len = (permissionsHandle) => {
-  return getObj(permissionsHandle)
+ * */
+module.exports.len = (permissionsHandle) => getObj(permissionsHandle)
     .then((obj) => obj.netObj.len());
-};
 
 /**
  * Lookup the permissions of a specifc key
@@ -36,14 +34,12 @@ module.exports.len = (permissionsHandle) => {
  * @param {SignKeyHandle|null} signKeyHandle the sign key to lookup for
  *
  * @returns {Promise<PermissionsSetHandle>} the permissions set for that sign key
- **/
-module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
-  return getObj(signKeyHandle, true)
+ * */
+module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(permissionsHandle)
       .then((permsObj) => permsObj.netObj.getPermissionSet(signKeyObj.netObj)
         .then((permSet) => genHandle(permsObj.app)))
     );
-};
 
 /**
  * Insert a new permissions to a specifc sign key. Directly commits to the network.
@@ -70,14 +66,12 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'ManagePermissions'))
  *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permsHandle, appSignKeyHandle, pmSetHandle))
  *    .then(_ => console.log('Finished inserting new permissions'));
- **/
-module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHandle) => {
-  return getObj(signKeyHandle, true)
+ * */
+module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHandle) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(pmSetHandle)
       .then((pmSetObj) => getObj(permissionsHandle)
         .then((permsObj) => permsObj.netObj.insertPermissionSet(signKeyObj.netObj, pmSetObj.netObj))
       ));
-};
 
 /**
  * Iterate over the entries, execute the function every time
@@ -94,17 +88,15 @@ module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHa
  *          console.log('Permissions entry handle: ', p);
  *       }).then(_ => console.log('Iteration finished'))
  *    );
- **/
-module.exports._with_cb_forEach = (permissionsHandle) => {
-  return forEachHelper(permissionsHandle, true);
-};
+ * */
+module.exports._with_cb_forEach = (permissionsHandle) => forEachHelper(permissionsHandle, true);
 
 /**
  * Free the Permissions instance from memory
  * @name window.safeMutableDataPermissions.free
  *
  * @param {String} permissionsHandle the Permissions handle
- **/
+ * */
 module.exports.free = (permissionsHandle) => freeObj(permissionsHandle);
 
 /**
@@ -113,4 +105,4 @@ module.exports.free = (permissionsHandle) => freeObj(permissionsHandle);
  * @description Holds the reference to a Permissions instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */

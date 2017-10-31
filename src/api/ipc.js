@@ -7,7 +7,7 @@ const reqsSent = new Map();
 
 let ipcEvent = null;
 // Until ipcEvent is ready, we need to keep reqs in a queue
-var pendingReqs = [];
+const pendingReqs = [];
 
 class AuthRequest {
   constructor(uri, isUnRegistered, cb) {
@@ -24,7 +24,7 @@ class IpcTasks {
   constructor() {}
 
   add(uri, isUnregistered, cb) {
-    let req = new AuthRequest(uri, isUnregistered, cb);
+    const req = new AuthRequest(uri, isUnregistered, cb);
     if (ipcEvent) {
       reqsSent.set(req.id, req);
       ipcEvent.sender.send('webClientAuthReq', req);
@@ -38,7 +38,7 @@ class IpcTasks {
     pendingReqs.map((req) => {
       reqsSent.set(req.id, req);
       ipcEvent.sender.send('webClientAuthReq', req);
-    })
+    });
     pendingReqs.length = 0;
   }
 
