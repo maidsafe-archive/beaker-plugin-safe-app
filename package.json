@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint src *.js",
-    "test": "npm run lint",
+    "test": "",
     "update-safe-deps": "yarn upgrade @maidsafe/safe-node-app",
     "build-api": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.api.js --progress --profile --colors",
     "build-protocol": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.protocol.js --progress --profile --colors",
