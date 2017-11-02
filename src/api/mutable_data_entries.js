@@ -63,6 +63,7 @@ module.exports.get = (entriesHandle, keyName) => getObj(entriesHandle)
  *       }).then(_ => console.log('Iteration finished'))
  *    );
  * */
+/* eslint no-underscore-dangle: ["error", { "allow": ["_with_cb_forEach"] }] */
 module.exports._with_cb_forEach = (entriesHandle) => forEachHelper(entriesHandle);
 
 /**
@@ -78,7 +79,8 @@ module.exports._with_cb_forEach = (entriesHandle) => forEachHelper(entriesHandle
  *
  * @example // Inserting an entry:
  * window.safeMutableData.getEntries(mdHandle)
- *    .then((entriesHandle) => window.safeMutableDataEntries.insert(entriesHandle, 'key1', 'value1'))
+ *    .then((entriesHandle) => window.safeMutableDataEntries.insert(
+ *      entriesHandle, 'key1', 'value1'))
  *    .then(_ => console.log('New entry inserted');
  * */
 module.exports.insert = (entriesHandle, keyName, value) => getObj(entriesHandle)
@@ -99,7 +101,9 @@ module.exports.insert = (entriesHandle, keyName, value) => getObj(entriesHandle)
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
- *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
+ *    .then(_ => console.log(
+ *      'New entry was inserted in the MutableData and committed to the network')
+ *    );
  * */
 module.exports.mutate = (entriesHandle) => getObj(entriesHandle)
     .then((obj) => obj.netObj.mutate()

@@ -1,18 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 import fs from 'fs-extra';
-import url from 'url';
 import path from 'path';
-/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved,import/extensions */
 import { protocol } from 'electron';
-import safeApp from '@maidsafe/safe-node-app';
 import safeCss from './safe-pages.css';
 
 import logListTemplate from './log-list-template.ejs';
 import logTemplate from './log-template.ejs';
 import errorTemplate from './error-template.ejs';
-
-const appObj = null;
-
 
 /**
  * Get the browser logfile from appObj
@@ -53,7 +48,7 @@ function getLogsList(appObj) {
     const logsDir = path.dirname(defaultLog);
     const logFiles = [];
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const files = fs.readdirSync(logsDir, 'utf-8');
       files.map((file) => path.join(logsDir, file))
         .filter((file) => {

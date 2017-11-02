@@ -1,5 +1,7 @@
 const { getObj, freeObj, forEachHelper } = require('./helpers');
 
+/* eslint no-underscore-dangle: ["error", { "allow": ["_with_cb_forEach"] }] */
+
 module.exports.manifest = {
   len: 'promise',
   _with_cb_forEach: 'readable',

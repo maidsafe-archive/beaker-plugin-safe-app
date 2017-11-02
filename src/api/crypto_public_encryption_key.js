@@ -46,7 +46,9 @@ module.exports.encryptSealed = (pubEncKeyHandle, str) => getObj(pubEncKeyHandle)
  *
  * @returns {Promise<Buffer>}
  */
-module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => getObj(pubEncKeyHandle).then((obj) => getObj(secretKey).then((secretKeyInstance) => obj.netObj.encrypt(str, secretKeyInstance.netObj)));
+module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => getObj(pubEncKeyHandle)
+.then((obj) => getObj(secretKey)
+.then((secretKeyInstance) => obj.netObj.encrypt(str, secretKeyInstance.netObj)));
 
 /**
  * Free the PubEncKey instance from memory

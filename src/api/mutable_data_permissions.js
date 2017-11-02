@@ -1,5 +1,7 @@
 const { genHandle, getObj, freeObj, forEachHelper } = require('./helpers');
 
+/* eslint no-underscore-dangle: ["error", { "allow": ["_with_cb_forEach"] }] */
+
 module.exports.manifest = {
   len: 'promise',
   getPermissionsSet: 'promise',
@@ -38,7 +40,7 @@ module.exports.len = (permissionsHandle) => getObj(permissionsHandle)
 module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(permissionsHandle)
       .then((permsObj) => permsObj.netObj.getPermissionSet(signKeyObj.netObj)
-        .then((permSet) => genHandle(permsObj.app)))
+        .then(() => genHandle(permsObj.app)))
     );
 
 /**
@@ -64,10 +66,13 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => getObj(
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Insert'))
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'ManagePermissions'))
- *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permsHandle, appSignKeyHandle, pmSetHandle))
+ *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(
+ *      permsHandle, appSignKeyHandle, pmSetHandle))
  *    .then(_ => console.log('Finished inserting new permissions'));
  * */
-module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, pmSetHandle) => getObj(signKeyHandle, true)
+module.exports.insertPermissionsSet = (
+  permissionsHandle, signKeyHandle, pmSetHandle
+) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(pmSetHandle)
       .then((pmSetObj) => getObj(permissionsHandle)
         .then((permsObj) => permsObj.netObj.insertPermissionSet(signKeyObj.netObj, pmSetObj.netObj))

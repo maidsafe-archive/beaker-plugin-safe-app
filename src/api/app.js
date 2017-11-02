@@ -2,6 +2,8 @@ const safeApp = require('@maidsafe/safe-node-app');
 const ipc = require('./ipc');
 const { genHandle, getObj, freeObj, netStateCallbackHelper } = require('./helpers');
 
+/* eslint no-underscore-dangle: ["error", { "allow": ["_with_async_cb_initialise"] }] */
+
 module.exports.manifest = {
   _with_async_cb_initialise: 'readable',
   connect: 'promise',
@@ -46,13 +48,14 @@ module.exports.manifest = {
  *    });
  * */
 module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) => {
+  const appInfoCopy = Object.assign({}, appInfo);
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
-    appInfo.scope = wholeUrl;
+    appInfoCopy.scope = wholeUrl;
   } else {
-    appInfo.scope = null;
+    appInfoCopy.scope = null;
   }
-  return netStateCallbackHelper(safeApp, appInfo, enableLog || false, safeAppGroupId);
+  return netStateCallbackHelper(safeApp, appInfoCopy, enableLog || false, safeAppGroupId);
 };
 
 /**
@@ -157,7 +160,7 @@ module.exports.authorise = (appHandle, permissions, options) => new Promise((res
  * */
 module.exports.connectAuthorised = (appHandle, authUri) => getObj(appHandle)
     .then((obj) => obj.app.auth.loginFromURI(authUri))
-    .then((_) => appHandle);
+    .then(() => appHandle);
 
 /**
  * Request the Authenticator (and user) to authorise this application
@@ -307,7 +310,7 @@ module.exports.canAccessContainer = (appHandle, name, permissions) => getObj(app
  * */
 module.exports.refreshContainersPermissions = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.refreshContainersPermissions())
-    .then((_) => appHandle);
+    .then(() => appHandle);
 
 /**
  * Get the names of all containers found and the app's granted
@@ -345,7 +348,8 @@ module.exports.getOwnContainer = (appHandle) => getObj(appHandle)
  * @param {SAFEAppHandle} appHandle the app handle
  * @param {String} name name of the container, e.g. `_public`
  *
- * @returns {Promise<MutableDataHandle>} the MutableData handle the handle for the MutableData behind it
+ * @returns {Promise<MutableDataHandle>} the handle for the MutableData\
+ * behind it
  *
  * @example // Retrieve the '_public' container:
  * window.safeApp.canAccessContainer(appHandle, '_public', ['Read'])

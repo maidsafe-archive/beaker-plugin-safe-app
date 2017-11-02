@@ -38,7 +38,11 @@ module.exports.create = (appHandle) => getObj(appHandle)
  * @example // Fetch an exisiting ImmutableData from the network:
  * window.safeImmutableData.create(appHandle)
  *    .then((idWriterHandle) => window.safeCipherOpt.newPlainText(appHandle)
- *      .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *      .then((cipherOptHandle) => window.safeImmutableData.closeWriter(
+ *        idWriterHandle,
+ *        cipherOptHandle
+ *      )
+ *     )
  *    )
  *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))
  *    .then((idReaderHandle) => console.log('ImmutableData reader handle: ', idReaderHandle));
@@ -60,7 +64,11 @@ module.exports.fetch = (appHandle, address) => getObj(appHandle)
  * window.safeImmutableData.create(appHandle)
  *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
  *       .then(_ => window.safeCipherOpt.newPlainText(appHandle)
- *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(
+ *            idWriterHandle,
+ *            cipherOptHandle
+ *          )
+ *         )
  *       )
  *       .then((addr) => console.log('ImmutableData written in the network at: ', addr))
  *    );
@@ -84,7 +92,11 @@ module.exports.write = (writerHandle, string) => getObj(writerHandle)
  * @example // Creating an ImmutableData and closing its writer to commit it to the network:
  * window.safeImmutableData.create(appHandle)
  *    .then((idWriterHandle) => window.safeCipherOpt.newPlainText(appHandle)
- *      .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *      .then((cipherOptHandle) => window.safeImmutableData.closeWriter(
+ *        idWriterHandle,
+ *        cipherOptHandle
+ *        )
+ *       )
  *      .then((addr) => console.log('ImmutableData was stored at address: ', addr))
  *    );
  * */
@@ -112,7 +124,9 @@ module.exports.closeWriter = (writerHandle, cipherOptHandle) => getObj(writerHan
  * window.safeImmutableData.create(appHandle)
  *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
  *       .then(_ => window.safeCipherOpt.newPlainText(appHandle)
- *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(
+ *          idWriterHandle,
+ *          cipherOptHandle))
  *       )
  *    )
  *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))
@@ -134,7 +148,9 @@ module.exports.read = (readerHandle, options) => getObj(readerHandle)
  * window.safeImmutableData.create(appHandle)
  *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
  *       .then(_ => window.safeCipherOpt.newPlainText(appHandle)
- *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(
+ *          idWriterHandle,
+ *          cipherOptHandle))
  *       )
  *    )
  *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))

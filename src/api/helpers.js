@@ -49,7 +49,7 @@ export const freeObj = (handle, forceCleanCache) => {
     // Check if we are freeing a SAFEApp instance, if so, cascade the deletion
     // to all objects created with this SAFEApp instance.
     if (obj.netObj === null) {
-      handles.forEach((value, key, map) => {
+      handles.forEach((value, key) => {
         if (obj.app === value.app) {
           // Current object was created with this SAFEApp instance,
           // thus let's free it too.
@@ -81,7 +81,7 @@ export const freeObj = (handle, forceCleanCache) => {
 export const freePageObjs = (groupId) => {
   if (groupId !== null) {
     // Let's find all SAFEApp instances created under this groupId
-    handles.forEach((value, key, map) => {
+    handles.forEach((value, key) => {
       if (value.groupId === groupId) {
         // Current SAFEApp instance was created in this page, thus let's free it
         // along with any other obects created with this SAFEApp instance.
@@ -96,15 +96,17 @@ export const forEachHelper = (containerHandle, sendHandles) => {
   getObj(containerHandle)
     .then((obj) => obj.netObj.forEach((arg1, arg2) => {
       setImmediate(() => {
+        let argOneCopy = Object.assign({}, arg1);
         if (sendHandles) {
-          arg1 = genHandle(obj.app, arg1);
+          argOneCopy = genHandle(obj.app, argOneCopy);
         }
-        const args = [arg1];
+        const args = [argOneCopy];
         if (arg2) {
+          let argTwoCopy = Object.assign({}, arg2);
           if (sendHandles) {
-            arg2 = genHandle(obj.app, arg2);
+            argTwoCopy = genHandle(obj.app, argTwoCopy);
           }
-          args.push(arg2);
+          args.push(argTwoCopy);
         }
         readable.push(args);
       });
@@ -132,7 +134,8 @@ export const netStateCallbackHelper = (safeApp, appInfo, enableLog, groupId) => 
     });
   }, { log: enableLog, registerScheme: false })
     .then((app) => {
-      const handle = genHandle(app, null, groupId); // We assign null to 'netObj' to signal this is a SAFEApp instance
+      // We assign null to 'netObj' to signal this is a SAFEApp instance
+      const handle = genHandle(app, null, groupId);
       setImmediate(() => {
         readable.push([handle]);
       });

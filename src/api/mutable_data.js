@@ -45,7 +45,8 @@ module.exports.manifest = {
  * @example // Create a PrivateMutable Data with random address:
  * window.safeMutableData.newRandomPrivate(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  * */
 module.exports.newRandomPrivate = (appHandle, typeTag) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newRandomPrivate(typeTag)
@@ -64,7 +65,8 @@ module.exports.newRandomPrivate = (appHandle, typeTag) => getObj(appHandle)
  * @example // Create a PublicMutable Data with random address:
  * window.safeMutableData.newRandomPublic(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  * */
 module.exports.newRandomPublic = (appHandle, typeTag) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newRandomPublic(typeTag)
@@ -91,7 +93,8 @@ module.exports.newRandomPublic = (appHandle, typeTag) => getObj(appHandle)
  * window.safeCrypto.generateNonce(appHandle)
  *    .then((nonce) => window.safeMutableData.newPrivate(appHandle, name, 15001, secKey, nonce))
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  * */
 module.exports.newPrivate = (appHandle, name, typeTag, secKey, nonce) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPrivate(name, typeTag, secKey, nonce)
@@ -111,7 +114,8 @@ module.exports.newPrivate = (appHandle, name, typeTag, secKey, nonce) => getObj(
  * @example // Create a Public MutableData with specific address:
  * window.safeMutableData.newPublic(appHandle, 'name-private-0101010101010101010', 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
  * */
 module.exports.newPublic = (appHandle, name, typeTag) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPublic(name, typeTag)
@@ -375,7 +379,8 @@ module.exports.get = (mdHandle, key) => getObj(mdHandle)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'ManagePermissions'))
  *    .then(_ => window.safeMutableData.newPermissions(appHandle))
  *    .then((h) => permissionsHandle = h)
- *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permissionsHandle, appSignKeyHandle, pmSetHandle))
+ *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(
+ *      permissionsHandle, appSignKeyHandle, pmSetHandle))
  *    .then(_ => window.safeMutableData.newRandomPublic(appHandle, 15000))
  *    .then((h) => mdHandle = h)
  *    .then(_ => console.log('Finished preparation'))
@@ -497,7 +502,11 @@ module.exports.getUserPermissions = (mdHandle, signKeyHandle) => getObj(signKeyH
  *    .then((version) => window.safeMutableData.delUserPermissions(mdHandle, signKey, version + 1))
  *    .then(_ => console.log('PermissionsSet removed for the sign key provided'));
  * */
-module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => getObj(signKeyHandle, true)
+module.exports.delUserPermissions = (
+  mdHandle,
+  signKeyHandle,
+  version
+) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(mdHandle)
       .then((mdObj) => mdObj.netObj.delUserPermissions(signKeyObj.netObj, version))
     );
@@ -525,10 +534,16 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => getObj
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Delete'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
- *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then((version) => window.safeMutableData.setUserPermissions(
+ *      mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
  * */
-module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, version) => getObj(signKeyHandle, true)
+module.exports.setUserPermissions = (
+  mdHandle,
+  signKeyHandle,
+  pmSetHandle,
+  version
+) => getObj(signKeyHandle, true)
       .then((signKeyObj) => getObj(pmSetHandle)
         .then((pmSetObj) => getObj(mdHandle)
           .then((mdObj) => mdObj.netObj.setUserPermissions(signKeyObj.netObj,
@@ -550,7 +565,8 @@ module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSetHandle, versi
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
- *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
+ *    .then(_ => console.log(
+ *      'New entry was inserted in the MutableData and committed to the network'));
  * */
 module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => getObj(mutationHandle)
     .then((mutationObj) => getObj(mdHandle)

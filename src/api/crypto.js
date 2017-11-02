@@ -73,7 +73,8 @@ module.exports.getAppPubEncKey = (appHandle) => getObj(appHandle)
  * window.safeCrypto.generateEncKeyPair(appHandle)
  *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle))
  *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
- *    .then((rawPk) => console.log('Public encryption key generated: ', rawPk.buffer.toString('hex')));
+ *    .then((rawPk) => console.log('Public encryption key\
+ *    generated: ', rawPk.buffer.toString('hex')));
  * */
 module.exports.generateEncKeyPair = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.crypto.generateEncKeyPair()
@@ -113,7 +114,9 @@ module.exports.getSignKeyFromRaw = (appHandle, raw) => getObj(appHandle)
  *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
  *    .then((raw) => window.safeCrypto.pubEncKeyKeyFromRaw(appHandle, raw))
  *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
- *    .then((rawPubEncKey) => console.log('Public encrpytion key: ', rawPubEncKey.buffer.toString('hex')));
+ *    .then((rawPubEncKey) => console.log(
+ *    'Public encrpytion key: ', rawPubEncKey.buffer.toString('hex')
+ *    ));
  * */
 module.exports.pubEncKeyKeyFromRaw = (appHandle, raw) => getObj(appHandle)
     .then((obj) => obj.app.crypto.pubEncKeyKeyFromRaw(raw)
@@ -134,7 +137,9 @@ module.exports.pubEncKeyKeyFromRaw = (appHandle, raw) => getObj(appHandle)
  *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
  *    .then((raw) => window.safeCrypto.secEncKeyKeyFromRaw(appHandle, raw))
  *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
- *    .then((rawSecEncKey) => console.log('Secret encrpytion key: ', rawSecEncKey.buffer.toString('hex')));
+ *    .then((rawSecEncKey) => console.log(
+ *      'Secret encrpytion key: ', rawSecEncKey.buffer.toString('hex')
+ *    ));
  * */
 module.exports.secEncKeyKeyFromRaw = (appHandle, raw) => getObj(appHandle)
     .then((obj) => obj.app.crypto.secEncKeyKeyFromRaw(raw)
@@ -156,11 +161,21 @@ module.exports.secEncKeyKeyFromRaw = (appHandle, raw) => getObj(appHandle)
  *       .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle)
  *          .then((rawSecEncKey) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle)
  *             .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
- *             .then((rawPubEncKey) => window.safeCrypto.generateEncKeyPairFromRaw(appHandle, rawPubEncKey, rawSecEncKey))
- *             .then((encKeyPairHandle) => console.log('Encryption key pair generated from raw strings'))
+ *             .then((rawPubEncKey) => window.safeCrypto.generateEncKeyPairFromRaw(
+ *                appHandle,
+ *                rawPubEncKey,
+ *                rawSecEncKey
+ *               ))
+ *             .then((encKeyPairHandle) => console.log(
+ *                'Encryption key pair generated from raw strings'
+ *              ))
  *          )));
  * */
-module.exports.generateEncKeyPairFromRaw = (appHandle, rawPublicKey, rawSecretKey) => getObj(appHandle)
+module.exports.generateEncKeyPairFromRaw = (
+    appHandle,
+    rawPublicKey,
+    rawSecretKey
+    ) => getObj(appHandle)
     .then((obj) => obj.app.crypto.generateEncKeyPairFromRaw(rawPublicKey, rawSecretKey)
       .then((kp) => genHandle(obj.app, kp)));
 

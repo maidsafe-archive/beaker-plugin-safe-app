@@ -33,7 +33,9 @@ module.exports.getRaw = (secEncKeyHandle) => getObj(secEncKeyHandle)
  *
  * @returns {Promise<Buffer>} the decrypted data
  */
-module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => getObj(secEncKeyHandle).then((obj) => getObj(theirPubKey).then((pubEncKeyInstance) => obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj)));
+module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => getObj(secEncKeyHandle)
+.then((obj) => getObj(theirPubKey)
+.then((pubEncKeyInstance) => obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj)));
 
 /**
  * Free the SecEncKey instance from memory

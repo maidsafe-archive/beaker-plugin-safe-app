@@ -1,4 +1,4 @@
-const { genHandle, getObj, freeObj } = require('../helpers');
+const { getObj, freeObj } = require('../helpers');
 
 module.exports.manifest = {
   size: 'promise',

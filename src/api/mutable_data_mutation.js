@@ -23,7 +23,8 @@ module.exports.manifest = {
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
- *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
+ *    .then(_ => console.log(
+ *      'New entry was inserted in the MutableData and committed to the network'));
  * */
 module.exports.insert = (mutationHandle, keyName, value) => getObj(mutationHandle)
     .then((obj) => obj.netObj.insert(keyName, value));
@@ -44,9 +45,11 @@ module.exports.insert = (mutationHandle, keyName, value) => getObj(mutationHandl
  * window.safeMutableData.newMutation(appHandle)
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
- *    .then((value) => window.safeMutableDataMutation.remove(mutationHandle, 'key1', value.version + 1))
+ *    .then((value) => window.safeMutableDataMutation.remove(
+ *      mutationHandle, 'key1', value.version + 1))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
- *    .then(_ => console.log('Entry was removed from the MutableData and committed to the network'));
+ *    .then(_ => console.log(
+ *      'Entry was removed from the MutableData and committed to the network'));
  * */
 module.exports.remove = (mutationHandle, keyName, version) => getObj(mutationHandle)
     .then((obj) => obj.netObj.remove(keyName, version));
@@ -68,7 +71,8 @@ module.exports.remove = (mutationHandle, keyName, version) => getObj(mutationHan
  * window.safeMutableData.newMutation(appHandle)
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableData.get(mdHandle, 'key1'))
- *    .then((value) => window.safeMutableDataMutation.update(mutationHandle, 'key1', 'newValue', value.version + 1))
+ *    .then((value) => window.safeMutableDataMutation.update(
+ *      mutationHandle, 'key1', 'newValue', value.version + 1))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
  *    .then(_ => console.log('Entry was updated in the MutableData and committed to the network'));
  * */

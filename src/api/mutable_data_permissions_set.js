@@ -24,7 +24,8 @@ module.exports.manifest = {
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setAllow(pmSetHandle, 'Delete'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
- *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then((version) => window.safeMutableData.setUserPermissions(
+ *      mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
  * */
 module.exports.setAllow = (permissionsSetHandle, action) => getObj(permissionsSetHandle)
@@ -47,7 +48,8 @@ module.exports.setAllow = (permissionsSetHandle, action) => getObj(permissionsSe
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.setDeny(pmSetHandle, 'Update'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
- *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then((version) => window.safeMutableData.setUserPermissions(
+ *      mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
  * */
 module.exports.setDeny = (permissionsSetHandle, action) => getObj(permissionsSetHandle)
@@ -70,7 +72,8 @@ module.exports.setDeny = (permissionsSetHandle, action) => getObj(permissionsSet
  *    .then((h) => pmSetHandle = h)
  *    .then(_ => window.safeMutableDataPermissionsSet.clear(pmSetHandle, 'Insert'))
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
- *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
+ *    .then((version) => window.safeMutableData.setUserPermissions(
+ *      mdHandle, appSignKeyHandle, pmSetHandle, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
  * */
 module.exports.clear = (permissionsSetHandle, action) => getObj(permissionsSetHandle)
