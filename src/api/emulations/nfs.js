@@ -19,12 +19,10 @@ module.exports.manifest = {
  * @param {(String|Buffer)} content
  *
  * @returns {Promise<FileHandle>} the File handle of a newly created file
- **/
-module.exports.create = (nfsHandle, content) => {
-  return getObj(nfsHandle)
+ * */
+module.exports.create = (nfsHandle, content) => getObj(nfsHandle)
     .then((obj) => obj.netObj.create(content)
       .then((file) => genHandle(obj.app, file)));
-};
 
 /**
  * Find the file of the given filename (aka keyName in the MutableData)
@@ -34,12 +32,10 @@ module.exports.create = (nfsHandle, content) => {
  * @param {String} fileName - the path/file name
  *
  * @returns {Promise<FileHandle>} the handle of the File found for that path
- **/
-module.exports.fetch = (nfsHandle, fileName) => {
-  return getObj(nfsHandle)
+ * */
+module.exports.fetch = (nfsHandle, fileName) => getObj(nfsHandle)
     .then((obj) => obj.netObj.fetch(fileName)
       .then((file) => genHandle(obj.app, file)));
-};
 
 /**
  * Insert the given file into the underlying MutableData, directly commit
@@ -51,14 +47,12 @@ module.exports.fetch = (nfsHandle, fileName) => {
  * @param {(String|Buffer)} fileName the path to store the file under
  *
  * @returns {Promise<FileHandle>} the same File handle
- **/
-module.exports.insert = (nfsHandle, fileHandle, fileName) => {
-  return getObj(nfsHandle)
+ * */
+module.exports.insert = (nfsHandle, fileHandle, fileName) => getObj(nfsHandle)
     .then((nfsObj) => getObj(fileHandle)
       .then((fileObj) => nfsObj.netObj.insert(fileName, fileObj.netObj))
     )
     .then(() => fileHandle);
-};
 
 /**
  * Replace a path with a new file. Directly commit to the network.
@@ -70,14 +64,12 @@ module.exports.insert = (nfsHandle, fileHandle, fileName) => {
  * @param {Number} version the version successor, to ensure you
  *         are overwriting the right one
  * @returns {Promise<FileHandle>} the same File handle
- **/
-module.exports.update = (nfsHandle, fileHandle, fileName, version) => {
-  return getObj(nfsHandle)
+ * */
+module.exports.update = (nfsHandle, fileHandle, fileName, version) => getObj(nfsHandle)
     .then((nfsObj) => getObj(fileHandle)
       .then((fileObj) => nfsObj.netObj.update(fileName, fileObj.netObj, version))
     )
     .then(() => fileHandle);
-};
 
 /**
 * Delete a file from path. Directly commit to the network.
@@ -88,11 +80,9 @@ module.exports.update = (nfsHandle, fileHandle, fileName, version) => {
 * @param {Number} version the version successor, to ensure you
 *        are overwriting the right one
 * @returns {Promise}
-**/
-module.exports.delete = (nfsHandle, fileName, version) => {
-  return getObj(nfsHandle)
+* */
+module.exports.delete = (nfsHandle, fileName, version) => getObj(nfsHandle)
     .then((nfsObj) => nfsObj.netObj.delete(fileName, version));
-};
 
 /**
  * Open a file for reading or writing.
@@ -116,9 +106,8 @@ module.exports.delete = (nfsHandle, fileName, version) => {
  *
  * @returns {Promise<FileHandle>} a File handle. A new handle is returned if the
  * handle passed in is null, otherwise the File handle provided is returned
- **/
-module.exports.open = (nfsHandle, fileHandle, openMode) => {
-  return getObj(nfsHandle)
+ * */
+module.exports.open = (nfsHandle, fileHandle, openMode) => getObj(nfsHandle)
     .then((nfsObj) => getObj(fileHandle, true)
       .then((fileObj) => nfsObj.netObj.open(fileObj.netObj, openMode))
       .then((file) => {
@@ -128,14 +117,13 @@ module.exports.open = (nfsHandle, fileHandle, openMode) => {
         return genHandle(nfsObj.app, file);
       })
     );
-};
 
 /**
  * Free the NFS emulation instance from memory
  * @name window.safeNfs.free
  *
  * @param {NFSHandle} nfsHandle the NFS emulation handle
- **/
+ * */
 module.exports.free = (nfsHandle) => freeObj(nfsHandle);
 
 /**
@@ -144,4 +132,4 @@ module.exports.free = (nfsHandle) => freeObj(nfsHandle);
  * @description Holds the reference to a NFS emulation instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */

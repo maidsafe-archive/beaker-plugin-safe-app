@@ -4,7 +4,8 @@
   "description": "SAFE Browser add-on for web client to access SAFE Network",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src *.js",
+    "fix-lint": "eslint --fix src",
+    "lint": "eslint src",
     "test": "npm run lint",
     "update-safe-deps": "yarn upgrade @maidsafe/safe-node-app",
     "build-api": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.api.js --progress --profile --colors",
@@ -53,7 +54,7 @@
     "cross-env": "^3.2.4",
     "documentation": "^5.0.0",
     "eslint": "^3.17.1",
-    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.0",
