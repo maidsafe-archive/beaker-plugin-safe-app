@@ -38,9 +38,9 @@ let appObj = null;
 
 
 ipcMain.on('safeReconnectApp', () => {
-  sendToShellWindow('command', 'log', 'Received reconnect call: ', appObj );
+  sendToShellWindow('command', 'log', 'Received reconnect call: ', appObj);
 
-  if (appObj && appObj.networkState === 'Disconnected' ) {
+  if (appObj && appObj.networkState === 'Disconnected') {
     appObj.reconnect();
   }
 });
@@ -147,7 +147,6 @@ const registerSafeProtocol = (sendToShell) => {
 export const registerSafeLogs = () => {
   return initialiseSafeApp()
     .then(() => setupSafeLogProtocol(appObj));
-};
 
 module.exports = [{
   scheme: safeScheme,

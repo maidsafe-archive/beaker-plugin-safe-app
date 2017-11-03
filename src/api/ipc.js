@@ -7,7 +7,7 @@ const reqsSent = new Map();
 
 let ipcEvent = null;
 // Until ipcEvent is ready, we need to keep reqs in a queue
-var pendingReqs = [];
+const pendingReqs = [];
 
 class AuthRequest {
   constructor(uri, isUnRegistered, cb) {
@@ -20,35 +20,29 @@ class AuthRequest {
   }
 }
 
-class IpcTasks {
-  constructor() {}
-
-  add(uri, isUnregistered, cb) {
-    let req = new AuthRequest(uri, isUnregistered, cb);
-    if (ipcEvent) {
-      reqsSent.set(req.id, req);
-      ipcEvent.sender.send('webClientAuthReq', req);
-    } else {
-      // let's keep it in a queue to send when ipcEvent is ready
-      pendingReqs.push(req);
-    }
-  }
-
-  sendPendingReqs() {
-    pendingReqs.map((req) => {
-      reqsSent.set(req.id, req);
-      ipcEvent.sender.send('webClientAuthReq', req);
-    })
-    pendingReqs.length = 0;
-  }
-
-  remove(id) {
-    reqsSent.delete(id);
-    return this;
+function add(uri, isUnregistered, cb) {
+  const req = new AuthRequest(uri, isUnregistered, cb);
+  if (ipcEvent) {
+    reqsSent.set(req.id, req);
+    ipcEvent.sender.send('webClientAuthReq', req);
+  } else {
+    // let's keep it in a queue to send when ipcEvent is ready
+    pendingReqs.push(req);
   }
 }
 
-const ipcTasks = new IpcTasks();
+function sendPendingReqs() {
+  pendingReqs.forEach((req) => {
+    reqsSent.set(req.id, req);
+    ipcEvent.sender.send('webClientAuthReq', req);
+  });
+  pendingReqs.length = 0;
+}
+
+function remove(id) {
+  reqsSent.delete(id);
+  return this;
+}
 
 const authRes = (event, response) => {
   // handle response
@@ -57,7 +51,7 @@ const authRes = (event, response) => {
   if (!task) {
     return;
   }
-  ipcTasks.remove(reqId);
+  remove(reqId);
   if (typeof task.cb === 'function') {
     task.cb(null, response.res);
   }
@@ -73,7 +67,7 @@ ipcMain.on('onTabUpdate', (event, safeAppGroupId) => {
 
 ipcMain.on('registerSafeApp', (event) => {
   ipcEvent = event;
-  ipcTasks.sendPendingReqs();
+  sendPendingReqs();
 });
 
 ipcMain.on('webClientContainerRes', authRes);
@@ -94,7 +88,7 @@ ipcMain.on('webClientErrorRes', (event, res) => {
   if (!task) {
     return;
   }
-  ipcTasks.remove(reqId);
+  remove(reqId);
   if (typeof task.cb === 'function') {
     task.cb(err);
   }
@@ -103,5 +97,5 @@ ipcMain.on('webClientErrorRes', (event, res) => {
 module.exports.sendAuthReq = (req, isUnregistered, cb) => {
   // The isUnregistered flag is used to handle the requests in a separate queue
   // from the ones for registered requests, so they can be processed in parallel.
-  ipcTasks.add(req.uri, isUnregistered, cb);
+  add(req.uri, isUnregistered, cb);
 };
