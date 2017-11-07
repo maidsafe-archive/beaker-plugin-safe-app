@@ -1,5 +1,7 @@
 const { getObj, freeObj, forEachHelper } = require('./helpers');
 
+/* eslint no-underscore-dangle: ["error", { "allow": ["_with_cb_forEach"] }] */
+
 module.exports.manifest = {
   len: 'promise',
   _with_cb_forEach: 'readable',
@@ -18,11 +20,9 @@ module.exports.manifest = {
  * window.safeMutableData.getValues(mdHandle)
  *    .then((valuesHandle) => window.safeMutableDataValues.len(valuesHandle))
  *    .then((len) => console.log('Number of values in the MutableData: ', len));
- **/
-module.exports.len = (valuesHandle) => {
-  return getObj(valuesHandle)
+ * */
+module.exports.len = (valuesHandle) => getObj(valuesHandle)
     .then((obj) => obj.netObj.len());
-};
 
 /**
  * Iterate over the values, execute the function every time
@@ -40,17 +40,15 @@ module.exports.len = (valuesHandle) => {
  *          console.log('Version: ', v.version);
  *       }).then(_ => console.log('Iteration finished'))
  *    );
- **/
-module.exports._with_cb_forEach = (valuesHandle) => {
-  return forEachHelper(valuesHandle);
-};
+ * */
+module.exports._with_cb_forEach = (valuesHandle) => forEachHelper(valuesHandle);
 
 /**
  * Free the Values instance from memory
  * @name window.safeMutableDataValues.free
  *
  * @param {String} valuesHandle the Values handle
- **/
+ * */
 module.exports.free = (valuesHandle) => freeObj(valuesHandle);
 
 /**
@@ -59,4 +57,4 @@ module.exports.free = (valuesHandle) => freeObj(valuesHandle);
  * @description Holds the reference to a Values instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */

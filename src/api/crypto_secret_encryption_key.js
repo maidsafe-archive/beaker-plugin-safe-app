@@ -20,10 +20,8 @@ module.exports.manifest = {
  *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
  *    .then((rawSk) => console.log('Secret encryption key: ', rawSk.buffer.toString('hex')));
  */
-module.exports.getRaw = (secEncKeyHandle) => {
-  return getObj(secEncKeyHandle)
+module.exports.getRaw = (secEncKeyHandle) => getObj(secEncKeyHandle)
     .then((obj) => obj.netObj.getRaw());
-};
 
 /**
  * Decrypt the given ciphertext (buffer or string) using the private and public key
@@ -35,20 +33,16 @@ module.exports.getRaw = (secEncKeyHandle) => {
  *
  * @returns {Promise<Buffer>} the decrypted data
  */
-module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
-  return getObj(secEncKeyHandle).then((obj) => {
-    return getObj(theirPubKey).then((pubEncKeyInstance) => {
-      return obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj);
-    });
-  });
-};
+module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => getObj(secEncKeyHandle)
+.then((obj) => getObj(theirPubKey)
+.then((pubEncKeyInstance) => obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj)));
 
 /**
  * Free the SecEncKey instance from memory
  * @name window.safeCryptoSecEncKey.free
  *
  * @param {SecEncKeyHandle} secEncKeyHandle the SecEncKey handle
- **/
+ * */
 module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);
 
 /**
@@ -57,4 +51,4 @@ module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);
  * @description Holds the reference to a SecEncKey instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */
