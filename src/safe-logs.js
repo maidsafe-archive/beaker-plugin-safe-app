@@ -1,35 +1,27 @@
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 import fs from 'fs-extra';
-import url from 'url';
 import path from 'path';
-/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved,import/extensions */
 import { protocol } from 'electron';
-import safeApp from '@maidsafe/safe-node-app';
 import safeCss from './safe-pages.css';
 
-import logListTemplate  from './log-list-template.ejs';
-import logTemplate  from './log-template.ejs';
-import errorTemplate  from './error-template.ejs';
-
-let appObj = null;
-
+import logListTemplate from './log-list-template.ejs';
+import logTemplate from './log-template.ejs';
+import errorTemplate from './error-template.ejs';
 
 /**
  * Get the browser logfile from appObj
  * @param  {Object} appObj safeAppp instance
  * @return {Promise} resolves to the app log path
  */
-export const getLogs = (appObj) => {
-  return new Promise((resolve, reject) => {
-    if (appObj) {
-      return appObj.logPath()
+export const getLogs = (appObj) => new Promise((resolve, reject) => {
+  if (appObj) {
+    return appObj.logPath()
         .then(resolve)
         .catch(reject);
-    } else {
-      return reject(new Error('Unexpected error. SAFE App connection not ready'));
-    }
-  });
-};
+  }
+  return reject(new Error('Unexpected error. SAFE App connection not ready'));
+});
 
 
 /**
@@ -39,7 +31,7 @@ export const getLogs = (appObj) => {
  */
 function getLogSize(filePath) {
   const stats = fs.statSync(filePath);
-  const fileSizeInBytes = stats["size"];
+  const fileSizeInBytes = stats.size;
   // Convert the file size to megabytes (optional)
   return fileSizeInBytes;
 }
@@ -56,17 +48,17 @@ function getLogsList(appObj) {
     const logsDir = path.dirname(defaultLog);
     const logFiles = [];
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const files = fs.readdirSync(logsDir, 'utf-8');
-      files.map((file) => path.join(logsDir, file) )
+      files.map((file) => path.join(logsDir, file))
         .filter((file) => {
           const ext = path.extname(file);
           return ext === '.log';
         })
-        .sort( (a, b) =>  fs.statSync( a ).mtime.getTime() -  fs.statSync( b ).mtime.getTime() )
+        .sort((a, b) => fs.statSync(a).mtime.getTime() - fs.statSync(b).mtime.getTime())
         .forEach((file) => {
           const name = path.basename(file);
-          const size = getLogSize( file );
+          const size = getLogSize(file);
 
           const logFile = {
             file,
@@ -79,7 +71,7 @@ function getLogsList(appObj) {
 
       resolve(logFiles);
     });
-  })
+  });
 }
 
 
@@ -92,7 +84,6 @@ function getLogsList(appObj) {
 function showLogList(appObj, cb) {
   getLogsList(appObj)
   .then((logList) => {
-
     const page = logListTemplate({ logList, css: safeCss });
 
     return cb({ mimeType: 'text/html', data: Buffer.from(page) });
@@ -118,26 +109,22 @@ export function setupSafeLogProtocol(appObj) {
         const logsDir = path.dirname(defaultLog);
         const logFile = path.resolve(logsDir, fileName);
 
-        fs.readFile(logFile, 'utf-8', (err, logString ) => {
+        fs.readFile(logFile, 'utf-8', (err, logString) => {
           if (err) {
-
-            //show error page
+            // show error page
             throw err;
           }
 
-          if( logString  )
-          {
+          if (logString) {
             const page = logTemplate({
               title: `${fileName}:`,
               css: safeCss,
               body: logString
             });
-            cb( { mimeType: 'text/html', data: Buffer.from ( page ) } );
-          }
-          else
-          {
+            cb({ mimeType: 'text/html', data: Buffer.from(page) });
+          } else {
             const page = errorTemplate({ message: 'Logfile is empty.', css: safeCss });
-            cb( { mimeType: 'text/html', data: Buffer.from ( page ) } );
+            cb({ mimeType: 'text/html', data: Buffer.from(page) });
           }
         });
       });

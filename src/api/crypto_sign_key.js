@@ -18,17 +18,15 @@ module.exports.manifest = {
  *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
  *    .then((rawPk) => console.log('Sign key: ', rawPk.buffer.toString('hex')));
  */
-module.exports.getRaw = (signKeyHandle) => {
-  return getObj(signKeyHandle)
+module.exports.getRaw = (signKeyHandle) => getObj(signKeyHandle)
     .then((obj) => obj.netObj.getRaw());
-};
 
 /**
  * Free the SignKey instance from memory
  * @name window.safeCryptoSignKey.free
  *
  * @param {SignKeyHandle} signKeyHandle the SignKey handle
- **/
+ * */
 module.exports.free = (signKeyHandle) => freeObj(signKeyHandle);
 
 /**
@@ -37,4 +35,4 @@ module.exports.free = (signKeyHandle) => freeObj(signKeyHandle);
  * @description Holds the reference to a public SignKey instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */

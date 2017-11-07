@@ -38,9 +38,9 @@ let appObj = null;
 
 
 ipcMain.on('safeReconnectApp', () => {
-  sendToShellWindow('command', 'log', 'Received reconnect call: ', appObj );
+  sendToShellWindow('command', 'log', 'Received reconnect call: ', appObj);
 
-  if (appObj && appObj.networkState === 'Disconnected' ) {
+  if (appObj && appObj.networkState === 'Disconnected') {
     appObj.reconnect();
   }
 });
@@ -53,55 +53,50 @@ const netStateChange = (state) => {
   }
 };
 
-const initialiseSafeApp = () => {
-  return new Promise((resolve, reject) => {
-    if (appObj) {
+const initialiseSafeApp = () => new Promise((resolve, reject) => {
+  if (appObj) {
+    return resolve();
+  }
+  const opts = {
+    registerScheme: false,
+    joinSchemes: [safeScheme]
+  };
+  return safeApp.initializeApp(appInfo, netStateChange, opts)
+    .then((newApp) => {
+      appObj = newApp;
       return resolve();
-    }
-    const opts = {
-      registerScheme: false,
-      joinSchemes: [safeScheme]
-    };
-    return safeApp.initializeApp(appInfo, netStateChange, opts)
-      .then((app) => {
-          appObj = app;
-          return resolve();
-      })
-      .catch(reject);
-  });
-};
+    })
+    .catch(reject);
+});
 
-const connectSafeApp = () => {
-  return new Promise((resolve, reject) => {
-    if (!appObj) {
-      return reject(new Error('Unexpected error. SAFE App library not initialised'));
-    } else if (appObj.networkState === 'Init') {
-      return appObj.auth.genConnUri()
-        .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
-          if (err) {
-            return reject(new Error('Unable to get connection information: ', err));
-          }
-          return appObj.auth.loginFromURI(res)
-            .then((app) => resolve());
-        }));
-    }
-    resolve();
-  });
-};
+const connectSafeApp = () => new Promise((resolve, reject) => {
+  if (!appObj) {
+    return reject(new Error('Unexpected error. SAFE App library not initialised'));
+  } else if (appObj.networkState === 'Init') {
+    return appObj.auth.genConnUri()
+      .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
+        if (err) {
+          return reject(new Error('Unable to get connection information: ', err));
+        }
+        return appObj.auth.loginFromURI(res)
+          .then(() => resolve());
+      }));
+  }
+  resolve();
+});
 
-const fetchData = (url) => {
-  return appObj.webFetch(url);
-};
+const fetchData = (url) => appObj.webFetch(url);
 
 const handleError = (err, mimeType, cb) => {
-  err.css = safeCss;
+  const errObj = Object.assign({}, err);
+  errObj.css = safeCss;
 
-  const page = errorTemplate(err);
+  const page = errorTemplate(errObj);
 
   if (mimeType === 'text/html') {
     return cb({ mimeType, data: new Buffer(page) });
   }
-  return cb({ mimeType, data: new Buffer(err.message) });
+  return cb({ mimeType, data: new Buffer(errObj.message) });
 };
 
 
@@ -111,9 +106,9 @@ const registerSafeLocalProtocol = () => {
 
     if (!parsed.host) { return; }
 
-    const path = parsed.pathname;
+    const urlPath = parsed.pathname;
     const port = parsed.port;
-    const newUrl = `http://localhost:${port}${path}`;
+    const newUrl = `http://localhost:${port}${urlPath}`;
 
     cb({ url: newUrl });
   });
@@ -144,10 +139,9 @@ const registerSafeProtocol = (sendToShell) => {
   });
 };
 
-export const registerSafeLogs = () => {
-  return initialiseSafeApp()
-    .then(() => setupSafeLogProtocol(appObj));
-};
+/* eslint-disable max-len, import/prefer-default-export */
+export const registerSafeLogs = () => initialiseSafeApp().then(() => setupSafeLogProtocol(appObj));
+/* eslint-enable  */
 
 module.exports = [{
   scheme: safeScheme,

@@ -1,5 +1,7 @@
 const { getObj, freeObj, forEachHelper } = require('./helpers');
 
+/* eslint no-underscore-dangle: ["error", { "allow": ["_with_cb_forEach"] }] */
+
 module.exports.manifest = {
   len: 'promise',
   _with_cb_forEach: 'readable',
@@ -18,11 +20,9 @@ module.exports.manifest = {
  * window.safeMutableData.getKeys(mdHandle)
  *    .then((keysHandle) => window.safeMutableDataKeys.len(keysHandle))
  *    .then((len) => console.log('Number of keys in the MutableData: ', len));
- **/
-module.exports.len = (keysHandle) => {
-  return getObj(keysHandle)
+ * */
+module.exports.len = (keysHandle) => getObj(keysHandle)
     .then((obj) => obj.netObj.len());
-};
 
 /**
  * Iterate over the keys, execute the function every time
@@ -39,17 +39,15 @@ module.exports.len = (keysHandle) => {
  *          console.log('Key: ', k.toString());
  *       }).then(_ => console.log('Iteration finished'))
  *    );
- **/
-module.exports._with_cb_forEach = (keysHandle) => {
-  return forEachHelper(keysHandle);
-}
+ * */
+module.exports._with_cb_forEach = (keysHandle) => forEachHelper(keysHandle);
 
 /**
  * Free the Keys instance from memory
  * @name window.safeMutableDataKeys.free
  *
  * @param {String} keysHandle the Keys handle
- **/
+ * */
 module.exports.free = (keysHandle) => freeObj(keysHandle);
 
 /**
@@ -58,4 +56,4 @@ module.exports.free = (keysHandle) => freeObj(keysHandle);
  * @description Holds the reference to a Keys instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ * */
