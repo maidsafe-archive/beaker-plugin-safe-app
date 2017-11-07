@@ -27,4 +27,4 @@ deploy:
   local-dir: packaged
   bucket: beaker-plugin-safe-app
   on:
-    branch: ci-test
+    tags: true
