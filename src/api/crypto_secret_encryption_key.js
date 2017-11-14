@@ -1,9 +1,8 @@
-const { getObj, freeObj } = require('./helpers');
+const { getObj } = require('./helpers');
 
 module.exports.manifest = {
   getRaw: 'promise',
-  decrypt: 'promise',
-  free: 'sync'
+  decrypt: 'promise'
 };
 
 /**
@@ -44,17 +43,9 @@ module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
 };
 
 /**
- * Free the SecEncKey instance from memory
- * @name window.safeCryptoSecEncKey.free
- *
- * @param {SecEncKeyHandle} secEncKeyHandle the SecEncKey handle
- **/
-module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);
-
-/**
  * @name SecEncKeyHandle
  * @typedef {String} SecEncKeyHandle
  * @description Holds the reference to a SecEncKey instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+*/

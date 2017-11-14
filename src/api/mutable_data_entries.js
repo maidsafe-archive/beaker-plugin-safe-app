@@ -1,12 +1,11 @@
-const { genHandle, getObj, freeObj, forEachHelper } = require('./helpers');
+const { genHandle, getObj, forEachHelper } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
   get: 'promise',
   _with_cb_forEach: 'readable',
   insert: 'promise',
-  mutate: 'promise',
-  free: 'sync'
+  mutate: 'promise'
 };
 
 /**
@@ -21,7 +20,7 @@ module.exports.manifest = {
  * window.safeMutableData.getEntries(mdHandle)
  *    .then((entriesHandle) => window.safeMutableDataEntries.len(entriesHandle))
  *    .then((len) => console.log('Number of entries in the MutableData: ', len));
- **/
+*/
 module.exports.len = (entriesHandle) => {
   return getObj(entriesHandle)
     .then((obj) => obj.netObj.len());
@@ -43,7 +42,7 @@ module.exports.len = (entriesHandle) => {
  *       console.log('Value: ', value.buf.toString());
  *       console.log('Version: ', value.version);
  *    });
- **/
+*/
 module.exports.get = (entriesHandle, keyName) => {
   return getObj(entriesHandle)
     .then((obj) => obj.netObj.get(keyName));
@@ -66,8 +65,8 @@ module.exports.get = (entriesHandle, keyName) => {
  *          console.log('Version: ', v.version);
  *       }).then(_ => console.log('Iteration finished'))
  *    );
- **/
-module.exports._with_cb_forEach = (entriesHandle) => {
+*/
+module.exports._with_cb_forEach = (entriesHandle) => { // eslint-disable-line max-len, no-underscore-dangle
   return forEachHelper(entriesHandle);
 };
 
@@ -86,7 +85,7 @@ module.exports._with_cb_forEach = (entriesHandle) => {
  * window.safeMutableData.getEntries(mdHandle)
  *    .then((entriesHandle) => window.safeMutableDataEntries.insert(entriesHandle, 'key1', 'value1'))
  *    .then(_ => console.log('New entry inserted');
- **/
+*/
 module.exports.insert = (entriesHandle, keyName, value) => {
   return getObj(entriesHandle)
     .then((obj) => obj.netObj.insert(keyName, value));
@@ -108,7 +107,7 @@ module.exports.insert = (entriesHandle, keyName, value) => {
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
  *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
- **/
+*/
 module.exports.mutate = (entriesHandle) => {
   return getObj(entriesHandle)
     .then((obj) => obj.netObj.mutate()
@@ -116,17 +115,9 @@ module.exports.mutate = (entriesHandle) => {
 };
 
 /**
- * Free the Entries instance from memory
- * @name window.safeMutableDataEntries.free
- *
- * @param {String} entriesHandle the Entries handle
- **/
-module.exports.free = (entriesHandle) => freeObj(entriesHandle);
-
-/**
  * @name EntriesHandle
  * @typedef {String} EntriesHandle
  * @description Holds the reference to an Entries instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+*/

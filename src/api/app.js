@@ -1,6 +1,6 @@
 const safeApp = require('@maidsafe/safe-node-app');
 const ipc = require('./ipc');
-const { genHandle, getObj, freeObj, netStateCallbackHelper } = require('./helpers');
+const { genHandle, getObj, netStateCallbackHelper } = require('./helpers');
 
 module.exports.manifest = {
   _with_async_cb_initialise: 'readable',
@@ -18,8 +18,7 @@ module.exports.manifest = {
   getOwnContainer: 'promise',
   getContainer: 'promise',
   reconnect: 'promise',
-  logPath: 'promise',
-  free: 'sync'
+  logPath: 'promise'
 };
 
 /**
@@ -44,8 +43,8 @@ module.exports.manifest = {
  *    .then((appHandle) => {
  *       console.log('SAFEApp instance initialised and handle returned: ', appHandle);
  *    });
- **/
-module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) => {
+ */
+module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) => { // eslint-disable-line no-underscore-dangle, max-len
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
     appInfo.scope = wholeUrl;
@@ -74,7 +73,7 @@ module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) 
  * .then(_ => {
  *    console.log('Unregistered session created');
  * });
- **/
+ */
 module.exports.connect = (appHandle) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
@@ -117,7 +116,7 @@ module.exports.connect = (appHandle) => {
  * ).then((authUri) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
- **/
+ */
 module.exports.authorise = (appHandle, permissions, options) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
@@ -158,11 +157,11 @@ module.exports.authorise = (appHandle, permissions, options) => {
  * .then(_ => {
  *    console.log('The app was authorised & a session was created with the network');
  * });
- **/
+ */
 module.exports.connectAuthorised = (appHandle, authUri) => {
   return getObj(appHandle)
     .then((obj) => obj.app.auth.loginFromURI(authUri))
-    .then((_) => appHandle);
+    .then(() => appHandle);
 };
 
 /**
@@ -182,7 +181,7 @@ module.exports.connectAuthorised = (appHandle, authUri) => {
  * ).then((authUri) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
- **/
+ */
 module.exports.authoriseContainer = (appHandle, permissions) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
@@ -221,7 +220,7 @@ module.exports.authoriseContainer = (appHandle, permissions) => {
  *    }
  *   ]
  * )
- **/
+ */
 module.exports.authoriseShareMd = (appHandle, permissions) => {
   return new Promise((resolve, reject) => {
     getObj(appHandle)
@@ -254,7 +253,7 @@ module.exports.authoriseShareMd = (appHandle, permissions) => {
  * .then((data) => {
  *    console.log('Web page content retrieved: ', data.toString());
  * });
- **/
+ */
 module.exports.webFetch = (appHandle, url) => {
   return getObj(appHandle)
     .then((obj) => obj.app.webFetch(url));
@@ -271,7 +270,7 @@ module.exports.webFetch = (appHandle, url) => {
  * @example // Checking if app is registered:
  * window.safeApp.isRegistered(appHandle)
  *    .then((r) => console.log('Is app registered?: ', r));
- **/
+ */
 module.exports.isRegistered = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.auth.registered);
@@ -288,7 +287,7 @@ module.exports.isRegistered = (appHandle) => {
  * @example // Checking network connection state:
  * window.safeApp.networkState(appHandle)
  *    .then((s) => console.log('Current network state: ', s));
- **/
+ */
 module.exports.networkState = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.networkState);
@@ -308,7 +307,7 @@ module.exports.networkState = (appHandle) => {
  * @example // Checking if the app has 'Read' permission for the '_public' container:
  * window.safeApp.canAccessContainer(appHandle, '_public', ['Read'])
  *    .then((r) => console.log('Has the app `Read` permission for `_public` container?: ', r));
- **/
+ */
 module.exports.canAccessContainer = (appHandle, name, permissions) => {
   return getObj(appHandle)
     .then((obj) => obj.app.auth.canAccessContainer(name, permissions));
@@ -322,11 +321,11 @@ module.exports.canAccessContainer = (appHandle, name, permissions) => {
  * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<SAFEAppHandle>} same app handle when finished refreshing
- **/
+ */
 module.exports.refreshContainersPermissions = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.auth.refreshContainersPermissions())
-    .then((_) => appHandle);
+    .then(() => appHandle);
 };
 
 /**
@@ -337,7 +336,7 @@ module.exports.refreshContainersPermissions = (appHandle) => {
  * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<Array<ContainerPerms>>} list of containers permissions
- **/
+ */
 module.exports.getContainersPermissions = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.auth.getContainersPermissions());
@@ -355,7 +354,7 @@ module.exports.getContainersPermissions = (appHandle) => {
  * window.safeApp.getOwnContainer(appHandle)
  *    .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
  *    .then((v) => console.log('Own Container version: ', v));
- **/
+ */
 module.exports.getOwnContainer = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.auth.getOwnContainer()
@@ -369,7 +368,7 @@ module.exports.getOwnContainer = (appHandle) => {
  * @param {SAFEAppHandle} appHandle the app handle
  * @param {String} name name of the container, e.g. `_public`
  *
- * @returns {Promise<MutableDataHandle>} the MutableData handle the handle for the MutableData behind it
+ * @returns {Promise<MutableDataHandle>} handle for the MutableData behind it
  *
  * @example // Retrieve the '_public' container:
  * window.safeApp.canAccessContainer(appHandle, '_public', ['Read'])
@@ -381,7 +380,7 @@ module.exports.getOwnContainer = (appHandle) => {
  *             .then((v) => console.log('`_public` Container version: ', v));
  *       }
  *    });
- **/
+ */
 module.exports.getContainer = (appHandle, name) => {
   return getObj(appHandle)
     .then((obj) => obj.app.auth.getContainer(name)
@@ -393,7 +392,7 @@ module.exports.getContainer = (appHandle, name) => {
  * @name window.safeApp.reconnect
  *
  * @param {SAFEAppHandle} appHandle the app handle
- **/
+ */
 module.exports.reconnect = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.reconnect());
@@ -413,20 +412,11 @@ module.exports.reconnect = (appHandle) => {
  * @example // Retrieve the '_public' container:
  * window.safeApp.logPath(appHandle, 'mylogfile.log')
  *    .then((path) => console.log('Log path generated: ', path));
- **/
+ */
 module.exports.logPath = (appHandle, filename) => {
   return getObj(appHandle)
     .then((obj) => obj.app.logPath(filename));
 };
-
-/**
- * Free the SAFEApp instance from memory, as well as all other
- * objects created with it, e.g. ImmutableData and MutableData objects, etc.
- * @name window.safeApp.free
- *
- * @param {SAFEAppHandle} appHandle the app handle
- **/
-module.exports.free = (appHandle) => freeObj(appHandle);
 
 /**
  * @name SAFEAppHandle
@@ -435,7 +425,7 @@ module.exports.free = (appHandle) => freeObj(appHandle);
  * with the SAFE network.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ */
 
 /**
  * @name AppInfo
@@ -445,7 +435,7 @@ module.exports.free = (appHandle) => freeObj(appHandle);
  *        (e.g. 'net.maidsafe.examples.mail-app')
  * @param {String} name - human readable name of the app (e.g. "Mail App")
  * @param {String} vendor - human readable name of the vendor (e.g. "MaidSafe Ltd.")
- **/
+ */
 
 /**
  * @name AuthURI
@@ -455,4 +445,4 @@ module.exports.free = (appHandle) => freeObj(appHandle);
  * application to connect to the network wihout the need to get authorisation
  * from the Authenticator again. Although if the user decided to revoke the application
  * the auth URI shall be obtained again from the Authenticator.
- **/
+ */

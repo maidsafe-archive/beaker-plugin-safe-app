@@ -1,15 +1,14 @@
-const { genHandle, getObj, freeObj } = require('./helpers');
+const { genHandle, getObj } = require('./helpers');
 
 module.exports.manifest = {
   getPubEncKey: 'promise',
   getSecEncKey: 'promise',
-  decryptSealed: 'promise',
-  free: 'sync'
+  decryptSealed: 'promise'
 };
 
 /**
  * Get the Public Encryption Key instance of this key pair
- * @name window.safeCryptoKeyPair.getPubEncKey
+ * @name window.safeCryptoEncKeyPair.getPubEncKey
  *
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  *
@@ -17,7 +16,7 @@ module.exports.manifest = {
  *
  * @example // Getting the public encryption key from a key pair:
  * window.safeCrypto.generateEncKeyPair(appHandle)
- *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle))
+ *    .then((encKeyPairHandle) => window.safeCryptoEncKeyPair.getPubEncKey(encKeyPairHandle))
  *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
  *    .then((rawPk) => console.log('Public encryption key: ', rawPk.buffer.toString('hex')));
  */
@@ -28,7 +27,7 @@ module.exports.getPubEncKey = (keyPairHandle) => {
 
 /**
  * Get the Secrect Encryption Key instance of this key pair
- * @name window.safeCryptoKeyPair.getSecEncKey
+ * @name window.safeCryptoEncKeyPair.getSecEncKey
  *
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  *
@@ -36,7 +35,7 @@ module.exports.getPubEncKey = (keyPairHandle) => {
  *
  * @example // Getting the secret encryption key from a key pair:
  * window.safeCrypto.generateEncKeyPair(appHandle)
- *    .then((encKeyPairHandle) => window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle))
+ *    .then((encKeyPairHandle) => window.safeCryptoEncKeyPair.getSecEncKey(encKeyPairHandle))
  *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
  *    .then((rawSk) => console.log('Secret encryption key: ', rawSk.buffer.toString('hex')));
  */
@@ -47,7 +46,7 @@ module.exports.getSecEncKey = (keyPairHandle) => {
 
 /**
  * Decrypt the given ciphertext with a seal (buffer or string) using the private and public key
- * @name window.safeCryptoKeyPair.decryptSealed
+ * @name window.safeCryptoEncKeyPair.decryptSealed
  *
  * @param {KeyPairHandle} keyPairHandle the KeyPair handle
  * @param {(String|Buffer)} cipher the chiper text to decrypt
@@ -60,17 +59,9 @@ module.exports.decryptSealed = (keyPairHandle, cipher) => {
 };
 
 /**
- * Free the KeyPair instance from memory
- * @name window.safeCryptoKeyPair.free
- *
- * @param {KeyPairHandle} keyPairHandle the KeyPair handle
- **/
-module.exports.free = (keyPairHandle) => freeObj(keyPairHandle);
-
-/**
  * @name KeyPairHandle
  * @typedef {String} KeyPairHandle
  * @description Holds the reference to a KeyPair instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+*/

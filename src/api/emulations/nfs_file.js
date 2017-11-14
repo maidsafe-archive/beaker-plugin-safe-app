@@ -5,8 +5,7 @@ module.exports.manifest = {
   read: 'promise',
   write: 'promise',
   close: 'promise',
-  metadata: 'promise',
-  free: 'sync'
+  metadata: 'promise'
 };
 
 /**
@@ -91,14 +90,6 @@ module.exports.metadata = (fileHandle) => {
     }
   ))
 };
-
-/**
- * Free the NFS File instance from memory
- * @name window.safeNfsFile.free
- *
- * @param {FileHandle} fileHandle the File handle
- **/
-module.exports.free = (fileHandle) => freeObj(fileHandle);
 
 /**
  * @name FileHandle

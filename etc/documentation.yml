@@ -15,7 +15,6 @@ toc:
   - window.safeApp.getContainersPermissions
   - window.safeApp.getOwnContainer
   - window.safeApp.getContainer
-  - window.safeApp.free
   - name: Immutable Data
     description: The safeImmutableData API allows you to create and manipulate Immutable Data objects in the SAFE network
   - window.safeImmutableData.create
@@ -24,7 +23,6 @@ toc:
   - window.safeImmutableData.closeWriter
   - window.safeImmutableData.read
   - window.safeImmutableData.size
-  - window.safeImmutableData.free
   - name: Mutable Data
     description: The safeMutableData API allows you to create and manipulate Mutable Data objects in the SAFE network
   - window.safeMutableData.newRandomPrivate
@@ -32,7 +30,6 @@ toc:
   - window.safeMutableData.newPrivate
   - window.safeMutableData.newPublic
   - window.safeMutableData.newPermissions
-  - window.safeMutableData.newPermissionSet
   - window.safeMutableData.newMutation
   - window.safeMutableData.newEntries
   - window.safeMutableData.quickSetup
@@ -55,7 +52,6 @@ toc:
   - window.safeMutableData.serialise
   - window.safeMutableData.fromSerial
   - window.safeMutableData.emulateAs
-  - window.safeMutableData.free
   - name: Mutable Data Entries
     description: The safeMutableDataEntries API allows you to manipulate the entries of a Mutable Data object in the SAFE network
   - window.safeMutableDataEntries.len
@@ -63,36 +59,17 @@ toc:
   - window.safeMutableDataEntries.forEach
   - window.safeMutableDataEntries.insert
   - window.safeMutableDataEntries.mutate
-  - window.safeMutableDataEntries.free
-  - name: Mutable Data Keys
-    description: The safeMutableDataKeys API allows you to manipulate the keys of a Mutable Data object in the SAFE network
-  - window.safeMutableDataKeys.len
-  - window.safeMutableDataKeys.forEach
-  - window.safeMutableDataKeys.free
-  - name: Mutable Data Values
-    description: The safeMutableDataValues API allows you to manipulate the values of a Mutable Data object in the SAFE network
-  - window.safeMutableDataValues.len
-  - window.safeMutableDataValues.forEach
-  - window.safeMutableDataValues.free
   - name: Mutable Data Mutation
     description: The safeMutableDataMutation API allows you to manipulate and apply Mutations on a Mutable Data object in the SAFE network
   - window.safeMutableDataMutation.insert
   - window.safeMutableDataMutation.remove
   - window.safeMutableDataMutation.update
-  - window.safeMutableDataMutation.free
   - name: Mutable Data Permissions
     description: The safeMutableDataPermissions API allows you to manipulate the Permissions of a Mutable Data object in the SAFE network
   - window.safeMutableDataPermissions.len
   - window.safeMutableDataPermissions.getPermissionsSet
   - window.safeMutableDataPermissions.insertPermissionsSet
-  - window.safeMutableDataPermissions.forEach
-  - window.safeMutableDataPermissions.free
-  - name: Mutable Data Permissions Set
-    description: The safeMutableDataPermissionsSet API allows you to manipulate the Permissions Set of a Mutable Data object in the SAFE network
-  - window.safeMutableDataPermissionsSet.setAllow
-  - window.safeMutableDataPermissionsSet.setDeny
-  - window.safeMutableDataPermissionsSet.clear
-  - window.safeMutableDataPermissionsSet.free
+  - window.safeMutableDataPermissions.listPermissionSets
   - name: NFS Emulation
     description: The safeNfs API provides you with a NFS emulation layer rapping a MutableData object
   - window.safeNfs.create
@@ -101,42 +78,43 @@ toc:
   - window.safeNfs.update
   - window.safeNfs.delete
   - window.safeNfs.open
-  - window.safeNfs.free
   - window.safeNfsFile.size
   - window.safeNfsFile.read
   - window.safeNfsFile.write
   - window.safeNfsFile.close
   - window.safeNfsFile.metadata
-  - window.safeNfsFile.free
   - name: Cipher Opt
     description: The safeCipherOpt API provides you with functions to create different cipher options
   - window.safeCipherOpt.newPlainText
   - window.safeCipherOpt.newSymmetric
   - window.safeCipherOpt.newAsymmetric
-  - window.safeCipherOpt.free
   - name: Crypto
     description: The safeCrypto API functions provide you with handy cryptographic functions
   - window.safeCrypto.sha3Hash
   - window.safeCrypto.getAppPubSignKey
   - window.safeCrypto.getAppPubEncKey
   - window.safeCrypto.generateEncKeyPair
-  - window.safeCrypto.getSignKeyFromRaw
-  - window.safeCrypto.pubEncKeyKeyFromRaw
-  - window.safeCrypto.secEncKeyKeyFromRaw
+  - window.safeCrypto.generateSignKeyPair
+  - window.safeCrypto.pubSignKeyFromRaw
+  - window.safeCrypto.pubEncKeyFromRaw
+  - window.safeCrypto.secEncKeyFromRaw
   - window.safeCrypto.generateEncKeyPairFromRaw
-  - window.safeCryptoKeyPair.getPubEncKey
-  - window.safeCryptoKeyPair.getSecEncKey
-  - window.safeCryptoKeyPair.decryptSealed
-  - window.safeCryptoKeyPair.free
+  - window.safeCrypto.generateSignKeyPairFromRaw
+  - window.safeCrypto.generateNonce
+  - window.safeCryptoEncKeyPair.getPubEncKey
+  - window.safeCryptoEncKeyPair.getSecEncKey
+  - window.safeCryptoEncKeyPair.decryptSealed
   - window.safeCryptoPubEncKey.getRaw
   - window.safeCryptoPubEncKey.encryptSealed
   - window.safeCryptoPubEncKey.encrypt
-  - window.safeCryptoPubEncKey.free
   - window.safeCryptoSecEncKey.getRaw
   - window.safeCryptoSecEncKey.decrypt
-  - window.safeCryptoSecEncKey.free
-  - window.safeCryptoSignKey.getRaw
-  - window.safeCryptoSignKey.free
+  - window.safeCryptoSignKeyPair.getPubSignKey
+  - window.safeCryptoSignKeyPair.getSecSignKey
+  - window.safeCryptoPubSignKey.getRaw
+  - window.safeCryptoPubSignKey.verify
+  - window.safeCryptoSecSignKey.getRaw
+  - window.safeCryptoSecSignKey.sign
   - name: Types
   - SAFEAppHandle
   - AuthURI
@@ -145,16 +123,15 @@ toc:
   - WriterHandle
   - ReaderHandle
   - EntriesHandle
-  - KeysHandle
-  - ValuesHandle
   - MutationHandle
   - PermissionsHandle
-  - PermissionsSetHandle
   - NFSHandle
   - FileHandle
   - FileMetadata
   - CipherOptHandle
-  - KeyPairHandle
+  - EncKeyPairHandle
   - PubEncKeyHandle
   - SecEncKeyHandle
-  - SignKeyHandle
+  - SignKeyPairHandle
+  - PubSignKeyHandle
+  - SecSignKeyHandle

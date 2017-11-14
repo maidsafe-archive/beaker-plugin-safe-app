@@ -6,8 +6,7 @@ module.exports.manifest = {
   insert: 'promise',
   update: 'promise',
   delete: 'promise',
-  open: 'promise',
-  free: 'sync'
+  open: 'promise'
 };
 
 /**
@@ -129,14 +128,6 @@ module.exports.open = (nfsHandle, fileHandle, openMode) => {
       })
     );
 };
-
-/**
- * Free the NFS emulation instance from memory
- * @name window.safeNfs.free
- *
- * @param {NFSHandle} nfsHandle the NFS emulation handle
- **/
-module.exports.free = (nfsHandle) => freeObj(nfsHandle);
 
 /**
  * @name NFSHandle
