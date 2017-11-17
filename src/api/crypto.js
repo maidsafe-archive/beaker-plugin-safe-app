@@ -118,9 +118,9 @@ module.exports.generateSignKeyPair = (appHandle) => {
  *
  * @example // Interpreting a public sign key from a raw string:
  * window.safeCrypto.getAppPubSignKey(appHandle)
- *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
+ *    .then((pubSignKeyHandle) => window.safeCryptoSignKey.getRaw(pubSignKeyHandle))
  *    .then((raw) => window.safeCrypto.pubSignKeyFromRaw(appHandle, raw))
- *    .then((signKeyHandle) => window.safeCryptoSignKey.getRaw(signKeyHandle))
+ *    .then((pubSignKeyHandle) => window.safeCryptoSignKey.getRaw(pubSignKeyHandle))
  *    .then((rawSignKey) => console.log('Sign key: ', rawSignKey.buffer.toString('hex')));
 */
 module.exports.pubSignKeyFromRaw = (appHandle, raw) => {
@@ -139,10 +139,11 @@ module.exports.pubSignKeyFromRaw = (appHandle, raw) => {
  * @returns {Promise<SecSignKeyHandle>}
  *
  * @example // Interpret the secret sign key from raw buffer
- * const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
- * let secretSignKeyHandle = await window.safeaCryptoSignKeyPair.getSecSignKey(signKeyPairHandle);
- * const rawSecretSignKey = await window.safeCryptoSecSignKey.getRaw(secretSignKeyHandle);
- * secretSignKeyHandle = await window.safeCrypto.secSignKeyFromRaw(appHandle, rawSecretKey);
+ * window.safeCrypto.generateSignKeyPair(appHandle)
+ *   .then((signKeyPairHandle) => window.safeCryptoSignKeyPair.getSecSignKey(signKeyPairHandle))
+ *   .then((secSignKeyHandle) => window.safeCryptoSecSignKey.getRaw(secSignKeyHandle))
+ *   .then((rawSecSignKey) => window.safeCrypto.secSignKeyFromRaw(appHandle, rawSecSignKey))
+ *   .then((interpretedSecSignKeyHandle) => console.log('Interpreted secret sign key handle: ', interpretedSecSignKeyHandle));
 */
 module.exports.secSignKeyFromRaw = (appHandle, raw) => {
   return getObj(appHandle)
