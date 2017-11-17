@@ -1430,16 +1430,6 @@
 
   <div class='pre p1 fill-light mt0'>window.safeApp.initialise</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -1631,16 +1621,6 @@ with the given permissions and optional parameters.</p>
 
   <div class='pre p1 fill-light mt0'>window.safeApp.authorise</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -1700,24 +1680,12 @@ our own container to be created for the app.
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#authuri">AuthURI</a>></code>:
         auth granted 
 <code>safe-://</code>
 -URI
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
@@ -1733,18 +1701,8 @@ our own container to be created for the app.
 ).then(<span class="hljs-function">(<span class="hljs-params">authUri</span>) =&gt;</span> {
    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'App was authorised and auth URI received: '</span>, authUri);
 });</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
@@ -1772,16 +1730,6 @@ second value.</p>
 
   <div class='pre p1 fill-light mt0'>window.safeApp.connectAuthorised</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -1804,25 +1752,13 @@ second value.</p>
         </div>
       
     </div>
-  
 
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#safeapphandle">SAFEAppHandle</a>></code>:
         same app handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Example of creating a registered session:</span>
 <span class="hljs-built_in">window</span>.safeApp.authorise(
@@ -1838,18 +1774,8 @@ second value.</p>
    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'The app was authorised &amp; a session was created with the network'</span>);
 });</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
 
-          
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
@@ -1872,16 +1798,6 @@ with further continer permissions.</p>
 
 
   <div class='pre p1 fill-light mt0'>window.safeApp.authoriseContainer</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -1917,15 +1833,7 @@ with further continer permissions.</p>
 <code>safe-://</code>
 -URI
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Requesting further container authorisation:</span>
 <span class="hljs-built_in">window</span>.safeApp.authoriseContainer(
@@ -1935,17 +1843,7 @@ with further continer permissions.</p>
    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'App was authorised and auth URI received: '</span>, authUri);
 });</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
@@ -1967,18 +1865,7 @@ with further continer permissions.</p>
   <p>Request the Authenticator (and user) to authorise this application
 with specific mutation permissions for a MutableData.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.authoriseShareMd</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2003,26 +1890,13 @@ with specific mutation permissions for a MutableData.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#authuri">AuthURI</a>></code>:
         auth granted 
 <code>safe-://</code>
 -URI
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// example of requesting permissions for a couple of MutableData's:</span>
 <span class="hljs-built_in">window</span>.safeApp.authoriseShareMd(
@@ -2039,27 +1913,15 @@ with specific mutation permissions for a MutableData.</p>
   ]
 )</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
     <h3 class='fl m0' id='windowsafeappwebfetch'>
       window.safeApp.webFetch
     </h3>
-    
     
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L258-L261'>
       <span>src/api/app.js</span>
@@ -2071,18 +1933,7 @@ with specific mutation permissions for a MutableData.</p>
   <p>Lookup a given <code>safe://</code>-URL in accordance with the
 convention and fetch the requested object.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.webFetch</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2106,25 +1957,12 @@ convention and fetch the requested object.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;File></code>:
         the file object found for that URL
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving a web page:</span>
 <span class="hljs-built_in">window</span>.safeApp.webFetch(
@@ -2134,21 +1972,10 @@ convention and fetch the requested object.</p>
 .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Web page content retrieved: '</span>, data.toString());
 });</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2156,28 +1983,15 @@ convention and fetch the requested object.</p>
       window.safeApp.isRegistered
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L275-L278'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
-  
 
   <p>Whether or not this is a registered/authenticated session.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.isRegistered</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2192,44 +2006,20 @@ convention and fetch the requested object.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
         true if this is an authenticated session
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Checking if app is registered:</span>
 <span class="hljs-built_in">window</span>.safeApp.isRegistered(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Is app registered?: '</span>, r));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2243,23 +2033,11 @@ convention and fetch the requested object.</p>
       </a>
     
   </div>
-  
 
   <p>Current network connection state, e.g. <code>Connected</code> or <code>Disconnected</code>.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.networkState</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
+    
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -2273,44 +2051,20 @@ convention and fetch the requested object.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
         network state
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Checking network connection state:</span>
 <span class="hljs-built_in">window</span>.safeApp.networkState(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">s</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Current network state: '</span>, s));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2318,29 +2072,16 @@ convention and fetch the requested object.</p>
       window.safeApp.canAccessContainer
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L312-L315'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
-  
 
   <p>Whether or not this session has specifc permission access of a given
 container.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.canAccessContainer</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2375,44 +2116,20 @@ container.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>></code>:
         true if this app can access the container with given permissions
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Checking if the app has 'Read' permission for the '_public' container:</span>
 <span class="hljs-built_in">window</span>.safeApp.canAccessContainer(appHandle, <span class="hljs-string">'_public'</span>, [<span class="hljs-string">'Read'</span>])
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Has the app `Read` permission for `_public` container?: '</span>, r));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2420,29 +2137,16 @@ container.</p>
       window.safeApp.refreshContainersPermissions
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L326-L330'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
   
-
   <p>Refresh permissions for accessible containers from the network. Useful when
 you just connected or received a response from the authenticator.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.refreshContainersPermissions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2458,35 +2162,13 @@ you just connected or received a response from the authenticator.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#safeapphandle">SAFEAppHandle</a>></code>:
         same app handle when finished refreshing
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2494,29 +2176,16 @@ you just connected or received a response from the authenticator.</p>
       window.safeApp.getContainersPermissions
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L341-L344'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
-  
 
   <p>Get the names of all containers found and the app's granted
 permissions for each of them.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.getContainersPermissions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2532,35 +2201,13 @@ permissions for each of them.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;ContainerPerms>></code>:
         list of containers permissions
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2568,28 +2215,15 @@ permissions for each of them.</p>
       window.safeApp.getOwnContainer
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L359-L363'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
-  
 
   <p>Get the MutableData for the apps own container generated by Authenticator</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.getOwnContainer</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2604,45 +2238,21 @@ permissions for each of them.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the handle for the MutableData behind it
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieve own container:</span>
 <span class="hljs-built_in">window</span>.safeApp.getOwnContainer(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getVersion(mdHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Own Container version: '</span>, v));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
 
-          
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2650,28 +2260,15 @@ permissions for each of them.</p>
       window.safeApp.getContainer
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L385-L389'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
-  
 
   <p>Lookup and return the information necessary to access a container.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.getContainer</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -2696,26 +2293,13 @@ permissions for each of them.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the MutableData handle the handle for the MutableData behind it
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
-      
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieve the '_public' container:</span>
 <span class="hljs-built_in">window</span>.safeApp.canAccessContainer(appHandle, <span class="hljs-string">'_public'</span>, [<span class="hljs-string">'Read'</span>])
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> {
@@ -2726,102 +2310,21 @@ permissions for each of them.</p>
             .then(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'`_public` Container version: '</span>, v));
       }
    });</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafeappfree'>
-      window.safeApp.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L429-L429'>
-      <span>src/api/app.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the SAFEApp instance from memory, as well as all other
-objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeApp.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>appHandle</span> <code class='quiet'>(<a href="#safeapphandle">SAFEAppHandle</a>)</code>
-	    the app handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
   <h2 id='immutable-data' class='mt0'>
     Immutable Data
   </h2>
-
   
     <p>The safeImmutableData API allows you to create and manipulate Immutable Data objects in the SAFE network</p>
-
   
 </section>
 </div>
-          
         
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -2829,74 +2332,20 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
       window.safeImmutableData.create
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/immutable_data.js#L25-L29'>
       <span>src/api/immutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Create a new ImmutableData Writer</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeImmutableData.create</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>appHandle</span> <code class='quiet'>(<a href="#safeapphandle">SAFEAppHandle</a>)</code>
-	    the app handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#writerhandle">WriterHandle</a>></code>:
-        the ImmutableData Writer handle
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Creating a new ImmutableData writer:</span>
-<span class="hljs-built_in">window</span>.safeImmutableData.create(appHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">idWriterHandle</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ImmutableData writer handle: '</span>, idWriterHandle));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
+        <div class='space-bottom0'></section>
 
           
         
@@ -2923,16 +2372,6 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
 
   <div class='pre p1 fill-light mt0'>window.safeImmutableData.fetch</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -2955,25 +2394,12 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#readerhandle">ReaderHandle</a>></code>:
         the ImmutableData Reader handle
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Fetch an exisiting ImmutableData from the network:</span>
 <span class="hljs-built_in">window</span>.safeImmutableData.create(appHandle)
@@ -2982,21 +2408,10 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
    )
    .then(<span class="hljs-function">(<span class="hljs-params">addr</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeImmutableData.fetch(appHandle, addr))
    .then(<span class="hljs-function">(<span class="hljs-params">idReaderHandle</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ImmutableData reader handle: '</span>, idReaderHandle));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
 
-          
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3010,22 +2425,10 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
       </a>
     
   </div>
-  
 
   <p>Append the given data to an ImmutableData.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeImmutableData.write</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3049,25 +2452,12 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves when finished appending
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Write data into an ImmutableData:</span>
 <span class="hljs-built_in">window</span>.safeImmutableData.create(appHandle)
@@ -3077,21 +2467,10 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
       )
       .then(<span class="hljs-function">(<span class="hljs-params">addr</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ImmutableData written in the network at: '</span>, addr))
    );</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3099,13 +2478,11 @@ objects created with it, e.g. ImmutableData and MutableData objects, etc.</p>
       window.safeImmutableData.closeWriter
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/immutable_data.js#L97-L106'>
       <span>src/api/immutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Close and write the ImmutableData to the network.
 Note this operation will free the ImmutableData Writer from the memory
@@ -3115,16 +2492,6 @@ into the ImmutableData are required.</p>
 
 
   <div class='pre p1 fill-light mt0'>window.safeImmutableData.closeWriter</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3148,25 +2515,12 @@ into the ImmutableData are required.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></code>:
         the address to the data once written to the network
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Creating an ImmutableData and closing its writer to commit it to the network:</span>
 <span class="hljs-built_in">window</span>.safeImmutableData.create(appHandle)
@@ -3174,21 +2528,10 @@ into the ImmutableData are required.</p>
      .then(<span class="hljs-function">(<span class="hljs-params">cipherOptHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
      .then(<span class="hljs-function">(<span class="hljs-params">addr</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ImmutableData was stored at address: '</span>, addr))
    );</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3196,28 +2539,15 @@ into the ImmutableData are required.</p>
       window.safeImmutableData.read
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/immutable_data.js#L130-L133'>
       <span>src/api/immutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Read the given amount of bytes from the network</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeImmutableData.read</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3275,25 +2605,12 @@ into the ImmutableData are required.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></code>:
         the data read
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Read data from an ImmutableData:</span>
 <span class="hljs-built_in">window</span>.safeImmutableData.create(appHandle)
@@ -3305,21 +2622,10 @@ into the ImmutableData are required.</p>
    .then(<span class="hljs-function">(<span class="hljs-params">addr</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeImmutableData.fetch(appHandle, addr))
    .then(<span class="hljs-function">(<span class="hljs-params">idReaderHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeImmutableData.read(idReaderHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ImmutableData data read: '</span>, data.toString()));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3327,28 +2633,15 @@ into the ImmutableData are required.</p>
       window.safeImmutableData.size
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/immutable_data.js#L154-L157'>
       <span>src/api/immutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>The size of the mutable data on the network</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeImmutableData.size</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3363,25 +2656,12 @@ into the ImmutableData are required.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>></code>:
         length in bytes
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Get the size of an ImmutableData:</span>
 <span class="hljs-built_in">window</span>.safeImmutableData.create(appHandle)
@@ -3393,101 +2673,21 @@ into the ImmutableData are required.</p>
    .then(<span class="hljs-function">(<span class="hljs-params">addr</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeImmutableData.fetch(appHandle, addr))
    .then(<span class="hljs-function">(<span class="hljs-params">idReaderHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeImmutableData.size(idReaderHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">size</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Size of the ImmutableData: '</span>, size));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafeimmutabledatafree'>
-      window.safeImmutableData.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/immutable_data.js#L165-L165'>
-      <span>src/api/immutable_data.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the ImmutableData Reader instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeImmutableData.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>readerHandle</span> <code class='quiet'>(<a href="#readerhandle">ReaderHandle</a>)</code>
-	    the ImmutableData Reader handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
   <h2 id='mutable-data' class='mt0'>
     Mutable Data
   </h2>
-
   
     <p>The safeMutableData API allows you to create and manipulate Mutable Data objects in the SAFE network</p>
-
   
 </section>
 </div>
           
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3495,29 +2695,16 @@ into the ImmutableData are required.</p>
       window.safeMutableData.newRandomPrivate
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L50-L54'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Create a new mutuable data at a random address with private
 access.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.newRandomPrivate</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3541,22 +2728,10 @@ access.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the MutableData handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
@@ -3565,21 +2740,10 @@ access.</p>
 <span class="hljs-built_in">window</span>.safeMutableData.newRandomPrivate(appHandle, <span class="hljs-number">15001</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getNameAndTag(mdHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Private MutableData created with tag: '</span>, r.tag, <span class="hljs-string">' and name: '</span>, r.name.buffer));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3587,29 +2751,16 @@ access.</p>
       window.safeMutableData.newRandomPublic
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L71-L75'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Create a new mutuable data at a random address with public
 access.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.newRandomPublic</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3633,45 +2784,21 @@ access.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the MutableData handle
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Create a PublicMutable Data with random address:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.newRandomPublic(appHandle, <span class="hljs-number">15001</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getNameAndTag(mdHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Public MutableData created with tag: '</span>, r.tag, <span class="hljs-string">' and name: '</span>, r.name.buffer));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3679,31 +2806,18 @@ access.</p>
       window.safeMutableData.newPrivate
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L100-L104'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Initiate a mutuable data at the given address with private
 access.
 Note that the nonce can be generated with window.safeCrypto.generateNonce()
 function.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.newPrivate</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3754,25 +2868,12 @@ function.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the MutableData handle
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Create a PrivateMutable Data with specific address:</span>
 <span class="hljs-keyword">let</span> name = <span class="hljs-string">'name-private-0101010101010101010'</span>;
@@ -3781,21 +2882,10 @@ function.</p>
    .then(<span class="hljs-function">(<span class="hljs-params">nonce</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.newPrivate(appHandle, name, <span class="hljs-number">15001</span>, secKey, nonce))
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getNameAndTag(mdHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Private MutableData created with tag: '</span>, r.tag, <span class="hljs-string">' and name: '</span>, r.name.buffer));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3803,29 +2893,16 @@ function.</p>
       window.safeMutableData.newPublic
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L122-L126'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Initiate a mutuable data at the given address with public
 access.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.newPublic</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3858,45 +2935,21 @@ access.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
-    
+      
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the MutableData handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Create a Public MutableData with specific address:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.newPublic(appHandle, <span class="hljs-string">'name-private-0101010101010101010'</span>, <span class="hljs-number">15001</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getNameAndTag(mdHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Public MutableData created with tag: '</span>, r.tag, <span class="hljs-string">' and name: '</span>, r.name.buffer));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -3904,28 +2957,15 @@ access.</p>
       window.safeMutableData.newPermissions
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L140-L144'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Create a new Permissions object.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.newPermissions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -3940,123 +2980,19 @@ access.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#permissionshandle">PermissionsHandle</a>></code>:
         the Permissions handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-built_in">window</span>.safeMutableData.newPermissions(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">permsHandle</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Permissions created but not committed'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatanewpermissionset'>
-      window.safeMutableData.newPermissionSet
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L158-L162'>
-      <span>src/api/mutable_data.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Create a new PermissionsSet object.</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableData.newPermissionSet</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>appHandle</span> <code class='quiet'>(<a href="#safeapphandle">SAFEAppHandle</a>)</code>
-	    the app handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#permissionssethandle">PermissionsSetHandle</a>></code>:
-        the PermissionsSet handle
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-built_in">window</span>.safeMutableData.newPermissionSet(appHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">permSetHandle</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New PermissionsSet created but not committed'</span>));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4064,28 +3000,15 @@ access.</p>
       window.safeMutableData.newMutation
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L176-L180'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Create a new Mutation object.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.newMutation</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4100,43 +3023,19 @@ access.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutationhandle">MutationHandle</a>></code>:
         the Mutation handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-built_in">window</span>.safeMutableData.newMutation(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">mutationHandle</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Mutation created but not committed'</span>));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4144,28 +3043,15 @@ access.</p>
       window.safeMutableData.newEntries
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L194-L198'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Create a new Entries object.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.newEntries</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4180,43 +3066,19 @@ access.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#entrieshandle">EntriesHandle</a>></code>:
         the Entries handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-built_in">window</span>.safeMutableData.newEntries(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">entriesHandle</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New Entries container created but not committed'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4224,14 +3086,12 @@ access.</p>
       window.safeMutableData.quickSetup
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L225-L229'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Set up a newly (not yet committed/created) MutableData with
 the app having full-access permissions (and no other).
 The metadata is particularly used by the Authenticator when another
@@ -4241,16 +3101,6 @@ request based on this information.</p>
 
 
   <div class='pre p1 fill-light mt0'>window.safeMutableData.quickSetup</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4292,25 +3142,12 @@ request based on this information.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the same MutableData handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Create a MutableData and set up its permissions automatically:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.newPublic(appHandle, <span class="hljs-string">'name-public-01010101010101010101'</span>, <span class="hljs-number">15001</span>)
@@ -4318,21 +3155,10 @@ request based on this information.</p>
                                                          <span class="hljs-string">'My MutableData'</span>,
                                                          <span class="hljs-string">'To store my app\'s data'</span>))
    .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New MutableData created and setup'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4340,14 +3166,12 @@ request based on this information.</p>
       window.safeMutableData.setMetadata
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L254-L257'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Set the metadata information in the MutableData. Note this can be used
 only if the MutableData was already committed to the network, .i.e either
 with <code>put</code>, with <code>quickSetup</code>, or if it is an already existing MutableData
@@ -4357,18 +3181,7 @@ application has requested mutation permissions on this MutableData,
 displaying this information to the user, so the user can make a better
 decision to either allow or deny such a request based on it.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.setMetadata</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4401,46 +3214,22 @@ decision to either allow or deny such a request based on it.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         it resolves when finished
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Set the metadata to a MutableData:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.newPublic(appHandle, <span class="hljs-string">'name-public-01010101010101010101'</span>, <span class="hljs-number">15001</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">mdHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.setMetadata(mdHandle,
                                                          <span class="hljs-string">'My MutableData'</span>,
                                                          <span class="hljs-string">'To store my app\'s data'</span>))</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4448,30 +3237,17 @@ decision to either allow or deny such a request based on it.</p>
       window.safeMutableData.encryptKey
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L274-L277'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Encrypt the entry key provided as parameter with the encryption key
 contained in a Private MutableData. If the MutableData is Public, the same
 (and unencrypted) value is returned.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.encryptKey</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4495,44 +3271,20 @@ contained in a Private MutableData. If the MutableData is Public, the same
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;Key></code>:
         the encrypted entry key
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Encrypt an entry's key using Private MutableData's encryption key:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.encryptKey(mdHandle, <span class="hljs-string">'key1'</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">encryptedKey</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Encrypted key: '</span>, encryptedKey));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4540,30 +3292,17 @@ contained in a Private MutableData. If the MutableData is Public, the same
       window.safeMutableData.encryptValue
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L294-L297'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Encrypt the entry value provided as parameter with the encryption key
 contained in a Private MutableData. If the MutableData is Public, the same
 (and unencrypted) value is returned.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.encryptValue</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4587,44 +3326,20 @@ contained in a Private MutableData. If the MutableData is Public, the same
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;Value></code>:
         the encrypted entry value
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Encrypt an entry's value using Private MutableData's encryption key:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.encryptValue(mdHandle, <span class="hljs-string">'value1'</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">encryptedValue</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Encrypted value: '</span>, encryptedValue));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4632,30 +3347,17 @@ contained in a Private MutableData. If the MutableData is Public, the same
       window.safeMutableData.decrypt
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L320-L323'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Decrypt the entry key/value provided as parameter with the encryption key
 contained in a Private MutableData.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.decrypt</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
+    
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -4679,24 +3381,11 @@ contained in a Private MutableData.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;Value></code>:
         the decrypted value
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Encrypt and decrypt an entry's key/value using Private MutableData's encryption key:</span>
 <span class="hljs-keyword">let</span> encryptedKey, encryptedValue;
@@ -4708,51 +3397,27 @@ contained in a Private MutableData.</p>
    .then(<span class="hljs-function">(<span class="hljs-params">decryptedKey</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Decrypted key: '</span>, decryptedKey.toString()))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.decrypt(mdHandle, encryptedValue))
    .then(<span class="hljs-function">(<span class="hljs-params">decryptedValue</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Decrypted value: '</span>, decryptedValue.toString()));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
 
-          
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
   <div class='clearfix'>
     
     <h3 class='fl m0' id='windowsafemutabledatagetnameandtag'>
       window.safeMutableData.getNameAndTag
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L341-L344'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Look up the name and tag of the MutableData as required to look it
 up on the network.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.getNameAndTag</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4767,47 +3432,23 @@ up on the network.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;NameAndTag></code>:
         the name and tag values
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
-      
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieveing the name and tag of a MutableData:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getNameAndTag(mdHandle)
  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Name: '</span>, res.name.buffer);
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tag: '</span>, res.tag);
  });</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4815,28 +3456,15 @@ up on the network.</p>
       window.safeMutableData.getVersion
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L358-L361'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Look up the MutableData object version on the network</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.getVersion</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4852,43 +3480,19 @@ up on the network.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>></code>:
         current version
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieveing the version of a MutableData:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getVersion(mdHandle)
  .then(<span class="hljs-function">(<span class="hljs-params">version</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'MutableData current version: '</span>, version));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4896,28 +3500,15 @@ up on the network.</p>
       window.safeMutableData.get
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L382-L385'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Look up the value of a specific key</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.get</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -4942,24 +3533,11 @@ up on the network.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;ValueVersion></code>:
         the value at the current version
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieveing the value of an entry:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.newPublic(appHandle, <span class="hljs-number">15001</span>)
@@ -4970,21 +3548,10 @@ up on the network.</p>
          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Version: '</span>, value.version);
       })
    );</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -4992,28 +3559,13 @@ up on the network.</p>
       window.safeMutableData.put
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L417-L423'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
-  <p>Create/commit this MutableData on the network.</p>
-
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.put</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5046,25 +3598,12 @@ up on the network.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         it resolves when finished creating it
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Committing a MutableData to the network:</span>
 <span class="hljs-keyword">let</span> mdHandle, entriesHandle, pmSetHandle, appSignKeyHandle, permissionsHandle;
@@ -5085,21 +3624,10 @@ up on the network.</p>
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished preparation'</span>))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.put(mdHandle, permissionsHandle, entriesHandle))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished creating and committing MutableData to the network'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -5107,28 +3635,15 @@ up on the network.</p>
       window.safeMutableData.getEntries
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L438-L442'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Get a handle to the entries associated with this MutableData</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.getEntries</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5143,209 +3658,21 @@ up on the network.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#entrieshandle">EntriesHandle</a>></code>:
         the Entries handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the entries:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getEntries(mdHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">entriesHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataEntries.len(entriesHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of entries in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatagetkeys'>
-      window.safeMutableData.getKeys
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L457-L461'>
-      <span>src/api/mutable_data.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Get a handle to the keys associated with this MutableData</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableData.getKeys</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>mdHandle</span> <code class='quiet'>(<a href="#mutabledatahandle">MutableDataHandle</a>)</code>
-	    the MutableData handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#keyshandle">KeysHandle</a>></code>:
-        the Keys handle
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the keys:</span>
-<span class="hljs-built_in">window</span>.safeMutableData.getKeys(mdHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">keysHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataKeys.len(keysHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of keys in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatagetvalues'>
-      window.safeMutableData.getValues
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L476-L480'>
-      <span>src/api/mutable_data.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Get a handle to the values associated with this MutableData</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableData.getValues</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>mdHandle</span> <code class='quiet'>(<a href="#mutabledatahandle">MutableDataHandle</a>)</code>
-	    the MutableData handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#valueshandle">ValuesHandle</a>></code>:
-        the Values handle
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the values:</span>
-<span class="hljs-built_in">window</span>.safeMutableData.getValues(mdHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">valuesHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataValues.len(valuesHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of values in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -5353,28 +3680,15 @@ up on the network.</p>
       window.safeMutableData.getPermissions
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L495-L499'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Get a handle to the permissions associated with this MutableData</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.getPermissions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5389,45 +3703,21 @@ up on the network.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#permissionshandle">PermissionsHandle</a>></code>:
         the Permissions handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the permissions:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getPermissions(mdHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">permsHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataPermissions.len(permsHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of permissions in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -5435,31 +3725,18 @@ up on the network.</p>
       window.safeMutableData.getUserPermissions
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L517-L523'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Get a handle to the permissions associated with this MutbleData for
 a specifc key.
 If the SignKeyHandle provided is <code>null</code> it will be then
 assummed as <code>USER_ANYONE</code>.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.getUserPermissions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5484,43 +3761,19 @@ assummed as <code>USER_ANYONE</code>.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#permissionssethandle">PermissionsSetHandle</a>></code>:
         the PermissionsSet handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the permissions set associated to a sign key:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getUserPermissions(mdHandle, signKey)
    .then(<span class="hljs-function">(<span class="hljs-params">permSetHandle</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'PermissionsSet retrieved'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -5535,24 +3788,12 @@ assummed as <code>USER_ANYONE</code>.</p>
     
   </div>
   
-
   <p>Delete the permissions of a specifc key. Directly commits to the network.
 Requires <code>'ManagePermissions'</code> permission for the app.
 If the SignKeyHandle provided is <code>null</code> it will be then
 assummed as <code>USER_ANYONE</code>.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.delUserPermissions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5587,44 +3828,20 @@ actually asking for the right state
       
     </div>
   
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
+     <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves when finished
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Remove the permissions set associated to a sign key:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getVersion(mdHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">version</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.delUserPermissions(mdHandle, signKey, version + <span class="hljs-number">1</span>))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'PermissionsSet removed for the sign key provided'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -5632,32 +3849,19 @@ actually asking for the right state
       window.safeMutableData.setUserPermissions
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L577-L584'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Set the permissions of a specifc key. Directly commits to the network.
 Requires <code>'ManagePermissions'</code> permission for the app.
 If the SignKeyHandle provided is <code>null</code> the permission set will be then
 set for <code>USER_ANYONE</code>.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.setUserPermissions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
+    
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -5700,24 +3904,11 @@ actually asking for the right state
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves when finished
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Setting a new permission into a MutableData:</span>
 <span class="hljs-keyword">let</span> pmSetHandle, appSignKeyHandle;
@@ -5730,20 +3921,9 @@ actually asking for the right state
    .then(<span class="hljs-function">(<span class="hljs-params">version</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + <span class="hljs-number">1</span>))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished setting user permission'</span>));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
 
-          
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -5751,28 +3931,15 @@ actually asking for the right state
       window.safeMutableData.applyEntriesMutation
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L603-L608'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Commit the mutations transaction to the network</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.applyEntriesMutation</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5797,24 +3964,11 @@ actually asking for the right state
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves when finished
 
-      
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Apply an insert mutation to a MutableData:</span>
 <span class="hljs-keyword">let</span> mutationHandle;
@@ -5825,26 +3979,15 @@ actually asking for the right state
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New entry was inserted in the MutableData and committed to the network'</span>));</pre>
     
   
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
   <div class='clearfix'>
     
     <h3 class='fl m0' id='windowsafemutabledataserialise'>
       window.safeMutableData.serialise
     </h3>
-    
     
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L622-L625'>
       <span>src/api/mutable_data.js</span>
@@ -5852,21 +3995,9 @@ actually asking for the right state
     
   </div>
   
-
   <p>Serialise the current MutableData</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.serialise</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5882,43 +4013,19 @@ actually asking for the right state
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></code>:
         the serialised MutableData
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Get the serialised version of a MutableData:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.serialise(mdHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">serial</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'MutbleData serialised version retrieved: '</span>, serial));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -5926,28 +4033,15 @@ actually asking for the right state
       window.safeMutableData.fromSerial
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L645-L649'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
-  
 
   <p>Deserialize the MutableData</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableData.fromSerial</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -5971,22 +4065,10 @@ actually asking for the right state
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutabledatahandle">MutableDataHandle</a>></code>:
         the MutableData handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
@@ -5999,21 +4081,10 @@ actually asking for the right state
          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Value: '</span>, value.buf.toString());
          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Version: '</span>, value.version);
       });</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -6021,28 +4092,15 @@ actually asking for the right state
       window.safeMutableData.emulateAs
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L665-L668'>
       <span>src/api/mutable_data.js</span>
       </a>
     
   </div>
   
-
   <p>Wrap this MutableData into a known abstraction. Currently known: <code>NFS</code></p>
 
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableData.emulateAs</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
+<div class='pre p1 fill-light mt0'>window.safeMutableData.emulateAs</div>
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -6066,125 +4124,32 @@ actually asking for the right state
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="#nfshandle">NFSHandle</a></code>:
         the NFS emulation you are asking for
-
       
-    
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Access a MutableData using NFS emulation:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.emulateAs(mdHandle, <span class="hljs-string">'NFS'</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">nfsHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeNfs.fetch(nfsHandle, <span class="hljs-string">'file.txt'</span>))
    .then(<span class="hljs-function">(<span class="hljs-params">idHdl</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ImmutableData behind `file.txt` fetched'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatafree'>
-      window.safeMutableData.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data.js#L676-L676'>
-      <span>src/api/mutable_data.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the MutableData instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableData.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>mdHandle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    the MutableData handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
   <h2 id='mutable-data-entries' class='mt0'>
     Mutable Data Entries
   </h2>
-
   
     <p>The safeMutableDataEntries API allows you to manipulate the entries of a Mutable Data object in the SAFE network</p>
-
   
 </section>
 </div>
-          
         
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -6192,28 +4157,15 @@ actually asking for the right state
       window.safeMutableDataEntries.len
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_entries.js#L25-L28'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
   </div>
-  
 
   <p>Get the total number of entries in the MutableData</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataEntries.len</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -6228,45 +4180,21 @@ actually asking for the right state
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>></code>:
         number of entries
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the number of entries:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getEntries(mdHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">entriesHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataEntries.len(entriesHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of entries in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -6274,28 +4202,15 @@ actually asking for the right state
       window.safeMutableDataEntries.get
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_entries.js#L47-L50'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
   </div>
   
-
   <p>Look up the value of a specific key</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataEntries.get</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -6320,24 +4235,11 @@ actually asking for the right state
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;ValueVersion></code>:
         the current version
-
-      
     
-  
-
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving a value:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getEntries(mdHandle)
@@ -6348,19 +4250,9 @@ actually asking for the right state
    });</pre>
     
   
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -6368,28 +4260,15 @@ actually asking for the right state
       window.safeMutableDataEntries.forEach
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_entries.js#L70-L72'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
   </div>
   
-
   <p>Iterate over the entries, execute the function every time</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataEntries.forEach</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -6413,25 +4292,12 @@ actually asking for the right state
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves once the iteration is done
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Iterating over the entries of a MutableData:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getEntries(mdHandle)
@@ -6442,20 +4308,9 @@ actually asking for the right state
       }).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Iteration finished'</span>))
    );</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -6463,29 +4318,16 @@ actually asking for the right state
       window.safeMutableDataEntries.insert
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_entries.js#L90-L93'>
       <span>src/api/mutable_data_entries.js</span>
       </a>
     
   </div>
   
-
   <p>Insert a new entry. It will fail if the entry already exists or if
 the current app doesn't have the permissions to store in that MutableData.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataEntries.insert</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -6519,44 +4361,20 @@ the current app doesn't have the permissions to store in that MutableData.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves when finished
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Inserting an entry:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getEntries(mdHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">entriesHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataEntries.insert(entriesHandle, <span class="hljs-string">'key1'</span>, <span class="hljs-string">'value1'</span>))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New entry inserted'</span>);</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -6570,22 +4388,10 @@ the current app doesn't have the permissions to store in that MutableData.</p>
       </a>
     
   </div>
-  
 
   <p>Start a new transaction of mutation of the entries</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataEntries.mutate</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -6600,25 +4406,12 @@ the current app doesn't have the permissions to store in that MutableData.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#mutationhandle">MutationHandle</a>></code>:
         the Mutation handle
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Mutate current entries by inserting a new entry:</span>
 <span class="hljs-keyword">let</span> mutationHandle;
@@ -6628,612 +4421,21 @@ the current app doesn't have the permissions to store in that MutableData.</p>
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataMutation.insert(mutationHandle, <span class="hljs-string">'key1'</span>, <span class="hljs-string">'value1'</span>))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New entry was inserted in the MutableData and committed to the network'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledataentriesfree'>
-      window.safeMutableDataEntries.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_entries.js#L124-L124'>
-      <span>src/api/mutable_data_entries.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the Entries instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataEntries.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>entriesHandle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    the Entries handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <div class='keyline-top-not py2'><section class='py2 clearfix'>
-
-  <h2 id='mutable-data-keys' class='mt0'>
-    Mutable Data Keys
-  </h2>
-
-  
-    <p>The safeMutableDataKeys API allows you to manipulate the keys of a Mutable Data object in the SAFE network</p>
-
-  
-</section>
-</div>
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatakeyslen'>
-      window.safeMutableDataKeys.len
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_keys.js#L22-L25'>
-      <span>src/api/mutable_data_keys.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Get the total number of keys in the MutableData</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataKeys.len</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>keysHandle</span> <code class='quiet'>(<a href="#keyshandle">KeysHandle</a>)</code>
-	    the Keys handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>></code>:
-        the number of keys
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the number of keys:</span>
-<span class="hljs-built_in">window</span>.safeMutableData.getKeys(mdHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">keysHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataKeys.len(keysHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of keys in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatakeysforeach'>
-      window.safeMutableDataKeys.forEach
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_keys.js#L43-L45'>
-      <span>src/api/mutable_data_keys.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Iterate over the keys, execute the function every time</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataKeys.forEach</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>keysHandle</span> <code class='quiet'>(<a href="#keyshandle">KeysHandle</a>)</code>
-	    the Keys handle
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>fn</span> <code class='quiet'>(function (<a href="https://nodejs.org/api/buffer.html">Buffer</a>))</code>
-	    the function to call with the key in the buffer
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        resolves once the iteration is done
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Iterating over the keys of a MutableData:</span>
-<span class="hljs-built_in">window</span>.safeMutableData.getKeys(mdHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">keysHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataKeys.forEach(keysHandle, (k) =&gt; {
-         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Key: '</span>, k.toString());
-      }).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Iteration finished'</span>))
-   );</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatakeysfree'>
-      window.safeMutableDataKeys.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_keys.js#L53-L53'>
-      <span>src/api/mutable_data_keys.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the Keys instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataKeys.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>keysHandle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    the Keys handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <div class='keyline-top-not py2'><section class='py2 clearfix'>
-
-  <h2 id='mutable-data-values' class='mt0'>
-    Mutable Data Values
-  </h2>
-
-  
-    <p>The safeMutableDataValues API allows you to manipulate the values of a Mutable Data object in the SAFE network</p>
-
-  
-</section>
-</div>
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatavalueslen'>
-      window.safeMutableDataValues.len
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_values.js#L22-L25'>
-      <span>src/api/mutable_data_values.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Get the total number of values in the MutableData</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataValues.len</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>valuesHandle</span> <code class='quiet'>(<a href="#valueshandle">ValuesHandle</a>)</code>
-	    the Values handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>></code>:
-        the number of values
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the number of values:</span>
-<span class="hljs-built_in">window</span>.safeMutableData.getValues(mdHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">valuesHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataValues.len(valuesHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of values in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatavaluesforeach'>
-      window.safeMutableDataValues.forEach
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_values.js#L44-L46'>
-      <span>src/api/mutable_data_values.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Iterate over the values, execute the function every time</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataValues.forEach</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>valuesHandle</span> <code class='quiet'>(<a href="#valueshandle">ValuesHandle</a>)</code>
-	    the Values handle
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>fn</span> <code class='quiet'>(function (<a href="https://nodejs.org/api/buffer.html">Buffer</a>, ValueVersion))</code>
-	    the function to call
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        resolves once the iteration finished
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Iterating over the values of a MutableData:</span>
-<span class="hljs-built_in">window</span>.safeMutableData.getValues(mdHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">valuesHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataValues.forEach(valuesHandle, (v) =&gt; {
-         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Value: '</span>, v.buf.toString());
-         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Version: '</span>, v.version);
-      }).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Iteration finished'</span>))
-   );</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatavaluesfree'>
-      window.safeMutableDataValues.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_values.js#L54-L54'>
-      <span>src/api/mutable_data_values.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the Values instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataValues.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>valuesHandle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    the Values handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
   <h2 id='mutable-data-mutation' class='mt0'>
     Mutable Data Mutation
   </h2>
-
   
     <p>The safeMutableDataMutation API allows you to manipulate and apply Mutations on a Mutable Data object in the SAFE network</p>
-
   
 </section>
 </div>
           
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -7241,28 +4443,15 @@ the current app doesn't have the permissions to store in that MutableData.</p>
       window.safeMutableDataMutation.insert
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_mutation.js#L28-L31'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
   </div>
   
-
   <p>Store a new <code>Insert</code>-action in the transaction.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataMutation.insert</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -7294,24 +4483,11 @@ the current app doesn't have the permissions to store in that MutableData.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves once the storing is done
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Apply an `Insert` mutation:</span>
 <span class="hljs-keyword">let</span> mutationHandle;
@@ -7322,19 +4498,9 @@ the current app doesn't have the permissions to store in that MutableData.</p>
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New entry was inserted in the MutableData and committed to the network'</span>));</pre>
     
   
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -7342,28 +4508,15 @@ the current app doesn't have the permissions to store in that MutableData.</p>
       window.safeMutableDataMutation.remove
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_mutation.js#L53-L56'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
   </div>
-  
 
   <p>Store a new <code>Remove</code>-action in the transaction</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataMutation.remove</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -7397,25 +4550,12 @@ actually asking for the right state
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves once the storing is done
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Apply a `Remove` mutation:</span>
 <span class="hljs-keyword">let</span> mutationHandle;
@@ -7427,19 +4567,9 @@ actually asking for the right state
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Entry was removed from the MutableData and committed to the network'</span>));</pre>
     
   
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -7454,21 +4584,9 @@ actually asking for the right state
     
   </div>
   
-
   <p>Store a <code>Update</code>-action in the transaction</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataMutation.update</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -7512,24 +4630,11 @@ actually asking for the right state
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves once the storing is done
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Apply an `Update` mutation:</span>
 <span class="hljs-keyword">let</span> mutationHandle;
@@ -7541,81 +4646,7 @@ actually asking for the right state
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Entry was updated in the MutableData and committed to the network'</span>));</pre>
     
   
-
-  
-
-  
-
-  
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatamutationfree'>
-      window.safeMutableDataMutation.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_mutation.js#L90-L90'>
-      <span>src/api/mutable_data_mutation.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the Mutation instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataMutation.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>mutationHandle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    the Mutation handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
@@ -7623,17 +4654,12 @@ actually asking for the right state
     Mutable Data Permissions
   </h2>
 
-  
     <p>The safeMutableDataPermissions API allows you to manipulate the Permissions of a Mutable Data object in the SAFE network</p>
 
-  
 </section>
 </div>
           
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -7641,28 +4667,15 @@ actually asking for the right state
       window.safeMutableDataPermissions.len
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions.js#L24-L27'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
   </div>
-  
 
   <p>Total number of permissions entries</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissions.len</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -7677,77 +4690,40 @@ actually asking for the right state
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>></code>:
         the number of permissions entries
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieving the number of permissions:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getPermissions(mdHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">permsHandle</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataPermissions.len(permsHandle))
    .then(<span class="hljs-function">(<span class="hljs-params">len</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Number of permissions entries in the MutableData: '</span>, len));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
   <div class='clearfix'>
     
     <h3 class='fl m0' id='windowsafemutabledatapermissionsgetpermissionsset'>
       window.safeMutableDataPermissions.getPermissionsSet
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions.js#L40-L46'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
   </div>
-  
 
   <p>Lookup the permissions of a specifc key
 If the SignKeyHandle provided is <code>null</code> it will be then
 assumed as for <code>USER_ANYONE</code>.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissions.getPermissionsSet</div>
-  
-  
 
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -7770,36 +4746,14 @@ assumed as for <code>USER_ANYONE</code>.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#permissionssethandle">PermissionsSetHandle</a>></code>:
         the permissions set for that sign key
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -7807,31 +4761,18 @@ assumed as for <code>USER_ANYONE</code>.</p>
       window.safeMutableDataPermissions.insertPermissionsSet
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions.js#L74-L80'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
   </div>
   
-
   <p>Insert a new permissions to a specifc sign key. Directly commits to the network.
 Requires 'ManagePermissions'-permission for the app.
 If the SignKeyHandle provided is <code>null</code> the permission set will be then
 set for <code>USER_ANYONE</code>.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissions.insertPermissionsSet</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -7865,24 +4806,11 @@ set for <code>USER_ANYONE</code>.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves once finished
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Inserting a new permissions set into a MutableData:</span>
 <span class="hljs-keyword">let</span> pmSetHandle, appSignKeyHandle, permsHandle;
@@ -7896,21 +4824,10 @@ set for <code>USER_ANYONE</code>.</p>
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataPermissionsSet.setAllow(pmSetHandle, <span class="hljs-string">'ManagePermissions'</span>))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataPermissions.insertPermissionsSet(permsHandle, appSignKeyHandle, pmSetHandle))
    .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished inserting new permissions'</span>));</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -7925,21 +4842,9 @@ set for <code>USER_ANYONE</code>.</p>
     
   </div>
   
-
   <p>Iterate over the entries, execute the function every time</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissions.forEach</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -7963,25 +4868,12 @@ set for <code>USER_ANYONE</code>.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves once the iteration is finished
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Iterating over the permissions of a MutableData:</span>
 <span class="hljs-built_in">window</span>.safeMutableData.getPermissions(mdHandle)
@@ -7989,454 +4881,8 @@ set for <code>USER_ANYONE</code>.</p>
          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Permissions entry handle: '</span>, p);
       }).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Iteration finished'</span>))
    );</pre>
-    
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatapermissionsfree'>
-      window.safeMutableDataPermissions.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions.js#L108-L108'>
-      <span>src/api/mutable_data_permissions.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the Permissions instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissions.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>permissionsHandle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    the Permissions handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <div class='keyline-top-not py2'><section class='py2 clearfix'>
-
-  <h2 id='mutable-data-permissions-set' class='mt0'>
-    Mutable Data Permissions Set
-  </h2>
-
-  
-    <p>The safeMutableDataPermissionsSet API allows you to manipulate the Permissions Set of a Mutable Data object in the SAFE network</p>
-
-  
-</section>
-</div>
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatapermissionssetsetallow'>
-      window.safeMutableDataPermissionsSet.setAllow
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions_set.js#L30-L33'>
-      <span>src/api/mutable_data_permissions_set.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Set the action as allowed</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissionsSet.setAllow</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>permissionsSetHandle</span> <code class='quiet'>(<a href="#permissionssethandle">PermissionsSetHandle</a>)</code>
-	    the PermissionsSet handle
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>action</span> <code class='quiet'>(MDataAction)</code>
-	    the action to set as allowed
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        resolves when done
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Setting a new permission into a MutableData:</span>
-<span class="hljs-keyword">let</span> pmSetHandle, appSignKeyHandle;
-<span class="hljs-built_in">window</span>.safeCrypto.getAppPubSignKey(appHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">pk</span>) =&gt;</span> appSignKeyHandle = pk)
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.newPermissionSet(appHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">h</span>) =&gt;</span> pmSetHandle = h)
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataPermissionsSet.setAllow(pmSetHandle, <span class="hljs-string">'Delete'</span>))
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getVersion(mdHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">version</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + <span class="hljs-number">1</span>))
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished setting user permission'</span>));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatapermissionssetsetdeny'>
-      window.safeMutableDataPermissionsSet.setDeny
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions_set.js#L55-L58'>
-      <span>src/api/mutable_data_permissions_set.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Set the action as denied</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissionsSet.setDeny</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>permissionsSetHandle</span> <code class='quiet'>(<a href="#permissionssethandle">PermissionsSetHandle</a>)</code>
-	    the PermissionsSet handle
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>action</span> <code class='quiet'>(MDataAction)</code>
-	    the action to set as denied
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        resolves when done
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Setting a new permission into a MutableData:</span>
-<span class="hljs-keyword">let</span> pmSetHandle, appSignKeyHandle;
-<span class="hljs-built_in">window</span>.safeCrypto.getAppPubSignKey(appHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">pk</span>) =&gt;</span> appSignKeyHandle = pk)
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.newPermissionSet(appHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">h</span>) =&gt;</span> pmSetHandle = h)
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataPermissionsSet.setDeny(pmSetHandle, <span class="hljs-string">'Update'</span>))
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getVersion(mdHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">version</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + <span class="hljs-number">1</span>))
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished setting user permission'</span>));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatapermissionssetclear'>
-      window.safeMutableDataPermissionsSet.clear
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions_set.js#L80-L83'>
-      <span>src/api/mutable_data_permissions_set.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Remove all permissions for a type of action from the set</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissionsSet.clear</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>permissionsSetHandle</span> <code class='quiet'>(<a href="#permissionssethandle">PermissionsSetHandle</a>)</code>
-	    the PermissionsSet handle
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>action</span> <code class='quiet'>(MDataAction)</code>
-	    the action the permissions to be cleared
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        resolves when done
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Setting a new permission into a MutableData:</span>
-<span class="hljs-keyword">let</span> pmSetHandle, appSignKeyHandle;
-<span class="hljs-built_in">window</span>.safeCrypto.getAppPubSignKey(appHandle)
-   .then(<span class="hljs-function">(<span class="hljs-params">pk</span>) =&gt;</span> appSignKeyHandle = pk)
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.newPermissionSet(appHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">h</span>) =&gt;</span> pmSetHandle = h)
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableDataPermissionsSet.clear(pmSetHandle, <span class="hljs-string">'Insert'</span>))
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.getVersion(mdHandle))
-   .then(<span class="hljs-function">(<span class="hljs-params">version</span>) =&gt;</span> <span class="hljs-built_in">window</span>.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSetHandle, version + <span class="hljs-number">1</span>))
-   .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished setting user permission'</span>));</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafemutabledatapermissionssetfree'>
-      window.safeMutableDataPermissionsSet.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions_set.js#L91-L91'>
-      <span>src/api/mutable_data_permissions_set.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the PermissionsSet instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeMutableDataPermissionsSet.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>permissionsSetHandle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    the PermissionsSet handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
@@ -8451,10 +4897,7 @@ set for <code>USER_ANYONE</code>.</p>
 </section>
 </div>
           
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -8462,29 +4905,16 @@ set for <code>USER_ANYONE</code>.</p>
       window.safeNfs.create
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L23-L27'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
   </div>
-  
 
   <p>Create a new file with the given content, put the content
 on the network via ImmutableData (public) and wrap it into a File.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeNfs.create</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -8508,35 +4938,13 @@ on the network via ImmutableData (public) and wrap it into a File.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#filehandle">FileHandle</a>></code>:
         the File handle of a newly created file
 
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -8544,28 +4952,15 @@ on the network via ImmutableData (public) and wrap it into a File.</p>
       window.safeNfs.fetch
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L38-L42'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
   </div>
-  
 
   <p>Find the file of the given filename (aka keyName in the MutableData)</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeNfs.fetch</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -8589,43 +4984,20 @@ on the network via ImmutableData (public) and wrap it into a File.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#filehandle">FileHandle</a>></code>:
         the handle of the File found for that path
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
   <div class='clearfix'>
     
     <h3 class='fl m0' id='windowsafenfsinsert'>
       window.safeNfs.insert
     </h3>
-    
     
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L55-L61'>
       <span>src/api/emulations/nfs.js</span>
@@ -8633,22 +5005,10 @@ on the network via ImmutableData (public) and wrap it into a File.</p>
     
   </div>
   
-
   <p>Insert the given file into the underlying MutableData, directly commit
 to the network.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeNfs.insert</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -8681,36 +5041,14 @@ to the network.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#filehandle">FileHandle</a>></code>:
         the same File handle
 
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
+   </section>
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -8718,28 +5056,15 @@ to the network.</p>
       window.safeNfs.update
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L74-L80'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
   </div>
-  
 
   <p>Replace a path with a new file. Directly commit to the network.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeNfs.update</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -8782,43 +5107,20 @@ are overwriting the right one
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#filehandle">FileHandle</a>></code>:
         the same File handle
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
     <h3 class='fl m0' id='windowsafenfsdelete'>
       window.safeNfs.delete
     </h3>
-    
     
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L92-L95'>
       <span>src/api/emulations/nfs.js</span>
@@ -8832,16 +5134,6 @@ are overwriting the right one
 
   <div class='pre p1 fill-light mt0'>window.safeNfs.delete</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -8874,36 +5166,14 @@ are overwriting the right one
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -8911,13 +5181,11 @@ are overwriting the right one
       window.safeNfs.open
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L117-L123'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
   </div>
-  
 
   <p>Open a file for reading or writing.</p>
 <p>Open Modes:</p>
@@ -8925,18 +5193,7 @@ are overwriting the right one
 <p> 2 = Appends to existing data in the file.</p>
 <p> 4 = Open file to read.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeNfs.open</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -8971,100 +5228,13 @@ a new file is created
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#filehandle">FileHandle</a>></code>:
         a new File handle
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafenfsfree'>
-      window.safeNfs.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L131-L131'>
-      <span>src/api/emulations/nfs.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the NFS emulation instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeNfs.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>nfsHandle</span> <code class='quiet'>(<a href="#nfshandle">NFSHandle</a>)</code>
-	    the NFS emulation handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -9072,28 +5242,15 @@ a new file is created
       window.safeNfsFile.size
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs_file.js#L20-L23'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
   </div>
-  
 
   <p>Get current file size</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeNfsFile.size</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -9109,35 +5266,13 @@ a new file is created
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>></code>:
         the file size
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -9145,14 +5280,12 @@ a new file is created
       window.safeNfsFile.read
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs_file.js#L35-L38'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
   </div>
   
-
   <p>Read content from the file</p>
 
 
@@ -9449,74 +5582,6 @@ a new file is created
   
 </section>
 
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafenfsfilefree'>
-      window.safeNfsFile.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs_file.js#L101-L101'>
-      <span>src/api/emulations/nfs_file.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the NFS File instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeNfsFile.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>fileHandle</span> <code class='quiet'>(<a href="#filehandle">FileHandle</a>)</code>
-	    the File handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
   <h2 id='cipher-opt' class='mt0'>
@@ -9768,74 +5833,6 @@ a new file is created
 
   
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafecipheroptfree'>
-      window.safeCipherOpt.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/cipher_opt.js#L67-L67'>
-      <span>src/api/cipher_opt.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the CipherOpt instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeCipherOpt.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>cipherOptHandle</span> <code class='quiet'>(<a href="#cipheropthandle">CipherOptHandle</a>)</code>
-	    the CipherOpt handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
@@ -10818,77 +6815,8 @@ a new file is created
 
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafecryptokeypairfree'>
-      window.safeCryptoKeyPair.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_key_pair.js#L68-L68'>
-      <span>src/api/crypto_key_pair.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the KeyPair instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeCryptoKeyPair.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>keyPairHandle</span> <code class='quiet'>(<a href="#keypairhandle">KeyPairHandle</a>)</code>
-	    the KeyPair handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -11140,76 +7068,7 @@ a new file is created
   
 </section>
 
-          
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafecryptopubenckeyfree'>
-      window.safeCryptoPubEncKey.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_public_encryption_key.js#L64-L64'>
-      <span>src/api/crypto_public_encryption_key.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the PubEncKey instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeCryptoPubEncKey.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>pubEncKeyHandle</span> <code class='quiet'>(<a href="#pubenckeyhandle">PubEncKeyHandle</a>)</code>
-	    the PubEncKey handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -11378,74 +7237,6 @@ a new file is created
 
   
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafecryptosecenckeyfree'>
-      window.safeCryptoSecEncKey.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_secret_encryption_key.js#L49-L49'>
-      <span>src/api/crypto_secret_encryption_key.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the SecEncKey instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeCryptoSecEncKey.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>secEncKeyHandle</span> <code class='quiet'>(<a href="#secenckeyhandle">SecEncKeyHandle</a>)</code>
-	    the SecEncKey handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
@@ -11525,92 +7316,17 @@ a new file is created
 
   
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='windowsafecryptosignkeyfree'>
-      window.safeCryptoSignKey.free
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_sign_key.js#L32-L32'>
-      <span>src/api/crypto_sign_key.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Free the SignKey instance from memory</p>
-
-
-  <div class='pre p1 fill-light mt0'>window.safeCryptoSignKey.free</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>signKeyHandle</span> <code class='quiet'>(<a href="#signkeyhandle">SignKeyHandle</a>)</code>
-	    the SignKey handle
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
           
             <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
   <h2 id='types' class='mt0'>
     Types
   </h2>
-
-  
-    
-
   
 </section>
 </div>
           
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -11624,7 +7340,6 @@ a new file is created
       </a>
     
   </div>
-  
 
   <p>Holds the reference to a SAFEApp instance which is the primary interface to interact
 with the SAFE network.
@@ -11639,35 +7354,8 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
 
-          
-        
-          
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
@@ -11846,34 +7534,7 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
 
@@ -11962,37 +7623,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12045,128 +7678,8 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
 
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='keyshandle'>
-      KeysHandle
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_keys.js#L53-L53'>
-      <span>src/api/mutable_data_keys.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Holds the reference to a Keys instance.
-Note that it is required to free the memory used by such an instance when it's
-not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
-
-  <div class='pre p1 fill-light mt0'>KeysHandle</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='valueshandle'>
-      ValuesHandle
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_values.js#L54-L54'>
-      <span>src/api/mutable_data_values.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Holds the reference to a Values instance.
-Note that it is required to free the memory used by such an instance when it's
-not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
-
-  <div class='pre p1 fill-light mt0'>ValuesHandle</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12174,14 +7687,12 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       MutationHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_mutation.js#L90-L90'>
       <span>src/api/mutable_data_mutation.js</span>
       </a>
     
   </div>
   
-
   <p>Holds the reference to a Mutation instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
@@ -12194,37 +7705,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12232,18 +7715,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       PermissionsHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions.js#L108-L108'>
       <span>src/api/mutable_data_permissions.js</span>
       </a>
     
   </div>
   
-
   <p>Holds the reference to a Permissions instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
 
   <div class='pre p1 fill-light mt0'>PermissionsHandle</div>
   
@@ -12252,95 +7732,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='permissionssethandle'>
-      PermissionsSetHandle
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/mutable_data_permissions_set.js#L91-L91'>
-      <span>src/api/mutable_data_permissions_set.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Holds the reference to a PermissionsSet instance.
-Note that it is required to free the memory used by such an instance when it's
-not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
-
-  <div class='pre p1 fill-light mt0'>PermissionsSetHandle</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12348,18 +7742,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       NFSHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs.js#L131-L131'>
       <span>src/api/emulations/nfs.js</span>
       </a>
     
   </div>
-  
 
   <p>Holds the reference to a NFS emulation instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
 
   <div class='pre p1 fill-light mt0'>NFSHandle</div>
   
@@ -12368,37 +7759,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12406,14 +7769,12 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       FileHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs_file.js#L101-L101'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
   </div>
   
-
   <p>Holds the reference to a File instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
@@ -12425,38 +7786,10 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       Type:
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12464,15 +7797,11 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       FileMetadata
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/emulations/nfs_file.js#L84-L93'>
       <span>src/api/emulations/nfs_file.js</span>
       </a>
     
   </div>
-  
-
-  
 
   <div class='pre p1 fill-light mt0'>FileMetadata</div>
   
@@ -12480,16 +7809,6 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       Type:
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
     </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -12532,27 +7851,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       
     </div>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
+            
+	    <section class='p2 mb2 clearfix bg-white minishadow'>
   
   <div class='clearfix'>
     
@@ -12560,18 +7861,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       CipherOptHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/cipher_opt.js#L67-L67'>
       <span>src/api/cipher_opt.js</span>
       </a>
     
   </div>
   
-
   <p>Holds the reference to a CipherOpt instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
 
   <div class='pre p1 fill-light mt0'>CipherOptHandle</div>
   
@@ -12580,37 +7878,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12618,18 +7888,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       KeyPairHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_key_pair.js#L68-L68'>
       <span>src/api/crypto_key_pair.js</span>
       </a>
     
   </div>
   
-
   <p>Holds the reference to a KeyPair instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
 
   <div class='pre p1 fill-light mt0'>KeyPairHandle</div>
   
@@ -12638,37 +7905,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12676,18 +7915,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       PubEncKeyHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_public_encryption_key.js#L64-L64'>
       <span>src/api/crypto_public_encryption_key.js</span>
       </a>
     
   </div>
   
-
   <p>Holds the reference to a PubEncKey instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
 
   <div class='pre p1 fill-light mt0'>PubEncKeyHandle</div>
   
@@ -12696,37 +7932,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12734,18 +7942,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       SecEncKeyHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_secret_encryption_key.js#L49-L49'>
       <span>src/api/crypto_secret_encryption_key.js</span>
       </a>
     
   </div>
-  
 
   <p>Holds the reference to a SecEncKey instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
 
   <div class='pre p1 fill-light mt0'>SecEncKeyHandle</div>
   
@@ -12754,37 +7959,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12792,18 +7969,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       SignKeyHandle
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/crypto_sign_key.js#L32-L32'>
       <span>src/api/crypto_sign_key.js</span>
       </a>
     
   </div>
-  
 
   <p>Holds the reference to a public SignKey instance.
 Note that it is required to free the memory used by such an instance when it's
 not needed anymore by the client aplication, please refer to the <code>free</code> function.</p>
-
 
   <div class='pre p1 fill-light mt0'>SignKeyHandle</div>
   
@@ -12812,37 +7986,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
     </p>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12850,29 +7996,15 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       window.safeApp.reconnect
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L397-L400'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
   
-
   <p>Reconnect SAFEApp instance if connection is disconnected</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.reconnect</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -12887,27 +8019,9 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       
     </div>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -12915,30 +8029,17 @@ not needed anymore by the client aplication, please refer to the <code>free</cod
       window.safeApp.logPath
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/api/app.js#L417-L420'>
       <span>src/api/app.js</span>
       </a>
     
   </div>
   
-
   <p>Generate the log path for the provided filename.
 If the filename provided is null, it then returns
 the path of where the safe_core log file is located.</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeApp.logPath</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -12963,44 +8064,20 @@ the path of where the safe_core log file is located.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>></code>:
         the log filename path generated
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Retrieve the '_public' container:</span>
 <span class="hljs-built_in">window</span>.safeApp.logPath(appHandle, <span class="hljs-string">'mylogfile.log'</span>)
    .then(<span class="hljs-function">(<span class="hljs-params">path</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Log path generated: '</span>, path));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -13015,21 +8092,9 @@ the path of where the safe_core log file is located.</p>
     
   </div>
   
-
   <p>Generate a nonce that can be used when creating private MutableData</p>
 
-
   <div class='pre p1 fill-light mt0'>window.safeCrypto.generateNonce</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -13044,44 +8109,20 @@ the path of where the safe_core log file is located.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></code>:
         the nonce generated
-
-      
-    
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
-    
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Generating a nonce:</span>
 <span class="hljs-built_in">window</span>.safeCrypto.generateNonce(appHandle)
    .then(<span class="hljs-function">(<span class="hljs-params">nonce</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nonce generated: '</span>, nonce.buffer.toString(<span class="hljs-string">'hex'</span>)));</pre>
     
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -13096,21 +8137,10 @@ the path of where the safe_core log file is located.</p>
     
   </div>
   
-
   <p>Get the browser logfile from appObj</p>
 
 
   <div class='pre p1 fill-light mt0'>getLogs</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -13142,36 +8172,14 @@ the path of where the safe_core log file is located.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         resolves to the app log path
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -13179,29 +8187,16 @@ the path of where the safe_core log file is located.</p>
       getLogSize
     </h3>
     
-    
       <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/joshuef/beaker-plugin-safe-app/blob/60f4164741f7c1082c17fadf6ef20823feef6e74/src/safe-logs.js#L46-L52'>
       <span>src/safe-logs.js</span>
       </a>
     
   </div>
   
-
   <p>Return the size of the log file given</p>
 
-
   <div class='pre p1 fill-light mt0'>getLogSize(filePath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): Int</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
+    
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -13215,36 +8210,14 @@ the path of where the safe_core log file is located.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>Int</code>:
         logfile size in MB
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -13267,15 +8240,6 @@ the default log file.</p>
   <div class='pre p1 fill-light mt0'>getLogsList(appInfo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
   
   
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -13289,36 +8253,13 @@ the default log file.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
         all log files
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -13338,16 +8279,6 @@ the default log file.</p>
 
 
   <div class='pre p1 fill-light mt0'>showLogList(appInfo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, cb: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a>): [type]</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -13372,35 +8303,13 @@ the default log file.</p>
       
     </div>
   
-
-  
-
-  
-    
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>[type]</code>:
         the callback
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
-
-          
-        
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -13414,23 +8323,11 @@ the default log file.</p>
       </a>
     
   </div>
-  
 
   <p>Setup the protocol for logs, and if needed, retrieve all logs / return
 the log page.</p>
 
-
   <div class='pre p1 fill-light mt0'>setupSafeLogProtocol(appInfo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -13446,23 +8343,7 @@ the log page.</p>
       
     </div>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
-
-          
         
       </div>
     </div>
