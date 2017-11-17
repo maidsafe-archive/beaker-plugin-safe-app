@@ -11,7 +11,7 @@ module.exports.manifest = {
  * Get the Public Encryption Key instance of this key pair
  * @name window.safeCryptoEncKeyPair.getPubEncKey
  *
- * @param {KeyPairHandle} keyPairHandle the KeyPair handle
+ * @param {EncKeyPairHandle} keyPairHandle the KeyPair handle
  *
  * @returns {Promise<PubEncKeyHandle>} the PubEncKey handle
  *
@@ -30,7 +30,7 @@ module.exports.getPubEncKey = (keyPairHandle) => {
  * Get the Secrect Encryption Key instance of this key pair
  * @name window.safeCryptoEncKeyPair.getSecEncKey
  *
- * @param {KeyPairHandle} keyPairHandle the KeyPair handle
+ * @param {EncKeyPairHandle} encKeyPairHandle the EncKeyPair handle
  *
  * @returns {Promise<SecEncKeyHandle>} the SecEncKey handle
  *
@@ -49,7 +49,7 @@ module.exports.getSecEncKey = (keyPairHandle) => {
  * Decrypt the given ciphertext with a seal (buffer or string) using the private and public key
  * @name window.safeCryptoEncKeyPair.decryptSealed
  *
- * @param {KeyPairHandle} keyPairHandle the KeyPair handle
+ * @param {EncKeyPairHandle} encKeyPairHandle the EncKeyPair handle
  * @param {(String|Buffer)} cipher the chiper text to decrypt
  *
  * @returns {Promise<Buffer>} the decrypted data

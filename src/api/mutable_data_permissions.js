@@ -57,6 +57,15 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
  *
  * @returns {Promise} resolves once finished
  *
+ * @example // Inserting a new permissions set into a MutableData:
+ * let appSignKeyHandle, permsHandle;
+ * let pmSet = ['Insert', 'ManagePermissions'];
+ * window.safeCrypto.getAppPubSignKey(appHandle)
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.getPermissions(mdHandle))
+ *    .then((h) => permsHandle = h)
+ *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permsHandle, appSignKeyHandle, pmSet))
+ *    .then(_ => console.log('Finished inserting new permissions'));
  */
 module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, permSetArray) => {
   return getObj(signKeyHandle, true)
@@ -77,7 +86,7 @@ module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, permSet
  * window.safeMutableData.getPermissions(mdHandle)
  *    .then((permsHandle) => window.safeMutableDataPermissions.listPermissionSets(permsHandle))
  *    .then((permsArray) => {
- *      console.log(permsArray);
+ *      console.log("Permission sets retrieved: ", permsArray);
  *    });
  */
 module.exports.listPermissionSets = (permissionsHandle) => {

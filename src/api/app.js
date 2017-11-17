@@ -10,8 +10,12 @@ module.exports.manifest = {
   authoriseContainer: 'promise',
   authoriseShareMd: 'promise',
   webFetch: 'promise',
-  isRegistered: 'promise',
   networkState: 'promise',
+  isNetStateInit: 'sync',
+  isNetStateConnected: 'sync',
+  isNetStateDisconnected: 'sync',
+  clearObjectCache: 'promise',
+  isMockBuild: 'promise',
   canAccessContainer: 'promise',
   refreshContainersPermissions: 'promise',
   getContainersPermissions: 'promise',
@@ -292,6 +296,71 @@ module.exports.isRegistered = (appHandle) => {
 module.exports.networkState = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.networkState);
+};
+
+/**
+ * Verify whether or not network state is INIT
+ * @name window.safeApp.isNetStateInit
+ *
+ * @param {SAFEAppHandle} appHandle
+ *
+ * @returns {Boolean}
+ * */
+module.exports.isNetStateInit = (appHandle) => {
+  return getObj(appHandle)
+  .then((obj) => obj.app.isNetStateInit());
+};
+
+/**
+ * Verify whether or not network state is CONNECTED
+ * @name window.safeApp.isNetStateConnected
+ *
+ * @param {SAFEAppHandle} appHandle
+ *
+ * @returns {Boolean}
+ * */
+module.exports.isNetStateConnected = (appHandle) => {
+  return getObj(appHandle)
+  .then((obj) => obj.app.isNetStateConnected());
+};
+
+/**
+ * Verify whether or not network state is DISCONNECTED
+ * @name window.safeApp.isNetStateDisconnected
+ *
+ * @param {SAFEAppHandle} appHandle
+ *
+ * @returns {Boolean}
+ * */
+module.exports.isNetStateDisconnected = (appHandle) => {
+  return getObj(appHandle)
+  .then((obj) => obj.app.isNetStateDisconnected());
+};
+
+/**
+ * Resets the object cache kept by the underlyging library
+ * @name window.safeApp.clearObjectCache
+ *
+ * @param {SAFEAppHandle} appHandle
+ *
+ * @returns {Boolean}
+ * */
+module.exports.clearObjectCache = (appHandle) => {
+  return getObj(appHandle)
+  .then((obj) => obj.app.clearObjectCache());
+};
+
+/**
+ * Retuns true if the underlyging library was compiled against mock-routing.
+ * @name window.safeApp.isMockBuild
+ *
+ * @param {SAFEAppHandle} appHandle
+ *
+ * @returns {Boolean}
+ * */
+module.exports.isMockBuild = (appHandle) => {
+  return getObj(appHandle)
+  .then((obj) => obj.app.isMockBuild());
 };
 
 /**

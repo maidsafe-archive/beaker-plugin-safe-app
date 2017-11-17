@@ -39,7 +39,7 @@ module.exports.sha3Hash = (appHandle, data) => {
  *
  * @param {SAFEAppHandle} appHandle the app handle
  *
- * @returns {Promise<SignKeyHandle>} the SignKey handle
+ * @returns {Promise<PubSignKeyHandle>} the PubSignKey handle
  *
  * @example // Retrieving application's public sign key:
  * window.safeCrypto.getAppPubSignKey(appHandle)
@@ -76,7 +76,7 @@ module.exports.getAppPubEncKey = (appHandle) => {
  *
  * @param {SAFEAppHandle} appHandle the app handle
  *
- * @returns {Promise<KeyPairHandle>} the KeyPair handle
+ * @returns {Promise<EncKeyPairHandle>} the EncKeyPair handle
  *
  * @example // Generating encryption key pair:
  * window.safeCrypto.generateEncKeyPair(appHandle)
@@ -114,7 +114,7 @@ module.exports.generateSignKeyPair = (appHandle) => {
  * @param {SAFEAppHandle} appHandle the app handle
  * @param {(String|Buffer)} raw the raw input string
  *
- * @returns {Promise<PubSignKeyHandle>} 
+ * @returns {Promise<PubSignKeyHandle>}
  *
  * @example // Interpreting a public sign key from a raw string:
  * window.safeCrypto.getAppPubSignKey(appHandle)
@@ -136,7 +136,7 @@ module.exports.pubSignKeyFromRaw = (appHandle, raw) => {
  * @param {SAFEAppHandle} appHandle the app handle
  * @param {(String|Buffer)} raw the raw input string
  *
- * @returns {Promise<SecSignKeyHandle>} 
+ * @returns {Promise<SecSignKeyHandle>}
  *
  * @example // Interpret the secret sign key from raw buffer
  * const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
@@ -179,7 +179,7 @@ module.exports.pubEncKeyFromRaw = (appHandle, raw) => {
  * @param {SAFEAppHandle} appHandle the app handle
  * @param {(String|Buffer)} raw the raw input string
  *
- * @returns {Promise<SecEncKey>} the SecEncKey handle
+ * @returns {Promise<SecEncKeyHandle>} the SecEncKey handle
  *
  * @example // Interpreting a secret encryption key from a raw string:
  * window.safeCrypto.generateEncKeyPair(appHandle)
@@ -229,7 +229,7 @@ module.exports.generateEncKeyPairFromRaw = (appHandle, rawPublicKey, rawSecretKe
  * @param {(String|Buffer)} rawPublicSignKey
  * @param {(String|Buffer)} rawSecretSignKey
  *
- * @returns {Promise<SignKeyPair>}
+ * @returns {Promise<SignKeyPairHandle>}
  *
  * @example // Interpret a signing key pair from raw secret and raw puclic signing keys
  * 

@@ -315,7 +315,7 @@ module.exports.decrypt = (mdHandle, value) => {
  * window.safeMutableData.getNameAndTag(mdHandle)
  *  .then((res) => {
  *     console.log('Name: ', res.name.buffer);
- *     console.log('Tag: ', res.tag);
+ *     console.log('Tag: ', res.type_tag);
  *  });
 */
 module.exports.getNameAndTag = (mdHandle) => {
@@ -374,6 +374,22 @@ module.exports.get = (mdHandle, key) => {
  *
  * @returns {Promise} it resolves when finished creating it
  *
+ * @example // Committing a MutableData to the network:
+ * let mdHandle, entriesHandle, appSignKeyHandle, permissionsHandle;
+ * let pmSet = ['Insert', 'ManagePermissions'];
+ * window.safeMutableData.newEntries(appHandle)
+ *    .then((h) => entriesHandle = h)
+ *    .then(_ => window.safeMutableDataEntries.insert(entriesHandle, 'key1', 'value1'))
+ *    .then(_ => window.safeCrypto.getAppPubSignKey(appHandle))
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.newPermissions(appHandle))
+ *    .then((h) => permissionsHandle = h)
+ *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permissionsHandle, appSignKeyHandle, pmSet))
+ *    .then(_ => window.safeMutableData.newRandomPublic(appHandle, 15000))
+ *    .then((h) => mdHandle = h)
+ *    .then(_ => console.log('Finished preparation'))
+ *    .then(_ => window.safeMutableData.put(mdHandle, permissionsHandle, entriesHandle))
+ *    .then(_ => console.log('Finished creating and committing MutableData to the network'));
 */
 module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
   return getObj(mdHandle)
@@ -410,6 +426,9 @@ module.exports.getEntries = (mdHandle) => {
  *
  * @returns {Promise<Array>} entry keys
  *
+ * @example // Retrieving the keys:
+ * window.safeMutableData.getKeys(mdHandle)
+ *    .then((keyArray) => console.log('Number of keys in the MutableData: ', keyArray.length));
 */
 module.exports.getKeys = (mdHandle) => {
   return getObj(mdHandle)
@@ -424,6 +443,9 @@ module.exports.getKeys = (mdHandle) => {
  *
  * @returns {Promise<Array>} entry values
  *
+ * @example // Retrieving the values:
+* window.safeMutableData.getValues(mdHandle)
+ *    .then((valueArray) => console.log('Number of values in the MutableData: ', valueArray.length));
 */
 module.exports.getValues = (mdHandle) => {
   return getObj(mdHandle)
@@ -508,12 +530,20 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
  * @param {SignKeyHandle|null} signKeyHandle the sign key to lookup for
- * @param {Array} pmSet - array of permissions
+ * @param {Array} pmSet array of permissions
  * @param {Number} version the version successor, to confirm you are
  *        actually asking for the right state
  *
  * @returns {Promise} resolves when finished
  *
+ * @example // Setting a new permission into a MutableData:
+ * let appSignKeyHandle;
+ * let pmSet = ['Delete'];
+ * window.safeCrypto.getAppPubSignKey(appHandle)
+ *    .then((pk) => appSignKeyHandle = pk)
+ *    .then(_ => window.safeMutableData.getVersion(mdHandle))
+ *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSet, version + 1))
+ *    .then(_ => console.log('Finished setting user permission'));
 */
 module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSet, version) => {
   return getObj(signKeyHandle, true)

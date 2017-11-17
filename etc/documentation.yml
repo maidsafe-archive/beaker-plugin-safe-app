@@ -96,6 +96,7 @@ toc:
   - window.safeCrypto.generateEncKeyPair
   - window.safeCrypto.generateSignKeyPair
   - window.safeCrypto.pubSignKeyFromRaw
+  - window.safeCrypto.secSignKeyFromRaw
   - window.safeCrypto.pubEncKeyFromRaw
   - window.safeCrypto.secEncKeyFromRaw
   - window.safeCrypto.generateEncKeyPairFromRaw
