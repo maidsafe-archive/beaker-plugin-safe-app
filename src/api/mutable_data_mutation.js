@@ -1,9 +1,10 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   insert: 'promise',
   remove: 'promise',
-  update: 'promise'
+  update: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -79,6 +80,14 @@ module.exports.update = (mutationHandle, keyName, value, version) => {
   return getObj(mutationHandle)
     .then((obj) => obj.netObj.update(keyName, value, version));
 };
+
+/**
+ * Free the Mutation instance from memory
+ * @name window.safeMutableDataMutation.free
+ *
+ * @param {String} mutationHandle the Mutation handle
+*/
+module.exports.free = (mutationHandle) => freeObj(mutationHandle);
 
 /**
  * @name MutationHandle

@@ -98,6 +98,8 @@ module.exports.generateEncKeyPair = (appHandle) => {
  *
  * @returns {Promise<SignKeyPairHandle>}
  *
+ * @example // Generating signing key pair
+ * const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
 */
 module.exports.generateSignKeyPair = (appHandle) => {
   return getObj(appHandle)
@@ -128,7 +130,7 @@ module.exports.pubSignKeyFromRaw = (appHandle, raw) => {
 };
 
 /**
- * Interpret the secret SignKey from a given raw string
+ * Interpret the secret SignKey from a given raw buffer
  * @name window.safeCrypto.secSignKeyFromRaw
  *
  * @param {SAFEAppHandle} appHandle the app handle
@@ -136,6 +138,11 @@ module.exports.pubSignKeyFromRaw = (appHandle, raw) => {
  *
  * @returns {Promise<SecSignKeyHandle>} 
  *
+ * @example // Interpret the secret sign key from raw buffer
+ * const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
+ * let secretSignKeyHandle = await window.safeaCryptoSignKeyPair.getSecSignKey(signKeyPairHandle);
+ * const rawSecretSignKey = await window.safeCryptoSecSignKey.getRaw(secretSignKeyHandle);
+ * secretSignKeyHandle = await window.safeCrypto.secSignKeyFromRaw(appHandle, rawSecretKey);
 */
 module.exports.secSignKeyFromRaw = (appHandle, raw) => {
   return getObj(appHandle)
@@ -224,6 +231,14 @@ module.exports.generateEncKeyPairFromRaw = (appHandle, rawPublicKey, rawSecretKe
  *
  * @returns {Promise<SignKeyPair>}
  *
+ * @example // Interpret a signing key pair from raw secret and raw puclic signing keys
+ * 
+ *  const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
+ *  const publicSignKeyHandle = await window.safeCryptoSignKeyPair.getPubSignKey(signKeyPairHandle);
+ *  const secretSignKeyHandle = await window.safeCryptoSignKeyPair.getSecSignKey(signKeyPairHandle);
+ *  const rawPubSignKey = await window.safeCryptoPubSignKey.getRaw(publicSignKeyHandle);
+ *  const rawSecSignKey = await window.safeCryptoSecSignKey.getRaw(secretSignKeyHandle);
+ *  should(window.safeCrypto.generateSignKeyPairFromRaw(appHandle, rawPubSignKey, rawSecSignKey)).be.fulfilled();
 */
 module.exports.generateSignKeyPairFromRaw = (appHandle, rawPublicSignKey, rawSecretSignKey) => {
   return getObj(appHandle)

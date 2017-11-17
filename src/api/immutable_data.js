@@ -6,7 +6,8 @@ module.exports.manifest = {
   write: 'promise',
   closeWriter: 'promise',
   read: 'promise',
-  size: 'promise'
+  size: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -154,6 +155,14 @@ module.exports.size = (readerHandle) => {
   return getObj(readerHandle)
     .then((obj) => obj.netObj.size());
 };
+
+/**
+ * Free the ImmutableData Reader instance from memory
+ * @name window.safeImmutableData.free
+ *
+ * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
+ */
+module.exports.free = (readerHandle) => freeObj(readerHandle);
 
 /**
  * @name ReaderHandle

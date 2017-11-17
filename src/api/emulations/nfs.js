@@ -6,7 +6,8 @@ module.exports.manifest = {
   insert: 'promise',
   update: 'promise',
   delete: 'promise',
-  open: 'promise'
+  open: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -130,9 +131,17 @@ module.exports.open = (nfsHandle, fileHandle, openMode) => {
 };
 
 /**
+ * Free the NFS emulation instance from memory
+ * @name window.safeNfs.free
+ *
+ * @param {NFSHandle} nfsHandle the NFS emulation handle
+*/
+module.exports.free = (nfsHandle) => freeObj(nfsHandle);
+
+/**
  * @name NFSHandle
  * @typedef {String} NFSHandle
  * @description Holds the reference to a NFS emulation instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ */

@@ -3,7 +3,8 @@ const { genHandle, getObj, freeObj } = require('./helpers');
 module.exports.manifest = {
   newPlainText: 'promise',
   newSymmetric: 'promise',
-  newAsymmetric: 'promise'
+  newAsymmetric: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -56,6 +57,14 @@ module.exports.newAsymmetric = (keyHandle) => {
     .then((obj) => obj.app.cipherOpt.newAsymmetric(obj.netObj)
       .then((cipherOpt) => genHandle(obj.app, cipherOpt)));
 };
+
+/**
+ * Free the CipherOpt instance from memory
+ * @name window.safeCipherOpt.free
+ *
+ * @param {CipherOptHandle} cipherOptHandle the CipherOpt handle
+ **/
+module.exports.free = (cipherOptHandle) => freeObj(cipherOptHandle);
 
 /**
  * @name CipherOptHandle

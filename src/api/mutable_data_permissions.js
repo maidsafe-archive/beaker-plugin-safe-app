@@ -1,10 +1,11 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
   getPermissionsSet: 'promise',
   insertPermissionsSet: 'promise',
-  listPermissionSets: 'promise'
+  listPermissionSets: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -83,6 +84,14 @@ module.exports.listPermissionSets = (permissionsHandle) => {
   return getObj(permissionsHandle)
   .then((permsObj) => permsObj.netObj.listPermissionSets());
 };
+
+/**
+ * Free the Permissions instance from memory
+ * @name window.safeMutableDataPermissions.free
+ *
+ * @param {String} permissionsHandle the Permissions handle
+*/
+module.exports.free = (permissionsHandle) => freeObj(permissionsHandle);
 
 /**
  * @name PermissionsHandle

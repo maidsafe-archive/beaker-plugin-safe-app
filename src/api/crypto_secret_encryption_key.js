@@ -1,8 +1,9 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   getRaw: 'promise',
-  decrypt: 'promise'
+  decrypt: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -41,6 +42,14 @@ module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
     });
   });
 };
+
+/**
+ * Free the SecEncKey instance from memory
+ * @name window.safeCryptoSecEncKey.free
+ *
+ * @param {SecEncKeyHandle} secEncKeyHandle the SecEncKey handle
+*/
+module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);
 
 /**
  * @name SecEncKeyHandle

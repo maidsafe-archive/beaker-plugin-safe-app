@@ -1,6 +1,6 @@
 const safeApp = require('@maidsafe/safe-node-app');
 const ipc = require('./ipc');
-const { genHandle, getObj, netStateCallbackHelper } = require('./helpers');
+const { genHandle, getObj, freeObj, netStateCallbackHelper } = require('./helpers');
 
 module.exports.manifest = {
   _with_async_cb_initialise: 'readable',
@@ -18,7 +18,8 @@ module.exports.manifest = {
   getOwnContainer: 'promise',
   getContainer: 'promise',
   reconnect: 'promise',
-  logPath: 'promise'
+  logPath: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -417,6 +418,15 @@ module.exports.logPath = (appHandle, filename) => {
   return getObj(appHandle)
     .then((obj) => obj.app.logPath(filename));
 };
+
+/**
+ * Free the SAFEApp instance from memory, as well as all other
+ * objects created with it, e.g. ImmutableData and MutableData objects, etc.
+ * @name window.safeApp.free
+ *
+ * @param {SAFEAppHandle} appHandle the app handle
+ */
+module.exports.free = (appHandle) => freeObj(appHandle);
 
 /**
  * @name SAFEAppHandle

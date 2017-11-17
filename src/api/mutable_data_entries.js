@@ -1,11 +1,12 @@
-const { genHandle, getObj, forEachHelper } = require('./helpers');
+const { genHandle, getObj, forEachHelper, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   len: 'promise',
   get: 'promise',
   _with_cb_forEach: 'readable',
   insert: 'promise',
-  mutate: 'promise'
+  mutate: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -113,6 +114,14 @@ module.exports.mutate = (entriesHandle) => {
     .then((obj) => obj.netObj.mutate()
       .then((mut) => genHandle(obj.app, mut)));
 };
+
+/**
+ * Free the Entries instance from memory
+ * @name window.safeMutableDataEntries.free
+ *
+ * @param {String} entriesHandle the Entries handle
+*/
+module.exports.free = (entriesHandle) => freeObj(entriesHandle);
 
 /**
  * @name EntriesHandle

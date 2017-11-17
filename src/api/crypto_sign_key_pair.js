@@ -42,3 +42,9 @@ module.exports.getSecSignKey = (signKeyPairHandle) => {
   return getObj(signKeyPairHandle)
     .then((obj) => genHandle(obj.app, obj.netObj.secSignKey));
 };
+
+/**
+ * @name SignKeyPairHandle
+ * @typedef {String} SignKeyPairHandle
+ * @description Holds the reference to a SignKeyPair instance.
+*/

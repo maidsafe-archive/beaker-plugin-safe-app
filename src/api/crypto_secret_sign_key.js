@@ -1,8 +1,9 @@
-const { getObj } = require('./helpers');
+const { getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   getRaw: 'promise',
-  sign: 'promise'
+  sign: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -35,3 +36,19 @@ module.exports.sign = (secSignKeyHandle, data) => {
   return getObj(secSignKeyHandle)
     .then((obj) => obj.netObj.sign(data));
 };
+
+/**
+ * Free the SecSignKey instance from memory
+ * @name window.safeCryptoSecSignKey.free
+ *
+ * @param {SecSignKeyHandle} secSignKeyHandle the SecSignKey handle
+*/
+module.exports.free = (secSignKeyHandle) => freeObj(secSignKeyHandle);
+
+/**
+ * @name SecSignKeyHandle
+ * @typedef {String} SecSignKeyHandle
+ * @description Holds the reference to a SecSignKey instance.
+ * Note that it is required to free the memory used by such an instance when it's
+ * not needed anymore by the client aplication, please refer to the `free` function.
+*/

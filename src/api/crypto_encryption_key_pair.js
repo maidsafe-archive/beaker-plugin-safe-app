@@ -1,9 +1,10 @@
-const { genHandle, getObj } = require('./helpers');
+const { genHandle, getObj, freeObj } = require('./helpers');
 
 module.exports.manifest = {
   getPubEncKey: 'promise',
   getSecEncKey: 'promise',
-  decryptSealed: 'promise'
+  decryptSealed: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -59,9 +60,17 @@ module.exports.decryptSealed = (keyPairHandle, cipher) => {
 };
 
 /**
- * @name KeyPairHandle
- * @typedef {String} KeyPairHandle
- * @description Holds the reference to a KeyPair instance.
+ * Free the EncKeyPair instance from memory
+ * @name window.safeCryptoEncKeyPair.free
+ *
+ * @param {EncKeyPairHandle} encKeyPairHandle
+*/
+module.exports.free = (encKeyPairHandle) => freeObj(encKeyPairHandle);
+
+/**
+ * @name EncKeyPairHandle
+ * @typedef {String} EncKeyPairHandle
+ * @description Holds the reference to a EncKeyPair instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
 */
