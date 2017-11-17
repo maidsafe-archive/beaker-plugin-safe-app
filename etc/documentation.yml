@@ -15,6 +15,12 @@ toc:
   - window.safeApp.getContainersPermissions
   - window.safeApp.getOwnContainer
   - window.safeApp.getContainer
+  - window.safeApp.isNetStateInit
+  - window.safeApp.isNetStateConnected
+  - window.safeApp.isNetStateDisconnected
+  - window.safeApp.isMockBuild
+  - window.safeApp.clearObjectCache
+  - window.safeApp.free
   - name: Immutable Data
     description: The safeImmutableData API allows you to create and manipulate Immutable Data objects in the SAFE network
   - window.safeImmutableData.create
@@ -23,6 +29,7 @@ toc:
   - window.safeImmutableData.closeWriter
   - window.safeImmutableData.read
   - window.safeImmutableData.size
+  - window.safeImmutableData.free
   - name: Mutable Data
     description: The safeMutableData API allows you to create and manipulate Mutable Data objects in the SAFE network
   - window.safeMutableData.newRandomPrivate
@@ -59,17 +66,20 @@ toc:
   - window.safeMutableDataEntries.forEach
   - window.safeMutableDataEntries.insert
   - window.safeMutableDataEntries.mutate
+  - window.safeMutableDataEntries.free
   - name: Mutable Data Mutation
     description: The safeMutableDataMutation API allows you to manipulate and apply Mutations on a Mutable Data object in the SAFE network
   - window.safeMutableDataMutation.insert
   - window.safeMutableDataMutation.remove
   - window.safeMutableDataMutation.update
+  - window.safeMutableDataMutation.free
   - name: Mutable Data Permissions
     description: The safeMutableDataPermissions API allows you to manipulate the Permissions of a Mutable Data object in the SAFE network
   - window.safeMutableDataPermissions.len
   - window.safeMutableDataPermissions.getPermissionsSet
   - window.safeMutableDataPermissions.insertPermissionsSet
   - window.safeMutableDataPermissions.listPermissionSets
+  - window.safeMutableDataPermissions.free
   - name: NFS Emulation
     description: The safeNfs API provides you with a NFS emulation layer rapping a MutableData object
   - window.safeNfs.create
@@ -78,16 +88,19 @@ toc:
   - window.safeNfs.update
   - window.safeNfs.delete
   - window.safeNfs.open
+  - window.safeNfs.free
   - window.safeNfsFile.size
   - window.safeNfsFile.read
   - window.safeNfsFile.write
   - window.safeNfsFile.close
   - window.safeNfsFile.metadata
+  - window.safeNfsFile.free
   - name: Cipher Opt
     description: The safeCipherOpt API provides you with functions to create different cipher options
   - window.safeCipherOpt.newPlainText
   - window.safeCipherOpt.newSymmetric
   - window.safeCipherOpt.newAsymmetric
+  - window.safeCipherOpt.free
   - name: Crypto
     description: The safeCrypto API functions provide you with handy cryptographic functions
   - window.safeCrypto.sha3Hash

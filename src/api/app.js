@@ -299,13 +299,13 @@ module.exports.networkState = (appHandle) => {
 };
 
 /**
- * Verify whether or not network state is INIT
+ * Verify whether or not network state is INIT.
  * @name window.safeApp.isNetStateInit
  *
  * @param {SAFEAppHandle} appHandle
  *
  * @returns {Boolean}
- * */
+ */
 module.exports.isNetStateInit = (appHandle) => {
   return getObj(appHandle)
   .then((obj) => obj.app.isNetStateInit());
