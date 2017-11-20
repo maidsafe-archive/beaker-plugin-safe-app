@@ -120,6 +120,10 @@ module.exports.mutate = (entriesHandle) => {
  * @name window.safeMutableDataEntries.free
  *
  * @param {String} entriesHandle the Entries handle
+ *
+ * @example // Freeing entries object from memory
+ * window.safeMutableData.getEntries(mdHandle)
+ *    .then((entriesHandle) => window.safeMutableDataEntries.free(entriesHandle))
 */
 module.exports.free = (entriesHandle) => freeObj(entriesHandle);
 

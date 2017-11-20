@@ -99,6 +99,10 @@ module.exports.listPermissionSets = (permissionsHandle) => {
  * @name window.safeMutableDataPermissions.free
  *
  * @param {String} permissionsHandle the Permissions handle
+ *
+ * @example // Freeing mutable data permissions object from memory
+ * window.safeMutableData.getPermissions(mdHandle)
+ *    .then((permsHandle) => window.safeMutableDataPermissions.free(permsHandle))
 */
 module.exports.free = (permissionsHandle) => freeObj(permissionsHandle);
 

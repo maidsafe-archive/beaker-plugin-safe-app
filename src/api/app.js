@@ -306,6 +306,10 @@ module.exports.networkState = (appHandle) => {
  * @param {SAFEAppHandle} appHandle
  *
  * @returns {Boolean}
+ *
+ * @example // Checking if app's network state is INIT
+ * window.safeApp.isNetStateInit(appHandle)
+ *   .then((s) => console.log('App is in network state: ', s));
  */
 module.exports.isNetStateInit = (appHandle) => {
   return getObj(appHandle)
@@ -319,6 +323,10 @@ module.exports.isNetStateInit = (appHandle) => {
  * @param {SAFEAppHandle} appHandle
  *
  * @returns {Boolean}
+ *
+ * @example // Checking if app's network state is CONNECTED
+ * window.safeApp.isNetStateConnected(appHandle)
+ *   .then((s) => console.log('App is in network state: ', s));
  * */
 module.exports.isNetStateConnected = (appHandle) => {
   return getObj(appHandle)
@@ -332,6 +340,10 @@ module.exports.isNetStateConnected = (appHandle) => {
  * @param {SAFEAppHandle} appHandle
  *
  * @returns {Boolean}
+ *
+ * @example // Checking if app's network state is DISCONNECTED
+ * window.safeApp.isNetStateDisconnected(appHandle)
+ *   .then((s) => console.log('App is in network state: ', s));
  * */
 module.exports.isNetStateDisconnected = (appHandle) => {
   return getObj(appHandle)
@@ -345,6 +357,15 @@ module.exports.isNetStateDisconnected = (appHandle) => {
  * @param {SAFEAppHandle} appHandle
  *
  * @returns {Boolean}
+ *
+ * @example // Resets native object cache as well as front-end object handles except for SAFEApp
+ * window.safeApp.clearObjectCache(appHandle)
+ *   .then(() => {
+ *     console.log('All network objects dropped');
+ *     console.log(appHandle, ' still valid.);
+ *     window.safeApp.isRegistered(appHandle)
+ *     .then(console.log);
+ *   });
  * */
 module.exports.clearObjectCache = (appHandle) => {
   return getObj(appHandle)
@@ -359,6 +380,12 @@ module.exports.clearObjectCache = (appHandle) => {
  * @param {SAFEAppHandle} appHandle
  *
  * @returns {Boolean}
+ *
+ * @example // Checking is underlying library is mock build
+ * window.safeApp.isMockBuild(appHandle)
+ * .then((bool) => {
+ *  console.log('Was underlying safe_app library built for mock development? ', bool);
+ * });
  * */
 module.exports.isMockBuild = (appHandle) => {
   return getObj(appHandle)
@@ -393,6 +420,35 @@ module.exports.canAccessContainer = (appHandle, name, permissions) => {
  * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<SAFEAppHandle>} same app handle when finished refreshing
+ *
+ * @example // Updating client with previously updated container permissions
+ * const permissions = {
+ *   _public: ['Read', 'Insert', 'Update', 'Delete', 'ManagePermissions']
+ * }
+ *
+ * const appInfo = {
+ *   id: `random net.maidsafe.beaker_plugin_safe_app.test${Math.round(Math.random() * 100000)}`,
+ *   name: `random beaker_plugin_safe_app_test${Math.round(Math.random() * 100000)}`,
+ *   vendor: 'MaidSafe Ltd.'
+ * };
+ * const appHandle = await window.safeApp.initialise(appInfo);
+ * const authUri = await window.safeApp.authorise(appHandle, permissions, {});
+ * await window.safeApp.connectAuthorised(appHandle, authUri);
+ * await window.safeApp.refreshContainersPermissions(appHandle);
+ *
+ * const containerHandle = await window.safeApp.getContainer(appHandle, '_public');
+ * let permsObject = await window.safeApp.getContainersPermissions(appHandle);
+ * //should.not.exist(permsObject['_publicNames']);
+ *
+ * const updatePermissions = {
+ *   _publicNames: ['Read', 'Insert', 'Update', 'Delete', 'ManagePermissions']
+ * }
+ *
+ * await window.safeApp.authoriseContainer(appHandle, updatePermissions);
+ * await window.safeApp.refreshContainersPermissions(appHandle);
+ *
+ * permsObject = await window.safeApp.getContainersPermissions(appHandle);
+ * should.exist(permsObject['_publicNames']);
  */
 module.exports.refreshContainersPermissions = (appHandle) => {
   return getObj(appHandle)
@@ -408,6 +464,12 @@ module.exports.refreshContainersPermissions = (appHandle) => {
  * @param {SAFEAppHandle} appHandle the app handle
  *
  * @returns {Promise<Array<ContainerPerms>>} list of containers permissions
+ *
+ * @example // Reading granted container permission for an app
+ * window.safeApp.getContainersPermissions(appHandle)
+ * .then((object) => {
+ *   console.log('JSON object representation of app container permmissions: ', object');
+ * });
  */
 module.exports.getContainersPermissions = (appHandle) => {
   return getObj(appHandle)
@@ -464,6 +526,9 @@ module.exports.getContainer = (appHandle, name) => {
  * @name window.safeApp.reconnect
  *
  * @param {SAFEAppHandle} appHandle the app handle
+ *
+ * @example // Reconnecting app instance
+ * window.safeApp.reconnect(appHandle);
  */
 module.exports.reconnect = (appHandle) => {
   return getObj(appHandle)
@@ -496,6 +561,9 @@ module.exports.logPath = (appHandle, filename) => {
  * @name window.safeApp.free
  *
  * @param {SAFEAppHandle} appHandle the app handle
+ *
+ * @example // Freeing app instance from memory
+ * window.safeApp.free(appHandle);
  */
 module.exports.free = (appHandle) => freeObj(appHandle);
 

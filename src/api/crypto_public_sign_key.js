@@ -31,6 +31,14 @@ module.exports.getRaw = (pubSignKeyHandle) => {
  * @param {PubSignKeyHandle} pubSignKeyHandle
  *
  * @returns {Promise<Buffer>} verified data
+ *
+ * @example // Verifying signed data
+ * const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
+ * const secSignKeyHandle = await window.safeCryptoSignKeyPair.getSecSignKey(signKeyPairHandle);
+ * const data = 'plain text data to be signed';
+ * const signedData = await window.safeCryptoSecSignKey.sign(secSignKeyHandle, data);
+ * const pubSignKeyHandle = await window.safeCryptoSignKeyPair.getPubSignKey(signKeyPairHandle);
+ * const verifiedData = await window.safeCryptoPubSignKey.verify(pubSignKeyHandle, signedData);
  */
 module.exports.verify = (pubSignKeyHandle, data) => {
   return getObj(pubSignKeyHandle)
@@ -42,6 +50,10 @@ module.exports.verify = (pubSignKeyHandle, data) => {
  * @name window.safeCryptoPubSignKey.free
  *
  * @param {PubSignKeyHandle} pubSignKeyHandle the PubSignKey handle
+ *
+ * @example // Freeing public sign key object from memory
+ * window.safeCrypto.getAppPubSignKey(appHandle)
+ *  .then((pubSignKeyHandle) => window.safeCryptoPubSignKey.free(pubSignKeyHandle));
 */
 module.exports.free = (pubSignKeyHandle) => freeObj(pubSignKeyHandle);
 

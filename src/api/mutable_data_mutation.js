@@ -86,6 +86,10 @@ module.exports.update = (mutationHandle, keyName, value, version) => {
  * @name window.safeMutableDataMutation.free
  *
  * @param {String} mutationHandle the Mutation handle
+ *
+ * @example // freeing mutation object from memory
+ * window.safeMutableData.newMutation(appHandle)
+ *    .then((value) => window.safeMutableDataMutation.free(mutationHandle))
 */
 module.exports.free = (mutationHandle) => freeObj(mutationHandle);
 

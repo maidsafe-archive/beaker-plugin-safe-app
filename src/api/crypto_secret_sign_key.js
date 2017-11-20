@@ -30,7 +30,13 @@ module.exports.getRaw = (secSignKeyHandle) => {
  *
  * @param {SecSignKeyHandle} secSignKeyHandle
  *
- * @returns {Promise<Buffer>} verified data
+ * @returns {Promise<Buffer>} signed data
+ *
+ * @example // Signing data that can later be verified
+ * const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
+ * const secSignKeyHandle = await window.safeCryptoSignKeyPair.getSecSignKey(signKeyPairHandle);
+ * const data = 'plain text data to be signed';
+ * window.safeCryptoSecSignKey.sign(secSignKeyHandle, data)
  */
 module.exports.sign = (secSignKeyHandle, data) => {
   return getObj(secSignKeyHandle)
@@ -42,6 +48,11 @@ module.exports.sign = (secSignKeyHandle, data) => {
  * @name window.safeCryptoSecSignKey.free
  *
  * @param {SecSignKeyHandle} secSignKeyHandle the SecSignKey handle
+ *
+ * @example // Freeing secret sign key object from memory
+ * const signKeyPairHandle = await window.safeCrypto.generateSignKeyPair(appHandle);
+ * const secSignKeyHandle = await window.safeCryptoSignKeyPair.getSecSignKey(signKeyPairHandle);
+ * window.safeCryptoSecSignKey.free(secSignKeyHandle);
 */
 module.exports.free = (secSignKeyHandle) => freeObj(secSignKeyHandle);
 

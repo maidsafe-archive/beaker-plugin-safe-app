@@ -161,6 +161,16 @@ module.exports.size = (readerHandle) => {
  * @name window.safeImmutableData.free
  *
  * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
+ *
+ * @example // Freeing immutable data reader object from memory
+ * window.safeImmutableData.create(appHandle)
+ *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
+ *       .then(_ => window.safeCipherOpt.newPlainText(appHandle)
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *       )
+ *    )
+ *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))
+ *    .then((idReaderHandle) => window.safeImmutableData.free(idReaderHandle));
  */
 module.exports.free = (readerHandle) => freeObj(readerHandle);
 
