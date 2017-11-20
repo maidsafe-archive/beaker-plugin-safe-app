@@ -14,7 +14,7 @@ module.exports.manifest = {
   isNetStateInit: 'sync',
   isNetStateConnected: 'sync',
   isNetStateDisconnected: 'sync',
-  isRegistered: 'sync',
+  isRegistered: 'promise',
   clearObjectCache: 'promise',
   isMockBuild: 'promise',
   canAccessContainer: 'promise',
