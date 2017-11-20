@@ -1,6 +1,6 @@
 const safeApp = require('@maidsafe/safe-node-app');
 const ipc = require('./ipc');
-const { genHandle, getObj, freeObj, netStateCallbackHelper } = require('./helpers');
+const { genHandle, getObj, freeObj, freeAllNetObj, netStateCallbackHelper } = require('./helpers');
 
 module.exports.manifest = {
   _with_async_cb_initialise: 'readable',
@@ -348,7 +348,8 @@ module.exports.isNetStateDisconnected = (appHandle) => {
  * */
 module.exports.clearObjectCache = (appHandle) => {
   return getObj(appHandle)
-  .then((obj) => obj.app.clearObjectCache());
+  .then((obj) => obj.app.clearObjectCache())
+  .then(() => freeAllNetObj(appHandle));
 };
 
 /**
