@@ -309,7 +309,7 @@ module.exports.networkState = (appHandle) => {
  *
  * @example // Checking if app's network state is INIT
  * window.safeApp.isNetStateInit(appHandle)
- *   .then((s) => console.log('App is in network state: ', s));
+ *   .then((s) => console.log('Is app in initialised network state? ', s));
  */
 module.exports.isNetStateInit = (appHandle) => {
   return getObj(appHandle)
@@ -326,7 +326,7 @@ module.exports.isNetStateInit = (appHandle) => {
  *
  * @example // Checking if app's network state is CONNECTED
  * window.safeApp.isNetStateConnected(appHandle)
- *   .then((s) => console.log('App is in network state: ', s));
+ *   .then((s) => console.log('Is app in connected network state? ', s));
  * */
 module.exports.isNetStateConnected = (appHandle) => {
   return getObj(appHandle)
@@ -343,7 +343,7 @@ module.exports.isNetStateConnected = (appHandle) => {
  *
  * @example // Checking if app's network state is DISCONNECTED
  * window.safeApp.isNetStateDisconnected(appHandle)
- *   .then((s) => console.log('App is in network state: ', s));
+ *   .then((s) => console.log('Is app in disconnected network state? ', s));
  * */
 module.exports.isNetStateDisconnected = (appHandle) => {
   return getObj(appHandle)
@@ -362,9 +362,11 @@ module.exports.isNetStateDisconnected = (appHandle) => {
  * window.safeApp.clearObjectCache(appHandle)
  *   .then(() => {
  *     console.log('All network objects dropped');
- *     console.log(appHandle, ' still valid.);
+ *     console.log(appHandle, ' still valid.');
  *     window.safeApp.isRegistered(appHandle)
- *     .then(console.log);
+ *     .then((res) => {
+ *       console.log(`Successful fulfillment verifies that ${appHandle} is still valid. `, res);
+ *     });
  *   });
  * */
 module.exports.clearObjectCache = (appHandle) => {
