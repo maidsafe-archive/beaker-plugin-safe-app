@@ -20,7 +20,7 @@ class AuthRequest {
   }
 }
 
-function add(uri, isUnregistered, cb) {
+const add = (uri, isUnregistered, cb) => {
   const req = new AuthRequest(uri, isUnregistered, cb);
   if (ipcEvent) {
     reqsSent.set(req.id, req);
@@ -29,7 +29,7 @@ function add(uri, isUnregistered, cb) {
     // let's keep it in a queue to send when ipcEvent is ready
     pendingReqs.push(req);
   }
-}
+};
 
 const sendPendingReqs = () => {
   pendingReqs.forEach((req) => {
@@ -39,10 +39,10 @@ const sendPendingReqs = () => {
   pendingReqs.length = 0;
 };
 
-function remove(id) {
+const remove = (id) => {
   reqsSent.delete(id);
   return this;
-}
+};
 
 const authRes = (event, response) => {
   // handle response
