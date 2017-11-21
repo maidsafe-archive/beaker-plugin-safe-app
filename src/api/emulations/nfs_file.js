@@ -1,4 +1,4 @@
-const { genHandle, getObj, freeObj } = require('../helpers');
+const { getObj, freeObj } = require('../helpers');
 
 module.exports.manifest = {
   size: 'promise',
@@ -89,7 +89,7 @@ module.exports.metadata = (fileHandle) => {
       modified: obj.netObj.modified,
       version: obj.netObj.version
     }
-  ))
+  ));
 };
 
 /**
@@ -97,7 +97,7 @@ module.exports.metadata = (fileHandle) => {
  * @name window.safeNfsFile.free
  *
  * @param {FileHandle} fileHandle the File handle
- **/
+*/
 module.exports.free = (fileHandle) => freeObj(fileHandle);
 
 /**
@@ -106,4 +106,4 @@ module.exports.free = (fileHandle) => freeObj(fileHandle);
  * @description Holds the reference to a File instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ */

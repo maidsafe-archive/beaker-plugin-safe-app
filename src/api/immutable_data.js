@@ -7,7 +7,7 @@ module.exports.manifest = {
   closeWriter: 'promise',
   read: 'promise',
   size: 'promise',
-  free: 'promise',
+  free: 'sync'
 };
 
 /**
@@ -21,7 +21,7 @@ module.exports.manifest = {
  * @example // Creating a new ImmutableData writer:
  * window.safeImmutableData.create(appHandle)
  *    .then((idWriterHandle) => console.log('ImmutableData writer handle: ', idWriterHandle));
- **/
+*/
 module.exports.create = (appHandle) => {
   return getObj(appHandle)
     .then((obj) => obj.app.immutableData.create()
@@ -44,7 +44,7 @@ module.exports.create = (appHandle) => {
  *    )
  *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))
  *    .then((idReaderHandle) => console.log('ImmutableData reader handle: ', idReaderHandle));
- **/
+*/
 module.exports.fetch = (appHandle, address) => {
   return getObj(appHandle)
     .then((obj) => obj.app.immutableData.fetch(address)
@@ -68,7 +68,7 @@ module.exports.fetch = (appHandle, address) => {
  *       )
  *       .then((addr) => console.log('ImmutableData written in the network at: ', addr))
  *    );
- **/
+*/
 module.exports.write = (writerHandle, string) => {
   return getObj(writerHandle)
     .then((obj) => obj.netObj.write(string));
@@ -93,7 +93,7 @@ module.exports.write = (writerHandle, string) => {
  *      .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
  *      .then((addr) => console.log('ImmutableData was stored at address: ', addr))
  *    );
- **/
+*/
 module.exports.closeWriter = (writerHandle, cipherOptHandle) => {
   return getObj(writerHandle)
     .then((writerObj) => getObj(cipherOptHandle)
@@ -126,7 +126,7 @@ module.exports.closeWriter = (writerHandle, cipherOptHandle) => {
  *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))
  *    .then((idReaderHandle) => window.safeImmutableData.read(idReaderHandle))
  *    .then((data) => console.log('ImmutableData data read: ', data.toString()));
- **/
+*/
 module.exports.read = (readerHandle, options) => {
   return getObj(readerHandle)
     .then((obj) => obj.netObj.read(options));
@@ -150,7 +150,7 @@ module.exports.read = (readerHandle, options) => {
  *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))
  *    .then((idReaderHandle) => window.safeImmutableData.size(idReaderHandle))
  *    .then((size) => console.log('Size of the ImmutableData: ', size));
- **/
+*/
 module.exports.size = (readerHandle) => {
   return getObj(readerHandle)
     .then((obj) => obj.netObj.size());
@@ -161,6 +161,16 @@ module.exports.size = (readerHandle) => {
  * @name window.safeImmutableData.free
  *
  * @param {ReaderHandle} readerHandle the ImmutableData Reader handle
+ *
+ * @example // Freeing immutable data reader object from memory
+ * window.safeImmutableData.create(appHandle)
+ *    .then((idWriterHandle) => window.safeImmutableData.write(idWriterHandle, 'my immutable data')
+ *       .then(_ => window.safeCipherOpt.newPlainText(appHandle)
+ *          .then((cipherOptHandle) => window.safeImmutableData.closeWriter(idWriterHandle, cipherOptHandle))
+ *       )
+ *    )
+ *    .then((addr) => window.safeImmutableData.fetch(appHandle, addr))
+ *    .then((idReaderHandle) => window.safeImmutableData.free(idReaderHandle));
  */
 module.exports.free = (readerHandle) => freeObj(readerHandle);
 
@@ -170,7 +180,7 @@ module.exports.free = (readerHandle) => freeObj(readerHandle);
  * @description Holds the reference to a ImmutableData Reader instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+*/
 
 /**
  * @name WriterHandle
@@ -178,4 +188,4 @@ module.exports.free = (readerHandle) => freeObj(readerHandle);
  * @description Holds the reference to a ImmutableData Writer instance.
  * Note that such an instance it's free from memory when the `close` function
  * is invoked.
- **/
+*/

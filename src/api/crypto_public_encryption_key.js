@@ -63,7 +63,7 @@ module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
  * @name window.safeCryptoPubEncKey.free
  *
  * @param {PubEncKeyHandle} pubEncKeyHandle the PubEncKey handle
- **/
+*/
 module.exports.free = (pubEncKeyHandle) => freeObj(pubEncKeyHandle);
 
 /**
@@ -72,4 +72,4 @@ module.exports.free = (pubEncKeyHandle) => freeObj(pubEncKeyHandle);
  * @description Holds the reference to a PubEncKey instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+*/

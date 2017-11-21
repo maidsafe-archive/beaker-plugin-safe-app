@@ -12,6 +12,7 @@
     "no-use-before-define": 0,
     "generator-star-spacing": 0,
     "no-console": ["error", { allow: ["warn", "error"] }],
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "linebreak-style": 0
   }
 }

@@ -135,7 +135,7 @@ module.exports.open = (nfsHandle, fileHandle, openMode) => {
  * @name window.safeNfs.free
  *
  * @param {NFSHandle} nfsHandle the NFS emulation handle
- **/
+*/
 module.exports.free = (nfsHandle) => freeObj(nfsHandle);
 
 /**
@@ -144,4 +144,4 @@ module.exports.free = (nfsHandle) => freeObj(nfsHandle);
  * @description Holds the reference to a NFS emulation instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+ */

@@ -24,7 +24,7 @@ module.exports.manifest = {
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
  *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
- **/
+*/
 module.exports.insert = (mutationHandle, keyName, value) => {
   return getObj(mutationHandle)
     .then((obj) => obj.netObj.insert(keyName, value));
@@ -49,7 +49,7 @@ module.exports.insert = (mutationHandle, keyName, value) => {
  *    .then((value) => window.safeMutableDataMutation.remove(mutationHandle, 'key1', value.version + 1))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
  *    .then(_ => console.log('Entry was removed from the MutableData and committed to the network'));
- **/
+*/
 module.exports.remove = (mutationHandle, keyName, version) => {
   return getObj(mutationHandle)
     .then((obj) => obj.netObj.remove(keyName, version));
@@ -75,7 +75,7 @@ module.exports.remove = (mutationHandle, keyName, version) => {
  *    .then((value) => window.safeMutableDataMutation.update(mutationHandle, 'key1', 'newValue', value.version + 1))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
  *    .then(_ => console.log('Entry was updated in the MutableData and committed to the network'));
- **/
+*/
 module.exports.update = (mutationHandle, keyName, value, version) => {
   return getObj(mutationHandle)
     .then((obj) => obj.netObj.update(keyName, value, version));
@@ -86,7 +86,11 @@ module.exports.update = (mutationHandle, keyName, value, version) => {
  * @name window.safeMutableDataMutation.free
  *
  * @param {String} mutationHandle the Mutation handle
- **/
+ *
+ * @example // freeing mutation object from memory
+ * window.safeMutableData.newMutation(appHandle)
+ *    .then((value) => window.safeMutableDataMutation.free(mutationHandle))
+*/
 module.exports.free = (mutationHandle) => freeObj(mutationHandle);
 
 /**
@@ -95,4 +99,4 @@ module.exports.free = (mutationHandle) => freeObj(mutationHandle);
  * @description Holds the reference to a Mutation instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- **/
+*/
