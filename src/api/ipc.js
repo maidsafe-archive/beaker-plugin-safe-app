@@ -31,13 +31,13 @@ function add(uri, isUnregistered, cb) {
   }
 }
 
-function sendPendingReqs() {
+const sendPendingReqs = () => {
   pendingReqs.forEach((req) => {
     reqsSent.set(req.id, req);
     ipcEvent.sender.send('webClientAuthReq', req);
   });
   pendingReqs.length = 0;
-}
+};
 
 function remove(id) {
   reqsSent.delete(id);
