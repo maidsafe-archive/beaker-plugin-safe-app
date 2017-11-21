@@ -1,5 +1,14 @@
 # Beaker Plugin SAFE App Change Log
 
+## 0.4.0
+
+- signing key API upgrade
+- update mutable data with safe_app_nodejs  changes
+- update crypto with safe_app_nodejs changes
+- adds new safe_app_nodejs functions for safeApp 
+- updates documentation in accordance with latest API changes 
+- @maidsafe/safe-node-app version change 0.5.0
+
 ## 0.3.2
 
 - Avoid connecting to the network at protocol's registration time
