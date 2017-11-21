@@ -38,8 +38,10 @@ module.exports.getRaw = (secEncKeyHandle) => getObj(secEncKeyHandle)
  * const secEncKeyHandle = await window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle);
  * const pubEncKeyHandle = await window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle);
  *
- * const cipher = await window.safeCryptoPubEncKey.encrypt(pubEncKeyHandle, 'deciphered', secEncKeyHandle);
- * const deciphered = await window.safeCryptoSecEncKey.decrypt(secEncKeyHandle, cipher, pubEncKeyHandle)
+ * const cipher = await window.safeCryptoPubEncKey
+ *   .encrypt(pubEncKeyHandle, 'deciphered', secEncKeyHandle);
+ * const deciphered = await window.safeCryptoSecEncKey
+ *   .decrypt(secEncKeyHandle, cipher, pubEncKeyHandle)
  * console.log('decrypted data: ', deciphered);
  */
 module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => getObj(secEncKeyHandle)

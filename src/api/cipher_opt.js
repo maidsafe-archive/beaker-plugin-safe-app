@@ -60,7 +60,7 @@ module.exports.newAsymmetric = (keyHandle) => getObj(keyHandle)
  *
  * @example // Freeing cipher opt object from memory
  * window.safeCipherOpt.free(cipherOptHandle);
- **/
+ * */
 module.exports.free = (cipherOptHandle) => freeObj(cipherOptHandle);
 
 /**

@@ -72,17 +72,15 @@ module.exports.close = (fileHandle) => getObj(fileHandle)
  * @param {FileHandle} fileHandle the File handle
  *
  * @returns {FileMetadata} the file's metadata
- **/
-module.exports.metadata = (fileHandle) => {
-  return getObj(fileHandle).then((obj) => (
-    {
-      dataMapName: obj.netObj.dataMapName,
-      created: obj.netObj.created,
-      modified: obj.netObj.modified,
-      version: obj.netObj.version
-    }
+ * */
+module.exports.metadata = (fileHandle) => getObj(fileHandle).then((obj) => (
+  {
+    dataMapName: obj.netObj.dataMapName,
+    created: obj.netObj.created,
+    modified: obj.netObj.modified,
+    version: obj.netObj.version
+  }
   ));
-};
 
 /**
  * Free the NFS File instance from memory

@@ -22,8 +22,7 @@ module.exports.manifest = {
  *    .then((entriesHandle) => window.safeMutableDataEntries.len(entriesHandle))
  *    .then((len) => console.log('Number of entries in the MutableData: ', len));
 */
-module.exports.len = (entriesHandle) => {
-  return getObj(entriesHandle)
+module.exports.len = (entriesHandle) => getObj(entriesHandle)
     .then((obj) => obj.netObj.len());
 
 /**
@@ -43,8 +42,7 @@ module.exports.len = (entriesHandle) => {
  *       console.log('Version: ', value.version);
  *    });
 */
-module.exports.get = (entriesHandle, keyName) => {
-  return getObj(entriesHandle)
+module.exports.get = (entriesHandle, keyName) => getObj(entriesHandle)
     .then((obj) => obj.netObj.get(keyName));
 
 /**
@@ -65,9 +63,7 @@ module.exports.get = (entriesHandle, keyName) => {
  *       }).then(_ => console.log('Iteration finished'))
  *    );
 */
-module.exports._with_cb_forEach = (entriesHandle) => { // eslint-disable-line max-len, no-underscore-dangle
-  return forEachHelper(entriesHandle);
-};
+module.exports._with_cb_forEach = (entriesHandle) => forEachHelper(entriesHandle); // eslint-disable-line max-len, no-underscore-dangle
 
 /**
  * Insert a new entry. It will fail if the entry already exists or if
@@ -86,8 +82,7 @@ module.exports._with_cb_forEach = (entriesHandle) => { // eslint-disable-line ma
  *      entriesHandle, 'key1', 'value1'))
  *    .then(_ => console.log('New entry inserted');
 */
-module.exports.insert = (entriesHandle, keyName, value) => {
-  return getObj(entriesHandle)
+module.exports.insert = (entriesHandle, keyName, value) => getObj(entriesHandle)
     .then((obj) => obj.netObj.insert(keyName, value));
 
 /**
@@ -105,10 +100,10 @@ module.exports.insert = (entriesHandle, keyName, value) => {
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
- *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
+ *    .then(_ => console.log(
+ *      'New entry was inserted in the MutableData and committed to the network'));
 */
-module.exports.mutate = (entriesHandle) => {
-  return getObj(entriesHandle)
+module.exports.mutate = (entriesHandle) => getObj(entriesHandle)
     .then((obj) => obj.netObj.mutate()
       .then((mut) => genHandle(obj.app, mut)));
 

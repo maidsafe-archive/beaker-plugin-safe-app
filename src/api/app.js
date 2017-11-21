@@ -53,6 +53,7 @@ module.exports.manifest = {
  *    });
  */
 module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) => { // eslint-disable-line no-underscore-dangle, max-len
+  const appInfoCopy = Object.assign({}, appInfo);
   if (this && this.sender) {
     const wholeUrl = this.sender.getURL();
     appInfoCopy.scope = wholeUrl;
@@ -82,9 +83,8 @@ module.exports._with_async_cb_initialise = (appInfo, enableLog, safeAppGroupId) 
  *    console.log('Unregistered session created');
  * });
  */
-module.exports.connect = (appHandle) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+module.exports.connect = (appHandle) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genConnUri()
         .then((connReq) => ipc.sendAuthReq(connReq, true, (err, res) => {
           if (err) {
@@ -124,9 +124,8 @@ module.exports.connect = (appHandle) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
  */
-module.exports.authorise = (appHandle, permissions, options) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+module.exports.authorise = (appHandle, permissions, options) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genAuthUri(permissions, options)
         .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
@@ -164,11 +163,9 @@ module.exports.authorise = (appHandle, permissions, options) => {
  *    console.log('The app was authorised & a session was created with the network');
  * });
  */
-module.exports.connectAuthorised = (appHandle, authUri) => {
-  return getObj(appHandle)
+module.exports.connectAuthorised = (appHandle, authUri) => getObj(appHandle)
     .then((obj) => obj.app.auth.loginFromURI(authUri))
     .then(() => appHandle);
-};
 
 /**
  * Request the Authenticator (and user) to authorise this application
@@ -188,9 +185,8 @@ module.exports.connectAuthorised = (appHandle, authUri) => {
  *    console.log('App was authorised and auth URI received: ', authUri);
  * });
  */
-module.exports.authoriseContainer = (appHandle, permissions) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+module.exports.authoriseContainer = (appHandle, permissions) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genContainerAuthUri(permissions)
         .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
@@ -226,9 +222,8 @@ module.exports.authoriseContainer = (appHandle, permissions) => {
  *   ]
  * )
  */
-module.exports.authoriseShareMd = (appHandle, permissions) => {
-  return new Promise((resolve, reject) => {
-    getObj(appHandle)
+module.exports.authoriseShareMd = (appHandle, permissions) => new Promise((resolve, reject) => {
+  getObj(appHandle)
       .then((obj) => obj.app.auth.genShareMDataUri(permissions)
         .then((authReq) => ipc.sendAuthReq(authReq, false, (err, res) => {
           if (err) {
@@ -258,8 +253,7 @@ module.exports.authoriseShareMd = (appHandle, permissions) => {
  *    console.log('Web page content retrieved: ', data.toString());
  * });
  */
-module.exports.webFetch = (appHandle, url) => {
-  return getObj(appHandle)
+module.exports.webFetch = (appHandle, url) => getObj(appHandle)
     .then((obj) => obj.app.webFetch(url));
 
 /**
@@ -274,8 +268,7 @@ module.exports.webFetch = (appHandle, url) => {
  * window.safeApp.isRegistered(appHandle)
  *    .then((r) => console.log('Is app registered?: ', r));
  */
-module.exports.isRegistered = (appHandle) => {
-  return getObj(appHandle)
+module.exports.isRegistered = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.registered);
 
 /**
@@ -290,8 +283,7 @@ module.exports.isRegistered = (appHandle) => {
  * window.safeApp.networkState(appHandle)
  *    .then((s) => console.log('Current network state: ', s));
  */
-module.exports.networkState = (appHandle) => {
-  return getObj(appHandle)
+module.exports.networkState = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.networkState);
 
 /**
@@ -306,10 +298,8 @@ module.exports.networkState = (appHandle) => {
  * window.safeApp.isNetStateInit(appHandle)
  *   .then((s) => console.log('Is app in initialised network state? ', s));
  */
-module.exports.isNetStateInit = (appHandle) => {
-  return getObj(appHandle)
+module.exports.isNetStateInit = (appHandle) => getObj(appHandle)
   .then((obj) => obj.app.isNetStateInit());
-};
 
 /**
  * Verify whether or not network state is CONNECTED
@@ -323,10 +313,8 @@ module.exports.isNetStateInit = (appHandle) => {
  * window.safeApp.isNetStateConnected(appHandle)
  *   .then((s) => console.log('Is app in connected network state? ', s));
  * */
-module.exports.isNetStateConnected = (appHandle) => {
-  return getObj(appHandle)
+module.exports.isNetStateConnected = (appHandle) => getObj(appHandle)
   .then((obj) => obj.app.isNetStateConnected());
-};
 
 /**
  * Verify whether or not network state is DISCONNECTED
@@ -340,10 +328,8 @@ module.exports.isNetStateConnected = (appHandle) => {
  * window.safeApp.isNetStateDisconnected(appHandle)
  *   .then((s) => console.log('Is app in disconnected network state? ', s));
  * */
-module.exports.isNetStateDisconnected = (appHandle) => {
-  return getObj(appHandle)
+module.exports.isNetStateDisconnected = (appHandle) => getObj(appHandle)
   .then((obj) => obj.app.isNetStateDisconnected());
-};
 
 /**
  * Resets the object cache kept by the underlyging library
@@ -364,11 +350,9 @@ module.exports.isNetStateDisconnected = (appHandle) => {
  *     });
  *   });
  * */
-module.exports.clearObjectCache = (appHandle) => {
-  return getObj(appHandle)
+module.exports.clearObjectCache = (appHandle) => getObj(appHandle)
   .then((obj) => obj.app.clearObjectCache())
   .then(() => freeAllNetObj(appHandle));
-};
 
 /**
  * Retuns true if the underlyging library was compiled against mock-routing.
@@ -384,10 +368,8 @@ module.exports.clearObjectCache = (appHandle) => {
  *  console.log('Was underlying safe_app library built for mock development? ', bool);
  * });
  * */
-module.exports.isMockBuild = (appHandle) => {
-  return getObj(appHandle)
+module.exports.isMockBuild = (appHandle) => getObj(appHandle)
   .then((obj) => obj.app.isMockBuild());
-};
 
 /**
  * Whether or not this session has specifc permission access of a given
@@ -404,8 +386,7 @@ module.exports.isMockBuild = (appHandle) => {
  * window.safeApp.canAccessContainer(appHandle, '_public', ['Read'])
  *    .then((r) => console.log('Has the app `Read` permission for `_public` container?: ', r));
  */
-module.exports.canAccessContainer = (appHandle, name, permissions) => {
-  return getObj(appHandle)
+module.exports.canAccessContainer = (appHandle, name, permissions) => getObj(appHandle)
     .then((obj) => obj.app.auth.canAccessContainer(name, permissions));
 
 /**
@@ -446,11 +427,9 @@ module.exports.canAccessContainer = (appHandle, name, permissions) => {
  * permsObject = await window.safeApp.getContainersPermissions(appHandle);
  * should.exist(permsObject['_publicNames']);
  */
-module.exports.refreshContainersPermissions = (appHandle) => {
-  return getObj(appHandle)
+module.exports.refreshContainersPermissions = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.refreshContainersPermissions())
     .then(() => appHandle);
-};
 
 /**
  * Get the names of all containers found and the app's granted
@@ -467,8 +446,7 @@ module.exports.refreshContainersPermissions = (appHandle) => {
  *   console.log('JSON object representation of app container permmissions: ', object');
  * });
  */
-module.exports.getContainersPermissions = (appHandle) => {
-  return getObj(appHandle)
+module.exports.getContainersPermissions = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.getContainersPermissions());
 
 /**
@@ -484,8 +462,7 @@ module.exports.getContainersPermissions = (appHandle) => {
  *    .then((mdHandle) => window.safeMutableData.getVersion(mdHandle))
  *    .then((v) => console.log('Own Container version: ', v));
  */
-module.exports.getOwnContainer = (appHandle) => {
-  return getObj(appHandle)
+module.exports.getOwnContainer = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.auth.getOwnContainer()
       .then((md) => genHandle(obj.app, md)));
 
@@ -509,8 +486,7 @@ module.exports.getOwnContainer = (appHandle) => {
  *       }
  *    });
  */
-module.exports.getContainer = (appHandle, name) => {
-  return getObj(appHandle)
+module.exports.getContainer = (appHandle, name) => getObj(appHandle)
     .then((obj) => obj.app.auth.getContainer(name)
       .then((md) => genHandle(obj.app, md)));
 
@@ -523,8 +499,7 @@ module.exports.getContainer = (appHandle, name) => {
  * @example // Reconnecting app instance
  * window.safeApp.reconnect(appHandle);
  */
-module.exports.reconnect = (appHandle) => {
-  return getObj(appHandle)
+module.exports.reconnect = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.reconnect());
 
 /**
@@ -542,8 +517,7 @@ module.exports.reconnect = (appHandle) => {
  * window.safeApp.logPath(appHandle, 'mylogfile.log')
  *    .then((path) => console.log('Log path generated: ', path));
  */
-module.exports.logPath = (appHandle, filename) => {
-  return getObj(appHandle)
+module.exports.logPath = (appHandle, filename) => getObj(appHandle)
     .then((obj) => obj.app.logPath(filename));
 
 /**
