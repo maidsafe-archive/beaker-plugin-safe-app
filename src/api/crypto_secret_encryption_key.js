@@ -32,6 +32,15 @@ module.exports.getRaw = (secEncKeyHandle) => getObj(secEncKeyHandle)
  * @param {PubEncKeyHandle} theirPubKey public encryption key handle
  *
  * @returns {Promise<Buffer>} the decrypted data
+ *
+ * @example // Decrypting data
+ * const encKeyPairHandle = await window.safeCrypto.generateEncKeyPair(appHandle);
+ * const secEncKeyHandle = await window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle);
+ * const pubEncKeyHandle = await window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle);
+ *
+ * const cipher = await window.safeCryptoPubEncKey.encrypt(pubEncKeyHandle, 'deciphered', secEncKeyHandle);
+ * const deciphered = await window.safeCryptoSecEncKey.decrypt(secEncKeyHandle, cipher, pubEncKeyHandle)
+ * console.log('decrypted data: ', deciphered);
  */
 module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => getObj(secEncKeyHandle)
 .then((obj) => getObj(theirPubKey)
@@ -42,7 +51,10 @@ module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => getObj(secEnc
  * @name window.safeCryptoSecEncKey.free
  *
  * @param {SecEncKeyHandle} secEncKeyHandle the SecEncKey handle
- * */
+ *
+ * @example // Freeing secret encryption key from memory
+ * window.safeCryptoSecEncKey.free(secEncKeyHandle);
+*/
 module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);
 
 /**
@@ -51,4 +63,4 @@ module.exports.free = (secEncKeyHandle) => freeObj(secEncKeyHandle);
  * @description Holds the reference to a SecEncKey instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- * */
+*/

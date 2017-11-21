@@ -15,7 +15,8 @@
     "no-underscore-dangle": ["error", {
       "allowAfterThis": true
     }],
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "linebreak-style": 0
   },
   "plugins": [

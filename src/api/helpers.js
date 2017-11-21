@@ -42,6 +42,20 @@ export const getObj = (handle, supportNull) => new Promise((resolve, reject) => 
   return reject(new Error(`Invalid handle: ${handle}`));
 });
 
+// this helper functions will free all object associated with app\
+// handle but it will not free passed app handle
+export const freeAllNetObj = (handle) => {
+  const obj = handles.get(handle);
+  handles.forEach((value, key) => {
+    if (key !== handle && obj.app === value.app) {
+      // if current key is not equal to app handle passed to function
+      // AND
+      // if current object was created with this SAFEApp instance
+      freeObj(key);
+    }
+  });
+};
+
 export const freeObj = (handle, forceCleanCache) => {
   const obj = handles.get(handle);
   if (obj) {

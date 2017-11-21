@@ -72,22 +72,24 @@ module.exports.close = (fileHandle) => getObj(fileHandle)
  * @param {FileHandle} fileHandle the File handle
  *
  * @returns {FileMetadata} the file's metadata
- * */
-module.exports.metadata = (fileHandle) => getObj(fileHandle).then((obj) => (
-  {
-    dataMapName: obj.netObj.dataMapName,
-    created: obj.netObj.created,
-    modified: obj.netObj.modified,
-    version: obj.netObj.version
-  }
+ **/
+module.exports.metadata = (fileHandle) => {
+  return getObj(fileHandle).then((obj) => (
+    {
+      dataMapName: obj.netObj.dataMapName,
+      created: obj.netObj.created,
+      modified: obj.netObj.modified,
+      version: obj.netObj.version
+    }
   ));
+};
 
 /**
  * Free the NFS File instance from memory
  * @name window.safeNfsFile.free
  *
  * @param {FileHandle} fileHandle the File handle
- * */
+*/
 module.exports.free = (fileHandle) => freeObj(fileHandle);
 
 /**
@@ -96,4 +98,4 @@ module.exports.free = (fileHandle) => freeObj(fileHandle);
  * @description Holds the reference to a File instance.
  * Note that it is required to free the memory used by such an instance when it's
  * not needed anymore by the client aplication, please refer to the `free` function.
- * */
+ */
