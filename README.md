@@ -18,7 +18,7 @@ Project depends on [safe_app_nodejs](https://github.com/maidsafe/safe_app_nodejs
 
 ## Development
 
-Rust and Node.js are required for development.
+Node.js are required for development.
 
 1. Clone the project
 2. Run `npm i` to install the nodejs dependency

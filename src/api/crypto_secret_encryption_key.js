@@ -20,10 +20,8 @@ module.exports.manifest = {
  *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
  *    .then((rawSk) => console.log('Secret encryption key: ', rawSk.buffer.toString('hex')));
  */
-module.exports.getRaw = (secEncKeyHandle) => {
-  return getObj(secEncKeyHandle)
+module.exports.getRaw = (secEncKeyHandle) => getObj(secEncKeyHandle)
     .then((obj) => obj.netObj.getRaw());
-};
 
 /**
  * Decrypt the given ciphertext (buffer or string) using the private and public key
@@ -40,17 +38,15 @@ module.exports.getRaw = (secEncKeyHandle) => {
  * const secEncKeyHandle = await window.safeCryptoKeyPair.getSecEncKey(encKeyPairHandle);
  * const pubEncKeyHandle = await window.safeCryptoKeyPair.getPubEncKey(encKeyPairHandle);
  *
- * const cipher = await window.safeCryptoPubEncKey.encrypt(pubEncKeyHandle, 'deciphered', secEncKeyHandle);
- * const deciphered = await window.safeCryptoSecEncKey.decrypt(secEncKeyHandle, cipher, pubEncKeyHandle)
+ * const cipher = await window.safeCryptoPubEncKey
+ *   .encrypt(pubEncKeyHandle, 'deciphered', secEncKeyHandle);
+ * const deciphered = await window.safeCryptoSecEncKey
+ *   .decrypt(secEncKeyHandle, cipher, pubEncKeyHandle)
  * console.log('decrypted data: ', deciphered);
  */
-module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => {
-  return getObj(secEncKeyHandle).then((obj) => {
-    return getObj(theirPubKey).then((pubEncKeyInstance) => {
-      return obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj);
-    });
-  });
-};
+module.exports.decrypt = (secEncKeyHandle, cipher, theirPubKey) => getObj(secEncKeyHandle)
+.then((obj) => getObj(theirPubKey)
+.then((pubEncKeyInstance) => obj.netObj.decrypt(cipher, pubEncKeyInstance.netObj)));
 
 /**
  * Free the SecEncKey instance from memory

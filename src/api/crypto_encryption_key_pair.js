@@ -21,10 +21,8 @@ module.exports.manifest = {
  *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
  *    .then((rawPk) => console.log('Public encryption key: ', rawPk.buffer.toString('hex')));
  */
-module.exports.getPubEncKey = (keyPairHandle) => {
-  return getObj(keyPairHandle)
+module.exports.getPubEncKey = (keyPairHandle) => getObj(keyPairHandle)
     .then((obj) => genHandle(obj.app, obj.netObj.pubEncKey));
-};
 
 /**
  * Get the Secrect Encryption Key instance of this key pair
@@ -40,10 +38,8 @@ module.exports.getPubEncKey = (keyPairHandle) => {
  *    .then((secEncKeyHandle) => window.safeCryptoSecEncKey.getRaw(secEncKeyHandle))
  *    .then((rawSk) => console.log('Secret encryption key: ', rawSk.buffer.toString('hex')));
  */
-module.exports.getSecEncKey = (keyPairHandle) => {
-  return getObj(keyPairHandle)
+module.exports.getSecEncKey = (keyPairHandle) => getObj(keyPairHandle)
     .then((obj) => genHandle(obj.app, obj.netObj.secEncKey));
-};
 
 /**
  * Decrypt the given ciphertext with a seal (buffer or string) using the private and public key
@@ -54,10 +50,8 @@ module.exports.getSecEncKey = (keyPairHandle) => {
  *
  * @returns {Promise<Buffer>} the decrypted data
  */
-module.exports.decryptSealed = (keyPairHandle, cipher) => {
-  return getObj(keyPairHandle)
+module.exports.decryptSealed = (keyPairHandle, cipher) => getObj(keyPairHandle)
     .then((obj) => obj.netObj.decryptSealed(cipher));
-};
 
 /**
  * Free the EncKeyPair instance from memory

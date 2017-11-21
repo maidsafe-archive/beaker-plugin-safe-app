@@ -43,13 +43,12 @@ module.exports.manifest = {
  * @example // Create a PrivateMutable Data with random address:
  * window.safeMutableData.newRandomPrivate(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
 */
-module.exports.newRandomPrivate = (appHandle, typeTag) => {
-  return getObj(appHandle)
+module.exports.newRandomPrivate = (appHandle, typeTag) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newRandomPrivate(typeTag)
       .then((md) => genHandle(obj.app, md)));
-};
 
 /**
  * Create a new mutuable data at a random address with public
@@ -64,13 +63,12 @@ module.exports.newRandomPrivate = (appHandle, typeTag) => {
  * @example // Create a PublicMutable Data with random address:
  * window.safeMutableData.newRandomPublic(appHandle, 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
 */
-module.exports.newRandomPublic = (appHandle, typeTag) => {
-  return getObj(appHandle)
+module.exports.newRandomPublic = (appHandle, typeTag) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newRandomPublic(typeTag)
       .then((md) => genHandle(obj.app, md)));
-};
 
 /**
  * Initiate a mutuable data at the given address with private
@@ -93,13 +91,12 @@ module.exports.newRandomPublic = (appHandle, typeTag) => {
  * window.safeCrypto.generateNonce(appHandle)
  *    .then((nonce) => window.safeMutableData.newPrivate(appHandle, name, 15001, secKey, nonce))
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Private MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
 */
-module.exports.newPrivate = (appHandle, name, typeTag, secKey, nonce) => {
-  return getObj(appHandle)
+module.exports.newPrivate = (appHandle, name, typeTag, secKey, nonce) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPrivate(name, typeTag, secKey, nonce)
       .then((md) => genHandle(obj.app, md)));
-};
 
 /**
  * Initiate a mutuable data at the given address with public
@@ -115,13 +112,12 @@ module.exports.newPrivate = (appHandle, name, typeTag, secKey, nonce) => {
  * @example // Create a Public MutableData with specific address:
  * window.safeMutableData.newPublic(appHandle, 'name-private-0101010101010101010', 15001)
  *    .then((mdHandle) => window.safeMutableData.getNameAndTag(mdHandle))
- *    .then((r) => console.log('New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
+ *    .then((r) => console.log(
+ *      'New Public MutableData created with tag: ', r.tag, ' and name: ', r.name.buffer));
 */
-module.exports.newPublic = (appHandle, name, typeTag) => {
-  return getObj(appHandle)
+module.exports.newPublic = (appHandle, name, typeTag) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPublic(name, typeTag)
       .then((md) => genHandle(obj.app, md)));
-};
 
 /**
  * Create a new Permissions object.
@@ -135,11 +131,9 @@ module.exports.newPublic = (appHandle, name, typeTag) => {
  * window.safeMutableData.newPermissions(appHandle)
  *    .then((permsHandle) => console.log('New Permissions created but not committed'));
 */
-module.exports.newPermissions = (appHandle) => {
-  return getObj(appHandle)
+module.exports.newPermissions = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newPermissions()
       .then((perm) => genHandle(obj.app, perm)));
-};
 
 /**
  * Create a new Mutation object.
@@ -153,11 +147,9 @@ module.exports.newPermissions = (appHandle) => {
  * window.safeMutableData.newMutation(appHandle)
  *    .then((mutationHandle) => console.log('New Mutation created but not committed'));
 */
-module.exports.newMutation = (appHandle) => {
-  return getObj(appHandle)
+module.exports.newMutation = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newMutation()
       .then((mut) => genHandle(obj.app, mut)));
-};
 
 /**
  * Create a new Entries object.
@@ -171,11 +163,9 @@ module.exports.newMutation = (appHandle) => {
  * window.safeMutableData.newEntries(appHandle)
  *    .then((entriesHandle) => console.log('New Entries container created but not committed'));
 */
-module.exports.newEntries = (appHandle) => {
-  return getObj(appHandle)
+module.exports.newEntries = (appHandle) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.newEntries()
       .then((entries) => genHandle(obj.app, entries)));
-};
 
 /* The following functions act on a MutableData object */
 
@@ -202,11 +192,9 @@ module.exports.newEntries = (appHandle) => {
  *                                                          'To store my app\'s data'))
  *    .then(() => console.log('New MutableData created and setup'));
 */
-module.exports.quickSetup = (mdHandle, data, name, description) => {
-  return getObj(mdHandle)
+module.exports.quickSetup = (mdHandle, data, name, description) => getObj(mdHandle)
     .then((obj) => obj.netObj.quickSetup(data, name, description))
     .then(() => mdHandle);
-};
 
 /**
 * Set the metadata information in the MutableData. Note this can be used
@@ -231,10 +219,8 @@ module.exports.quickSetup = (mdHandle, data, name, description) => {
 *                                                          'My MutableData',
 *                                                          'To store my app\'s data'))
 */
-module.exports.setMetadata = (mdHandle, name, description) => {
-  return getObj(mdHandle)
+module.exports.setMetadata = (mdHandle, name, description) => getObj(mdHandle)
     .then((obj) => obj.netObj.setMetadata(name, description));
-};
 
 /**
  * Encrypt the entry key provided as parameter with the encryption key
@@ -251,10 +237,8 @@ module.exports.setMetadata = (mdHandle, name, description) => {
  * window.safeMutableData.encryptKey(mdHandle, 'key1')
  *    .then((encryptedKey) => console.log('Encrypted key: ', encryptedKey));
 */
-module.exports.encryptKey = (mdHandle, key) => {
-  return getObj(mdHandle)
+module.exports.encryptKey = (mdHandle, key) => getObj(mdHandle)
     .then((obj) => obj.netObj.encryptKey(key));
-};
 
 /**
  * Encrypt the entry value provided as parameter with the encryption key
@@ -271,10 +255,8 @@ module.exports.encryptKey = (mdHandle, key) => {
  * window.safeMutableData.encryptValue(mdHandle, 'value1')
  *    .then((encryptedValue) => console.log('Encrypted value: ', encryptedValue));
 */
-module.exports.encryptValue = (mdHandle, value) => {
-  return getObj(mdHandle)
+module.exports.encryptValue = (mdHandle, value) => getObj(mdHandle)
     .then((obj) => obj.netObj.encryptValue(value));
-};
 
 /**
  * Decrypt the entry key/value provided as parameter with the encryption key
@@ -297,10 +279,8 @@ module.exports.encryptValue = (mdHandle, value) => {
  *    .then(_ => window.safeMutableData.decrypt(mdHandle, encryptedValue))
  *    .then((decryptedValue) => console.log('Decrypted value: ', decryptedValue.toString()));
 */
-module.exports.decrypt = (mdHandle, value) => {
-  return getObj(mdHandle)
+module.exports.decrypt = (mdHandle, value) => getObj(mdHandle)
     .then((obj) => obj.netObj.decrypt(value));
-};
 
 /**
  * Look up the name and tag of the MutableData as required to look it
@@ -318,10 +298,8 @@ module.exports.decrypt = (mdHandle, value) => {
  *     console.log('Tag: ', res.type_tag);
  *  });
 */
-module.exports.getNameAndTag = (mdHandle) => {
-  return getObj(mdHandle)
+module.exports.getNameAndTag = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.getNameAndTag());
-};
 
 /**
  * Look up the MutableData object version on the network
@@ -335,10 +313,8 @@ module.exports.getNameAndTag = (mdHandle) => {
  * window.safeMutableData.getVersion(mdHandle)
  *  .then((version) => console.log('MutableData current version: ', version));
 */
-module.exports.getVersion = (mdHandle) => {
-  return getObj(mdHandle)
+module.exports.getVersion = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.getVersion());
-};
 
 /**
  * Look up the value of a specific key
@@ -359,10 +335,8 @@ module.exports.getVersion = (mdHandle) => {
  *       })
  *    );
 */
-module.exports.get = (mdHandle, key) => {
-  return getObj(mdHandle)
+module.exports.get = (mdHandle, key) => getObj(mdHandle)
     .then((obj) => obj.netObj.get(key));
-};
 
 /**
  * Create/commit this MutableData on the network.
@@ -384,20 +358,19 @@ module.exports.get = (mdHandle, key) => {
  *    .then((pk) => appSignKeyHandle = pk)
  *    .then(_ => window.safeMutableData.newPermissions(appHandle))
  *    .then((h) => permissionsHandle = h)
- *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permissionsHandle, appSignKeyHandle, pmSet))
+ *    .then(_ => window.safeMutableDataPermissions
+ *      .insertPermissionsSet(permissionsHandle, appSignKeyHandle, pmSet))
  *    .then(_ => window.safeMutableData.newRandomPublic(appHandle, 15000))
  *    .then((h) => mdHandle = h)
  *    .then(_ => console.log('Finished preparation'))
  *    .then(_ => window.safeMutableData.put(mdHandle, permissionsHandle, entriesHandle))
  *    .then(_ => console.log('Finished creating and committing MutableData to the network'));
 */
-module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
-  return getObj(mdHandle)
+module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => getObj(mdHandle)
     .then((mdObj) => getObj(permissionsHandle, true)
       .then((permsObj) => getObj(entriesHandle, true)
         .then((entriesObj) => mdObj.netObj.put(permsObj.netObj, entriesObj.netObj))
       ));
-};
 
 /**
  * Get a handle to the entries associated with this MutableData
@@ -412,11 +385,9 @@ module.exports.put = (mdHandle, permissionsHandle, entriesHandle) => {
  *    .then((entriesHandle) => window.safeMutableDataEntries.len(entriesHandle))
  *    .then((len) => console.log('Number of entries in the MutableData: ', len));
 */
-module.exports.getEntries = (mdHandle) => {
-  return getObj(mdHandle)
+module.exports.getEntries = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.getEntries()
       .then((entries) => genHandle(obj.app, entries)));
-};
 
 /**
  * Get a handle to the keys associated with this MutableData
@@ -430,10 +401,8 @@ module.exports.getEntries = (mdHandle) => {
  * window.safeMutableData.getKeys(mdHandle)
  *    .then((keyArray) => console.log('Number of keys in the MutableData: ', keyArray.length));
 */
-module.exports.getKeys = (mdHandle) => {
-  return getObj(mdHandle)
+module.exports.getKeys = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.getKeys());
-};
 
 /**
  * Get a handle to the values associated with this MutableData
@@ -445,12 +414,11 @@ module.exports.getKeys = (mdHandle) => {
  *
  * @example // Retrieving the values:
 * window.safeMutableData.getValues(mdHandle)
- *    .then((valueArray) => console.log('Number of values in the MutableData: ', valueArray.length));
+ *    .then((valueArray) => console.log(
+ *      'Number of values in the MutableData: ', valueArray.length));
 */
-module.exports.getValues = (mdHandle) => {
-  return getObj(mdHandle)
+module.exports.getValues = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.getValues());
-};
 
 /**
  * Get a handle to the permissions associated with this MutableData
@@ -465,11 +433,9 @@ module.exports.getValues = (mdHandle) => {
  *    .then((permsHandle) => window.safeMutableDataPermissions.len(permsHandle))
  *    .then((len) => console.log('Number of permissions in the MutableData: ', len));
 */
-module.exports.getPermissions = (mdHandle) => {
-  return getObj(mdHandle)
+module.exports.getPermissions = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.getPermissions()
       .then((perms) => genHandle(obj.app, perms)));
-};
 
 /**
  * Get a handle to the permissions associated with this MutbleData for
@@ -487,13 +453,11 @@ module.exports.getPermissions = (mdHandle) => {
  * window.safeMutableData.getUserPermissions(mdHandle, signKey)
  *    .then((permSetHandle) => console.log('PermissionsSet retrieved'));
 */
-module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
-  return getObj(signKeyHandle, true)
+module.exports.getUserPermissions = (mdHandle, signKeyHandle) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(mdHandle)
       .then((mdObj) => mdObj.netObj.getUserPermissions(signKeyObj.netObj)
         .then((permSet) => genHandle(mdObj.app, permSet)))
     );
-};
 
 /**
  * Delete the permissions of a specifc key. Directly commits to the network.
@@ -514,12 +478,12 @@ module.exports.getUserPermissions = (mdHandle, signKeyHandle) => {
  *    .then((version) => window.safeMutableData.delUserPermissions(mdHandle, signKey, version + 1))
  *    .then(_ => console.log('PermissionsSet removed for the sign key provided'));
 */
-module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
-  return getObj(signKeyHandle, true)
+module.exports.delUserPermissions = (mdHandle,
+                                     signKeyHandle,
+                                     version) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(mdHandle)
       .then((mdObj) => mdObj.netObj.delUserPermissions(signKeyObj.netObj, version))
     );
-};
 
 /**
  * Set the permissions of a specifc key. Directly commits to the network.
@@ -542,15 +506,15 @@ module.exports.delUserPermissions = (mdHandle, signKeyHandle, version) => {
  * window.safeCrypto.getAppPubSignKey(appHandle)
  *    .then((pk) => appSignKeyHandle = pk)
  *    .then(_ => window.safeMutableData.getVersion(mdHandle))
- *    .then((version) => window.safeMutableData.setUserPermissions(mdHandle, appSignKeyHandle, pmSet, version + 1))
+ *    .then((version) => window.safeMutableData
+ *      .setUserPermissions(mdHandle, appSignKeyHandle, pmSet, version + 1))
  *    .then(_ => console.log('Finished setting user permission'));
 */
-module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSet, version) => {
-  return getObj(signKeyHandle, true)
+module.exports.setUserPermissions = (mdHandle,
+                                     signKeyHandle, pmSet, version) => getObj(signKeyHandle, true)
   .then((signKeyObj) => getObj(mdHandle)
     .then((mdObj) => mdObj.netObj.setUserPermissions(signKeyObj.netObj, pmSet, version))
   );
-};
 
 /**
  * Commit the mutations transaction to the network
@@ -567,14 +531,13 @@ module.exports.setUserPermissions = (mdHandle, signKeyHandle, pmSet, version) =>
  *    .then((h) => mutationHandle = h)
  *    .then(_ => window.safeMutableDataMutation.insert(mutationHandle, 'key1', 'value1'))
  *    .then(_ => window.safeMutableData.applyEntriesMutation(mdHandle, mutationHandle))
- *    .then(_ => console.log('New entry was inserted in the MutableData and committed to the network'));
+ *    .then(_ => console.log(
+ *      'New entry was inserted in the MutableData and committed to the network'));
 */
-module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => {
-  return getObj(mutationHandle)
+module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => getObj(mutationHandle)
     .then((mutationObj) => getObj(mdHandle)
       .then((mdObj) => mdObj.netObj.applyEntriesMutation(mutationObj.netObj))
     );
-};
 
 /**
  * Serialise the current MutableData
@@ -588,10 +551,8 @@ module.exports.applyEntriesMutation = (mdHandle, mutationHandle) => {
  * window.safeMutableData.serialise(mdHandle)
  *    .then((serial) => console.log('MutbleData serialised version retrieved: ', serial));
 */
-module.exports.serialise = (mdHandle) => {
-  return getObj(mdHandle)
+module.exports.serialise = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.serialise());
-};
 
 /**
  * Deserialize the MutableData
@@ -611,11 +572,9 @@ module.exports.serialise = (mdHandle) => {
  *          console.log('Version: ', value.version);
  *       });
  */
-module.exports.fromSerial = (appHandle, data) => {
-  return getObj(appHandle)
+module.exports.fromSerial = (appHandle, data) => getObj(appHandle)
     .then((obj) => obj.app.mutableData.fromSerial(data)
       .then((md) => genHandle(obj.app, md)));
-};
 
 /**
  * Wrap this MutableData into a known abstraction. Currently known: `NFS`
@@ -631,10 +590,8 @@ module.exports.fromSerial = (appHandle, data) => {
  *    .then((nfsHandle) => window.safeNfs.fetch(nfsHandle, 'file.txt'))
  *    .then((idHdl) => console.log('ImmutableData behind `file.txt` fetched'));
 */
-module.exports.emulateAs = (mdHandle, eml) => {
-  return getObj(mdHandle)
+module.exports.emulateAs = (mdHandle, eml) => getObj(mdHandle)
     .then((obj) => genHandle(obj.app, obj.netObj.emulateAs(eml)));
-};
 
 /**
  * @name MutableDataHandle

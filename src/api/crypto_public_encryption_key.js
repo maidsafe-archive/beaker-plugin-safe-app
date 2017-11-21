@@ -21,10 +21,8 @@ module.exports.manifest = {
  *    .then((pubEncKeyHandle) => window.safeCryptoPubEncKey.getRaw(pubEncKeyHandle))
  *    .then((rawPk) => console.log('Public encryption key: ', rawPk.buffer.toString('hex')));
  */
-module.exports.getRaw = (pubEncKeyHandle) => {
-  return getObj(pubEncKeyHandle)
+module.exports.getRaw = (pubEncKeyHandle) => getObj(pubEncKeyHandle)
     .then((obj) => obj.netObj.getRaw());
-};
 
 /**
  * Encrypt the input (buffer or string) using the private and public key with a seal
@@ -35,10 +33,8 @@ module.exports.getRaw = (pubEncKeyHandle) => {
  *
  * @returns {Promise<Buffer>} the encrpted data
  */
-module.exports.encryptSealed = (pubEncKeyHandle, str) => {
-  return getObj(pubEncKeyHandle)
+module.exports.encryptSealed = (pubEncKeyHandle, str) => getObj(pubEncKeyHandle)
     .then((obj) => obj.netObj.encryptSealed(str));
-};
 
 /**
  * Encrypt the input (buffer or string) using the private and public key and the given private key
@@ -50,13 +46,9 @@ module.exports.encryptSealed = (pubEncKeyHandle, str) => {
  *
  * @returns {Promise<Buffer>}
  */
-module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => {
-  return getObj(pubEncKeyHandle).then((obj) => {
-    return getObj(secretKey).then((secretKeyInstance) => {
-      return obj.netObj.encrypt(str, secretKeyInstance.netObj);
-    });
-  });
-};
+module.exports.encrypt = (pubEncKeyHandle, str, secretKey) => getObj(pubEncKeyHandle)
+.then((obj) => getObj(secretKey)
+.then((secretKeyInstance) => obj.netObj.encrypt(str, secretKeyInstance.netObj)));
 
 /**
  * Free the PubEncKey instance from memory

@@ -1,0 +1,33 @@
+sudo: true
+dist: trusty
+os:
+- linux
+language: node_js
+node_js:
+- '7'
+cache:
+  yarn: true
+  directories:
+  - node_modules
+install:
+- yarn
+- yarn build
+script:
+- yarn lint
+before_deploy:
+- rm -rf node_modules
+- npm pack
+- mkdir packaged
+- mv ./*.tgz packaged
+- ls packaged
+deploy:
+  provider: s3
+  region: eu-west-2
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  skip_cleanup: true
+  local-dir: packaged
+  bucket: beaker-plugin-safe-app
+  acl: public_read
+  on:
+    tags: true

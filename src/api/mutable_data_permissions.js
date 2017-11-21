@@ -1,5 +1,7 @@
 const { getObj, freeObj } = require('./helpers');
 
+/* eslint no-underscore-dangle: ["error", { "allow": ["_with_cb_forEach"] }] */
+
 module.exports.manifest = {
   len: 'promise',
   getPermissionsSet: 'promise',
@@ -21,10 +23,8 @@ module.exports.manifest = {
  *    .then((permsHandle) => window.safeMutableDataPermissions.len(permsHandle))
  *    .then((len) => console.log('Number of permissions entries in the MutableData: ', len));
 */
-module.exports.len = (permissionsHandle) => {
-  return getObj(permissionsHandle)
+module.exports.len = (permissionsHandle) => getObj(permissionsHandle)
     .then((obj) => obj.netObj.len());
-};
 
 /**
  * Lookup the permissions of a specifc key
@@ -37,12 +37,10 @@ module.exports.len = (permissionsHandle) => {
  *
  * @returns {Promise<PermissionsSetHandle>} the permissions set for that sign key
 */
-module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
-  return getObj(signKeyHandle, true)
+module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => getObj(signKeyHandle, true)
     .then((signKeyObj) => getObj(permissionsHandle)
       .then((permsObj) => permsObj.netObj.getPermissionSet(signKeyObj.netObj))
     );
-};
 
 /**
  * Insert a new permissions to a specifc sign key. Directly commits to the network.
@@ -64,15 +62,16 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => {
  *    .then((pk) => appSignKeyHandle = pk)
  *    .then(_ => window.safeMutableData.getPermissions(mdHandle))
  *    .then((h) => permsHandle = h)
- *    .then(_ => window.safeMutableDataPermissions.insertPermissionsSet(permsHandle, appSignKeyHandle, pmSet))
+ *    .then(_ => window.safeMutableDataPermissions
+ *      .insertPermissionsSet(permsHandle, appSignKeyHandle, pmSet))
  *    .then(_ => console.log('Finished inserting new permissions'));
  */
-module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, permSetArray) => {
-  return getObj(signKeyHandle, true)
+module.exports.insertPermissionsSet = (permissionsHandle,
+                                       signKeyHandle,
+                                       permSetArray) => getObj(signKeyHandle, true)
   .then((signKeyObj) => getObj(permissionsHandle)
     .then((permsObj) => permsObj.netObj.insertPermissionSet(signKeyObj.netObj, permSetArray))
   );
-};
 
 /**
  * Return list of all associated permission-sets
@@ -89,10 +88,8 @@ module.exports.insertPermissionsSet = (permissionsHandle, signKeyHandle, permSet
  *      console.log("Permission sets retrieved: ", permsArray);
  *    });
  */
-module.exports.listPermissionSets = (permissionsHandle) => {
-  return getObj(permissionsHandle)
+module.exports.listPermissionSets = (permissionsHandle) => getObj(permissionsHandle)
   .then((permsObj) => permsObj.netObj.listPermissionSets());
-};
 
 /**
  * Free the Permissions instance from memory

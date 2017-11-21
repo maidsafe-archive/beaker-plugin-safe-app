@@ -19,10 +19,8 @@ module.exports.manifest = {
  *    .then((pubSignKeyHandle) => window.safeCryptoPubSignKey.getRaw(pubSignKeyHandle))
  *    .then((rawPk) => console.log('Sign key: ', rawPk.buffer.toString('hex')));
  */
-module.exports.getRaw = (pubSignKeyHandle) => {
-  return getObj(pubSignKeyHandle)
+module.exports.getRaw = (pubSignKeyHandle) => getObj(pubSignKeyHandle)
     .then((obj) => obj.netObj.getRaw());
-};
 
 /**
  * Verify the given signed data (buffer or string) using the public sign key
@@ -40,10 +38,8 @@ module.exports.getRaw = (pubSignKeyHandle) => {
  * const pubSignKeyHandle = await window.safeCryptoSignKeyPair.getPubSignKey(signKeyPairHandle);
  * const verifiedData = await window.safeCryptoPubSignKey.verify(pubSignKeyHandle, signedData);
  */
-module.exports.verify = (pubSignKeyHandle, data) => {
-  return getObj(pubSignKeyHandle)
+module.exports.verify = (pubSignKeyHandle, data) => getObj(pubSignKeyHandle)
     .then((obj) => obj.netObj.verify(data));
-};
 
 /**
  * Free the PubSignKey instance from memory

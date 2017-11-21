@@ -19,10 +19,8 @@ module.exports.manifest = {
  *    .then((pubSignKeyHandle) => window.safeCryptoPubSignKey.getRaw(pubSignKeyHandle))
  *    .then((rawPk) => console.log('Public signing key: ', rawPk.buffer.toString('hex')));
  */
-module.exports.getPubSignKey = (signKeyPairHandle) => {
-  return getObj(signKeyPairHandle)
+module.exports.getPubSignKey = (signKeyPairHandle) => getObj(signKeyPairHandle)
     .then((obj) => genHandle(obj.app, obj.netObj.pubSignKey));
-};
 
 /**
  * Get the Secret Signing Key instance of this signing key pair
@@ -38,10 +36,8 @@ module.exports.getPubSignKey = (signKeyPairHandle) => {
  *    .then((secSignKeyHandle) => window.safeCryptoPubSignKey.getRaw(secSignKeyHandle))
  *    .then((rawSk) => console.log('Secret signing key: ', rawSk.buffer.toString('hex')));
  */
-module.exports.getSecSignKey = (signKeyPairHandle) => {
-  return getObj(signKeyPairHandle)
+module.exports.getSecSignKey = (signKeyPairHandle) => getObj(signKeyPairHandle)
     .then((obj) => genHandle(obj.app, obj.netObj.secSignKey));
-};
 
 /**
  * @name SignKeyPairHandle

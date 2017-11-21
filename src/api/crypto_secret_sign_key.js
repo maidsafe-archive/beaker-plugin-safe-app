@@ -19,10 +19,8 @@ module.exports.manifest = {
  *    .then((secSignKeyHandle) => window.safeCryptoSecSignKey.getRaw(secSignKeyHandle))
  *    .then((rawSk) => console.log('Raw secret sign key: ', rawSk.buffer.toString('hex')));
  */
-module.exports.getRaw = (secSignKeyHandle) => {
-  return getObj(secSignKeyHandle)
+module.exports.getRaw = (secSignKeyHandle) => getObj(secSignKeyHandle)
     .then((obj) => obj.netObj.getRaw());
-};
 
 /**
  * Sign the given data (buffer or string) using the secret sign key
@@ -38,10 +36,8 @@ module.exports.getRaw = (secSignKeyHandle) => {
  * const data = 'plain text data to be signed';
  * window.safeCryptoSecSignKey.sign(secSignKeyHandle, data)
  */
-module.exports.sign = (secSignKeyHandle, data) => {
-  return getObj(secSignKeyHandle)
+module.exports.sign = (secSignKeyHandle, data) => getObj(secSignKeyHandle)
     .then((obj) => obj.netObj.sign(data));
-};
 
 /**
  * Free the SecSignKey instance from memory
