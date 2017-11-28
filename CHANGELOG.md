@@ -1,5 +1,9 @@
 # Beaker Plugin SAFE App Change Log
 
+## 0.4.1
+
+- upgrades `@maidsafe/safe-node-app` to v0.5.1
+
 ## 0.4.0
 
 - signing key API upgrade
