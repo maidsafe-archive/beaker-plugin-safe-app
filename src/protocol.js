@@ -1,6 +1,5 @@
 import { setupSafeLogProtocol } from './safe-logs';
 
-const path = require('path');
 const safeApp = require('@maidsafe/safe-node-app');
 const urlParse = require('url').parse;
 const ipc = require('./api/ipc');
@@ -126,7 +125,7 @@ const registerSafeProtocol = (sendToShell) => {
     protocol.registerBufferProtocol(safeScheme, (req, cb) => {
       connectSafeApp()
         .then(() => fetchData(req.url))
-        then((data) => cb({ mimeType: data.headers['Content-Type'], data: data.body }))
+        .then((data) => cb({ mimeType: data.headers['Content-Type'], data: data.body }))
         .catch((err) => handleError(err, 'text/html', cb));
     }, (err) => {
       if (err) console.error('Failed to register protocol');
