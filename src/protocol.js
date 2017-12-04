@@ -126,7 +126,8 @@ const registerSafeProtocol = (sendToShell) => {
   return initialiseSafeApp().then(() => {
     protocol.registerBufferProtocol(safeScheme, (req, cb) => {
       const parsedUrl = urlParse(req.url);
-      const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
+      const pathname = parsedUrl.pathname;
+      const fileExt = (pathname.substr(-1) === '/') ? 'html' : path.extname(pathname);
       const mimeType = mime.lookup(fileExt);
 
       connectSafeApp()
