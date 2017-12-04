@@ -1,9 +1,7 @@
 import { setupSafeLogProtocol } from './safe-logs';
 
-const path = require('path');
 const safeApp = require('@maidsafe/safe-node-app');
 const urlParse = require('url').parse;
-const mime = require('mime');
 const ipc = require('./api/ipc');
 const ipcMain = require('electron').ipcMain; // electron deps will be avaible inside browser
 
@@ -125,14 +123,10 @@ const registerSafeProtocol = (sendToShell) => {
   }
   return initialiseSafeApp().then(() => {
     protocol.registerBufferProtocol(safeScheme, (req, cb) => {
-      const parsedUrl = urlParse(req.url);
-      const fileExt = path.extname(path.basename(parsedUrl.pathname)) || 'html';
-      const mimeType = mime.lookup(fileExt);
-
       connectSafeApp()
         .then(() => fetchData(req.url))
-        .then((co) => cb({ mimeType, data: co }))
-        .catch((err) => handleError(err, mimeType, cb));
+        .then((data) => cb({ mimeType: data.headers['Content-Type'], data: data.body }))
+        .catch((err) => handleError(err, 'text/html', cb));
     }, (err) => {
       if (err) console.error('Failed to register protocol');
     });
