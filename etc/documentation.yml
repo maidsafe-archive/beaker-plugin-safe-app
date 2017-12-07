@@ -59,6 +59,7 @@ toc:
   - window.safeMutableData.serialise
   - window.safeMutableData.fromSerial
   - window.safeMutableData.emulateAs
+  - window.safeMutableData.free
   - name: Mutable Data Entries
     description: The safeMutableDataEntries API allows you to manipulate the entries of a Mutable Data object in the SAFE network
   - window.safeMutableDataEntries.len
