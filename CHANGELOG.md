@@ -1,5 +1,17 @@
 # Beaker Plugin SAFE App Change Log
 
+## [0.4.4] - 20-12-2017
+### Changed
+- Upgrade safe-node-app to v0.6.0
+
+### Fixed
+- Fix the safeMutableDataEntries.forEach function which was incorrectly returning the 'key' as an object
+- Allow MutableData handles to be removed from the plugin's Map thru a 'free' function
+- Minor fix in documentation example for safeCryptoSignKeyPair.getSecSignKey function
+
+### SAFE libraries Dependencies
+- @maidsafe/safe-node-app: v0.6.0
+
 ## 0.4.3
 
 - upgrades `@maidsafe/safe-node-app` to v0.5.3
