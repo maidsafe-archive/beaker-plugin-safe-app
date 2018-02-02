@@ -135,6 +135,7 @@ toc:
   - SAFEAppHandle
   - AuthURI
   - AppInfo
+  - WebFetchOptions
   - MutableDataHandle
   - WriterHandle
   - ReaderHandle

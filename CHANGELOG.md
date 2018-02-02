@@ -6,6 +6,7 @@
 
 ### Added
 - Expose `safe-node-app` helper constants at `window.safeApp.CONSTANTS`
+- Support providing additional options to `webFetch` function, e.g. range of bytes
 
 ### Fixed
 - Generate a handle for each sign key returned by the `listPermissionSets` function
