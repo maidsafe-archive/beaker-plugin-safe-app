@@ -1,6 +1,7 @@
 toc:
   - name: SAFE App
     description: The safeApp API is the entry point to interact with the SAFE network
+  - window.safeApp.CONSTANTS
   - window.safeApp.initialise
   - window.safeApp.connect
   - window.safeApp.authorise

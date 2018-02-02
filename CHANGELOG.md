@@ -4,6 +4,9 @@
 ### Changed
 - Upgrade safe-node-app to v0.7.0
 
+### Added
+- Expose `safe-node-app` helper constants at `window.safeApp.CONSTANTS`
+
 ### Fixed
 - Generate a handle for each sign key returned by the `listPermissionSets` function
 
