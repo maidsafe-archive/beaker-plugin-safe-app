@@ -4,6 +4,9 @@
 ### Changed
 - Upgrade safe-node-app to v0.7.0
 
+### Fixed
+- Generate a handle for each sign key returned by the `listPermissionSets` function
+
 ### SAFE libraries Dependencies
 - @maidsafe/safe-node-app: v0.7.0
 
