@@ -1,6 +1,6 @@
 # Beaker Plugin SAFE App Change Log
 
-## [Unreleased]
+## [0.4.5] - 2-2-2018
 ### Changed
 - Upgrade safe-node-app to v0.7.0
 
