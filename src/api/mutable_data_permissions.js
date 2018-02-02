@@ -1,4 +1,4 @@
-const { getObj, freeObj } = require('./helpers');
+const { genHandle, getObj, freeObj } = require('./helpers');
 
 /* eslint no-underscore-dangle: ["error", { "allow": ["_with_cb_forEach"] }] */
 
@@ -29,11 +29,12 @@ module.exports.len = (permissionsHandle) => getObj(permissionsHandle)
 /**
  * Lookup the permissions of a specifc key
  * If the SignKeyHandle provided is `null` it will be then
- * assumed as for `USER_ANYONE`.
+ * assumed as `window.safeApp.CONSTANTS.USER_ANYONE`.
  * @name window.safeMutableDataPermissions.getPermissionsSet
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
- * @param {SignKeyHandle|null} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle
+ * the sign key to lookup for
  *
  * @returns {Promise<PermissionsSetHandle>} the permissions set for that sign key
 */
@@ -46,11 +47,11 @@ module.exports.getPermissionsSet = (permissionsHandle, signKeyHandle) => getObj(
  * Insert a new permissions to a specifc sign key. Directly commits to the network.
  * Requires 'ManagePermissions'-permission for the app.
  * If the SignKeyHandle provided is `null` the permission set will be then
- * set for `USER_ANYONE`.
+ * set for `window.safeApp.CONSTANTS.USER_ANYONE`.
  * @name window.safeMutableDataPermissions.insertPermissionsSet
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
- * @param {SignKeyHandle|null} signKeyHandle the sign key to map to
+ * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle the sign key to map to
  * @param {Array} permSetArray - array of permissions
  *
  * @returns {Promise} resolves once finished
@@ -84,12 +85,23 @@ module.exports.insertPermissionsSet = (permissionsHandle,
  * @example // Iterating over the permissions of a MutableData:
  * window.safeMutableData.getPermissions(mdHandle)
  *    .then((permsHandle) => window.safeMutableDataPermissions.listPermissionSets(permsHandle))
- *    .then((permsArray) => {
- *      console.log("Permission sets retrieved: ", permsArray);
- *    });
+ *    .then((permsArray) => permsArray.forEach((perm) => {
+ *        window.safeCryptoPubSignKey.getRaw(perm.signKeyHandle)
+ *          .then((rawSignKey) => {
+ *            console.log("Sign key: ", rawSignKey.buffer.toString('hex'));
+ *            console.log("Permissions set: ", perm.permSet);
+ *          });
+ *      })
+ *    );
  */
 module.exports.listPermissionSets = (permissionsHandle) => getObj(permissionsHandle)
-  .then((permsObj) => permsObj.netObj.listPermissionSets());
+  .then((permsObj) => permsObj.netObj.listPermissionSets()
+    .then((permSets) => permSets.map((perm) => ({
+      permSet: perm.permSet,
+      signKeyHandle: genHandle(permsObj.app, perm.signKey),
+    }))
+    )
+  );
 
 /**
  * Free the Permissions instance from memory

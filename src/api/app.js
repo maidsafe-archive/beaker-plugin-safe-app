@@ -5,6 +5,7 @@ const { genHandle, getObj, freeObj, freeAllNetObj, netStateCallbackHelper } = re
 /* eslint no-underscore-dangle: ["error", { "allow": ["_with_async_cb_initialise"] }] */
 
 module.exports.manifest = {
+  _export_as_static_obj_CONSTANTS: 'sync',
   _with_async_cb_initialise: 'readable',
   connect: 'promise',
   authorise: 'promise',
@@ -28,6 +29,66 @@ module.exports.manifest = {
   logPath: 'promise',
   free: 'sync'
 };
+
+/**
+ * Constants available for the applications to be used as input parameters
+ * in some functions of the API.
+ * @typedef {Object} window.safeApp.CONSTANTS
+ *
+ * @param {Number} NFS_FILE_MODE_OVERWRITE NFS File open in overwrite mode.
+ * When used as the `openMode` parameter for `nfs.open(<fileName>, <openMode>)` the entire content
+ * of the file will be replaced when writing data to it.
+ *
+ * @param {Number} NFS_FILE_MODE_APPEND NFS File open in append mode.
+ * When used as the `openMode` param for `nfs.open(<fileName>, <openMode>)` any new content
+ * written to the file will be appended to the end without modifying existing data.
+ *
+ * @param {Number} NFS_FILE_MODE_READ NFS File open in read-only mode.
+ * When used as the `openMode` param for `nfs.open(<fileName>, <openMode>)` only the read
+ * operation is allowed.
+ *
+ * @param {Number} NFS_FILE_START Read the file from the beginning.
+ * When used as the `position` param for the NFS `file.read(<position>, <length>)`
+ * function, the file will be read from the beginning.
+ *
+ * @param {Number} NFS_FILE_END Read until the end of a file.
+ * When used as the `length` param for the NFS `file.read(<position>, <length>)`
+ * function, the file will be read from the position provided until the end
+ * of its content. E.g. if `NFS_FILE_START` and `NFS_FILE_END` are passed in as
+ * the `position` and `length` parameters respectively, then the whole content of the
+ * file will be read.
+ *
+ * @param {Number} USER_ANYONE Any user.
+ * When used as the `signkey` param in any of the MutableData functions to
+ * manipulate user permissions, like `getUserPermissions`, `setUserPermissions`,
+ * `delUserPermissions`, etc., this will associate the permissions operation to
+ * any user rather than to a particular sign key.
+ * E.g. if this constant is used as the `signkey` param of
+ * the `setUserPermissions(<signKey>, <permissionSet>, <version>)` function,
+ * the permissions in the `permissionSet` provided will be granted to anyone
+ * rather to a specific user's/aplication's sign key.
+ *
+ * @param {String} MD_METADATA_KEY MutableData's entry key where its metadata is stored.
+ * The MutableData's metadata can be set either when invoking the `quickSetup`
+ * function or by invking the `setMetadata` function.
+ * The metadata is stored as an encoded entry in the MutableData which key
+ * is `MD_METADATA_KEY`, thus this constant can be used to realise which of the
+ * entries is not application's data but the MutableData's metadata instead.
+ * The metadata is particularly used by the Authenticator when another
+ * application has requested mutation permissions on a MutableData,
+ * displaying this information to the user, so the user can make a better
+ * decision to either allow or deny such a request based on it.
+ *
+ * @param {Number} MD_ENTRIES_EMPTY Represents an empty set of MutableData's entries.
+ * This can be used when invoking the `put` function of the MutableData API to
+ * signal that it should be committed to the network with an empty set of entries.
+ *
+ * @param {Number} MD_PERMISSION_EMPTY Represents an empty set of MutableData's permissions.
+ * This can be used when invoking the `put` function of the MutableData API to
+ * signal that it should be committed to the network with an empty set of permissions.
+ *
+ */
+module.exports._export_as_static_obj_CONSTANTS = () => safeApp.CONSTANTS; // eslint-disable-line no-underscore-dangle, max-len
 
 /**
  * Create a new SAFEApp instance without a connection to the network
@@ -241,20 +302,23 @@ module.exports.authoriseShareMd = (appHandle, permissions) => new Promise((resol
  *
  * @param {SAFEAppHandle} appHandle the app handle
  * @param {String} url url to fetch
+ * @param {WebFetchOptions} [options=null] additional options
  *
- * @returns {Promise<File>} the file object found for that URL
+ * @returns {Promise<Object>} the object with body of content and headers
  *
  * @example // Retrieving a web page:
  * window.safeApp.webFetch(
  *   appHandle, // the app handle obtained when invoking `initialise`
- *   'safe://servicename.publicid' // the SAFE Network URL
+ *   'safe://servicename.publicid', // the SAFE Network URL
+ *   { range: { start: 0, end: 9 } } // the range of bytes to retrieve
  * )
  * .then((data) => {
- *    console.log('Web page content retrieved: ', data.toString());
+ *    console.log('Web page headers retrieved: ', data.headers.toString());
+ *    console.log('Web page content (first 10 bytes) retrieved: ', data.body.toString());
  * });
  */
-module.exports.webFetch = (appHandle, url) => getObj(appHandle)
-    .then((obj) => obj.app.webFetch(url));
+module.exports.webFetch = (appHandle, url, options) => getObj(appHandle)
+    .then((obj) => obj.app.webFetch(url, options));
 
 /**
  * Whether or not this is a registered/authenticated session.
@@ -559,4 +623,19 @@ module.exports.free = (appHandle) => freeObj(appHandle);
  * application to connect to the network wihout the need to get authorisation
  * from the Authenticator again. Although if the user decided to revoke the application
  * the auth URI shall be obtained again from the Authenticator.
+ */
+
+ /**
+ * @name WebFetchOptions
+ * @typedef {Object} WebFetchOptions
+ * holds additional options for the `webFetch` function.
+ * @param {Object} range range of bytes to be retrieved.
+ * The `start` attribute is expected to be the start offset, while the
+ * `end` attribute of the `range` object the end position (both inclusive)
+ * to be retrieved, e.g. with `range: { start: 2, end: 3 }` the 3rd
+ * and 4th bytes of data will be retrieved.
+ * If `end` is not specified, the bytes retrived will be from the `start` offset
+ * untill the end of the file.
+ * The ranges values are also used to populate the `Content-Range` and
+ * `Content-Length` headers in the response.
  */
