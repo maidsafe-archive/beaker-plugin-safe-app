@@ -344,8 +344,10 @@ module.exports.get = (mdHandle, key) => getObj(mdHandle)
  * @name window.safeMutableData.put
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
- * @param {PermissionsHandle|window.safeApp.CONSTANTS.MD_PERMISSION_EMPTY} permissionsHandle the permissions to create the MutableData with
- * @param {EntriesHandle|window.safeApp.CONSTANTS.MD_ENTRIES_EMPTY} entriesHandle data payload to create the MutableData with
+ * @param {PermissionsHandle|window.safeApp.CONSTANTS.MD_PERMISSION_EMPTY} permissionsHandle
+ * the permissions to create the MutableData with
+ * @param {EntriesHandle|window.safeApp.CONSTANTS.MD_ENTRIES_EMPTY} entriesHandle
+ * data payload to create the MutableData with
  *
  * @returns {Promise} it resolves when finished creating it
  *
@@ -468,7 +470,8 @@ module.exports.getUserPermissions = (mdHandle, signKeyHandle) => getObj(signKeyH
  * @name window.safeMutableData.delUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
- * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle
+ * the sign key to lookup for
  * @param {Number} version the version successor, to confirm you are
  *        actually asking for the right state
  *
@@ -494,7 +497,8 @@ module.exports.delUserPermissions = (mdHandle,
  * @name window.safeMutableData.setUserPermissions
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
- * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle
+ * the sign key to lookup for
  * @param {Array} pmSet array of permissions
  * @param {Number} version the version successor, to confirm you are
  *        actually asking for the right state

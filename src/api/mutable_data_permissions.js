@@ -33,7 +33,8 @@ module.exports.len = (permissionsHandle) => getObj(permissionsHandle)
  * @name window.safeMutableDataPermissions.getPermissionsSet
  *
  * @param {PermissionsHandle} permissionsHandle the Permissions handle
- * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle the sign key to lookup for
+ * @param {SignKeyHandle|window.safeApp.CONSTANTS.USER_ANYONE} signKeyHandle
+ * the sign key to lookup for
  *
  * @returns {Promise<PermissionsSetHandle>} the permissions set for that sign key
 */
@@ -96,9 +97,9 @@ module.exports.insertPermissionsSet = (permissionsHandle,
 module.exports.listPermissionSets = (permissionsHandle) => getObj(permissionsHandle)
   .then((permsObj) => permsObj.netObj.listPermissionSets()
     .then((permSets) => permSets.map((perm) => ({
-          permSet: perm.permSet,
-          signKeyHandle: genHandle(permsObj.app, perm.signKey),
-        }))
+      permSet: perm.permSet,
+      signKeyHandle: genHandle(permsObj.app, perm.signKey),
+    }))
     )
   );
 

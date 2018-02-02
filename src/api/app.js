@@ -88,7 +88,7 @@ module.exports.manifest = {
  * signal that it should be committed to the network with an empty set of permissions.
  *
  */
-module.exports._export_as_static_obj_CONSTANTS = () => safeApp.CONSTANTS;
+module.exports._export_as_static_obj_CONSTANTS = () => safeApp.CONSTANTS; // eslint-disable-line no-underscore-dangle, max-len
 
 /**
  * Create a new SAFEApp instance without a connection to the network
