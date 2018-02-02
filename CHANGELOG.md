@@ -1,5 +1,12 @@
 # Beaker Plugin SAFE App Change Log
 
+## [Unreleased]
+### Changed
+- Upgrade safe-node-app to v0.7.0
+
+### SAFE libraries Dependencies
+- @maidsafe/safe-node-app: v0.7.0
+
 ## [0.4.4] - 20-12-2017
 ### Changed
 - Upgrade safe-node-app to v0.6.0

@@ -22,7 +22,7 @@ const appInfo = {
   id: 'net.maidsafe.app.browser.safe-app-plugin',
   name: 'SAFE App Browser Plugin',
   vendor: 'MaidSafe.net Ltd',
-  customExecPath: isDevMode ? `${process.execPath} ${app.getAppPath()}` : app.getPath('exe')
+  customExecPath: isDevMode ? [process.execPath, app.getAppPath()] : [app.getPath('exe')]
 };
 
 // OSX: Add bundle for electron in dev mode
