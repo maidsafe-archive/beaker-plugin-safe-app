@@ -504,7 +504,7 @@ module.exports.refreshContainersPermissions = (appHandle) => getObj(appHandle)
  *
  * @param {SAFEAppHandle} appHandle the app handle
  *
- * @returns {Promise<Array<ContainerPerms>>} list of containers permissions
+ * @returns {Promise<Array<ContainersPerms>>} list of containers permissions
  *
  * @example // Reading granted container permission for an app
  * window.safeApp.getContainersPermissions(appHandle)
@@ -523,7 +523,7 @@ module.exports.getContainersPermissions = (appHandle) => getObj(appHandle)
  * @param {SAFEAppHandle} appHandle the app handle
  * @param {AuthURI} authUri granted auth URI
  *
- * @returns {Promise<Array<ContainerPerms>>} list of granted containers permissions
+ * @returns {Promise<Array<ContainersPerms>>} list of granted containers permissions
  *
  * @example // Reading granted container permission from an auth URI
  * const authUri = await window.safeApp.authorise(

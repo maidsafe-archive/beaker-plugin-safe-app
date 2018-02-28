@@ -14,7 +14,9 @@ toc:
   - window.safeApp.canAccessContainer
   - window.safeApp.refreshContainersPermissions
   - window.safeApp.getContainersPermissions
+  - window.safeApp.readGrantedPermissions
   - window.safeApp.getOwnContainer
+  - window.safeApp.getOwnContainerName
   - window.safeApp.getContainer
   - window.safeApp.isNetStateInit
   - window.safeApp.isNetStateConnected
