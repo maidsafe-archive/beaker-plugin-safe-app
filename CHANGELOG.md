@@ -1,12 +1,15 @@
 # Beaker Plugin SAFE App Change Log
 
-## [Unreleased]
+## [0.5.0] - 5-3-2018
 ### Changed
 - Upgrade safe-node-app to v0.8.0
 
 ### Added
 - Expose `window.safeApp.readGrantedPermissions` function in DOM API to read granted containers permissions from an auth URI without the need to connect
 - Expose `window.safeApp.getOwnContainerName` function in DOM API to get the app's own container name
+
+### Fixed
+- Added missing `window.safeApp.reconnect` function to the documentation
 
 ### SAFE libraries Dependencies
 - @maidsafe/safe-node-app: v0.8.0
