@@ -21,6 +21,7 @@ toc:
   - window.safeApp.isNetStateInit
   - window.safeApp.isNetStateConnected
   - window.safeApp.isNetStateDisconnected
+  - window.safeApp.reconnect
   - window.safeApp.isMockBuild
   - window.safeApp.clearObjectCache
   - window.safeApp.free
