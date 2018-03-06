@@ -1,6 +1,6 @@
 # Beaker Plugin SAFE App Change Log
 
-## [Unreleased]
+## [0.5.1] - 6-3-2018
 ### Fixed
 - Fix `isNetStateInit()`, `isNetStateConnected()` and `isNetStateDisconnected()` functions which were returning empty objects rather than a boolean value
 
