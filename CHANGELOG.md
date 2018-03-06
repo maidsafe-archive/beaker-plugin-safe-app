@@ -1,5 +1,12 @@
 # Beaker Plugin SAFE App Change Log
 
+## [Unreleased]
+### Fixed
+- Fix `isNetStateInit()`, `isNetStateConnected()` and `isNetStateDisconnected()` functions which were returning empty objects rather than a boolean value
+
+### SAFE libraries Dependencies
+- @maidsafe/safe-node-app: v0.8.0
+
 ## [0.5.0] - 5-3-2018
 ### Changed
 - Upgrade safe-node-app to v0.8.0
