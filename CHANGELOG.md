@@ -1,5 +1,9 @@
 # Beaker Plugin SAFE App Change Log
 
+[Unreleased]
+### Changed
+- Changes naming of api functions and terms to be consistent with itself and safe_app_nodejs
+
 ## [0.5.2] - 9-3-2018
 ### Changed
 - Upgrade safe-node-app to v0.8.1
