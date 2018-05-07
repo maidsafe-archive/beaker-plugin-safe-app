@@ -68,7 +68,7 @@ toc:
     description: The safeMutableDataEntries API allows you to manipulate the entries of a Mutable Data object in the SAFE network
   - window.safeMutableDataEntries.len
   - window.safeMutableDataEntries.get
-  - window.safeMutableDataEntries.forEach
+  - window.safeMutableDataEntries.listEntries
   - window.safeMutableDataEntries.insert
   - window.safeMutableDataEntries.mutate
   - window.safeMutableDataEntries.free
