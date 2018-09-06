@@ -105,41 +105,6 @@ export const freePageObjs = (groupId) => {
   }
 };
 
-export const forEachHelper = (containerHandle, sendHandles) => {
-  const readable = new Readable({ objectMode: true, read() {} });
-  getObj(containerHandle)
-    .then((obj) => obj.netObj.forEach((arg1, arg2) => {
-      setImmediate(() => {
-        let argOneCopy = Buffer.from(arg1);
-        if (sendHandles) {
-          argOneCopy = genHandle(obj.app, argOneCopy);
-        }
-        const args = [argOneCopy];
-        if (arg2) {
-          let argTwoCopy = Object.assign({}, arg2);
-          if (sendHandles) {
-            argTwoCopy = genHandle(obj.app, argTwoCopy);
-          }
-          args.push(argTwoCopy);
-        }
-        readable.push(args);
-      });
-    })
-      .then(() => {
-        setImmediate(() => {
-          readable.push(null);
-        });
-      })
-    )
-    .catch((err) => {
-      setImmediate(() => {
-        readable.emit('error', err);
-        readable.push(null);
-      });
-    });
-  return readable;
-};
-
 export const netStateCallbackHelper = (safeApp, appInfo, enableLog, groupId) => {
   const readable = new Readable({ objectMode: true, read() {} });
   safeApp.initializeApp(appInfo, (state) => {

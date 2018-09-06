@@ -393,7 +393,7 @@ module.exports.getEntries = (mdHandle) => getObj(mdHandle)
       .then((entries) => genHandle(obj.app, entries)));
 
 /**
- * Get a handle to the keys associated with this MutableData
+ * Return the keys associated with this MutableData
  * @name window.safeMutableData.getKeys
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle
@@ -408,7 +408,7 @@ module.exports.getKeys = (mdHandle) => getObj(mdHandle)
     .then((obj) => obj.netObj.getKeys());
 
 /**
- * Get a handle to the values associated with this MutableData
+ * Return the values associated with this MutableData
  * @name window.safeMutableData.getValues
  *
  * @param {MutableDataHandle} mdHandle the MutableData handle

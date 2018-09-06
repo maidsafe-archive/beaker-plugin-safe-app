@@ -1,5 +1,10 @@
 # Beaker Plugin SAFE App Change Log
 
+[Unreleased]
+### Changed
+- Removing `forEach` binding function from the MutableData entries API as it was removed from safe_app_nodejs lib
+- Adding `listEntries` binding function to the MutableData entries API which returns an array with all entries
+
 ## [0.5.2] - 9-3-2018
 ### Changed
 - Upgrade safe-node-app to v0.8.1
