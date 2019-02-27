@@ -4,9 +4,9 @@
 
 SAFE App API plugin for SAFE Browser.
 
-|Linux/OS X|Windows|
+|Linux/macOS|Windows|
 |:---:|:--------:|
-|[![Build Status](https://travis-ci.org/maidsafe/beaker-plugin-safe-app.svg?branch=master)](https://travis-ci.org/maidsafe/beaker-plugin-safe-app)|[![Build status](https://ci.appveyor.com/api/projects/status/684fxjpg88vu87hf/branch/master?svg=true)](https://ci.appveyor.com/project/MaidSafe-QA/beaker-plugin-safe-app/branch/master)|
+|[![Build Status](https://travis-ci.com/maidsafe/beaker-plugin-safe-app.svg?branch=master)](https://travis-ci.com/maidsafe/beaker-plugin-safe-app)|[![Build status](https://ci.appveyor.com/api/projects/status/684fxjpg88vu87hf/branch/master?svg=true)](https://ci.appveyor.com/project/MaidSafe-QA/beaker-plugin-safe-app/branch/master)|
 
 ## Documentation
 
