@@ -35,4 +35,4 @@ This SAFE Network library is licensed under the General Public License (GPL), ve
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the
 work by you, as defined in the MaidSafe Contributor Agreement, version 1.1 ([CONTRIBUTOR]
 (CONTRIBUTOR)), shall be dual licensed as above, and you agree to be bound by the terms of the
-MaidSafe Contributor Agreement, version 1.1.
+MaidSafe Contributor Agreement, version 1.1. 
